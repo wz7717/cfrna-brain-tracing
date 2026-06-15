@@ -1,0 +1,9 @@
+﻿Dataset,Material,Evaluable size,Label space,Role
+Bo2023 macaque atlas,Macaque brain tissue RNA-seq,819 samples; 9 monkeys,110 regions; 10 Networks,Model development; LOSO and donor-isolated validation
+AHBA,Normal human brain RNA-seq,242 total; 233 supported,Harmonized Network/broad anatomy; 91 exact-mapped,Cross-species external validation
+TCGA GBM/LGG,Human glioma bulk RNA-seq,800 patients,GBM and LGG projects,Unpaired disease-domain shift analysis
+TCGA-LGG + BraTS,Paired tumor RNA-seq and MRI,65 patients; Network n=64,Direct tumor-mask overlap with TZO116 labels,Paired anatomical validation
+Ivy GAP,Glioblastoma microanatomic RNA-seq,122 samples,Five tumor structures,Exploratory disease-domain characterization
+GSE228512,Serum extracellular-vesicle RNA,85 GBM; 31 healthy,No patient-level anatomical truth,Liquid-biopsy transfer stress test
+GSE106804,Tumor-associated EV capture RNA,13 GBM; 6 healthy,No patient-level anatomical truth,Enrichment and transfer stress test
+GSE189919,Cerebrospinal-fluid RNA,40 medulloblastoma; 11 normal,No patient-level anatomical truth,Technical validation and algorithm audit

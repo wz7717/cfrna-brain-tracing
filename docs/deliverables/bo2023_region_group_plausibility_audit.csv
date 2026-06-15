@@ -1,0 +1,51 @@
+﻿network_id,resolution_group,group_size,group_members,is_merged_group,plausibility_tier,calibration_flags
+Cingulate gyrus,23a,1,23a,no,single_region_low_resolution,same_network_only
+Cingulate gyrus,24a,1,24a,no,single_region_low_resolution,same_network_only
+Cingulate gyrus,24a',1,24a',no,single_region_low_resolution,same_network_only
+Cingulate gyrus,24b,1,24b,no,single_region_low_resolution,same_network_only
+Cingulate gyrus,24c,1,24c,no,single_region_low_resolution,same_network_only
+Cingulate gyrus,24c',1,24c',no,single_region_low_resolution,same_network_only
+Cingulate gyrus,31,1,31,no,single_region_low_resolution,same_network_only
+Cingulate gyrus,Cingulate gyrus::23b + 23c + 24b',3,23b | 23c | 24b',yes,strong_internal_support,same_network_only | compact_group_size
+Frontal (agranular frontal motor areas),F4,1,F4,no,single_region_low_resolution,same_network_only
+Frontal (agranular frontal motor areas),F5,1,F5,no,single_region_low_resolution,same_network_only
+Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas)::F1 + F2 + F3 + F6 + F7,5,F1 | F2 | F3 | F6 | F7,yes,moderate_internal_support,same_network_only | moderate_group_size
+Hippocampal formation,HC,1,HC,no,single_region_low_resolution,same_network_only
+Lateral Prefrontal Cortex,10m,1,10m,no,single_region_low_resolution,same_network_only
+Lateral Prefrontal Cortex,44,1,44,no,single_region_low_resolution,same_network_only
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::10o + 12l + 12r + 45 + 46d + 46v + 8A,7,10o | 12l | 12r | 45 | 46d | 46v | 8A,yes,requires_manual_review,same_network_only | large_group_size | do_not_interpret_as_single_functional_area
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::8Bd + 8Bm + 8Bs + 9d + 9m,5,8Bd | 8Bm | 8Bs | 9d | 9m,yes,moderate_internal_support,same_network_only | moderate_group_size
+Occipital/Temporal,MT,1,MT,no,single_region_low_resolution,same_network_only
+Occipital/Temporal,Occipital/Temporal::FST + MST,2,FST | MST,yes,strong_internal_support,same_network_only | compact_group_size
+Occipital/Temporal,Occipital/Temporal::V3d + V3v + V4 + V4v,4,V3d | V3v | V4 | V4v,yes,strong_internal_support,same_network_only | compact_group_size
+Occipital/Temporal,V1,1,V1,no,single_region_low_resolution,same_network_only
+Occipital/Temporal,V2,1,V2,no,single_region_low_resolution,same_network_only
+Operculum/Insula,Operculum/Insula::G + Iapl + Id + Ig + PrCo + Ri + SII,7,G | Iapl | Id | Ig | PrCo | Ri | SII,yes,requires_manual_review,same_network_only | large_group_size | do_not_interpret_as_single_functional_area
+Operculum/Insula,Operculum/Insula::Ia + Ial + Iapm + Pi,4,Ia | Ial | Iapm | Pi,yes,strong_internal_support,same_network_only | compact_group_size
+Orbitomedial Prefrontal Cortex (OMPFC),10m,1,10m,no,single_region_low_resolution,same_network_only
+Orbitomedial Prefrontal Cortex (OMPFC),13m,1,13m,no,single_region_low_resolution,same_network_only
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::11l + 11m + 12m + 12o + 13a + 13b + 13l + 32,8,11l | 11m | 12m | 12o | 13a | 13b | 13l | 32,yes,requires_manual_review,same_network_only | large_group_size | do_not_interpret_as_single_functional_area
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::14c + 14r + 25,3,14c | 14r | 25,yes,strong_internal_support,same_network_only | compact_group_size
+"Parietal, and Parieto-occipital region",3a/b,1,3a/b,no,single_region_low_resolution,same_network_only
+"Parietal, and Parieto-occipital region",LIPd,1,LIPd,no,single_region_low_resolution,same_network_only
+"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",8,44563 | 5 | 7a | 7b | 7m | 7op | LIPv | VIP,yes,requires_manual_review,same_network_only | large_group_size | do_not_interpret_as_single_functional_area
+"Parietal, and Parieto-occipital region",V2,1,V2,no,single_region_low_resolution,same_network_only
+Subcortical,GPeGPi,1,GPeGPi,no,single_region_low_resolution,same_network_only
+Subcortical,PL,1,PL,no,single_region_low_resolution,same_network_only
+Subcortical,Pir,1,Pir,no,single_region_low_resolution,same_network_only
+Subcortical,Subcortical::NARegion + cd + pu,3,NARegion | cd | pu,yes,moderate_internal_support,same_network_only | compact_group_size | contains_unresolved_region_name
+Subcortical,amy,1,amy,no,single_region_low_resolution,same_network_only
+Subcortical,cla,1,cla,no,single_region_low_resolution,same_network_only
+Subcortical,thalamus,1,thalamus,no,single_region_low_resolution,same_network_only
+Temporal,36c,1,36c,no,single_region_low_resolution,same_network_only
+Temporal,AL,1,AL,no,single_region_low_resolution,same_network_only
+Temporal,IPa,1,IPa,no,single_region_low_resolution,same_network_only
+Temporal,RTL,1,RTL,no,single_region_low_resolution,same_network_only
+Temporal,TF,1,TF,no,single_region_low_resolution,same_network_only
+Temporal,TG,1,TG,no,single_region_low_resolution,same_network_only
+Temporal,Temporal::AI + CL + CM + ML + Tpt,5,AI | CL | CM | ML | Tpt,yes,moderate_internal_support,same_network_only | moderate_group_size
+Temporal,Temporal::PGa + STG + TAa + TEa + TEad + TEm + TPO,7,PGa | STG | TAa | TEa | TEad | TEm | TPO,yes,requires_manual_review,same_network_only | large_group_size | do_not_interpret_as_single_functional_area
+Temporal,Temporal::R + RM,2,R | RM,yes,strong_internal_support,same_network_only | compact_group_size
+Temporal,Temporal::RT + RTM,2,RT | RTM,yes,strong_internal_support,same_network_only | compact_group_size
+Temporal,Temporal::TEO + TEpd + TEpv,3,TEO | TEpd | TEpv,yes,strong_internal_support,same_network_only | compact_group_size
+Temporal,Temporal::TEav + TFO,2,TEav | TFO,yes,strong_internal_support,same_network_only | compact_group_size

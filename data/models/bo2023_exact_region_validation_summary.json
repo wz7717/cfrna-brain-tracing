@@ -1,0 +1,200 @@
+{
+  "created_at": "2026-05-29T14:46:36.301450+00:00",
+  "dataset": "Bo2023_WangLab_VSD_region",
+  "validation_design": "strict outer LOSO; same Network Top3 beam; fold-local Region gene-count variants",
+  "n_test_samples": 814,
+  "n_singleton_samples_excluded": 5,
+  "gene_counts": [
+    50,
+    100,
+    200,
+    300,
+    500,
+    1000
+  ],
+  "fusion_weights": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "baseline_route": "top3_beam_local_top200_genes",
+  "best_top1_route": "top3_beam_local_top50_top100_zfusion_w0p25",
+  "best_top3_route": "top3_beam_local_top50_top100_zfusion_w0p5",
+  "routes": {
+    "top3_beam_local_top50_genes": {
+      "n": 814,
+      "top1_hits": 179,
+      "top1_accuracy": 0.2199017199017199,
+      "top3_hits": 348,
+      "top3_accuracy": 0.4275184275184275,
+      "median_true_rank": 5.0,
+      "conditional_top1_given_network_top1": 0.291196388261851,
+      "conditional_top3_given_network_top1": 0.5598194130925508
+    },
+    "top3_beam_local_top100_genes": {
+      "n": 814,
+      "top1_hits": 175,
+      "top1_accuracy": 0.214987714987715,
+      "top3_hits": 353,
+      "top3_accuracy": 0.43366093366093367,
+      "median_true_rank": 5.0,
+      "conditional_top1_given_network_top1": 0.28893905191873587,
+      "conditional_top3_given_network_top1": 0.5643340857787811
+    },
+    "top3_beam_local_top200_genes": {
+      "n": 814,
+      "top1_hits": 173,
+      "top1_accuracy": 0.21253071253071254,
+      "top3_hits": 339,
+      "top3_accuracy": 0.41646191646191644,
+      "median_true_rank": 5.0,
+      "conditional_top1_given_network_top1": 0.291196388261851,
+      "conditional_top3_given_network_top1": 0.5395033860045146
+    },
+    "top3_beam_local_top300_genes": {
+      "n": 814,
+      "top1_hits": 171,
+      "top1_accuracy": 0.21007371007371006,
+      "top3_hits": 344,
+      "top3_accuracy": 0.4226044226044226,
+      "median_true_rank": 5.0,
+      "conditional_top1_given_network_top1": 0.29345372460496616,
+      "conditional_top3_given_network_top1": 0.5417607223476298
+    },
+    "top3_beam_local_top500_genes": {
+      "n": 814,
+      "top1_hits": 173,
+      "top1_accuracy": 0.21253071253071254,
+      "top3_hits": 346,
+      "top3_accuracy": 0.4250614250614251,
+      "median_true_rank": 5.0,
+      "conditional_top1_given_network_top1": 0.28442437923250563,
+      "conditional_top3_given_network_top1": 0.5485327313769752
+    },
+    "top3_beam_local_top1000_genes": {
+      "n": 814,
+      "top1_hits": 173,
+      "top1_accuracy": 0.21253071253071254,
+      "top3_hits": 336,
+      "top3_accuracy": 0.41277641277641275,
+      "median_true_rank": 5.0,
+      "conditional_top1_given_network_top1": 0.291196388261851,
+      "conditional_top3_given_network_top1": 0.5349887133182845
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p25": {
+      "n": 814,
+      "top1_hits": 181,
+      "top1_accuracy": 0.22235872235872237,
+      "top3_hits": 362,
+      "top3_accuracy": 0.44471744471744473,
+      "median_true_rank": 4.0,
+      "conditional_top1_given_network_top1": 0.3002257336343115,
+      "conditional_top3_given_network_top1": 0.5801354401805869
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p5": {
+      "n": 814,
+      "top1_hits": 178,
+      "top1_accuracy": 0.21867321867321868,
+      "top3_hits": 363,
+      "top3_accuracy": 0.44594594594594594,
+      "median_true_rank": 4.5,
+      "conditional_top1_given_network_top1": 0.2979683972911964,
+      "conditional_top3_given_network_top1": 0.5801354401805869
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p75": {
+      "n": 814,
+      "top1_hits": 175,
+      "top1_accuracy": 0.214987714987715,
+      "top3_hits": 353,
+      "top3_accuracy": 0.43366093366093367,
+      "median_true_rank": 5.0,
+      "conditional_top1_given_network_top1": 0.28442437923250563,
+      "conditional_top3_given_network_top1": 0.5665914221218962
+    }
+  },
+  "paired_changes_vs_top200": {
+    "top3_beam_local_top50_genes": {
+      "top1_gains": 38,
+      "top1_losses": 32,
+      "top3_gains": 48,
+      "top3_losses": 39
+    },
+    "top3_beam_local_top100_genes": {
+      "top1_gains": 25,
+      "top1_losses": 23,
+      "top3_gains": 37,
+      "top3_losses": 23
+    },
+    "top3_beam_local_top300_genes": {
+      "top1_gains": 17,
+      "top1_losses": 19,
+      "top3_gains": 23,
+      "top3_losses": 18
+    },
+    "top3_beam_local_top500_genes": {
+      "top1_gains": 25,
+      "top1_losses": 25,
+      "top3_gains": 35,
+      "top3_losses": 28
+    },
+    "top3_beam_local_top1000_genes": {
+      "top1_gains": 36,
+      "top1_losses": 36,
+      "top3_gains": 40,
+      "top3_losses": 43
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p25": {
+      "top1_gains": 26,
+      "top1_losses": 18,
+      "top3_gains": 40,
+      "top3_losses": 17
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p5": {
+      "top1_gains": 29,
+      "top1_losses": 24,
+      "top3_gains": 46,
+      "top3_losses": 22
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p75": {
+      "top1_gains": 31,
+      "top1_losses": 29,
+      "top3_gains": 43,
+      "top3_losses": 29
+    }
+  },
+  "paired_pvalues_vs_top200": {
+    "top3_beam_local_top50_genes": {
+      "top1": 0.5504125118224712,
+      "top3": 0.3911909653007528
+    },
+    "top3_beam_local_top100_genes": {
+      "top1": 0.8854334972865132,
+      "top3": 0.09246098107292373
+    },
+    "top3_beam_local_top300_genes": {
+      "top1": 0.8679394004284404,
+      "top3": 0.5327092552361137
+    },
+    "top3_beam_local_top500_genes": {
+      "top1": 1.0,
+      "top3": 0.4499625362902225
+    },
+    "top3_beam_local_top1000_genes": {
+      "top1": 1.0,
+      "top3": 0.8264047244491933
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p25": {
+      "top1": 0.2912152365458951,
+      "top3": 0.003201543767450382
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p5": {
+      "top1": 0.5831321542611763,
+      "top3": 0.004903382516355933
+    },
+    "top3_beam_local_top50_top100_zfusion_w0p75": {
+      "top1": 0.8974218269914305,
+      "top3": 0.12491820036864003
+    }
+  },
+  "decision": "top3_beam_local_top50_top100_zfusion_w0p25 improves exact Top1 over Top200 without lowering Top3; use as next confirmation candidate."
+}

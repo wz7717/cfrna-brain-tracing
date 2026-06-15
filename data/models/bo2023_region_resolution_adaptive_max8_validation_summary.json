@@ -1,0 +1,60 @@
+{
+  "created_at": "2026-06-01T05:46:29.854538+00:00",
+  "dataset": "Bo2023_WangLab_VSD_region",
+  "validation_design": "strict outer LOSO with fold-local inner-confusion resolution groups and fold-local local genes",
+  "n_test_samples": 814,
+  "n_singleton_samples_excluded": 5,
+  "local_top_n_genes": 200,
+  "min_resolution_samples": 8,
+  "min_merge_samples": 3,
+  "min_pair_errors": 2,
+  "min_confusion_rate": 0.15,
+  "similarity_threshold": 0.95,
+  "merge_similarity_threshold": 0.9,
+  "max_group_size": 8,
+  "routes": {
+    "top3_network_beam_local_region_candidates": {
+      "n": 814,
+      "exact_top1_hits": 173,
+      "exact_top1_accuracy": 0.21253071253071254,
+      "exact_top3_hits": 339,
+      "exact_top3_accuracy": 0.41646191646191644,
+      "group_top1_hits": 355,
+      "group_top1_accuracy": 0.43611793611793614,
+      "group_top3_hits": 564,
+      "group_top3_accuracy": 0.6928746928746928,
+      "median_exact_true_rank": 5.0,
+      "median_group_true_rank": 2.0,
+      "low_resolution_predictions": 803,
+      "low_resolution_fraction": 0.9864864864864865,
+      "low_resolution_exact_top1": 0.20672478206724781,
+      "high_resolution_predictions": 11,
+      "high_resolution_exact_top1": 0.6363636363636364
+    },
+    "oracle_network_local_region_candidates": {
+      "n": 814,
+      "exact_top1_hits": 268,
+      "exact_top1_accuracy": 0.32923832923832924,
+      "exact_top3_hits": 480,
+      "exact_top3_accuracy": 0.5896805896805897,
+      "group_top1_hits": 486,
+      "group_top1_accuracy": 0.597051597051597,
+      "group_top3_hits": 730,
+      "group_top3_accuracy": 0.8968058968058968,
+      "median_exact_true_rank": 3.0,
+      "median_group_true_rank": 1.0,
+      "low_resolution_predictions": 792,
+      "low_resolution_fraction": 0.972972972972973,
+      "low_resolution_exact_top1": 0.3194444444444444,
+      "high_resolution_predictions": 22,
+      "high_resolution_exact_top1": 0.6818181818181818
+    }
+  },
+  "production_model": {
+    "n_region_network_entries": 112,
+    "n_low_resolution_regions": 110,
+    "n_merged_groups": 18
+  },
+  "production_model_path": "data\\models\\bo2023_region_resolution_groups_same_network_adaptive_max8_conf0p15_candidate.json",
+  "decision": "正式输出保留 Network 主结论与精确 Region 候选排名；对训练侧不可分或证据不足的 Region 输出 low_resolution 警告及可解释候选组，转入人工复核，而不强制声明精确 Top1。"
+}

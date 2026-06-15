@@ -1,0 +1,7 @@
+﻿Validation,Endpoint,Analysis role,Top-1 hits/n,Top-1 accuracy (95% CI),Top-3 hits/n,Top-3 accuracy (95% CI)
+LOSO,Network,Primary,457/819,55.8% (52.4-59.2),721/819,88.0% (85.6-90.1)
+LOSO,Region Group,Secondary,355/814,43.6% (40.2-47.0),564/814,69.3% (66.0-72.4)
+LOSO,Exact Region,Exploratory,181/814,22.2% (19.5-25.2),362/814,44.5% (41.1-47.9)
+LOMO,Network,Primary,436/819,53.2% (49.8-56.6),710/819,86.7% (84.2-88.8)
+LOMO,Region Group,Secondary,338/812,41.6% (38.3-45.0),523/812,64.4% (61.1-67.6)
+LOMO,Exact Region,Exploratory,168/812,20.7% (18.0-23.6),320/812,39.4% (36.1-42.8)

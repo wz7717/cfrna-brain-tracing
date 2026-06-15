@@ -1,0 +1,83 @@
+.DS_Store
+
+# Environment and IDE
+.env
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Python runtime caches
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local Streamlit secrets
+.streamlit/secrets.toml
+.streamlit/*
+!.streamlit/config.toml
+
+# Databases and SQLite runtime artifacts
+*.db
+*.sqlite
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# Raw, downloaded, patient-level, and restricted datasets
+data/*
+!data/models/
+!data/models/**
+bo2023 data/
+bo2023_bulk_atlas_buildkit/*
+!bo2023_bulk_atlas_buildkit/02_region_dictionary.csv
+vendor/
+tools/
+
+# Generated analyses and large local outputs
+results/
+reports/
+benchmark_export/
+benchmark_bundle.zip
+run_export.zip
+tmp/
+.tmp_docx_render*/
+
+# Generated manuscript render directories and local dependencies
+manuscript/node_modules/
+manuscript/rendered_*/
+manuscript/soffice_*/
+manuscript/__pycache__/
+manuscript/Bioinformatics_Draft*/
+manuscript/figures_publication*/
+manuscript/tables_publication*/
+manuscript/*a11y*.json
+manuscript/manuscript_results_audit*
+manuscript/no_TCIA_NBIA_revision_notes_*.md
+manuscript/reference_verification_*.md
+manuscript/build_bilingual_draft_docx.py
+manuscript/build_results_audit.mjs
+manuscript/build_writing_logic_docx.py
+
+# Internal handoff and correspondence drafts
+PROJECT_THREAD_HANDOFF_*.md
+contact_info.md
+data_request_template.md
+tmp_article.txt
+
+# Office and PDF scratch files
+~$*.docx
+*.temp.pdf
+
+# Local recovery / temporary files
+sqlite_recovery_backup_*/
+*.tmp
+*.bak
+*~

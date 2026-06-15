@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+tqdm
+pandas
+pyyaml
+numpy
+scipy
+anndata
+h5py
+scanpy
+GEOparse

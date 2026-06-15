@@ -1,0 +1,13 @@
+| Cohort | Metric | Hits/n | Accuracy (95% CI) | Interpretation |
+| --- | --- | --- | --- | --- |
+| AHBA | Network Top-1 | 76/233 | 32.6% (26.9-38.9) | Latest 2026-06-13 summary; primary endpoint |
+| AHBA | Network Top-3 | 129/233 | 55.4% (48.9-61.6) | Harmonized cross-species labels |
+| AHBA | Broad anatomy Top-1 | 103/233 | 44.2% (38.0-50.6) | Supportive coarse-anatomy endpoint |
+| AHBA | Exact Region Top-1 | 9/91 | 9.9% (5.3-17.7) | Exploratory exact-mapped subset |
+| AHBA | Exact Region Top-3 | 27/91 | 29.7% (21.3-39.7) | Exploratory exact-mapped subset |
+| TCGA-LGG/BraTS | Lobe Top-3 strict | 55/65 | 84.6% (73.9-91.4) | Supportive paired validation |
+| TCGA-LGG/BraTS | Lobe Top-3 tolerant | 58/65 | 89.2% (79.4-94.7) | Supportive paired validation |
+| TCGA-LGG/BraTS | Broad anatomy Top-3 strict | 49/65 | 75.4% (63.7-84.2) | Principal disease-scenario readout |
+| TCGA-LGG/BraTS | Broad anatomy Top-3 tolerant | 54/65 | 83.1% (72.2-90.3) | Principal disease-scenario readout |
+| TCGA-LGG/BraTS | Network Top-3 strict | 14/64 | 21.9% (13.5-33.4) | Secondary approximation |
+| TCGA-LGG/BraTS | Network Top-3 tolerant | 23/64 | 35.9% (25.3-48.2) | Secondary approximation |

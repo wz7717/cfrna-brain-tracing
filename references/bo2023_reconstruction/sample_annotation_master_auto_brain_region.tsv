@@ -1,0 +1,828 @@
+run_id	sample_name	library_name	scientific_name	platform	monkey_id	hemisphere	brain_region_raw	replicate	include	notes	brain_region	region_full_name	lobe	regional_map	roi173	neocortex_flag	meta_lobe	region_group
+SRR23470143	19R139_1_S1_L001	19R139-1_S1_L001	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR23470142	19R139_2_S1_L001	19R139-2_S1_L001	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR23470141	19R139_3_S1_L001	19R139-3_S1_L001	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR23470140	19R139_4_S1_L001	19R139-4_S1_L001	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22507210	19R348	2_R_7m	Macaca fascicularis	ILLUMINA	2	R	7m		1		7m	area 7m in the medial parietal cortex	Parietal	PCm	7m(PGm)	Yes	Parietal	Parietal
+SRR22507122	19R349	2_R_VIP	Macaca fascicularis	ILLUMINA	2	R	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22506666	19R350	2_R_V4v	Macaca fascicularis	ILLUMINA	2	R	V4v		1		V4v	visual area 4,ventral part	Occipital	TCv	V4v	Yes	Occipital	Occipital
+SRR22507148	19R352	2_R_amy	Macaca fascicularis	ILLUMINA	2	R	amy		1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22506859	19R353	2_R_PL	Macaca fascicularis	ILLUMINA	2	R	PL		1		PL				PL	No	Subcortical	Subcortical
+SRR22507063	19R356	2_R_13b	Macaca fascicularis	ILLUMINA	2	R	13b		1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22507025	19R357	2_R_11l	Macaca fascicularis	ILLUMINA	2	R	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22507012	19R358	2_R_14r	Macaca fascicularis	ILLUMINA	2	R	14r		1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22507026	19R359	2_R_10m	Macaca fascicularis	ILLUMINA	2	R	10m		1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22507024	19R361	2_R_F3	Macaca fascicularis	ILLUMINA	2	R	F3		1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22506870	19R364	2_R_G	Macaca fascicularis	ILLUMINA	2	R	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506758	19R368	2_R_3a/b	Macaca fascicularis	ILLUMINA	2	R	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22506890	19R369	2_R_F1	Macaca fascicularis	ILLUMINA	2	R	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506677	19R371	2_R_V3v	Macaca fascicularis	ILLUMINA	2	R	V3v		1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22506835	19R372	2_R_1-2	Macaca fascicularis	ILLUMINA	2	R	1-2		1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22507163	19R376	2_R_AL	Macaca fascicularis	ILLUMINA	2	R	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506848	19R378	2_R_pu	Macaca fascicularis	ILLUMINA	2	R	pu		1		pu				Striatum	No	Subcortical	Subcortical
+SRR22506598	19R416	92_R_F6	Macaca fascicularis	ILLUMINA	92	R	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22506601	19R421	92_R_F2	Macaca fascicularis	ILLUMINA	92	R	F2		1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22506602	19R422	92_R_F1	Macaca fascicularis	ILLUMINA	92	R	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506606	19R423	92_R_cd_rep1	Macaca fascicularis	ILLUMINA	92	R	cd	rep1	1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506618	19R425	92_R_3a/b	Macaca fascicularis	ILLUMINA	92	R	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22506789	19R426	92_R_1-2	Macaca fascicularis	ILLUMINA	92	R	1-2		1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22507054	19R428	92_R_TEad	Macaca fascicularis	ILLUMINA	92	R	TEad		1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22507053	19R429	92_R_Teav_rep1	Macaca fascicularis	ILLUMINA	92	R	Teav	rep1	1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22507042	19R432	92_R_V4	Macaca fascicularis	ILLUMINA	92	R	V4		1		V4	visual area 4,dorsal part	Occipital	VACd	V4	Yes	Occipital	Occipital
+SRR22507083	19R461	92_L_5_rep1	Macaca fascicularis	ILLUMINA	92	L	5	rep1	1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22507081	19R462	92_L_7a	Macaca fascicularis	ILLUMINA	92	L	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22506801	19R464	92_L_TPO	Macaca fascicularis	ILLUMINA	92	L	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506802	19R465	92_L_TFO	Macaca fascicularis	ILLUMINA	92	L	TFO		1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22506806	19R466	92_L_TEO	Macaca fascicularis	ILLUMINA	92	L	TEO		1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22506800	19R467	92_L_V1_rep1	Macaca fascicularis	ILLUMINA	92	L	V1	rep1	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506798	19R468	92_L_V2_rep1	Macaca fascicularis	ILLUMINA	92	L	V2	rep1	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506795	19R469	92_L_V3v	Macaca fascicularis	ILLUMINA	92	L	V3v		1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22506796	19R470	92_L_V2_rep2	Macaca fascicularis	ILLUMINA	92	L	V2	rep2	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22507068	19R471	92_L_F1	Macaca fascicularis	ILLUMINA	92	L	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22507044	19R472	92_R_V2_rep1	Macaca fascicularis	ILLUMINA	92	R	V2	rep1	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506609	19R495	92_R_9m	Macaca fascicularis	ILLUMINA	92	R	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22506610	19R496	92_R_9d	Macaca fascicularis	ILLUMINA	92	R	9d		1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22506614	19R497	92_R_46d	Macaca fascicularis	ILLUMINA	92	R	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22506788	19R498	92_R_12l	Macaca fascicularis	ILLUMINA	92	R	12l		1		12l	lateral prefrontal cortex,area 12l,lateral part	Frontal	PFCvl	12l	Yes	Frontal	Frontal
+SRR22506790	19R499	92_R_11m	Macaca fascicularis	ILLUMINA	92	R	11m		1		11m	orbital prefrontal area,area 11m	Frontal	PFCom	11m	Yes	Frontal	Frontal
+SRR22506791	19R500	92_R_11l	Macaca fascicularis	ILLUMINA	92	R	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22506600	19R501	92_R_F4	Macaca fascicularis	ILLUMINA	92	R	F4		1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22507052	19R502	92_R_Teav_rep2	Macaca fascicularis	ILLUMINA	92	R	Teav	rep2	1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22507048	19R503	92_R_TG	Macaca fascicularis	ILLUMINA	92	R	TG		1		TG	temporal pole	Temporal 	TCpol	TG	Yes	Temporal	Temporal
+SRR22507056	19R504	92_R_STG_rep1	Macaca fascicularis	ILLUMINA	92	R	STG	rep1	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506595	19R505	92_R_PrCo	Macaca fascicularis	ILLUMINA	92	R	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22507057	19R506	92_R_SII	Macaca fascicularis	ILLUMINA	92	R	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22507058	19R507	92_R_RM	Macaca fascicularis	ILLUMINA	92	R	RM		1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506592	19R508	92_R_R	Macaca fascicularis	ILLUMINA	92	R	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22506608	19R509	92_R_AL	Macaca fascicularis	ILLUMINA	92	R	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22507055	19R510	92_R_STG_rep2	Macaca fascicularis	ILLUMINA	92	R	STG	rep2	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506597	19R511	92_R_HC	Macaca fascicularis	ILLUMINA	92	R	HC		1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506612	19R512	92_R_7op_rep1	Macaca fascicularis	ILLUMINA	92	R	7op	rep1	1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22507041	19R513	92_R_VIP	Macaca fascicularis	ILLUMINA	92	R	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22507050	19R514	92_R_TEpd	Macaca fascicularis	ILLUMINA	92	R	TEpd		1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22507051	19R515	92_R_TEO	Macaca fascicularis	ILLUMINA	92	R	TEO		1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22506603	19R516	92_R_cla	Macaca fascicularis	ILLUMINA	92	R	cla		1		cla				Claustrum	No	Subcortical	Subcortical
+SRR22507046	19R517	92_R_V1_rep1	Macaca fascicularis	ILLUMINA	92	R	V1	rep1	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22507047	19R518	92_R_thalamus	Macaca fascicularis	ILLUMINA	92	R	thalamus		1		Tha	thalamus	Subcortical	TH	TH	No	Subcortical	Subcortical
+SRR22506607	19R519	92_R_amy	Macaca fascicularis	ILLUMINA	92	R	amy		1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22507067	19R578	92_L_F5	Macaca fascicularis	ILLUMINA	92	L	F5		1		F5	agranular frontal area F5,PMv (ventral premotor cortex)	Frontal	PMCvl	F5	Yes	Frontal	Frontal
+SRR22507059	19R579	92_L_PrCo	Macaca fascicularis	ILLUMINA	92	L	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22507066	19R580	92_L_Ial	Macaca fascicularis	ILLUMINA	92	L	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22507089	19R581	92_L_24c	Macaca fascicularis	ILLUMINA	92	L	24c		1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22507080	19R582	92_L_7b_rep1	Macaca fascicularis	ILLUMINA	92	L	7b	rep1	1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22507078	19R583	92_L_7op	Macaca fascicularis	ILLUMINA	92	L	7op		1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22507075	19R584	92_L_AI_rep1	Macaca fascicularis	ILLUMINA	92	L	AI	rep1	1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22507070	19R585	92_L_CL	Macaca fascicularis	ILLUMINA	92	L	CL		1		CL	caudal lateral, belt region of the auditory cortex	Temporal 	TCs	CL	Yes	Temporal	Temporal
+SRR22506805	19R586	92_L_TEpd	Macaca fascicularis	ILLUMINA	92	L	TEpd		1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22506804	19R587	92_L_Tepv_rep1	Macaca fascicularis	ILLUMINA	92	L	Tepv	rep1	1		TEpv	ventral subregion of posterior TE	Temporal 	TCi	TEpv	Yes	Temporal	Temporal
+SRR22507076	19R588	92_L_9m	Macaca fascicularis	ILLUMINA	92	L	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22507077	19R589	92_L_9d	Macaca fascicularis	ILLUMINA	92	L	9d		1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22507259	19R590	92_L_12m	Macaca fascicularis	ILLUMINA	92	L	12m		1		12m	lateral prefrontal cortex,area 12m,medial part	Frontal	PFCol	12m	Yes	Frontal	Frontal
+SRR22507255	19R591	92_L_13b_rep1	Macaca fascicularis	ILLUMINA	92	L	13b	rep1	1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22507251	19R592	92_L_14r_rep1	Macaca fascicularis	ILLUMINA	92	L	14r	rep1	1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22507087	19R593	92_L_32	Macaca fascicularis	ILLUMINA	92	L	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22507084	19R594	92_L_44	Macaca fascicularis	ILLUMINA	92	L	44		1		44	area 44	Frontal	PFCvl	44	Yes	Frontal	Frontal
+SRR22507258	19R595	92_L_12o	Macaca fascicularis	ILLUMINA	92	L	12o		1		12o	lateral prefrontal cortex,area 12o,orbital part	Frontal	PFCol	12o	Yes	Frontal	Frontal
+SRR22507257	19R596	92_L_13a	Macaca fascicularis	ILLUMINA	92	L	13a		1		13a	orbitomedial prefrontal cortex,area 13a	Frontal	PFCom	13a	Yes	Frontal	Frontal
+SRR22507254	19R597	92_L_13b_rep2	Macaca fascicularis	ILLUMINA	92	L	13b	rep2	1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22507252	19R598	92_L_14c	Macaca fascicularis	ILLUMINA	92	L	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22507088	19R599	92_L_25	Macaca fascicularis	ILLUMINA	92	L	25		1		25	subgenual cingulate cortex,area 25	Frontal	CCs	25	Yes	Frontal	Frontal
+SRR22506617	19R600	92_R_44	Macaca fascicularis	ILLUMINA	92	R	44		1		44	area 44	Frontal	PFCvl	44	Yes	Frontal	Frontal
+SRR22506787	19R601	92_R_12o	Macaca fascicularis	ILLUMINA	92	R	12o		1		12o	lateral prefrontal cortex,area 12o,orbital part	Frontal	PFCol	12o	Yes	Frontal	Frontal
+SRR22506784	19R602	92_R_13a	Macaca fascicularis	ILLUMINA	92	R	13a		1		13a	orbitomedial prefrontal cortex,area 13a	Frontal	PFCom	13a	Yes	Frontal	Frontal
+SRR22506623	19R603	92_R_13b	Macaca fascicularis	ILLUMINA	92	R	13b		1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22506622	19R604	92_R_14c	Macaca fascicularis	ILLUMINA	92	R	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22506620	19R605	92_R_25	Macaca fascicularis	ILLUMINA	92	R	25		1		25	subgenual cingulate cortex,area 25	Frontal	CCs	25	Yes	Frontal	Frontal
+SRR22506616	19R606	92_R_45	Macaca fascicularis	ILLUMINA	92	R	45		1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22506599	19R607	92_R_F5	Macaca fascicularis	ILLUMINA	92	R	F5		1		F5	agranular frontal area F5,PMv (ventral premotor cortex)	Frontal	PMCvl	F5	Yes	Frontal	Frontal
+SRR22506785	19R608	92_R_12r	Macaca fascicularis	ILLUMINA	92	R	12r		1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22506619	19R609	92_R_32	Macaca fascicularis	ILLUMINA	92	R	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22506621	19R610	92_R_24c	Macaca fascicularis	ILLUMINA	92	R	24c		1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22506613	19R611	92_R_7b	Macaca fascicularis	ILLUMINA	92	R	7b		1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22506611	19R612	92_R_7op_rep2	Macaca fascicularis	ILLUMINA	92	R	7op	rep2	1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22506596	19R613	92_R_ML	Macaca fascicularis	ILLUMINA	92	R	ML		1		ML	middle lateral, belt region of the auditory cortex	Temporal 	TCs	ML	Yes	Temporal	Temporal
+SRR22506814	19R614	92_L_R	Macaca fascicularis	ILLUMINA	92	L	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22507111	19R627	34_L_10m_rep1	Macaca fascicularis	ILLUMINA	34	L	10m	rep1	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22506978	19R628	34_L_46d_rep1	Macaca fascicularis	ILLUMINA	34	L	46d	rep1	1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22507248	19R629	34_L_46v_rep1	Macaca fascicularis	ILLUMINA	34	L	46v	rep1	1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22507085	19R630	34_L_12r_rep1	Macaca fascicularis	ILLUMINA	34	L	12r	rep1	1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22506823	19R631	34_L_11l_rep1	Macaca fascicularis	ILLUMINA	34	L	11l	rep1	1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22506846	19R632	34_L_10o_rep1	Macaca fascicularis	ILLUMINA	34	L	10o	rep1	1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507198	19R633	34_L_9m	Macaca fascicularis	ILLUMINA	34	L	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22507209	19R634	34_L_9d	Macaca fascicularis	ILLUMINA	34	L	9d		1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22506459	19R635	34_L_12l	Macaca fascicularis	ILLUMINA	34	L	12l		1		12l	lateral prefrontal cortex,area 12l,lateral part	Frontal	PFCvl	12l	Yes	Frontal	Frontal
+SRR22507267	19R636	34_L_12m	Macaca fascicularis	ILLUMINA	34	L	12m		1		12m	lateral prefrontal cortex,area 12m,medial part	Frontal	PFCol	12m	Yes	Frontal	Frontal
+SRR22507062	19R637	34_L_13b	Macaca fascicularis	ILLUMINA	34	L	13b		1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22506797	19R638	34_L_14r_rep1	Macaca fascicularis	ILLUMINA	34	L	14r	rep1	1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22507027	19R639	34_L_32	Macaca fascicularis	ILLUMINA	34	L	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22506541	19R640	34_L_8Bm	Macaca fascicularis	ILLUMINA	34	L	8Bm		1		8Bm	area 8B,medial subdivision	Frontal	PFCdm	8Bm	Yes	Frontal	Frontal
+SRR22506552	19R641	34_L_8Bd	Macaca fascicularis	ILLUMINA	34	L	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22506989	19R642	34_L_45	Macaca fascicularis	ILLUMINA	34	L	45		1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22506604	19R643	34_L_24b	Macaca fascicularis	ILLUMINA	34	L	24b		1		24b	anterior cingulate cortex,area 24b	Cingulate	CCa	24b	Yes	Cingulate	Cingulate
+SRR22506593	19R644	34_L_24c	Macaca fascicularis	ILLUMINA	34	L	24c		1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22506715	19R645	34_L_F6	Macaca fascicularis	ILLUMINA	34	L	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22506704	19R646	34_L_F7	Macaca fascicularis	ILLUMINA	34	L	F7		1		F7	agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)	Frontal	PMCdl	F7	Yes	Frontal	Frontal
+SRR22506530	19R647	34_L_8Bs	Macaca fascicularis	ILLUMINA	34	L	8Bs		1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22506930	19R648	34_L_8A	Macaca fascicularis	ILLUMINA	34	L	8A		1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22507256	19R649	34_L_12o	Macaca fascicularis	ILLUMINA	34	L	12o		1		12o	lateral prefrontal cortex,area 12o,orbital part	Frontal	PFCol	12o	Yes	Frontal	Frontal
+SRR22506808	19R650	34_L_14c	Macaca fascicularis	ILLUMINA	34	L	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22507162	19R651	34_L_F3_rep1	Macaca fascicularis	ILLUMINA	34	L	F3	rep1	1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22507185	19R652	34_L_F2_rep1	Macaca fascicularis	ILLUMINA	34	L	F2	rep1	1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22506912	19R653	34_L_F4	Macaca fascicularis	ILLUMINA	34	L	F4		1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22507000	19R654	34_L_3a/b	Macaca fascicularis	ILLUMINA	34	L	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22506641	19R655	34_L_1-2_rep1	Macaca fascicularis	ILLUMINA	34	L	1-2	rep1	1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22506882	19R656	34_L_STG_rep1	Macaca fascicularis	ILLUMINA	34	L	STG	rep1	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506891	19R657	34_L_pu_rep1	Macaca fascicularis	ILLUMINA	34	L	pu	rep1	1		pu				Striatum	No	Subcortical	Subcortical
+SRR22506527	19R658	34_L_cd_rep1	Macaca fascicularis	ILLUMINA	34	L	cd	rep1	1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506883	19R659	34_L_SII	Macaca fascicularis	ILLUMINA	34	L	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22506887	19R660	34_L_RM	Macaca fascicularis	ILLUMINA	34	L	RM		1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506888	19R661	34_L_R	Macaca fascicularis	ILLUMINA	34	L	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22506879	19R662	34_L_TEav	Macaca fascicularis	ILLUMINA	34	L	TEav		1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22507226	19R663	34_L_5_rep1	Macaca fascicularis	ILLUMINA	34	L	5	rep1	1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22506586	19R664	34_L_7b	Macaca fascicularis	ILLUMINA	34	L	7b		1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22506952	19R665	34_L_7op_rep1	Macaca fascicularis	ILLUMINA	34	L	7op	rep1	1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22507187	19R666	34_L_AI	Macaca fascicularis	ILLUMINA	34	L	AI		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22507123	19R667	34_L_ML	Macaca fascicularis	ILLUMINA	34	L	ML		1		ML	middle lateral, belt region of the auditory cortex	Temporal 	TCs	ML	Yes	Temporal	Temporal
+SRR22506881	19R668	34_L_STG_rep2	Macaca fascicularis	ILLUMINA	34	L	STG	rep2	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506874	19R669	34_L_Tepd_rep1	Macaca fascicularis	ILLUMINA	34	L	Tepd	rep1	1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22506872	19R670	34_L_TEpv	Macaca fascicularis	ILLUMINA	34	L	TEpv		1		TEpv	ventral subregion of posterior TE	Temporal 	TCi	TEpv	Yes	Temporal	Temporal
+SRR22506849	19R671	34_L_VIP	Macaca fascicularis	ILLUMINA	34	L	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22506863	19R672	34_L_Tpt	Macaca fascicularis	ILLUMINA	34	L	Tpt		1		Tpt	temporo-parietal area	Temporal 	TCs	Tpt	Yes	Temporal	Temporal
+SRR22506877	19R673	34_L_TEO_rep1	Macaca fascicularis	ILLUMINA	34	L	TEO	rep1	1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22506854	19R674	34_L_V4_rep1	Macaca fascicularis	ILLUMINA	34	L	V4	rep1	1		V4	visual area 4,dorsal part	Occipital	VACd	V4	Yes	Occipital	Occipital
+SRR22506866	19R675	34_L_TPO_rep1	Macaca fascicularis	ILLUMINA	34	L	TPO	rep1	1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506871	19R676	34_L_TFO_rep1	Macaca fascicularis	ILLUMINA	34	L	TFO	rep1	1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22506575	19R677	34_L_7m_rep1	Macaca fascicularis	ILLUMINA	34	L	7m	rep1	1		7m	area 7m in the medial parietal cortex	Parietal	PCm	7m(PGm)	Yes	Parietal	Parietal
+SRR22506856	19R678	34_L_V3v_rep1	Macaca fascicularis	ILLUMINA	34	L	V3v	rep1	1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22506852	19R679	34_L_V4v_rep1	Macaca fascicularis	ILLUMINA	34	L	V4v	rep1	1		V4v	visual area 4,ventral part	Occipital	TCv	V4v	Yes	Occipital	Occipital
+SRR22506857	19R680	34_L_V3d	Macaca fascicularis	ILLUMINA	34	L	V3d		1		V3d	visual area 3, dorsal part	Occipital	VACd	V3d	Yes	Occipital	Occipital
+SRR22506862	19R722	34_L_V1_rep1	Macaca fascicularis	ILLUMINA	34	L	V1	rep1	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506860	19R723	34_L_V2_rep1	Macaca fascicularis	ILLUMINA	34	L	V2	rep1	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506687	19R724	34_R_10m_rep1	Macaca fascicularis	ILLUMINA	34	R	10m	rep1	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22507120	19R725	34_R_46d	Macaca fascicularis	ILLUMINA	34	R	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22507119	19R726	34_R_46v	Macaca fascicularis	ILLUMINA	34	R	46v		1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22506676	19R727	34_R_12r	Macaca fascicularis	ILLUMINA	34	R	12r		1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22506683	19R728	34_R_11l	Macaca fascicularis	ILLUMINA	34	R	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22506685	19R729	34_R_10o_rep1	Macaca fascicularis	ILLUMINA	34	R	10o	rep1	1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507104	19R730	34_R_9m	Macaca fascicularis	ILLUMINA	34	R	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22507106	19R731	34_R_9d_rep1	Macaca fascicularis	ILLUMINA	34	R	9d	rep1	1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22506668	19R732	34_R_14r	Macaca fascicularis	ILLUMINA	34	R	14r		1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22506674	19R733	34_R_13b	Macaca fascicularis	ILLUMINA	34	R	13b		1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22506671	19R734	34_R_13m_rep1	Macaca fascicularis	ILLUMINA	34	R	13m	rep1	1		13m	orbitomedial prefrontal cortex,area 13m	Frontal	PFCom	13m	Yes	Frontal	Frontal
+SRR22506673	19R735	34_R_13l_rep1	Macaca fascicularis	ILLUMINA	34	R	13l	rep1	1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22506678	19R736	34_R_12o	Macaca fascicularis	ILLUMINA	34	R	12o		1		12o	lateral prefrontal cortex,area 12o,orbital part	Frontal	PFCol	12o	Yes	Frontal	Frontal
+SRR22506680	19R737	34_R_12l	Macaca fascicularis	ILLUMINA	34	R	12l		1		12l	lateral prefrontal cortex,area 12l,lateral part	Frontal	PFCvl	12l	Yes	Frontal	Frontal
+SRR22507121	19R738	34_R_45	Macaca fascicularis	ILLUMINA	34	R	45		1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22507092	19R739	34_R_F3	Macaca fascicularis	ILLUMINA	34	R	F3		1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22507094	19R740	34_R_F2_rep1	Macaca fascicularis	ILLUMINA	34	R	F2	rep1	1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22507108	19R741	34_R_8Bs_rep1	Macaca fascicularis	ILLUMINA	34	R	8Bs	rep1	1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22507113	19R742	34_R_8A_rep1	Macaca fascicularis	ILLUMINA	34	R	8A	rep1	1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22506656	19R743	34_R_44	Macaca fascicularis	ILLUMINA	34	R	44		1		44	area 44	Frontal	PFCvl	44	Yes	Frontal	Frontal
+SRR22506847	19R744	34_R_F5	Macaca fascicularis	ILLUMINA	34	R	F5		1		F5	agranular frontal area F5,PMv (ventral premotor cortex)	Frontal	PMCvl	F5	Yes	Frontal	Frontal
+SRR22507096	19R745	34_R_F1_rep1	Macaca fascicularis	ILLUMINA	34	R	F1	rep1	1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506682	19R746	34_R_1-2_rep1	Macaca fascicularis	ILLUMINA	34	R	1-2	rep1	1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22506657	19R747	34_R_3a/b	Macaca fascicularis	ILLUMINA	34	R	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22506821	19R748	34_R_SII	Macaca fascicularis	ILLUMINA	34	R	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22507102	19R749	34_R_AL	Macaca fascicularis	ILLUMINA	34	R	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506820	19R750	34_R_STG_rep1	Macaca fascicularis	ILLUMINA	34	R	STG	rep1	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22507116	19R751	34_R_7b	Macaca fascicularis	ILLUMINA	34	R	7b		1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22507114	19R752	34_R_7op	Macaca fascicularis	ILLUMINA	34	R	7op		1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22507103	19R753	34_R_AI	Macaca fascicularis	ILLUMINA	34	R	AI		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22507098	19R754	34_R_CL	Macaca fascicularis	ILLUMINA	34	R	CL		1		CL	caudal lateral, belt region of the auditory cortex	Temporal 	TCs	CL	Yes	Temporal	Temporal
+SRR22506653	19R755	34_R_TEpd	Macaca fascicularis	ILLUMINA	34	R	TEpd		1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22506651	19R756	34_R_TEpv	Macaca fascicularis	ILLUMINA	34	R	TEpv		1		TEpv	ventral subregion of posterior TE	Temporal 	TCi	TEpv	Yes	Temporal	Temporal
+SRR22506643	19R757	34_R_V1_rep1	Macaca fascicularis	ILLUMINA	34	R	V1	rep1	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506640	19R758	34_R_V2_rep1	Macaca fascicularis	ILLUMINA	34	R	V2	rep1	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506638	19R759	34_R_V3v	Macaca fascicularis	ILLUMINA	34	R	V3v		1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22506636	19R760	34_R_V4v	Macaca fascicularis	ILLUMINA	34	R	V4v		1		V4v	visual area 4,ventral part	Occipital	TCv	V4v	Yes	Occipital	Occipital
+SRR22507126	19R793	34_L_Ig	Macaca fascicularis	ILLUMINA	34	L	Ig		1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22507011	19R794	34_L_36c	Macaca fascicularis	ILLUMINA	34	L	36c		1		36c	area 36 of the perirhinal cortex, caudal subregion	Temporal 	PHC	36c	Yes	Temporal	Temporal
+SRR22507136	19R795	34_L_Id	Macaca fascicularis	ILLUMINA	34	L	Id		1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506884	19R796	34_L_RTM	Macaca fascicularis	ILLUMINA	34	L	RTM		1		RTM	medial rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTM	Yes	Temporal	Temporal
+SRR22506505	19R797	34_L_F1	Macaca fascicularis	ILLUMINA	34	L	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506893	19R798	34_L_NA	Macaca fascicularis	ILLUMINA	34	L	NA		1		NAcc	nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22506901	19R799	34_L_F5	Macaca fascicularis	ILLUMINA	34	L	F5		1		F5	agranular frontal area F5,PMv (ventral premotor cortex)	Frontal	PMCvl	F5	Yes	Frontal	Frontal
+SRR22506886	19R800	34_L_RT	Macaca fascicularis	ILLUMINA	34	L	RT		1		RT	rostrotemporal, core region of the auditory cortex	Temporal 	A1	RT	Yes	Temporal	Temporal
+SRR22506516	19R801	34_L_cd_rep2	Macaca fascicularis	ILLUMINA	34	L	cd	rep2	1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506880	19R802	34_L_TAa	Macaca fascicularis	ILLUMINA	34	L	TAa		1		TAa	area TAa,sts dorsal bank	Temporal 	TCs	TAa	Yes	Temporal	Temporal
+SRR22506730	19R803	34_L_amy	Macaca fascicularis	ILLUMINA	34	L	amy		1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22506615	19R804	34_L_24a'	Macaca fascicularis	ILLUMINA	34	L	24a'		1		24a'	anterior cingulate cortex,area 24a'	Cingulate	CCa	24a'	Yes	Cingulate	Cingulate
+SRR22506878	19R805	34_L_TEm	Macaca fascicularis	ILLUMINA	34	L	TEm		1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506741	19R806	34_L_AL	Macaca fascicularis	ILLUMINA	34	L	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506889	19R807	34_L_pu_rep2	Macaca fascicularis	ILLUMINA	34	L	pu	rep2	1		pu				Striatum	No	Subcortical	Subcortical
+SRR22507147	19R808	34_L_Iapm	Macaca fascicularis	ILLUMINA	34	L	Iapm		1		Iapm	posteromedial agranular insula area	Insula	Ia	Iapm	Yes	Insula	Insula
+SRR22506892	19R809	34_L_PrCo	Macaca fascicularis	ILLUMINA	34	L	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22507049	19R810	34_L_24c'	Macaca fascicularis	ILLUMINA	34	L	24c'		1		24c'	anterior cingulate cortex,area 24c'	Cingulate	CCa	24c'	Yes	Cingulate	Cingulate
+SRR22506468	19R811	34_L_Iapl	Macaca fascicularis	ILLUMINA	34	L	Iapl		1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22507023	19R812	34_L_TEad	Macaca fascicularis	ILLUMINA	34	L	TEad		1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22506479	19R813	34_L_Ial	Macaca fascicularis	ILLUMINA	34	L	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22507099	19R814	34_R_cd	Macaca fascicularis	ILLUMINA	34	R	cd		1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506645	19R815	34_R_TPO	Macaca fascicularis	ILLUMINA	34	R	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506843	19R816	34_R_G	Macaca fascicularis	ILLUMINA	34	R	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506831	19R817	34_R_Pir	Macaca fascicularis	ILLUMINA	34	R	Pir		1		Pir	piriform cortex	Subcortical		Pir	No	Subcortical	Subcortical
+SRR22506663	19R818	34_R_24b	Macaca fascicularis	ILLUMINA	34	R	24b		1		24b	anterior cingulate cortex,area 24b	Cingulate	CCa	24b	Yes	Cingulate	Cingulate
+SRR22506635	19R819	34_R_VIP	Macaca fascicularis	ILLUMINA	34	R	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22506840	19R820	34_R_Ial	Macaca fascicularis	ILLUMINA	34	R	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22507110	19R821	34_R_8Bd	Macaca fascicularis	ILLUMINA	34	R	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22506654	19R822	34_R_TEO	Macaca fascicularis	ILLUMINA	34	R	TEO		1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22506828	19R823	34_R_R	Macaca fascicularis	ILLUMINA	34	R	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22506637	19R824	34_R_V4	Macaca fascicularis	ILLUMINA	34	R	V4		1		V4	visual area 4,dorsal part	Occipital	VACd	V4	Yes	Occipital	Occipital
+SRR22506658	19R825	34_R_36c	Macaca fascicularis	ILLUMINA	34	R	36c		1		36c	area 36 of the perirhinal cortex, caudal subregion	Temporal 	PHC	36c	Yes	Temporal	Temporal
+SRR22507105	19R826	34_R_9d_rep2	Macaca fascicularis	ILLUMINA	34	R	9d	rep2	1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22507109	19R827	34_R_8Bm	Macaca fascicularis	ILLUMINA	34	R	8Bm		1		8Bm	area 8B,medial subdivision	Frontal	PFCdm	8Bm	Yes	Frontal	Frontal
+SRR22507115	19R828	34_R_7m	Macaca fascicularis	ILLUMINA	34	R	7m		1		7m	area 7m in the medial parietal cortex	Parietal	PCm	7m(PGm)	Yes	Parietal	Parietal
+SRR22507091	19R829	34_R_F4	Macaca fascicularis	ILLUMINA	34	R	F4		1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22506679	19R830	34_R_12m	Macaca fascicularis	ILLUMINA	34	R	12m		1		12m	lateral prefrontal cortex,area 12m,medial part	Frontal	PFCol	12m	Yes	Frontal	Frontal
+SRR22506659	19R831	34_R_32	Macaca fascicularis	ILLUMINA	34	R	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22506818	19R832	34_R_TAa	Macaca fascicularis	ILLUMINA	34	R	TAa		1		TAa	area TAa,sts dorsal bank	Temporal 	TCs	TAa	Yes	Temporal	Temporal
+SRR22506649	19R833	34_R_TFO	Macaca fascicularis	ILLUMINA	34	R	TFO		1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22506839	19R834	34_R_Iapl	Macaca fascicularis	ILLUMINA	34	R	Iapl		1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22506669	19R835	34_R_14c	Macaca fascicularis	ILLUMINA	34	R	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22506830	19R836	34_R_PrCo	Macaca fascicularis	ILLUMINA	34	R	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22506826	19R837	34_R_RM	Macaca fascicularis	ILLUMINA	34	R	RM		1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506845	19R838	34_R_F6	Macaca fascicularis	ILLUMINA	34	R	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22506829	19R839	34_R_pu	Macaca fascicularis	ILLUMINA	34	R	pu		1		pu				Striatum	No	Subcortical	Subcortical
+SRR22506662	19R840	34_R_24c	Macaca fascicularis	ILLUMINA	34	R	24c		1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22506664	19R841	34_R_24a'	Macaca fascicularis	ILLUMINA	34	R	24a'		1		24a'	anterior cingulate cortex,area 24a'	Cingulate	CCa	24a'	Yes	Cingulate	Cingulate
+SRR22506816	19R842	34_R_TEav	Macaca fascicularis	ILLUMINA	34	R	TEav		1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22506844	19R843	34_R_F7	Macaca fascicularis	ILLUMINA	34	R	F7		1		F7	agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)	Frontal	PMCdl	F7	Yes	Frontal	Frontal
+SRR22506819	19R844	34_R_STG_rep2	Macaca fascicularis	ILLUMINA	34	R	STG	rep2	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506817	19R845	34_R_TEad	Macaca fascicularis	ILLUMINA	34	R	TEad		1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22506885	19R846	34_L_RTL	Macaca fascicularis	ILLUMINA	34	L	RTL		1		RTL	lateral rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTL	Yes	Temporal	Temporal
+SRR22506837	19R873	34_R_LIPd	Macaca fascicularis	ILLUMINA	34	R	LIPd		1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506836	19R874	34_R_LIPv	Macaca fascicularis	ILLUMINA	34	R	LIPv		1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22507117	19R875	34_R_7a	Macaca fascicularis	ILLUMINA	34	R	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22506644	19R876	34_R_Tpt	Macaca fascicularis	ILLUMINA	34	R	Tpt		1		Tpt	temporo-parietal area	Temporal 	TCs	Tpt	Yes	Temporal	Temporal
+SRR22506842	19R877	34_R_HC_rep1	Macaca fascicularis	ILLUMINA	34	R	HC	rep1	1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506851	19R878	34_L_V4v_rep2	Macaca fascicularis	ILLUMINA	34	L	V4v	rep2	1		V4v	visual area 4,ventral part	Occipital	TCv	V4v	Yes	Occipital	Occipital
+SRR22507118	19R879	34_R_5	Macaca fascicularis	ILLUMINA	34	R	5		1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22507072	19R880	92_L_AL	Macaca fascicularis	ILLUMINA	92	L	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506812	19R881	92_L_RM	Macaca fascicularis	ILLUMINA	92	L	RM		1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506865	19R882	34_L_TPO_rep2	Macaca fascicularis	ILLUMINA	34	L	TPO	rep2	1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506873	19R883	34_L_Tepd_rep2	Macaca fascicularis	ILLUMINA	34	L	Tepd	rep2	1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22507093	19R884	34_R_F2_rep2	Macaca fascicularis	ILLUMINA	34	R	F2	rep2	1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22507261	19R885	92_L_11l	Macaca fascicularis	ILLUMINA	92	L	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22506803	19R886	92_L_Tepv_rep2	Macaca fascicularis	ILLUMINA	92	L	Tepv	rep2	1		TEpv	ventral subregion of posterior TE	Temporal 	TCi	TEpv	Yes	Temporal	Temporal
+SRR22507107	19R887	34_R_8Bs_rep2	Macaca fascicularis	ILLUMINA	34	R	8Bs	rep2	1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22507090	19R888	92_L_14r_rep2	Macaca fascicularis	ILLUMINA	92	L	14r	rep2	1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22507253	19R889	92_L_13b_rep3	Macaca fascicularis	ILLUMINA	92	L	13b	rep3	1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22506941	19R890	34_L_7op_rep2	Macaca fascicularis	ILLUMINA	34	L	7op	rep2	1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22507074	19R891	34_L_12r_rep2	Macaca fascicularis	ILLUMINA	34	L	12r	rep2	1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22506490	19R892	34_L_HC	Macaca fascicularis	ILLUMINA	34	L	HC		1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506780	19R893	34_L_5_rep2	Macaca fascicularis	ILLUMINA	34	L	5	rep2	1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22506630	19R894	34_L_1-2_rep2	Macaca fascicularis	ILLUMINA	34	L	1-2	rep2	1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR23470147	19X118_1_S1_L006	19X118-2-1_S1_L006	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR23470146	19X118_2_S2_L006	19X118-2-2_S2_L006	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR23470145	19X118_3_S3_L006	19X118-2-3_S3_L006	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR23470144	19X118_4_S4_L006	19X118-2-4_S4_L006	Macaca fascicularis	ILLUMINA					0	non-standard library name		nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22506876	20R046	34_L_TEO_rep2	Macaca fascicularis	ILLUMINA	34	L	TEO	rep2	1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22506786	20R047	34_L_14r_rep2	Macaca fascicularis	ILLUMINA	34	L	14r	rep2	1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22506810	20R048	92_L_STG_rep1	Macaca fascicularis	ILLUMINA	92	L	STG	rep1	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506769	20R049	34_L_7a_rep1	Macaca fascicularis	ILLUMINA	34	L	7a	rep1	1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22507112	20R050	34_R_8A_rep2	Macaca fascicularis	ILLUMINA	34	R	8A	rep2	1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22507260	20R051	92_L_11m	Macaca fascicularis	ILLUMINA	92	L	11m		1		11m	orbital prefrontal area,area 11m	Frontal	PFCom	11m	Yes	Frontal	Frontal
+SRR22506867	20R052	34_L_thalamus	Macaca fascicularis	ILLUMINA	34	L	thalamus		1		Tha	thalamus	Subcortical	TH	TH	No	Subcortical	Subcortical
+SRR22506855	20R053	34_L_V3v_rep2	Macaca fascicularis	ILLUMINA	34	L	V3v	rep2	1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22507124	20R054	34_L_LIPv	Macaca fascicularis	ILLUMINA	34	L	LIPv		1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22507061	20R055	92_L_ML	Macaca fascicularis	ILLUMINA	92	L	ML		1		ML	middle lateral, belt region of the auditory cortex	Temporal 	TCs	ML	Yes	Temporal	Temporal
+SRR22507086	20R056	92_L_3a/b	Macaca fascicularis	ILLUMINA	92	L	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22507073	20R057	92_L_AI_rep2	Macaca fascicularis	ILLUMINA	92	L	AI	rep2	1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22507069	20R058	92_L_CM	Macaca fascicularis	ILLUMINA	92	L	CM		1		CM	caudomedial, belt region of the auditory cortex	Temporal 	TCs	CM	Yes	Temporal	Temporal
+SRR22506858	20R059	34_L_V2_rep2	Macaca fascicularis	ILLUMINA	34	L	V2	rep2	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22507038	20R060	34_L_31	Macaca fascicularis	ILLUMINA	34	L	31		1		31				31	Yes	Cingulate	Cingulate
+SRR22506807	20R061	92_L_TAa	Macaca fascicularis	ILLUMINA	92	L	TAa		1		TAa	area TAa,sts dorsal bank	Temporal 	TCs	TAa	Yes	Temporal	Temporal
+SRR22507079	20R070	92_L_7b_rep2	Macaca fascicularis	ILLUMINA	92	L	7b	rep2	1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22506564	20R071	34_L_7m_rep2	Macaca fascicularis	ILLUMINA	34	L	7m	rep2	1		7m	area 7m in the medial parietal cortex	Parietal	PCm	7m(PGm)	Yes	Parietal	Parietal
+SRR22506875	20R072	34_L_TEO_rep3	Macaca fascicularis	ILLUMINA	34	L	TEO	rep3	1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22506894	20R073	34_L_MST	Macaca fascicularis	ILLUMINA	34	L	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22507125	20R074	34_L_LIPd	Macaca fascicularis	ILLUMINA	34	L	LIPd		1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506853	20R075	34_L_V4_rep2	Macaca fascicularis	ILLUMINA	34	L	V4	rep2	1		V4	visual area 4,dorsal part	Occipital	VACd	V4	Yes	Occipital	Occipital
+SRR22507082	20R076	92_L_5_rep2	Macaca fascicularis	ILLUMINA	92	L	5	rep2	1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22506861	20R077	34_L_V1_rep2	Macaca fascicularis	ILLUMINA	34	L	V1	rep2	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506824	20R078	34_R_RTL	Macaca fascicularis	ILLUMINA	34	R	RTL		1		RTL	lateral rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTL	Yes	Temporal	Temporal
+SRR22506794	20R079	92_L_VIP	Macaca fascicularis	ILLUMINA	92	L	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22506864	20R080	34_L_TPO_rep3	Macaca fascicularis	ILLUMINA	34	L	TPO	rep3	1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506869	20R081	34_L_TFO_rep2	Macaca fascicularis	ILLUMINA	34	L	TFO	rep2	1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22506833	20R082	34_R_ML	Macaca fascicularis	ILLUMINA	34	R	ML		1		ML	middle lateral, belt region of the auditory cortex	Temporal 	TCs	ML	Yes	Temporal	Temporal
+SRR22507237	20R083	34_L_46v_rep2	Macaca fascicularis	ILLUMINA	34	L	46v	rep2	1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22506655	20R084	34_R_TEm	Macaca fascicularis	ILLUMINA	34	R	TEm		1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506825	20R085	34_R_RT	Macaca fascicularis	ILLUMINA	34	R	RT		1		RT	rostrotemporal, core region of the auditory cortex	Temporal 	A1	RT	Yes	Temporal	Temporal
+SRR22506838	20R086	34_R_Ig	Macaca fascicularis	ILLUMINA	34	R	Ig		1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22507097	20R087	34_R_CM	Macaca fascicularis	ILLUMINA	34	R	CM		1		CM	caudomedial, belt region of the auditory cortex	Temporal 	TCs	CM	Yes	Temporal	Temporal
+SRR22506652	20R088	34_L_11l_rep2	Macaca fascicularis	ILLUMINA	34	L	11l	rep2	1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22506693	20R089	34_L_FST	Macaca fascicularis	ILLUMINA	34	L	FST		1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22506757	20R090	34_L_7a_rep2	Macaca fascicularis	ILLUMINA	34	L	7a	rep2	1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22506850	20R091	34_L_V4v_rep3	Macaca fascicularis	ILLUMINA	34	L	V4v	rep3	1		V4v	visual area 4,ventral part	Occipital	TCv	V4v	Yes	Occipital	Occipital
+SRR22506809	20R092	92_L_STG_rep2	Macaca fascicularis	ILLUMINA	92	L	STG	rep2	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506967	20R093	34_L_46d_rep2	Macaca fascicularis	ILLUMINA	34	L	46d	rep2	1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22506811	20R094	92_L_SII	Macaca fascicularis	ILLUMINA	92	L	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22507101	20R095	34_R_amy	Macaca fascicularis	ILLUMINA	34	R	amy		1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22506822	20R096	34_R_RTM	Macaca fascicularis	ILLUMINA	34	R	RTM		1		RTM	medial rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTM	Yes	Temporal	Temporal
+SRR22506646	20R097	34_R_thalamus	Macaca fascicularis	ILLUMINA	34	R	thalamus		1		Tha	thalamus	Subcortical	TH	TH	No	Subcortical	Subcortical
+SRR22506841	20R098	34_R_HC_rep2	Macaca fascicularis	ILLUMINA	34	R	HC	rep2	1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506761	20R099	xq_L_9d	Macaca fascicularis	ILLUMINA	xq	L	9d		1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22506760	20R100	xq_L_9m	Macaca fascicularis	ILLUMINA	xq	L	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22507229	20R101	xq_L_13b	Macaca fascicularis	ILLUMINA	xq	L	13b		1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22507223	20R102	xq_L_14r_rep1	Macaca fascicularis	ILLUMINA	xq	L	14r	rep1	1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22507230	20R103	xq_L_12r	Macaca fascicularis	ILLUMINA	xq	L	12r		1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22507219	20R104	xq_L_24c	Macaca fascicularis	ILLUMINA	xq	L	24c		1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22507240	20R105	xq_L_10m_rep1	Macaca fascicularis	ILLUMINA	xq	L	10m	rep1	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22507222	20R106	xq_L_14r_rep2	Macaca fascicularis	ILLUMINA	xq	L	14r	rep2	1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22507234	20R107	xq_L_11m	Macaca fascicularis	ILLUMINA	xq	L	11m		1		11m	orbital prefrontal area,area 11m	Frontal	PFCom	11m	Yes	Frontal	Frontal
+SRR22507235	20R108	xq_L_11l	Macaca fascicularis	ILLUMINA	xq	L	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22506591	20R109	xq_L_F2	Macaca fascicularis	ILLUMINA	xq	L	F2		1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22506590	20R110	xq_L_F3	Macaca fascicularis	ILLUMINA	xq	L	F3		1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22506589	20R111	xq_L_F5	Macaca fascicularis	ILLUMINA	xq	L	F5		1		F5	agranular frontal area F5,PMv (ventral premotor cortex)	Frontal	PMCvl	F5	Yes	Frontal	Frontal
+SRR22506562	20R112	xq_L_pu_rep1	Macaca fascicularis	ILLUMINA	xq	L	pu	rep1	1		pu				Striatum	No	Subcortical	Subcortical
+SRR22506754	20R113	xq_L_cd	Macaca fascicularis	ILLUMINA	xq	L	cd		1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506778	20R114	xq_L_45_rep1	Macaca fascicularis	ILLUMINA	xq	L	45	rep1	1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22506779	20R115	xq_L_44	Macaca fascicularis	ILLUMINA	xq	L	44		1		44	area 44	Frontal	PFCvl	44	Yes	Frontal	Frontal
+SRR22506766	20R116	xq_L_8A_rep1	Macaca fascicularis	ILLUMINA	xq	L	8A	rep1	1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22506763	20R117	xq_L_8Bs_rep1	Macaca fascicularis	ILLUMINA	xq	L	8Bs	rep1	1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22506567	20R118	xq_L_NA	Macaca fascicularis	ILLUMINA	xq	L	NA		1		NAcc	nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22506783	20R119	xq_L_3a/b_rep1	Macaca fascicularis	ILLUMINA	xq	L	3a/b	rep1	1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22506950	20R120	xq_L_SII	Macaca fascicularis	ILLUMINA	xq	L	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22506579	20R121	xq_L_Id_rep1	Macaca fascicularis	ILLUMINA	xq	L	Id	rep1	1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506582	20R122	xq_L_HC_rep1	Macaca fascicularis	ILLUMINA	xq	L	HC	rep1	1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506949	20R123	xq_L_STG_rep1	Macaca fascicularis	ILLUMINA	xq	L	STG	rep1	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506560	20R124	xq_L_R	Macaca fascicularis	ILLUMINA	xq	L	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22506569	20R125	xq_L_ML	Macaca fascicularis	ILLUMINA	xq	L	ML		1		ML	middle lateral, belt region of the auditory cortex	Temporal 	TCs	ML	Yes	Temporal	Temporal
+SRR22506558	20R126	xq_L_VIP_rep1	Macaca fascicularis	ILLUMINA	xq	L	VIP	rep1	1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22506753	20R127	xq_L_CM	Macaca fascicularis	ILLUMINA	xq	L	CM		1		CM	caudomedial, belt region of the auditory cortex	Temporal 	TCs	CM	Yes	Temporal	Temporal
+SRR22506759	20R128	xq_L_AI	Macaca fascicularis	ILLUMINA	xq	L	AI		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22506946	20R129	xq_L_TAa	Macaca fascicularis	ILLUMINA	xq	L	TAa		1		TAa	area TAa,sts dorsal bank	Temporal 	TCs	TAa	Yes	Temporal	Temporal
+SRR22506768	20R130	xq_L_7op_rep1	Macaca fascicularis	ILLUMINA	xq	L	7op	rep1	1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22506938	20R131	xq_L_TEpd	Macaca fascicularis	ILLUMINA	xq	L	TEpd		1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22506774	20R132	xq_L_5_rep1	Macaca fascicularis	ILLUMINA	xq	L	5	rep1	1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22506771	20R133	xq_L_7b	Macaca fascicularis	ILLUMINA	xq	L	7b		1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22506931	20R134	xq_L_V1	Macaca fascicularis	ILLUMINA	xq	L	V1		1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506929	20R135	xq_L_V2_rep1	Macaca fascicularis	ILLUMINA	xq	L	V2	rep1	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506927	20R136	xq_L_V3v	Macaca fascicularis	ILLUMINA	xq	L	V3v		1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22506770	20R137	xq_L_7m	Macaca fascicularis	ILLUMINA	xq	L	7m		1		7m	area 7m in the medial parietal cortex	Parietal	PCm	7m(PGm)	Yes	Parietal	Parietal
+SRR22507211	20R138	xq_R_9m	Macaca fascicularis	ILLUMINA	xq	R	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22507212	20R139	xq_R_9d	Macaca fascicularis	ILLUMINA	xq	R	9d		1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22506556	20R140	xq_R_10m	Macaca fascicularis	ILLUMINA	xq	R	10m		1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22506554	20R141	xq_R_11m_rep1	Macaca fascicularis	ILLUMINA	xq	R	11m	rep1	1		11m	orbital prefrontal area,area 11m	Frontal	PFCom	11m	Yes	Frontal	Frontal
+SRR22506547	20R142	xq_R_14r	Macaca fascicularis	ILLUMINA	xq	R	14r		1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22506531	20R143	xq_R_46d	Macaca fascicularis	ILLUMINA	xq	R	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22506529	20R144	xq_R_46v	Macaca fascicularis	ILLUMINA	xq	R	46v		1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22506548	20R145	xq_R_12r	Macaca fascicularis	ILLUMINA	xq	R	12r		1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22507216	20R146	xq_R_8A	Macaca fascicularis	ILLUMINA	xq	R	8A		1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22507213	20R147	xq_R_8Bs	Macaca fascicularis	ILLUMINA	xq	R	8Bs		1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22506534	20R148	xq_R_44	Macaca fascicularis	ILLUMINA	xq	R	44		1		44	area 44	Frontal	PFCvl	44	Yes	Frontal	Frontal
+SRR22506533	20R149	xq_R_45_rep1	Macaca fascicularis	ILLUMINA	xq	R	45	rep1	1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22507195	20R150	xq_R_F2_rep1	Macaca fascicularis	ILLUMINA	xq	R	F2	rep1	1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22507193	20R151	xq_R_F3_rep1	Macaca fascicularis	ILLUMINA	xq	R	F3	rep1	1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22507191	20R152	xq_R_F5	Macaca fascicularis	ILLUMINA	xq	R	F5		1		F5	agranular frontal area F5,PMv (ventral premotor cortex)	Frontal	PMCvl	F5	Yes	Frontal	Frontal
+SRR22506538	20R153	xq_R_24c	Macaca fascicularis	ILLUMINA	xq	R	24c		1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22506739	20R154	xq_R_Ig_rep1	Macaca fascicularis	ILLUMINA	xq	R	Ig	rep1	1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22506726	20R155	xq_R_pu	Macaca fascicularis	ILLUMINA	xq	R	pu		1		pu				Striatum	No	Subcortical	Subcortical
+SRR22506551	20R156	xq_R_1-2	Macaca fascicularis	ILLUMINA	xq	R	1-2		1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22507203	20R157	xq_R_cd	Macaca fascicularis	ILLUMINA	xq	R	cd		1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506525	20R158	xq_R_STG_rep1	Macaca fascicularis	ILLUMINA	xq	R	STG	rep1	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506523	20R159	xq_R_TEad	Macaca fascicularis	ILLUMINA	xq	R	TEad		1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22506742	20R160	xq_R_Id_rep1	Macaca fascicularis	ILLUMINA	xq	R	Id	rep1	1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506526	20R161	xq_R_SII	Macaca fascicularis	ILLUMINA	xq	R	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22507192	20R162	xq_R_F3_rep2	Macaca fascicularis	ILLUMINA	xq	R	F3	rep2	1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22506722	20R163	xq_R_RTL_rep1	Macaca fascicularis	ILLUMINA	xq	R	RTL	rep1	1		RTL	lateral rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTL	Yes	Temporal	Temporal
+SRR22507194	20R164	xq_R_F2_rep2	Macaca fascicularis	ILLUMINA	xq	R	F2	rep2	1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22506522	20R165	xq_R_TEav	Macaca fascicularis	ILLUMINA	xq	R	TEav		1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22506508	20R166	xq_R_TPO	Macaca fascicularis	ILLUMINA	xq	R	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506724	20R167	xq_R_RM	Macaca fascicularis	ILLUMINA	xq	R	RM		1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506510	20R168	xq_R_thalamus_rep1	Macaca fascicularis	ILLUMINA	xq	R	thalamus	rep1	1		Tha	thalamus	Subcortical	TH	TH	No	Subcortical	Subcortical
+SRR22507197	20R169	xq_R_F1_rep1	Macaca fascicularis	ILLUMINA	xq	R	F1	rep1	1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506725	20R170	xq_R_R	Macaca fascicularis	ILLUMINA	xq	R	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22506748	20R171	xq_R_HC_rep1	Macaca fascicularis	ILLUMINA	xq	R	HC	rep1	1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506521	20R172	xq_R_Tem_rep1	Macaca fascicularis	ILLUMINA	xq	R	Tem	rep1	1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22507206	20R173	xq_R_AL_rep1	Macaca fascicularis	ILLUMINA	xq	R	AL	rep1	1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506524	20R174	xq_R_STG_rep2	Macaca fascicularis	ILLUMINA	xq	R	STG	rep2	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506503	20R175	xq_R_V2_rep1	Macaca fascicularis	ILLUMINA	xq	R	V2	rep1	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506506	20R176	xq_R_V1_rep1	Macaca fascicularis	ILLUMINA	xq	R	V1	rep1	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506498	20R177	xq_R_V3v	Macaca fascicularis	ILLUMINA	xq	R	V3v		1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22506571	20R178	xq_L_LIPv_rep1	Macaca fascicularis	ILLUMINA	xq	L	LIPv	rep1	1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22506773	20R179	xq_L_5_rep2	Macaca fascicularis	ILLUMINA	xq	L	5	rep2	1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22506933	20R180	xq_L_TPO	Macaca fascicularis	ILLUMINA	xq	L	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506936	20R181	xq_L_TFO	Macaca fascicularis	ILLUMINA	xq	L	TFO		1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22506572	20R182	xq_L_LIPd	Macaca fascicularis	ILLUMINA	xq	L	LIPd		1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506765	20R183	xq_L_8A_rep2	Macaca fascicularis	ILLUMINA	xq	L	8A	rep2	1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22506932	20R184	xq_L_Tpt	Macaca fascicularis	ILLUMINA	xq	L	Tpt		1		Tpt	temporo-parietal area	Temporal 	TCs	Tpt	Yes	Temporal	Temporal
+SRR22506767	20R185	xq_L_7op_rep2	Macaca fascicularis	ILLUMINA	xq	L	7op	rep2	1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22506772	20R186	xq_L_7a	Macaca fascicularis	ILLUMINA	xq	L	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22506585	20R187	xq_L_FST_rep1	Macaca fascicularis	ILLUMINA	xq	L	FST	rep1	1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22506581	20R188	xq_L_HC_rep2	Macaca fascicularis	ILLUMINA	xq	L	HC	rep2	1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506559	20R189	xq_L_V4	Macaca fascicularis	ILLUMINA	xq	L	V4		1		V4	visual area 4,dorsal part	Occipital	VACd	V4	Yes	Occipital	Occipital
+SRR22506557	20R190	xq_L_VIP_rep2	Macaca fascicularis	ILLUMINA	xq	L	VIP	rep2	1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22507228	20R191	xq_L_13l_rep1	Macaca fascicularis	ILLUMINA	xq	L	13l	rep1	1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22506777	20R192	xq_L_45_rep2	Macaca fascicularis	ILLUMINA	xq	L	45	rep2	1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22506775	20R193	xq_L_46v	Macaca fascicularis	ILLUMINA	xq	L	46v		1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22506776	20R194	xq_L_46d	Macaca fascicularis	ILLUMINA	xq	L	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22506588	20R195	xq_L_F6	Macaca fascicularis	ILLUMINA	xq	L	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22506587	20R196	xq_L_F7	Macaca fascicularis	ILLUMINA	xq	L	F7		1		F7	agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)	Frontal	PMCdl	F7	Yes	Frontal	Frontal
+SRR22506762	20R197	xq_L_8Bs_rep2	Macaca fascicularis	ILLUMINA	xq	L	8Bs	rep2	1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22506764	20R198	xq_L_8Bd	Macaca fascicularis	ILLUMINA	xq	L	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22507214	20R199	xq_R_8Bm	Macaca fascicularis	ILLUMINA	xq	R	8Bm		1		8Bm	area 8B,medial subdivision	Frontal	PFCdm	8Bm	Yes	Frontal	Frontal
+SRR22507215	20R200	xq_R_8Bd	Macaca fascicularis	ILLUMINA	xq	R	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22506532	20R201	xq_R_45_rep2	Macaca fascicularis	ILLUMINA	xq	R	45	rep2	1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22506550	20R202	xq_R_12l	Macaca fascicularis	ILLUMINA	xq	R	12l		1		12l	lateral prefrontal cortex,area 12l,lateral part	Frontal	PFCvl	12l	Yes	Frontal	Frontal
+SRR22506535	20R203	xq_R_32	Macaca fascicularis	ILLUMINA	xq	R	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22507205	20R204	xq_R_AL_rep2	Macaca fascicularis	ILLUMINA	xq	R	AL	rep2	1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506520	20R205	xq_R_Tem_rep2	Macaca fascicularis	ILLUMINA	xq	R	Tem	rep2	1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506517	20R206	xq_R_Tepd_rep1	Macaca fascicularis	ILLUMINA	xq	R	Tepd	rep1	1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22506514	20R207	xq_R_Tepv_rep1	Macaca fascicularis	ILLUMINA	xq	R	Tepv	rep1	1		TEpv	ventral subregion of posterior TE	Temporal 	TCi	TEpv	Yes	Temporal	Temporal
+SRR22506544	20R208	xq_R_23c_rep1	Macaca fascicularis	ILLUMINA	xq	R	23c	rep1	1		23c	posterior cingulate cortex,area 23c	Cingulate	CCp	23c	Yes	Cingulate	Cingulate
+SRR22506509	20R209	xq_R_thalamus_rep2	Macaca fascicularis	ILLUMINA	xq	R	thalamus	rep2	1		Tha	thalamus	Subcortical	TH	TH	No	Subcortical	Subcortical
+SRR22506747	20R210	xq_R_HC_rep2	Macaca fascicularis	ILLUMINA	xq	R	HC	rep2	1		HC	hippocampus	Subcortical	HC	HC	No	Subcortical	Subcortical
+SRR22506752	20R211	xq_L_F1	Macaca fascicularis	ILLUMINA	xq	L	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506782	20R212	xq_L_3a/b_rep2	Macaca fascicularis	ILLUMINA	xq	L	3a/b	rep2	1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22507233	20R213	xq_L_1-2_rep1	Macaca fascicularis	ILLUMINA	xq	L	1-2	rep1	1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22506576	20R214	xq_L_Ig	Macaca fascicularis	ILLUMINA	xq	L	Ig		1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22506957	20R215	xq_L_RM_rep1	Macaca fascicularis	ILLUMINA	xq	L	RM	rep1	1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506756	20R216	xq_L_AL	Macaca fascicularis	ILLUMINA	xq	L	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506948	20R217	xq_L_STG_rep2	Macaca fascicularis	ILLUMINA	xq	L	STG	rep2	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506945	20R218	xq_L_Tead_rep1	Macaca fascicularis	ILLUMINA	xq	L	Tead	rep1	1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22506943	20R219	xq_L_Teav_rep1	Macaca fascicularis	ILLUMINA	xq	L	Teav	rep1	1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22506755	20R220	xq_L_amy	Macaca fascicularis	ILLUMINA	xq	L	amy		1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22506561	20R221	xq_L_pu_rep2	Macaca fascicularis	ILLUMINA	xq	L	pu	rep2	1		pu				Striatum	No	Subcortical	Subcortical
+SRR22507232	20R222	xq_L_1-2_rep2	Macaca fascicularis	ILLUMINA	xq	L	1-2	rep2	1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22506578	20R223	xq_L_Id_rep2	Macaca fascicularis	ILLUMINA	xq	L	Id	rep2	1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506954	20R224	xq_L_RT	Macaca fascicularis	ILLUMINA	xq	L	RT		1		RT	rostrotemporal, core region of the auditory cortex	Temporal 	A1	RT	Yes	Temporal	Temporal
+SRR22506951	20R225	xq_L_RTM	Macaca fascicularis	ILLUMINA	xq	L	RTM		1		RTM	medial rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTM	Yes	Temporal	Temporal
+SRR22506953	20R226	xq_L_RTL	Macaca fascicularis	ILLUMINA	xq	L	RTL		1		RTL	lateral rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTL	Yes	Temporal	Temporal
+SRR22506947	20R227	xq_L_STG_rep3	Macaca fascicularis	ILLUMINA	xq	L	STG	rep3	1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506577	20R228	xq_L_Id_rep3	Macaca fascicularis	ILLUMINA	xq	L	Id	rep3	1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506956	20R229	xq_L_RM_rep2	Macaca fascicularis	ILLUMINA	xq	L	RM	rep2	1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506940	20R230	xq_L_Tem_rep1	Macaca fascicularis	ILLUMINA	xq	L	Tem	rep1	1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506944	20R231	xq_L_Tead_rep2	Macaca fascicularis	ILLUMINA	xq	L	Tead	rep2	1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22506942	20R232	xq_L_Teav_rep2	Macaca fascicularis	ILLUMINA	xq	L	Teav	rep2	1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22506935	20R233	xq_L_thalamus_rep1	Macaca fascicularis	ILLUMINA	xq	L	thalamus	rep1	1		Tha	thalamus	Subcortical	TH	TH	No	Subcortical	Subcortical
+SRR22507238	20R234	xq_L_10o_rep1	Macaca fascicularis	ILLUMINA	xq	L	10o	rep1	1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507231	20R235	xq_L_12l	Macaca fascicularis	ILLUMINA	xq	L	12l		1		12l	lateral prefrontal cortex,area 12l,lateral part	Frontal	PFCvl	12l	Yes	Frontal	Frontal
+SRR22507224	20R236	xq_L_13m	Macaca fascicularis	ILLUMINA	xq	L	13m		1		13m	orbitomedial prefrontal cortex,area 13m	Frontal	PFCom	13m	Yes	Frontal	Frontal
+SRR22507227	20R237	xq_L_13l_rep2	Macaca fascicularis	ILLUMINA	xq	L	13l	rep2	1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22506540	20R238	xq_R_24b'_rep1	Macaca fascicularis	ILLUMINA	xq	R	24b'	rep1	1		24b'	anterior cingulate cortex,area 24b'	Cingulate	CCa	24b'	Yes	Cingulate	Cingulate
+SRR22506537	20R239	xq_R_24c'_rep1	Macaca fascicularis	ILLUMINA	xq	R	24c'	rep1	1		24c'	anterior cingulate cortex,area 24c'	Cingulate	CCa	24c'	Yes	Cingulate	Cingulate
+SRR22506738	20R240	xq_R_Ig_rep2	Macaca fascicularis	ILLUMINA	xq	R	Ig	rep2	1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22506740	20R241	xq_R_Id_rep2	Macaca fascicularis	ILLUMINA	xq	R	Id	rep2	1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506723	20R242	xq_R_RT	Macaca fascicularis	ILLUMINA	xq	R	RT		1		RT	rostrotemporal, core region of the auditory cortex	Temporal 	A1	RT	Yes	Temporal	Temporal
+SRR22506720	20R243	xq_R_RTM	Macaca fascicularis	ILLUMINA	xq	R	RTM		1		RTM	medial rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTM	Yes	Temporal	Temporal
+SRR22506721	20R244	xq_R_RTL_rep2	Macaca fascicularis	ILLUMINA	xq	R	RTL	rep2	1		RTL	lateral rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTL	Yes	Temporal	Temporal
+SRR22506519	20R245	xq_R_Tem_rep3	Macaca fascicularis	ILLUMINA	xq	R	Tem	rep3	1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506528	20R246	xq_R_5	Macaca fascicularis	ILLUMINA	xq	R	5		1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22507217	20R247	xq_R_7b	Macaca fascicularis	ILLUMINA	xq	R	7b		1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22507200	20R248	xq_R_CM_rep1	Macaca fascicularis	ILLUMINA	xq	R	CM	rep1	1		CM	caudomedial, belt region of the auditory cortex	Temporal 	TCs	CM	Yes	Temporal	Temporal
+SRR22507208	20R249	xq_R_AI_rep1	Macaca fascicularis	ILLUMINA	xq	R	AI	rep1	1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22506518	20R250	xq_R_Tem_rep4	Macaca fascicularis	ILLUMINA	xq	R	Tem	rep4	1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506515	20R251	xq_R_Tepd_rep2	Macaca fascicularis	ILLUMINA	xq	R	Tepd	rep2	1		TEpd	dorsal subregion of posterior TE	Temporal 	TCi	TEpd	Yes	Temporal	Temporal
+SRR22506513	20R252	xq_R_Tepv_rep2	Macaca fascicularis	ILLUMINA	xq	R	Tepv	rep2	1		TEpv	ventral subregion of posterior TE	Temporal 	TCi	TEpv	Yes	Temporal	Temporal
+SRR22507189	20R253	xq_R_G	Macaca fascicularis	ILLUMINA	xq	R	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506743	20R254	xq_R_Iapm	Macaca fascicularis	ILLUMINA	xq	R	Iapm		1		Iapm	posteromedial agranular insula area	Insula	Ia	Iapm	Yes	Insula	Insula
+SRR22506745	20R255	xq_R_Ial	Macaca fascicularis	ILLUMINA	xq	R	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22506727	20R256	xq_R_Pir	Macaca fascicularis	ILLUMINA	xq	R	Pir		1		Pir	piriform cortex	Subcortical		Pir	No	Subcortical	Subcortical
+SRR22506733	20R257	xq_R_LIPv_rep1	Macaca fascicularis	ILLUMINA	xq	R	LIPv	rep1	1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22506735	20R258	xq_R_LIPd_rep1	Macaca fascicularis	ILLUMINA	xq	R	LIPd	rep1	1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22507199	20R259	xq_R_CM_rep2	Macaca fascicularis	ILLUMINA	xq	R	CM	rep2	1		CM	caudomedial, belt region of the auditory cortex	Temporal 	TCs	CM	Yes	Temporal	Temporal
+SRR22507207	20R260	xq_R_AI_rep2	Macaca fascicularis	ILLUMINA	xq	R	AI	rep2	1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22507202	20R261	xq_R_CL_rep1	Macaca fascicularis	ILLUMINA	xq	R	CL	rep1	1		CL	caudal lateral, belt region of the auditory cortex	Temporal 	TCs	CL	Yes	Temporal	Temporal
+SRR22506512	20R262	xq_R_TFO_rep1	Macaca fascicularis	ILLUMINA	xq	R	TFO	rep1	1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22507204	20R263	xq_R_amy	Macaca fascicularis	ILLUMINA	xq	R	amy		1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22506744	20R264	xq_R_Iapl	Macaca fascicularis	ILLUMINA	xq	R	Iapl		1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22507201	20R265	xq_R_CL_rep2	Macaca fascicularis	ILLUMINA	xq	R	CL	rep2	1		CL	caudal lateral, belt region of the auditory cortex	Temporal 	TCs	CL	Yes	Temporal	Temporal
+SRR22506555	20R270	xq_R_10o	Macaca fascicularis	ILLUMINA	xq	R	10o		1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22506496	20R271	xq_R_V4v	Macaca fascicularis	ILLUMINA	xq	R	V4v		1		V4v	visual area 4,ventral part	Occipital	TCv	V4v	Yes	Occipital	Occipital
+SRR22506934	20R272	xq_L_thalamus_rep2	Macaca fascicularis	ILLUMINA	xq	L	thalamus	rep2	1		Tha	thalamus	Subcortical	TH	TH	No	Subcortical	Subcortical
+SRR22506939	20R273	xq_L_Tem_rep2	Macaca fascicularis	ILLUMINA	xq	L	Tem	rep2	1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506570	20R274	xq_L_LIPv_rep2	Macaca fascicularis	ILLUMINA	xq	L	LIPv	rep2	1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22507188	20R275	xq_R_GPeGPi_rep1	Macaca fascicularis	ILLUMINA	xq	R	GPeGPi	rep1	1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22506751	20R276	xq_R_GPeGPi_rep2	Macaca fascicularis	ILLUMINA	xq	R	GPeGPi	rep2	1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22507218	20R277	xq_R_7a	Macaca fascicularis	ILLUMINA	xq	R	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22506734	20R278	xq_R_LIPd_rep2	Macaca fascicularis	ILLUMINA	xq	R	LIPd	rep2	1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506732	20R279	xq_R_LIPv_rep2	Macaca fascicularis	ILLUMINA	xq	R	LIPv	rep2	1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22506507	20R280	xq_R_Tpt	Macaca fascicularis	ILLUMINA	xq	R	Tpt		1		Tpt	temporo-parietal area	Temporal 	TCs	Tpt	Yes	Temporal	Temporal
+SRR22506731	20R281	xq_R_MST	Macaca fascicularis	ILLUMINA	xq	R	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22507190	20R282	xq_R_FST	Macaca fascicularis	ILLUMINA	xq	R	FST		1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22506497	20R283	xq_R_V4	Macaca fascicularis	ILLUMINA	xq	R	V4		1		V4	visual area 4,dorsal part	Occipital	VACd	V4	Yes	Occipital	Occipital
+SRR22506511	20R284	xq_R_TFO_rep2	Macaca fascicularis	ILLUMINA	xq	R	TFO	rep2	1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22506750	20R285	xq_R_GPeGPi_rep3	Macaca fascicularis	ILLUMINA	xq	R	GPeGPi	rep3	1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22506749	20R286	xq_R_GPeGPi_rep4	Macaca fascicularis	ILLUMINA	xq	R	GPeGPi	rep4	1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22506536	20R287	xq_R_24c'_rep2	Macaca fascicularis	ILLUMINA	xq	R	24c'	rep2	1		24c'	anterior cingulate cortex,area 24c'	Cingulate	CCa	24c'	Yes	Cingulate	Cingulate
+SRR22506539	20R288	xq_R_24b'_rep2	Macaca fascicularis	ILLUMINA	xq	R	24b'	rep2	1		24b'	anterior cingulate cortex,area 24b'	Cingulate	CCa	24b'	Yes	Cingulate	Cingulate
+SRR22506542	20R289	xq_R_24a'	Macaca fascicularis	ILLUMINA	xq	R	24a'		1		24a'	anterior cingulate cortex,area 24a'	Cingulate	CCa	24a'	Yes	Cingulate	Cingulate
+SRR22506549	20R290	xq_R_12m	Macaca fascicularis	ILLUMINA	xq	R	12m		1		12m	lateral prefrontal cortex,area 12m,medial part	Frontal	PFCol	12m	Yes	Frontal	Frontal
+SRR22507131	20R291	zs_R_NA	Macaca fascicularis	ILLUMINA	zs	R	NA		1		NAcc	nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22507135	20R293	zs_R_Iapl	Macaca fascicularis	ILLUMINA	zs	R	Iapl		1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22507134	20R294	zs_R_Iapm	Macaca fascicularis	ILLUMINA	zs	R	Iapm		1		Iapm	posteromedial agranular insula area	Insula	Ia	Iapm	Yes	Insula	Insula
+SRR22506473	20R300	zs_L_F4_rep1	Macaca fascicularis	ILLUMINA	zs	L	F4	rep1	1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22506471	20R301	zs_L_G_rep1	Macaca fascicularis	ILLUMINA	zs	L	G	rep1	1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22507154	20R302	zs_L_Iapl_rep1	Macaca fascicularis	ILLUMINA	zs	L	Iapl	rep1	1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22506464	20R303	zs_L_Ial	Macaca fascicularis	ILLUMINA	zs	L	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22507152	20R304	zs_L_Iapm_rep1	Macaca fascicularis	ILLUMINA	zs	L	Iapm	rep1	1		Iapm	posteromedial agranular insula area	Insula	Ia	Iapm	Yes	Insula	Insula
+SRR22507145	20R305	zs_L_Pir	Macaca fascicularis	ILLUMINA	zs	L	Pir		1		Pir	piriform cortex	Subcortical		Pir	No	Subcortical	Subcortical
+SRR22507149	20R306	zs_L_NA	Macaca fascicularis	ILLUMINA	zs	L	NA		1		NAcc	nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22507133	20R307	zs_R_Id	Macaca fascicularis	ILLUMINA	zs	R	Id		1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22507130	20R308	zs_R_RTM	Macaca fascicularis	ILLUMINA	zs	R	RTM		1		RTM	medial rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTM	Yes	Temporal	Temporal
+SRR22507150	20R309	zs_L_LIPd	Macaca fascicularis	ILLUMINA	zs	L	LIPd		1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22507140	20R310	zs_R_7a	Macaca fascicularis	ILLUMINA	zs	R	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22507127	20R311	zs_R_Tpt	Macaca fascicularis	ILLUMINA	zs	R	Tpt		1		Tpt	temporo-parietal area	Temporal 	TCs	Tpt	Yes	Temporal	Temporal
+SRR22507128	20R312	zs_R_TPO	Macaca fascicularis	ILLUMINA	zs	R	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22507132	20R313	zs_R_MST	Macaca fascicularis	ILLUMINA	zs	R	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22507137	20R314	zs_R_FST	Macaca fascicularis	ILLUMINA	zs	R	FST		1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22507129	20R315	zs_R_TEO	Macaca fascicularis	ILLUMINA	zs	R	TEO		1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22507065	20R316	92_L_Ig	Macaca fascicularis	ILLUMINA	92	L	Ig		1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22506474	20R320	zs_L_8Bm	Macaca fascicularis	ILLUMINA	zs	L	8Bm		1		8Bm	area 8B,medial subdivision	Frontal	PFCdm	8Bm	Yes	Frontal	Frontal
+SRR22506475	20R321	zs_L_8Bd	Macaca fascicularis	ILLUMINA	zs	L	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22506476	20R322	zs_L_32	Macaca fascicularis	ILLUMINA	zs	L	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22506482	20R323	zs_L_12m	Macaca fascicularis	ILLUMINA	zs	L	12m		1		12m	lateral prefrontal cortex,area 12m,medial part	Frontal	PFCol	12m	Yes	Frontal	Frontal
+SRR22506472	20R324	zs_L_F4_rep2	Macaca fascicularis	ILLUMINA	zs	L	F4	rep2	1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22506470	20R325	zs_L_G_rep2	Macaca fascicularis	ILLUMINA	zs	L	G	rep2	1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22507144	20R326	zs_L_PrCo	Macaca fascicularis	ILLUMINA	zs	L	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22507153	20R327	zs_L_Iapl_rep2	Macaca fascicularis	ILLUMINA	zs	L	Iapl	rep2	1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22507151	20R328	zs_L_Iapm_rep2	Macaca fascicularis	ILLUMINA	zs	L	Iapm	rep2	1		Iapm	posteromedial agranular insula area	Insula	Ia	Iapm	Yes	Insula	Insula
+SRR22507139	20R331	zs_R_8Bd	Macaca fascicularis	ILLUMINA	zs	R	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22507138	20R332	zs_R_F6	Macaca fascicularis	ILLUMINA	zs	R	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22507141	20R335	zs_R_13l	Macaca fascicularis	ILLUMINA	zs	R	13l		1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22506469	20R336	zs_L_GPeGPi_rep1	Macaca fascicularis	ILLUMINA	zs	L	GPeGPi	rep1	1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22506477	20R337	zs_L_24c'	Macaca fascicularis	ILLUMINA	zs	L	24c'		1		24c'	anterior cingulate cortex,area 24c'	Cingulate	CCa	24c'	Yes	Cingulate	Cingulate
+SRR22507142	20R338	zs_L_RTM	Macaca fascicularis	ILLUMINA	zs	L	RTM		1		RTM	medial rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTM	Yes	Temporal	Temporal
+SRR22507143	20R340	zs_L_RTL	Macaca fascicularis	ILLUMINA	zs	L	RTL		1		RTL	lateral rostrotemporal, belt region of the auditory cortex	Temporal 	TCs	RTL	Yes	Temporal	Temporal
+SRR22507146	20R341	zs_L_Pi	Macaca fascicularis	ILLUMINA	zs	L	Pi		1		Pi	parainsular area	Insula	Ia	Pi	Yes	Insula	Insula
+SRR22506465	20R342	zs_L_Ia	Macaca fascicularis	ILLUMINA	zs	L	Ia		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22506480	20R343	zs_L_13m	Macaca fascicularis	ILLUMINA	zs	L	13m		1		13m	orbitomedial prefrontal cortex,area 13m	Frontal	PFCom	13m	Yes	Frontal	Frontal
+SRR22506481	20R344	zs_L_13l	Macaca fascicularis	ILLUMINA	zs	L	13l		1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22506478	20R345	zs_L_14c	Macaca fascicularis	ILLUMINA	zs	L	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22506467	20R346	zs_L_GPeGPi_rep2	Macaca fascicularis	ILLUMINA	zs	L	GPeGPi	rep2	1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22506466	20R347	zs_L_GPeGPi_rep3	Macaca fascicularis	ILLUMINA	zs	L	GPeGPi	rep3	1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22506958	20R360	xq_L_Ri	Macaca fascicularis	ILLUMINA	xq	L	Ri		1		Ri	retroinsula	Insula	Ip	Ri	Yes	Insula	Insula
+SRR22506566	20R361	xq_L_Pga_rep1	Macaca fascicularis	ILLUMINA	xq	L	Pga	rep1	1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22506574	20R362	xq_L_Ipa_rep1	Macaca fascicularis	ILLUMINA	xq	L	Ipa	rep1	1		IPa	area Ipa,sts fundus	Temporal 	TCc	IPa	Yes	Temporal	Temporal
+SRR22506813	20R363	92_L_Ri	Macaca fascicularis	ILLUMINA	92	L	Ri		1		Ri	retroinsula	Insula	Ip	Ri	Yes	Insula	Insula
+SRR22507060	20R364	92_L_PGa	Macaca fascicularis	ILLUMINA	92	L	PGa		1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22507064	20R365	92_L_IPa	Macaca fascicularis	ILLUMINA	92	L	IPa		1		IPa	area Ipa,sts fundus	Temporal 	TCc	IPa	Yes	Temporal	Temporal
+SRR22506583	20R366	xq_L_GPeGPi	Macaca fascicularis	ILLUMINA	xq	L	GPeGPi		1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22507221	20R367	xq_L_23c_rep1	Macaca fascicularis	ILLUMINA	xq	L	23c	rep1	1		23c	posterior cingulate cortex,area 23c	Cingulate	CCp	23c	Yes	Cingulate	Cingulate
+SRR22506565	20R368	xq_L_Pga_rep2	Macaca fascicularis	ILLUMINA	xq	L	Pga	rep2	1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22506573	20R369	xq_L_Ipa_rep2	Macaca fascicularis	ILLUMINA	xq	L	Ipa	rep2	1		IPa	area Ipa,sts fundus	Temporal 	TCc	IPa	Yes	Temporal	Temporal
+SRR22507220	20R370	xq_L_23c_rep2	Macaca fascicularis	ILLUMINA	xq	L	23c	rep2	1		23c	posterior cingulate cortex,area 23c	Cingulate	CCp	23c	Yes	Cingulate	Cingulate
+SRR22506937	20R371	xq_L_TF	Macaca fascicularis	ILLUMINA	xq	L	TF		1		TF	area TF of the parahippocampal cortex	Temporal 	PHC	TF	Yes	Temporal	Temporal
+SRR22506736	20R372	xq_R_IPa	Macaca fascicularis	ILLUMINA	xq	R	IPa		1		IPa	area Ipa,sts fundus	Temporal 	TCc	IPa	Yes	Temporal	Temporal
+SRR22506729	20R373	xq_R_Pga_rep1	Macaca fascicularis	ILLUMINA	xq	R	Pga	rep1	1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22506546	20R374	xq_R_23b_rep1	Macaca fascicularis	ILLUMINA	xq	R	23b	rep1	1		23b	posterior cingulate cortex,area 23b	Cingulate	CCp	23b	Yes	Cingulate	Cingulate
+SRR22506553	20R375	xq_R_11m_rep2	Macaca fascicularis	ILLUMINA	xq	R	11m	rep2	1		11m	orbital prefrontal area,area 11m	Frontal	PFCom	11m	Yes	Frontal	Frontal
+SRR22506661	20R376	34_R_25_rep1	Macaca fascicularis	ILLUMINA	34	R	25	rep1	1		25	subgenual cingulate cortex,area 25	Frontal	CCs	25	Yes	Frontal	Frontal
+SRR22506672	20R377	34_R_13l_rep2	Macaca fascicularis	ILLUMINA	34	R	13l	rep2	1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22506660	20R378	34_R_25_rep2	Macaca fascicularis	ILLUMINA	34	R	25	rep2	1		25	subgenual cingulate cortex,area 25	Frontal	CCs	25	Yes	Frontal	Frontal
+SRR22506675	20R379	34_R_13a	Macaca fascicularis	ILLUMINA	34	R	13a		1		13a	orbitomedial prefrontal cortex,area 13a	Frontal	PFCom	13a	Yes	Frontal	Frontal
+SRR22506568	20R380	xq_L_MST	Macaca fascicularis	ILLUMINA	xq	L	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22506584	20R381	xq_L_FST_rep2	Macaca fascicularis	ILLUMINA	xq	L	FST	rep2	1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22506827	20R382	34_R_Ri	Macaca fascicularis	ILLUMINA	34	R	Ri		1		Ri	retroinsula	Insula	Ip	Ri	Yes	Insula	Insula
+SRR22506650	20R383	34_R_TF	Macaca fascicularis	ILLUMINA	34	R	TF		1		TF	area TF of the parahippocampal cortex	Temporal 	PHC	TF	Yes	Temporal	Temporal
+SRR22506665	20R384	34_R_23c	Macaca fascicularis	ILLUMINA	34	R	23c		1		23c	posterior cingulate cortex,area 23c	Cingulate	CCp	23c	Yes	Cingulate	Cingulate
+SRR22506667	20R385	34_R_23b	Macaca fascicularis	ILLUMINA	34	R	23b		1		23b	posterior cingulate cortex,area 23b	Cingulate	CCp	23b	Yes	Cingulate	Cingulate
+SRR22506728	20R386	xq_R_Pga_rep2	Macaca fascicularis	ILLUMINA	xq	R	Pga	rep2	1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22506545	20R387	xq_R_23b_rep2	Macaca fascicularis	ILLUMINA	xq	R	23b	rep2	1		23b	posterior cingulate cortex,area 23b	Cingulate	CCp	23b	Yes	Cingulate	Cingulate
+SRR22506543	20R388	xq_R_23c_rep2	Macaca fascicularis	ILLUMINA	xq	R	23c	rep2	1		23c	posterior cingulate cortex,area 23c	Cingulate	CCp	23c	Yes	Cingulate	Cingulate
+SRR22507225	20R504	xq_L_13l_rep3	Macaca fascicularis	ILLUMINA	xq	L	13l	rep3	1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22506670	20R505	34_R_13m_rep2	Macaca fascicularis	ILLUMINA	34	R	13m	rep2	1		13m	orbitomedial prefrontal cortex,area 13m	Frontal	PFCom	13m	Yes	Frontal	Frontal
+SRR22506563	20R506	xq_L_Pi	Macaca fascicularis	ILLUMINA	xq	L	Pi		1		Pi	parainsular area	Insula	Ia	Pi	Yes	Insula	Insula
+SRR22506580	20R507	xq_L_Ia	Macaca fascicularis	ILLUMINA	xq	L	Ia		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22506746	20R508	xq_R_Ia	Macaca fascicularis	ILLUMINA	xq	R	Ia		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22506832	20R509	34_R_NA	Macaca fascicularis	ILLUMINA	34	R	NA		1		NAcc	nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22506955	20R510	xq_L_RM_rep3	Macaca fascicularis	ILLUMINA	xq	L	RM	rep3	1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506452	20R511	79_L_Ia	Macaca fascicularis	ILLUMINA	79	L	Ia		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22506456	20R512	79_L_amy_rep1	Macaca fascicularis	ILLUMINA	79	L	amy	rep1	1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22507269	20R513	79_R_24c'	Macaca fascicularis	ILLUMINA	79	R	24c'		1		24c'	anterior cingulate cortex,area 24c'	Cingulate	CCa	24c'	Yes	Cingulate	Cingulate
+SRR22507264	20R514	79_R_NA_rep1	Macaca fascicularis	ILLUMINA	79	R	NA	rep1	1		NAcc	nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22507263	20R515	79_R_NA_rep2	Macaca fascicularis	ILLUMINA	79	R	NA	rep2	1		NAcc	nucleus accumbens	Subcortical	NAcc	Striatum	No	Subcortical	Subcortical
+SRR22506461	20R516	79_L_13m	Macaca fascicularis	ILLUMINA	79	L	13m		1		13m	orbitomedial prefrontal cortex,area 13m	Frontal	PFCom	13m	Yes	Frontal	Frontal
+SRR22506462	20R517	79_L_13a_rep2	Macaca fascicularis	ILLUMINA	79	L	13a	rep2	1		13a	orbitomedial prefrontal cortex,area 13a	Frontal	PFCom	13a	Yes	Frontal	Frontal
+SRR22506453	20R518	79_L_GPeGPi	Macaca fascicularis	ILLUMINA	79	L	GPeGPi		1		GPeGPi	globus pallidus	Subcortical	GP	Pallidum	No	Subcortical	Subcortical
+SRR22506455	20R519	79_L_amy_rep2	Macaca fascicularis	ILLUMINA	79	L	amy	rep2	1		Amy	amygdala	Subcortical	Amyg	amy	No	Subcortical	Subcortical
+SRR22506457	20R520	79_L_24b'	Macaca fascicularis	ILLUMINA	79	L	24b'		1		24b'	anterior cingulate cortex,area 24b'	Cingulate	CCa	24b'	Yes	Cingulate	Cingulate
+SRR22507265	20R521	79_R_MST	Macaca fascicularis	ILLUMINA	79	R	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22507268	20R522	79_R_FST	Macaca fascicularis	ILLUMINA	79	R	FST		1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22506500	20R523	xq_R_V3d_rep1	Macaca fascicularis	ILLUMINA	xq	R	V3d	rep1	1		V3d	visual area 3, dorsal part	Occipital	VACd	V3d	Yes	Occipital	Occipital
+SRR22506499	20R524	xq_R_V3d_rep2	Macaca fascicularis	ILLUMINA	xq	R	V3d	rep2	1		V3d	visual area 3, dorsal part	Occipital	VACd	V3d	Yes	Occipital	Occipital
+SRR22506454	20R525	79_L_CL	Macaca fascicularis	ILLUMINA	79	L	CL		1		CL	caudal lateral, belt region of the auditory cortex	Temporal 	TCs	CL	Yes	Temporal	Temporal
+SRR22506458	20R526	79_L_23b	Macaca fascicularis	ILLUMINA	79	L	23b		1		23b	posterior cingulate cortex,area 23b	Cingulate	CCp	23b	Yes	Cingulate	Cingulate
+SRR22506460	20R527	79_L_23a	Macaca fascicularis	ILLUMINA	79	L	23a		1		23a				23a	Yes	Cingulate	Cingulate
+SRR22506451	20R528	79_L_V3d	Macaca fascicularis	ILLUMINA	79	L	V3d		1		V3d	visual area 3, dorsal part	Occipital	VACd	V3d	Yes	Occipital	Occipital
+SRR22507266	20R529	79_R_ML	Macaca fascicularis	ILLUMINA	79	R	ML		1		ML	middle lateral, belt region of the auditory cortex	Temporal 	TCs	ML	Yes	Temporal	Temporal
+SRR22506634	20R530	67_L_13a	Macaca fascicularis	ILLUMINA	67	L	13a		1		13a	orbitomedial prefrontal cortex,area 13a	Frontal	PFCom	13a	Yes	Frontal	Frontal
+SRR22506626	20R531	67_L_G	Macaca fascicularis	ILLUMINA	67	L	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506625	20R532	67_L_Pir	Macaca fascicularis	ILLUMINA	67	L	Pir		1		Pir	piriform cortex	Subcortical		Pir	No	Subcortical	Subcortical
+SRR22506633	20R533	67_L_24a	Macaca fascicularis	ILLUMINA	67	L	24a		1		24a	anterior cingulate cortex,area 24a	Cingulate	CCa	24a	Yes	Cingulate	Cingulate
+SRR22506624	20R534	67_L_V3d	Macaca fascicularis	ILLUMINA	67	L	V3d		1		V3d	visual area 3, dorsal part	Occipital	VACd	V3d	Yes	Occipital	Occipital
+SRR22506463	20R535	67_R_13a_rep1	Macaca fascicularis	ILLUMINA	67	R	13a	rep1	1		13a	orbitomedial prefrontal cortex,area 13a	Frontal	PFCom	13a	Yes	Frontal	Frontal
+SRR22506632	20R536	67_L_F2	Macaca fascicularis	ILLUMINA	67	L	F2		1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22506631	20R537	67_L_F3_rep1	Macaca fascicularis	ILLUMINA	67	L	F3	rep1	1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22506629	20R538	67_L_F3_rep2	Macaca fascicularis	ILLUMINA	67	L	F3	rep2	1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22506628	20R539	67_L_F6	Macaca fascicularis	ILLUMINA	67	L	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22506627	20R540	67_L_F7	Macaca fascicularis	ILLUMINA	67	L	F7		1		F7	agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)	Frontal	PMCdl	F7	Yes	Frontal	Frontal
+SRR22507239	20R611	xq_L_10m_rep2	Macaca fascicularis	ILLUMINA	xq	L	10m	rep2	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22507236	20R612	xq_L_10o_rep2	Macaca fascicularis	ILLUMINA	xq	L	10o	rep2	1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507100	20R613	34_L_10m_rep2	Macaca fascicularis	ILLUMINA	34	L	10m	rep2	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22506834	20R614	34_L_10o_rep2	Macaca fascicularis	ILLUMINA	34	L	10o	rep2	1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22506642	20R615	34_R_V1_rep2	Macaca fascicularis	ILLUMINA	34	R	V1	rep2	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506502	20R616	xq_R_V2_rep2	Macaca fascicularis	ILLUMINA	xq	R	V2	rep2	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506504	20R617	xq_R_V1_rep2	Macaca fascicularis	ILLUMINA	xq	R	V1	rep2	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506501	20R618	xq_R_V2_rep3	Macaca fascicularis	ILLUMINA	xq	R	V2	rep3	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506648	20R619	34_R_TG_rep1	Macaca fascicularis	ILLUMINA	34	R	TG	rep1	1		TG	temporal pole	Temporal 	TCpol	TG	Yes	Temporal	Temporal
+SRR22506647	20R620	34_R_TG_rep2	Macaca fascicularis	ILLUMINA	34	R	TG	rep2	1		TG	temporal pole	Temporal 	TCpol	TG	Yes	Temporal	Temporal
+SRR22506868	20R621	34_L_TG	Macaca fascicularis	ILLUMINA	34	L	TG		1		TG	temporal pole	Temporal 	TCpol	TG	Yes	Temporal	Temporal
+SRR22506928	20R622	xq_L_V2_rep2	Macaca fascicularis	ILLUMINA	xq	L	V2	rep2	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506686	20R623	34_R_10m_rep2	Macaca fascicularis	ILLUMINA	34	R	10m	rep2	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22506684	20R624	34_R_10o_rep2	Macaca fascicularis	ILLUMINA	34	R	10o	rep2	1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22506639	20R625	34_R_V2_rep2	Macaca fascicularis	ILLUMINA	34	R	V2	rep2	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506799	20R626	92_L_V1_rep2	Macaca fascicularis	ILLUMINA	92	L	V1	rep2	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22506793	20R627	92_R_10m	Macaca fascicularis	ILLUMINA	92	R	10m		1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22506792	20R628	92_R_10o	Macaca fascicularis	ILLUMINA	92	R	10o		1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507262	20R629	92_L_10o	Macaca fascicularis	ILLUMINA	92	L	10o		1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507045	20R630	92_R_V1_rep2	Macaca fascicularis	ILLUMINA	92	R	V1	rep2	1		V1	visual area 1, primary visual cortex	Occipital	V1	V1	Yes	Occipital	Occipital
+SRR22507043	20R631	92_R_V2_rep2	Macaca fascicularis	ILLUMINA	92	R	V2	rep2	1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22507071	20R632	92_L_cd	Macaca fascicularis	ILLUMINA	92	L	cd		1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506815	20R633	92_L_pu	Macaca fascicularis	ILLUMINA	92	L	pu		1		pu				Striatum	No	Subcortical	Subcortical
+SRR22506605	20R634	92_R_cd_rep2	Macaca fascicularis	ILLUMINA	92	R	cd	rep2	1		Cd	caudate	Subcortical	Cau	Striatum	No	Subcortical	Subcortical
+SRR22506594	20R635	92_R_pu	Macaca fascicularis	ILLUMINA	92	R	pu		1		pu				Striatum	No	Subcortical	Subcortical
+SRR22506923	20R636	34_L_F3_rep2	Macaca fascicularis	ILLUMINA	34	L	F3	rep2	1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22507174	20R637	34_L_F2_rep2	Macaca fascicularis	ILLUMINA	34	L	F2	rep2	1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22507095	20R638	34_R_F1_rep2	Macaca fascicularis	ILLUMINA	34	R	F1	rep2	1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506681	20R639	34_R_1-2_rep2	Macaca fascicularis	ILLUMINA	34	R	1-2	rep2	1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22506781	20R640	xq_L_3a/b_rep3	Macaca fascicularis	ILLUMINA	xq	L	3a/b	rep3	1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22507196	20R641	xq_R_F1_rep2	Macaca fascicularis	ILLUMINA	xq	R	F1	rep2	1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506737	20R642	xq_R_Ig_rep3	Macaca fascicularis	ILLUMINA	xq	R	Ig	rep3	1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22507035	qbt-L-1-2-8-2_BRRL200004958-1A	qbt_L_1-2	Macaca fascicularis	ILLUMINA	qbt	L	1-2		1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22507040	qbt-L-10m-8-13_BRRL200004992-1A	qbt_L_10m	Macaca fascicularis	ILLUMINA	qbt	L	10m		1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22507039	qbt-L-10o_BRRL200004689-1A	qbt_L_10o	Macaca fascicularis	ILLUMINA	qbt	L	10o		1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507037	qbt-L-11l-8-13_BRRL200004990-1A	qbt_L_11l	Macaca fascicularis	ILLUMINA	qbt	L	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22507036	qbt-L-11m-8-13_BRRL200004989-1A	qbt_L_11m	Macaca fascicularis	ILLUMINA	qbt	L	11m		1		11m	orbital prefrontal area,area 11m	Frontal	PFCom	11m	Yes	Frontal	Frontal
+SRR22507034	qbt-L-12m-8-13_BRRL200004988-1A	qbt_L_12m	Macaca fascicularis	ILLUMINA	qbt	L	12m		1		12m	lateral prefrontal cortex,area 12m,medial part	Frontal	PFCol	12m	Yes	Frontal	Frontal
+SRR22507033	qbt-L-12o-8-31_BRRL200008129-1A	qbt_L_12o	Macaca fascicularis	ILLUMINA	qbt	L	12o		1		12o	lateral prefrontal cortex,area 12o,orbital part	Frontal	PFCol	12o	Yes	Frontal	Frontal
+SRR22507032	qbt-L-12r-8-13_BRRL200004987-1A	qbt_L_12r	Macaca fascicularis	ILLUMINA	qbt	L	12r		1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22507031	qbt-L-13b-8-13_BRRL200004991-1A	qbt_L_13b	Macaca fascicularis	ILLUMINA	qbt	L	13b		1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22507030	qbt-L-13l-8-31_BRRL200008130-1A	qbt_L_13l	Macaca fascicularis	ILLUMINA	qbt	L	13l		1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22507029	qbt-L-13m-8-31_BRRL200008131-1A	qbt_L_13m	Macaca fascicularis	ILLUMINA	qbt	L	13m		1		13m	orbitomedial prefrontal cortex,area 13m	Frontal	PFCom	13m	Yes	Frontal	Frontal
+SRR22507028	qbt-L-14c-8-31_BRRL200008132-1A	qbt_L_14c	Macaca fascicularis	ILLUMINA	qbt	L	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22507022	qbt-L-24c-8-11_BRRL200004971-1A	qbt_L_24c_rep1	Macaca fascicularis	ILLUMINA	qbt	L	24c	rep1	1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22507021	qbt-L-24c-8-13_BRRL200004993-1A	qbt_L_24c_rep2	Macaca fascicularis	ILLUMINA	qbt	L	24c	rep2	1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22507020	qbt-L-32-8-31_BRRL200008305-1A	qbt_L_32	Macaca fascicularis	ILLUMINA	qbt	L	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22507019	qbt-L-45-8-31_BRRL200008128-1A	qbt_L_45	Macaca fascicularis	ILLUMINA	qbt	L	45		1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22507018	qbt-L-46d_BRRL200004690-1A	qbt_L_46d	Macaca fascicularis	ILLUMINA	qbt	L	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22507017	qbt-L-46v-8-13_BRRL200004986-1A	qbt_L_46v	Macaca fascicularis	ILLUMINA	qbt	L	46v		1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22507016	qbt-L-5-8-24_BRRL200007485-1A	qbt_L_5	Macaca fascicularis	ILLUMINA	qbt	L	5		1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22507015	qbt-L-7a-8-27_BRRL200007563-1A	qbt_L_7a	Macaca fascicularis	ILLUMINA	qbt	L	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22507014	qbt-L-7b-8-24_BRRL200007486-1A	qbt_L_7b	Macaca fascicularis	ILLUMINA	qbt	L	7b		1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22507013	qbt-L-7op-8-24_BRRL200007487-1A	qbt_L_7op	Macaca fascicularis	ILLUMINA	qbt	L	7op		1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22507010	qbt-L-8A-8-31_BRRL200008127-1A	qbt_L_8A	Macaca fascicularis	ILLUMINA	qbt	L	8A		1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22507009	qbt-L-8Bd-8-31_BRRL200008125-1A	qbt_L_8Bd	Macaca fascicularis	ILLUMINA	qbt	L	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22507008	qbt-L-8Bs-8-31_BRRL200008126-1A	qbt_L_8Bs	Macaca fascicularis	ILLUMINA	qbt	L	8Bs		1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22507007	qbt-L-9m-8-13_BRRL200004985-1A	qbt_L_9m	Macaca fascicularis	ILLUMINA	qbt	L	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22507006	qbt-L-AI-8-24_BRRL200007488-1A	qbt_L_AI	Macaca fascicularis	ILLUMINA	qbt	L	AI		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22507005	qbt-L-CL-8-24_BRRL200007489-1A	qbt_L_CL	Macaca fascicularis	ILLUMINA	qbt	L	CL		1		CL	caudal lateral, belt region of the auditory cortex	Temporal 	TCs	CL	Yes	Temporal	Temporal
+SRR22507004	qbt-L-F1-8-2_BRRL200004956-1A	qbt_L_F1	Macaca fascicularis	ILLUMINA	qbt	L	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22507003	qbt-L-F2-8-2_BRRL200004955-1A	qbt_L_F2	Macaca fascicularis	ILLUMINA	qbt	L	F2		1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22507002	qbt-L-F3-8-2_BRRL200004954-1A	qbt_L_F3	Macaca fascicularis	ILLUMINA	qbt	L	F3		1		F3	agranular frontal area F3,SMA (supplementary motor area)	Frontal	PMCm	F3	Yes	Frontal	Frontal
+SRR22507001	qbt-L-F4-8-14_BRRL200006260-1A	qbt_L_F4	Macaca fascicularis	ILLUMINA	qbt	L	F4		1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22506999	qbt-L-F5-8-14_BRRL200006259-1A	qbt_L_F5	Macaca fascicularis	ILLUMINA	qbt	L	F5		1		F5	agranular frontal area F5,PMv (ventral premotor cortex)	Frontal	PMCvl	F5	Yes	Frontal	Frontal
+SRR22506998	qbt-L-F7-8-31_BRRL200008124-1A	qbt_L_F7	Macaca fascicularis	ILLUMINA	qbt	L	F7		1		F7	agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)	Frontal	PMCdl	F7	Yes	Frontal	Frontal
+SRR22506997	qbt-L-FST-8-27_BRRL200007928-1A	qbt_L_FST	Macaca fascicularis	ILLUMINA	qbt	L	FST		1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22506996	qbt-L-G-8-14_BRRL200006262-1A	qbt_L_G	Macaca fascicularis	ILLUMINA	qbt	L	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506991	qbt-L-IPa-8-24_BRRL200007492-1A	qbt_L_IPa	Macaca fascicularis	ILLUMINA	qbt	L	IPa		1		IPa	area Ipa,sts fundus	Temporal 	TCc	IPa	Yes	Temporal	Temporal
+SRR22506995	qbt-L-Ial-8-14_BRRL200006263-1A	qbt_L_Ial	Macaca fascicularis	ILLUMINA	qbt	L	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22506994	qbt-L-Iapm-8-14_BRRL200006264-1A	qbt_L_Iapm	Macaca fascicularis	ILLUMINA	qbt	L	Iapm		1		Iapm	posteromedial agranular insula area	Insula	Ia	Iapm	Yes	Insula	Insula
+SRR22506993	qbt-L-Id-8-10_BRRL200004966-1A	qbt_L_Id	Macaca fascicularis	ILLUMINA	qbt	L	Id		1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506992	qbt-L-Ig-8-10_BRRL200004965-1A	qbt_L_Ig	Macaca fascicularis	ILLUMINA	qbt	L	Ig		1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22506988	qbt-L-LIpd-8-27_BRRL200007562-1A	qbt_L_LIPd_rep2	Macaca fascicularis	ILLUMINA	qbt	L	LIPd	rep2	1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506990	qbt-L-LIpd_BRRL200004705-1A	qbt_L_LIPd_rep1	Macaca fascicularis	ILLUMINA	qbt	L	LIPd	rep1	1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506987	qbt-L-LIpv-8-27_BRRL200007561-1A	qbt_L_LIPv	Macaca fascicularis	ILLUMINA	qbt	L	LIPv		1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22506986	qbt-L-MST-8-27_BRRL200007927-1A	qbt_L_MST	Macaca fascicularis	ILLUMINA	qbt	L	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22506985	qbt-L-PGa-8-24_BRRL200007491-1A	qbt_L_PGa	Macaca fascicularis	ILLUMINA	qbt	L	PGa		1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22506983	qbt-L-Prco-8-14_BRRL200006261-1A	qbt_L_PrCo	Macaca fascicularis	ILLUMINA	qbt	L	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22506982	qbt-L-SII-8-2_BRRL200004959-1A	qbt_L_SII	Macaca fascicularis	ILLUMINA	qbt	L	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22506981	qbt-L-STGr-8-2_BRRL200004957-1A	qbt_L_STG	Macaca fascicularis	ILLUMINA	qbt	L	STG		1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506980	qbt-L-TEa-8-10_BRRL200004968-1A	qbt_L_TEa	Macaca fascicularis	ILLUMINA	qbt	L	TEa		1		TEa	area TEa,sts ventral bank	Temporal 	TCc	TEa	Yes	Temporal	Temporal
+SRR22506979	qbt-L-TEad-8-11_BRRL200004969-1A	qbt_L_TEad	Macaca fascicularis	ILLUMINA	qbt	L	TEad		1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22506977	qbt-L-TPO-8-24_BRRL200007490-1A	qbt_L_TPO	Macaca fascicularis	ILLUMINA	qbt	L	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506976	qbt-L-TPt-8-27_BRRL200007926-1A	qbt_L_Tpt	Macaca fascicularis	ILLUMINA	qbt	L	Tpt		1		Tpt	temporo-parietal area	Temporal 	TCs	Tpt	Yes	Temporal	Temporal
+SRR22506975	qbt-L-V4-8-27_BRRL200007929-1A	qbt_L_V4	Macaca fascicularis	ILLUMINA	qbt	L	V4		1		V4	visual area 4,dorsal part	Occipital	VACd	V4	Yes	Occipital	Occipital
+SRR22506974	qbt-L-VIP-8-27_BRRL200007560-1A	qbt_L_VIP	Macaca fascicularis	ILLUMINA	qbt	L	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22506984	qbt-L-pi-8-10_BRRL200004967-1A	qbt_L_Pi	Macaca fascicularis	ILLUMINA	qbt	L	Pi		1		Pi	parainsular area	Insula	Ia	Pi	Yes	Insula	Insula
+SRR22506973	qbt-R-3a-b-7-27_BRRL200004714-1A	qbt_R_3a/b	Macaca fascicularis	ILLUMINA	qbt	R	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22506972	qbt-R-46d-8-18_BRRL200006272-1A	qbt_R_46d	Macaca fascicularis	ILLUMINA	qbt	R	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22506971	qbt-R-46v-8-18_BRRL200006273-1A	qbt_R_46v	Macaca fascicularis	ILLUMINA	qbt	R	46v		1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22506970	qbt-R-7a-7-29_BRRL200004940-1A	qbt_R_7a	Macaca fascicularis	ILLUMINA	qbt	R	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22506969	qbt-R-9d-8-18_BRRL200006271-1A	qbt_R_9d	Macaca fascicularis	ILLUMINA	qbt	R	9d		1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22506968	qbt-R-F2_BRRL200004708-1A	qbt_R_F2	Macaca fascicularis	ILLUMINA	qbt	R	F2		1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22506966	qbt-R-F4-8-19_BRRL200006274-1A	qbt_R_F4	Macaca fascicularis	ILLUMINA	qbt	R	F4		1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22506965	qbt-R-FST-7-29_BRRL200004943-1A	qbt_R_FST	Macaca fascicularis	ILLUMINA	qbt	R	FST		1		FST	floor of superior temporal area	Temporal 	TCs	FST	Yes	Temporal	Temporal
+SRR22506964	qbt-R-G-8-19_BRRL200006276-1A	qbt_R_G	Macaca fascicularis	ILLUMINA	qbt	R	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506963	qbt-R-Iapl-8-19_BRRL200006277-1A	qbt_R_Iapl	Macaca fascicularis	ILLUMINA	qbt	R	Iapl		1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22506962	qbt-R-LIpd-7-29_BRRL200004939-1A	qbt_R_LIPd	Macaca fascicularis	ILLUMINA	qbt	R	LIPd		1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506961	qbt-R-MST-7-29_BRRL200004941-1A	qbt_R_MST	Macaca fascicularis	ILLUMINA	qbt	R	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22506960	qbt-R-MT-7-29_BRRL200004942-1A	qbt_R_MT	Macaca fascicularis	ILLUMINA	qbt	R	MT		1		MT				MT	Yes	Temporal	Temporal
+SRR22506959	qbt-R-PGa-9-2_BRRL200008318-1A	qbt_R_PGa	Macaca fascicularis	ILLUMINA	qbt	R	PGa		1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22507250	qbt-R-Prco-8-19_BRRL200006275-1A	qbt_R_PrCo	Macaca fascicularis	ILLUMINA	qbt	R	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22507249	qbt-R-R-9-2_BRRL200008317-1A	qbt_R_R	Macaca fascicularis	ILLUMINA	qbt	R	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22507247	qbt-R-SII-9-2_BRRL200008316-1A	qbt_R_SII	Macaca fascicularis	ILLUMINA	qbt	R	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22507246	qbt-R-TEav-9-3_BRRL200008320-1A	qbt_R_TEav	Macaca fascicularis	ILLUMINA	qbt	R	TEav		1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22507245	qbt-R-TEm-9-2_BRRL200008319-1A	qbt_R_TEm	Macaca fascicularis	ILLUMINA	qbt	R	TEm		1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22507244	qbt-R-V2-7-29_BRRL200004946-1A	qbt_R_V2	Macaca fascicularis	ILLUMINA	qbt	R	V2		1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22507243	qbt-R-V3v-7-29_BRRL200004945-1A	qbt_R_V3v	Macaca fascicularis	ILLUMINA	qbt	R	V3v		1		V3v	visual area 3, ventral part	Occipital	VACv	V3v	Yes	Occipital	Occipital
+SRR22507242	qbt-R-V4v-7-29_BRRL200004944-1A	qbt_R_V4v	Macaca fascicularis	ILLUMINA	qbt	R	V4v		1		V4v	visual area 4,ventral part	Occipital	TCv	V4v	Yes	Occipital	Occipital
+SRR22507241	qbt-R-VIP-7-29_BRRL200004938-1A	qbt_R_VIP	Macaca fascicularis	ILLUMINA	qbt	R	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22507180	xz-L-1-2-8-2_BRRL200004962-1A	xz_L_1-2	Macaca fascicularis	ILLUMINA	xz	L	1-2		1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22507186	xz-L-10m-10o_BRRL200004691-1A	xz_L_10m_rep1	Macaca fascicularis	ILLUMINA	xz	L	10m	rep1	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22507184	xz-L-10m_BRRL200004692-1A	xz_L_10m_rep2	Macaca fascicularis	ILLUMINA	xz	L	10m	rep2	1		10m	frontal polar,area 10m[10mc+10mr]	Frontal	PFCm	10m	Yes	Frontal	Frontal
+SRR22507183	xz-L-10o_BRRL200004693-1A	xz_L_10o	Macaca fascicularis	ILLUMINA	xz	L	10o		1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22507182	xz-L-11l_BRRL200004695-1A	xz_L_11l	Macaca fascicularis	ILLUMINA	xz	L	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22507181	xz-L-11m_BRRL200004694-1A	xz_L_11m	Macaca fascicularis	ILLUMINA	xz	L	11m		1		11m	orbital prefrontal area,area 11m	Frontal	PFCom	11m	Yes	Frontal	Frontal
+SRR22507179	xz-L-12m-8-12_BRRL200004980-1A	xz_L_12m	Macaca fascicularis	ILLUMINA	xz	L	12m		1		12m	lateral prefrontal cortex,area 12m,medial part	Frontal	PFCol	12m	Yes	Frontal	Frontal
+SRR22507178	xz-L-12o-9-1_BRRL200008312-1A	xz_L_12o	Macaca fascicularis	ILLUMINA	xz	L	12o		1		12o	lateral prefrontal cortex,area 12o,orbital part	Frontal	PFCol	12o	Yes	Frontal	Frontal
+SRR22507177	xz-L-12r-8-12_BRRL200004979-1A	xz_L_12r	Macaca fascicularis	ILLUMINA	xz	L	12r		1		12r	lateral prefrontal cortex,area 12r,rostal part?	Frontal	PFCol	12r	Yes	Frontal	Frontal
+SRR22507176	xz-L-13b-8-12_BRRL200004981-1A	xz_L_13b	Macaca fascicularis	ILLUMINA	xz	L	13b		1		13b	orbitomedial prefrontal cortex,area 13b	Frontal	PFCom	13b	Yes	Frontal	Frontal
+SRR22507175	xz-L-13l-9-1_BRRL200008313-1A	xz_L_13l	Macaca fascicularis	ILLUMINA	xz	L	13l		1		13l	orbitomedial prefrontal cortex,area 13l	Frontal	PFCol	13l	Yes	Frontal	Frontal
+SRR22507173	xz-L-13m-9-1_BRRL200008314-1A	xz_L_13m	Macaca fascicularis	ILLUMINA	xz	L	13m		1		13m	orbitomedial prefrontal cortex,area 13m	Frontal	PFCom	13m	Yes	Frontal	Frontal
+SRR22507172	xz-L-14c-9-1_BRRL200008315-1A	xz_L_14c	Macaca fascicularis	ILLUMINA	xz	L	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22507171	xz-L-14r-8-12_BRRL200004982-1A	xz_L_14r	Macaca fascicularis	ILLUMINA	xz	L	14r		1		14r	orbitomedial prefrontal area,14r	Frontal	PFCom	14r	Yes	Frontal	Frontal
+SRR22507170	xz-L-24c-8-11_BRRL200004974-1A	xz_L_24c_rep1	Macaca fascicularis	ILLUMINA	xz	L	24c	rep1	1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22507169	xz-L-24c-8-12_BRRL200004984-1A	xz_L_24c_rep2	Macaca fascicularis	ILLUMINA	xz	L	24c	rep2	1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22507168	xz-L-32-8-12_BRRL200004983-1A	xz_L_32	Macaca fascicularis	ILLUMINA	xz	L	32		1		32	orbitomedial prefrontal cortex,area 32	Frontal	PFCm	32	Yes	Frontal	Frontal
+SRR22507167	xz-L-3a-b-8-2_BRRL200004961-1A	xz_L_3a/b	Macaca fascicularis	ILLUMINA	xz	L	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22507166	xz-L-45-9-1_BRRL200008311-1A	xz_L_45	Macaca fascicularis	ILLUMINA	xz	L	45		1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22507165	xz-L-46d-8-12_BRRL200004977-1A	xz_L_46d	Macaca fascicularis	ILLUMINA	xz	L	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22507164	xz-L-46v-8-12_BRRL200004978-1A	xz_L_46v	Macaca fascicularis	ILLUMINA	xz	L	46v		1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22507161	xz-L-5-8-25_BRRL200007494-1A	xz_L_5	Macaca fascicularis	ILLUMINA	xz	L	5		1		5	somatosensory area 5 (complex)[PE+PEa+PEc]	Parietal	PCs	5	Yes	Parietal	Parietal
+SRR22507160	xz-L-7b-8-25_BRRL200007542-1A	xz_L_7b	Macaca fascicularis	ILLUMINA	xz	L	7b		1		7b	visual area 7b	Parietal	PCi	7b_(PFG/PF)	Yes	Parietal	Parietal
+SRR22507159	xz-L-7op-8-25_BRRL200007543-1A	xz_L_7op	Macaca fascicularis	ILLUMINA	xz	L	7op		1		7op	area 7op (parietal operculum)	Parietal	S2	7op	Yes	Parietal	Parietal
+SRR22507158	xz-L-8A-9-1_BRRL200008310-1A	xz_L_8A	Macaca fascicularis	ILLUMINA	xz	L	8A		1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22507157	xz-L-8Bd-9-1_BRRL200008308-1A	xz_L_8Bd	Macaca fascicularis	ILLUMINA	xz	L	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22507156	xz-L-8Bs-9-1_BRRL200008309-1A	xz_L_8Bs	Macaca fascicularis	ILLUMINA	xz	L	8Bs		1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22507155	xz-L-9d-8-12_BRRL200004976-1A	xz_L_9d	Macaca fascicularis	ILLUMINA	xz	L	9d		1		9d	area 9, dorsal subdivision	Frontal	PFCdl	9d	Yes	Frontal	Frontal
+SRR22506926	xz-L-9m-8-12_BRRL200004975-1A	xz_L_9m	Macaca fascicularis	ILLUMINA	xz	L	9m		1		9m	area 9, medial subdivision	Frontal	PFCdm	9m	Yes	Frontal	Frontal
+SRR22506925	xz-L-AI-8-25_BRRL200007545-1A	xz_L_AI	Macaca fascicularis	ILLUMINA	xz	L	AI		1		Ia	agranular insula	Insula	Ia	Ia	Yes	Insula	Insula
+SRR22506924	xz-L-AL_BRRL200004702-1A	xz_L_AL	Macaca fascicularis	ILLUMINA	xz	L	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506922	xz-L-CL-8-25_BRRL200007546-1A	xz_L_CL	Macaca fascicularis	ILLUMINA	xz	L	CL		1		CL	caudal lateral, belt region of the auditory cortex	Temporal 	TCs	CL	Yes	Temporal	Temporal
+SRR22506921	xz-L-CM-8-25_BRRL200007544-1A	xz_L_CM	Macaca fascicularis	ILLUMINA	xz	L	CM		1		CM	caudomedial, belt region of the auditory cortex	Temporal 	TCs	CM	Yes	Temporal	Temporal
+SRR22506920	xz-L-F1-8-2_BRRL200004960-1A	xz_L_F1	Macaca fascicularis	ILLUMINA	xz	L	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506919	xz-L-F2-8-2_BRRL200004964-1A	xz_L_F2	Macaca fascicularis	ILLUMINA	xz	L	F2		1		F2	agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)	Frontal	PMCdl	F2	Yes	Frontal	Frontal
+SRR22506918	xz-L-F4-8-17_BRRL200006266-1A	xz_L_F4	Macaca fascicularis	ILLUMINA	xz	L	F4		1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22506917	xz-L-F6-9-1_BRRL200008306-1A	xz_L_F6	Macaca fascicularis	ILLUMINA	xz	L	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22506916	xz-L-F7-9-1_BRRL200008307-1A	xz_L_F7	Macaca fascicularis	ILLUMINA	xz	L	F7		1		F7	agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)	Frontal	PMCdl	F7	Yes	Frontal	Frontal
+SRR22506915	xz-L-G-8-17_BRRL200006267-1A	xz_L_G	Macaca fascicularis	ILLUMINA	xz	L	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506914	xz-L-Ial_BRRL200004697-1A	xz_L_Ial	Macaca fascicularis	ILLUMINA	xz	L	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22506913	xz-L-Iapl-8-17_BRRL200006268-1A	xz_L_Iapl	Macaca fascicularis	ILLUMINA	xz	L	Iapl		1		Iapl	posterolateral agranular insula area	Insula	Ia	Iapl	Yes	Insula	Insula
+SRR22506911	xz-L-Iapm-8-17_BRRL200006269-1A	xz_L_Iapm	Macaca fascicularis	ILLUMINA	xz	L	Iapm		1		Iapm	posteromedial agranular insula area	Insula	Ia	Iapm	Yes	Insula	Insula
+SRR22506910	xz-L-Id_BRRL200004700-1A	xz_L_Id	Macaca fascicularis	ILLUMINA	xz	L	Id		1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506909	xz-L-Ig_BRRL200004699-1A	xz_L_Ig	Macaca fascicularis	ILLUMINA	xz	L	Ig		1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22506908	xz-L-LIdv-8-25_BRRL200007541-1A	xz_L_LIPv	Macaca fascicularis	ILLUMINA	xz	L	LIPv		1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22506907	xz-L-PGa_BRRL200004704-1A	xz_L_PGa	Macaca fascicularis	ILLUMINA	xz	L	PGa		1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22506906	xz-L-Prco_BRRL200006258-1A	xz_L_PrCo	Macaca fascicularis	ILLUMINA	xz	L	PrCo		1		PrCO	precentral opercular area	Frontal	PFCol	PrCO	Yes	Frontal	Frontal
+SRR22506905	xz-L-RM_BRRL200004701-1A	xz_L_RM	Macaca fascicularis	ILLUMINA	xz	L	RM		1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506904	xz-L-TEa-8-25_BRRL200007547-1A	xz_L_TEa	Macaca fascicularis	ILLUMINA	xz	L	TEa		1		TEa	area TEa,sts ventral bank	Temporal 	TCc	TEa	Yes	Temporal	Temporal
+SRR22506903	xz-L-TEo-8-25_BRRL200007548-1A	xz_L_TEO	Macaca fascicularis	ILLUMINA	xz	L	TEO		1		TEO	area TEO	Temporal 	TCc	TEO	Yes	Temporal	Temporal
+SRR22506902	xz-L-TEpv-8-25_BRRL200007549-1A	xz_L_TEpv	Macaca fascicularis	ILLUMINA	xz	L	TEpv		1		TEpv	ventral subregion of posterior TE	Temporal 	TCi	TEpv	Yes	Temporal	Temporal
+SRR22506900	xz-L-TFO-8-25_BRRL200007550-1A	xz_L_TFO	Macaca fascicularis	ILLUMINA	xz	L	TFO		1		TFO	area TFO of the parahippocampal cortex	Temporal 	PHC	TFO	Yes	Temporal	Temporal
+SRR22506899	xz-L-TPO_BRRL200004703-1A	xz_L_TPO	Macaca fascicularis	ILLUMINA	xz	L	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506898	xz-L-VIP-8-25_BRRL200007847-1A	xz_L_VIP	Macaca fascicularis	ILLUMINA	xz	L	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal
+SRR22506895	xz-R-1-2-7-28_BRRL200004925-1A	xz_R_1-2	Macaca fascicularis	ILLUMINA	xz	R	1-2		1		1-2	somatosensory areas 1 and 2	Parietal	S1	1-2	Yes	Parietal	Parietal
+SRR22506897	xz-R-10o_BRRL200004706-1A	xz_R_10o	Macaca fascicularis	ILLUMINA	xz	R	10o		1		10o	frontal polar anterior part,area 10o	Frontal	PFCpol	10o	Yes	Frontal	Frontal
+SRR22506896	xz-R-11l_BRRL200004707-1A	xz_R_11l	Macaca fascicularis	ILLUMINA	xz	R	11l		1		11l	obrital prefrontal area,area 11l	Frontal	PFCoi	11l	Yes	Frontal	Frontal
+SRR22506719	xz-R-14c-8-20_BRRL200006287-1A	xz_R_14c	Macaca fascicularis	ILLUMINA	xz	R	14c		1		14c	orbitomedial prefrontal area,14c	Frontal	PFCom	14c	Yes	Frontal	Frontal
+SRR22506718	xz-R-24a-7-28_BRRL200004937-1A	xz_R_24a	Macaca fascicularis	ILLUMINA	xz	R	24a		1		24a	anterior cingulate cortex,area 24a	Cingulate	CCa	24a	Yes	Cingulate	Cingulate
+SRR22506717	xz-R-24b_BRRL200004712-1A	xz_R_24b	Macaca fascicularis	ILLUMINA	xz	R	24b		1		24b	anterior cingulate cortex,area 24b	Cingulate	CCa	24b	Yes	Cingulate	Cingulate
+SRR22506714	xz-R-24c-9-3_BRRL200008323-1A	xz_R_24c_rep2	Macaca fascicularis	ILLUMINA	xz	R	24c	rep2	1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22506716	xz-R-24c_BRRL200004713-1A	xz_R_24c_rep1	Macaca fascicularis	ILLUMINA	xz	R	24c	rep1	1		24c	anterior cingulate cortex,area 24c	Cingulate	CCa	24c	Yes	Cingulate	Cingulate
+SRR22506713	xz-R-3a-b-7-28_BRRL200004924-1A	xz_R_3a/b	Macaca fascicularis	ILLUMINA	xz	R	3a/b		1		3a/b	somatosensory areas 3a and 3b	Parietal	S1	3a/b	Yes	Parietal	Parietal
+SRR22506712	xz-R-45-8-20_BRRL200006286-1A	xz_R_45	Macaca fascicularis	ILLUMINA	xz	R	45		1		45	area 45[45A+45B]	Frontal	PFCvl	45	Yes	Frontal	Frontal
+SRR22506711	xz-R-46d-8-20_BRRL200006284-1A	xz_R_46d	Macaca fascicularis	ILLUMINA	xz	R	46d		1		46d	area 46, dorsal subdivision	Frontal	PFCdl	46d	Yes	Frontal	Frontal
+SRR22506710	xz-R-46v-8-20_BRRL200006285-1A	xz_R_46v	Macaca fascicularis	ILLUMINA	xz	R	46v		1		46v	area 46, ventral subdivision	Frontal	PFCvl	46v	Yes	Frontal	Frontal
+SRR22506709	xz-R-7a-7-30_BRRL200004951-1A	xz_R_7a	Macaca fascicularis	ILLUMINA	xz	R	7a		1		7a	visual area 7a	Parietal	PCi	7a_(Opt/PG)	Yes	Parietal	Parietal
+SRR22506708	xz-R-7m-7-30_BRRL200004947-1A	xz_R_7m	Macaca fascicularis	ILLUMINA	xz	R	7m		1		7m	area 7m in the medial parietal cortex	Parietal	PCm	7m(PGm)	Yes	Parietal	Parietal
+SRR22506707	xz-R-8A-8-20_BRRL200006283-1A	xz_R_8A	Macaca fascicularis	ILLUMINA	xz	R	8A		1		8A	area 8A[8Ad+8Av]	Frontal	FEF	8Av	Yes	Frontal	Frontal
+SRR22506706	xz-R-8Bd-8-20_BRRL200006281-1A	xz_R_8Bd	Macaca fascicularis	ILLUMINA	xz	R	8Bd		1		8Bd	area 8B,dorsal subdivision	Frontal	PFCdl	8Bd	Yes	Frontal	Frontal
+SRR22506705	xz-R-8Bs-8-20_BRRL200006282-1A	xz_R_8Bs	Macaca fascicularis	ILLUMINA	xz	R	8Bs		1		8Bs	area 8B in the arcuate sulcus(“s” stands for sulcus)	Frontal	FEF	8Bs	Yes	Frontal	Frontal
+SRR22506703	xz-R-AL-8-26_BRRL200007554-1A	xz_R_AL	Macaca fascicularis	ILLUMINA	xz	R	AL		1		AL	anterior lateral, belt region of the auditory cortex	Temporal 	TCs	AL	Yes	Temporal	Temporal
+SRR22506702	xz-R-F1-7-28_BRRL200004923-1A	xz_R_F1	Macaca fascicularis	ILLUMINA	xz	R	F1		1		F1	agranular frontal area F1,M1 (Primary motor cortex)	Frontal	M1	F1_(4)	Yes	Frontal	Frontal
+SRR22506701	xz-R-F4_BRRL200004709-1A	xz_R_F4	Macaca fascicularis	ILLUMINA	xz	R	F4		1		F4	agranular frontal area F4,PMv (ventral premotor cortex)	Frontal	PMCvl	F4	Yes	Frontal	Frontal
+SRR22506700	xz-R-F6-8-20_BRRL200006279-1A	xz_R_F6	Macaca fascicularis	ILLUMINA	xz	R	F6		1		F6	agranular frontal area F6,PreSMA (presupplementary motor area)	Frontal	PFCdm	F6	Yes	Frontal	Frontal
+SRR22506699	xz-R-F7-8-20_BRRL200006280-1A	xz_R_F7	Macaca fascicularis	ILLUMINA	xz	R	F7		1		F7	agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)	Frontal	PMCdl	F7	Yes	Frontal	Frontal
+SRR22506698	xz-R-G_BRRL200004710-1A	xz_R_G	Macaca fascicularis	ILLUMINA	xz	R	G		1		G	gustatory cortex	Insula	G	G	Yes	Insula	Insula
+SRR22506697	xz-R-Ial_BRRL200004711-1A	xz_R_Ial	Macaca fascicularis	ILLUMINA	xz	R	Ial		1		Ial	lateral agranular insula area	Insula	Ia	Ial	Yes	Insula	Insula
+SRR22506696	xz-R-Id-7-28_BRRL200004928-1A	xz_R_Id	Macaca fascicularis	ILLUMINA	xz	R	Id		1		Id	dysgranular insula	Insula	Ip	Id	Yes	Insula	Insula
+SRR22506695	xz-R-Ig-7-28_BRRL200004927-1A	xz_R_Ig	Macaca fascicularis	ILLUMINA	xz	R	Ig		1		Ig	granular insula	Insula	Ip	Ig	Yes	Insula	Insula
+SRR22506694	xz-R-Ipa-7-28_BRRL200004934-1A	xz_R_IPa	Macaca fascicularis	ILLUMINA	xz	R	IPa		1		IPa	area Ipa,sts fundus	Temporal 	TCc	IPa	Yes	Temporal	Temporal
+SRR22506692	xz-R-LIpd-7-30_BRRL200004949-1A	xz_R_LIPd	Macaca fascicularis	ILLUMINA	xz	R	LIPd		1		LIPd	lateral intraparietal area, dorsal subdivision	Parietal	PCip	LIPd	Yes	Parietal	Parietal
+SRR22506691	xz-R-LIpv-7-30_BRRL200004950-1A	xz_R_LIPv	Macaca fascicularis	ILLUMINA	xz	R	LIPv		1		LIPv	lateral intraparietal area, ventral subdivision	Parietal	PCip	LIPv	Yes	Parietal	Parietal
+SRR22506690	xz-R-MST-7-30_BRRL200004952-1A	xz_R_MST	Macaca fascicularis	ILLUMINA	xz	R	MST		1		MST	medial superior temporal area	Temporal 	VACd	MST	Yes	Temporal	Temporal
+SRR22506689	xz-R-PGa-7-28_BRRL200004933-1A	xz_R_PGa	Macaca fascicularis	ILLUMINA	xz	R	PGa		1		PGa	area Pga,dorsal bank/fundus junction of the STS	Temporal 	TCc	PGa	Yes	Temporal	Temporal
+SRR22506688	xz-R-Pi-8-26_BRRL200007553-1A	xz_R_Pi	Macaca fascicularis	ILLUMINA	xz	R	Pi		1		Pi	parainsular area	Insula	Ia	Pi	Yes	Insula	Insula
+SRR22506495	xz-R-R-7-28_BRRL200004930-1A	xz_R_R	Macaca fascicularis	ILLUMINA	xz	R	R		1		R	rostral, core region of the auditory cortex	Temporal 	A1	R	Yes	Temporal	Temporal
+SRR22506494	xz-R-RM-7-28_BRRL200004929-1A	xz_R_RM	Macaca fascicularis	ILLUMINA	xz	R	RM		1		RM	rostromedial, belt region of the auditory cortex	Temporal 	TCs	RM	Yes	Temporal	Temporal
+SRR22506493	xz-R-SII-7-28_BRRL200004926-1A	xz_R_SII	Macaca fascicularis	ILLUMINA	xz	R	SII		1		SII	secondary somatosensory area (S2)	Parietal	S2	SII	Yes	Parietal	Parietal
+SRR22506492	xz-R-STGr-8-26_BRRL200007555-1A	xz_R_STG	Macaca fascicularis	ILLUMINA	xz	R	STG		1		STG	superior temporal gyrus	Temporal 	TCs	STG	Yes	Temporal	Temporal
+SRR22506491	xz-R-TAa-7-28_BRRL200004931-1A	xz_R_TAa	Macaca fascicularis	ILLUMINA	xz	R	TAa		1		TAa	area TAa,sts dorsal bank	Temporal 	TCs	TAa	Yes	Temporal	Temporal
+SRR22506489	xz-R-TEa-7-28_BRRL200004935-1A	xz_R_TEa	Macaca fascicularis	ILLUMINA	xz	R	TEa		1		TEa	area TEa,sts ventral bank	Temporal 	TCc	TEa	Yes	Temporal	Temporal
+SRR22506488	xz-R-TEad-8-26_BRRL200007556-1A	xz_R_TEad	Macaca fascicularis	ILLUMINA	xz	R	TEad		1		TEad	dorsal subregion of anterior TE	Temporal 	TCi	TEad	Yes	Temporal	Temporal
+SRR22506487	xz-R-TEav-9-3_BRRL200008321-1A	xz_R_TEav	Macaca fascicularis	ILLUMINA	xz	R	TEav		1		TEav	ventral subregion of anterior TE	Temporal 	TCi	TEav	Yes	Temporal	Temporal
+SRR22506486	xz-R-TEm-7-28_BRRL200004936-1A	xz_R_TEm	Macaca fascicularis	ILLUMINA	xz	R	TEm		1		TEm	area TEm,sts ventral bank 	Temporal 	TCc	TEm	Yes	Temporal	Temporal
+SRR22506485	xz-R-TPO-7-28_BRRL200004932-1A	xz_R_TPO	Macaca fascicularis	ILLUMINA	xz	R	TPO		1		TPO	area TPO,sts dorsal bank	Temporal 	TCc	TPO	Yes	Temporal	Temporal
+SRR22506484	xz-R-V2-7-30_BRRL200004953-1A	xz_R_V2	Macaca fascicularis	ILLUMINA	xz	R	V2		1		V2	visual area 2	Occipital	V2	V2	Yes	Occipital	Occipital
+SRR22506483	xz-R-VIP-7-30_BRRL200004948-1A	xz_R_VIP	Macaca fascicularis	ILLUMINA	xz	R	VIP		1		VIP	ventral intraparietal area	Parietal	PCip	VIP	Yes	Parietal	Parietal

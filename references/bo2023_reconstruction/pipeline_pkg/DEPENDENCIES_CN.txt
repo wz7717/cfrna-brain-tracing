@@ -1,0 +1,11 @@
+建议软件版本
+- sra-tools（含 prefetch / fasterq-dump）
+- STAR
+- subread（含 featureCounts）
+- Python 3.10+
+- pandas
+
+conda 示例：
+conda create -n macaque_bulk python=3.11 pandas -y
+conda activate macaque_bulk
+conda install -c bioconda sra-tools star subread -y

@@ -1,0 +1,31 @@
+{
+  "created_at": "2026-05-25T05:50:12.766877+00:00",
+  "dataset": "Bo2023_WangLab_VSD_region",
+  "endpoint": "SaleemNetworks",
+  "n_training_samples": 819,
+  "n_networks": 10,
+  "n_genes": 200,
+  "method": "fold-validated discriminative-gene Pearson correlation",
+  "input_requirement": "sample values must be on the same Bo2023 VSD-normalized scale",
+  "full_loso_validation": {
+    "n": 819,
+    "top1_hits": 432,
+    "top1_accuracy": 0.5274725274725275,
+    "top3_hits": 721,
+    "top3_accuracy": 0.8803418803418803,
+    "macro_auc": 0.8121999950549788,
+    "median_true_rank": 1.0
+  },
+  "formal_route_validation": {
+    "method": "discriminative_gene_pearson_correlation_with_top3_pairwise_rescue_margin0p002",
+    "n": 819,
+    "top1_hits": 457,
+    "top1_accuracy": 0.557997557997558,
+    "top3_hits": 721,
+    "top3_accuracy": 0.8803418803418803,
+    "median_true_rank": 1.0,
+    "n_pairwise_switches": 99,
+    "paired_top1_gains_vs_top200": 45,
+    "paired_top1_losses_vs_top200": 20
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "created_at": "2026-06-12",
+  "purpose": "tumor-domain exploratory Network tracing with strict OOD rejection",
+  "input_scale": "TPM; inference applies log1p and within-sample quantile mapping to monkey VSD target",
+  "n_genes": 200,
+  "n_networks": 10,
+  "gene_filters": {
+    "ensembl_one2one_high_confidence_human_macaque_ortholog": true,
+    "valid_human_symbol_and_present_in_tcga_lgg": true,
+    "rank_shift_quantile": 0.75,
+    "tumor_pc1_loading_quantile": 0.9,
+    "hallmark_tumor_state_filter": false,
+    "balanced_markers_per_network": 20
+  },
+  "class_prior_calibration": {
+    "implemented": true,
+    "nested_gate_result": "disabled_no_macro_recall_gain",
+    "offsets": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "ood_rejection": {
+    "metric": "maximum Pearson correlation",
+    "calibration": "monkey leave-one-out",
+    "quantile": 0.05,
+    "threshold": 0.9568403841011787
+  },
+  "source_domain_fixed_panel_diagnostic": {
+    "n": 819,
+    "top1_accuracy": 0.5286935286935287,
+    "top3_accuracy": 0.8363858363858364,
+    "note": "Fixed-panel LOO diagnostic; gene selection used full source labels and is not formal leakage-free LOSO."
+  }
+}

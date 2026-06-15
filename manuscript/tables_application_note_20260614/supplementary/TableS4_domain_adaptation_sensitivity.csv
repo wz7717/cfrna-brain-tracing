@@ -1,0 +1,6 @@
+﻿Route,Analysis role,Uses target unlabeled distribution,Uses paired labels internally,Network Top-1 tolerant,Network Top-3 tolerant,Broad Top-3 tolerant
+Baseline,Locked,No,No,4.69%,35.94%,83.08%
+Adapted raw TPM,Exploratory sensitivity,No,No,7.81%,43.75%,76.92%
+Adapted log1p,Exploratory sensitivity,No,No,14.06%,43.75%,64.62%
+Adapted harmonized,Transductive sensitivity; tie-aware retraining required,Yes,No,20.31%,48.44%,60.00%
+Harmonized + calibrated,Cohort-internal experiment; tie-aware retraining required,Yes,Yes,20.31%,46.88%,70.77%
