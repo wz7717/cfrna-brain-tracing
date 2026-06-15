@@ -55,7 +55,7 @@ manuscript/node_modules/
 manuscript/rendered_*/
 manuscript/soffice_*/
 manuscript/__pycache__/
-manuscript/Bioinformatics_Draft*/
+manuscript/Bioinformatics_Draft*
 manuscript/figures_publication*/
 manuscript/tables_publication*/
 manuscript/*a11y*.json
