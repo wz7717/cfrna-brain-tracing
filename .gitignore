@@ -33,6 +33,8 @@ __pycache__/
 
 # Raw, downloaded, patient-level, and restricted datasets
 data/*
+!data/*.py
+!data/__init__.py
 !data/models/
 !data/models/**
 bo2023 data/
@@ -75,7 +77,6 @@ tmp_article.txt
 # Office and PDF scratch files
 ~$*.docx
 *.temp.pdf
-output/pdf/rendered_*/
 
 # Local recovery / temporary files
 sqlite_recovery_backup_*/
