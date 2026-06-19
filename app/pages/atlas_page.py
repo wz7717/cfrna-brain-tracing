@@ -13,6 +13,7 @@ from app.database_mode import DATABASE_MODES, database_label, get_database_mode,
 from app.i18n import tr
 from app.shared import DB_PATH, render_page_hero, render_result_hint
 from data.dao import get_atlas_options
+from data import remote_atlas_api
 
 
 @st.cache_data(show_spinner=False)
@@ -241,8 +242,8 @@ def _load_bo2023_m1_s1_expression(atlas_id: int, gene_symbols: tuple[str, ...]) 
 @st.cache_data(show_spinner=False)
 def _load_atlas_catalog() -> pd.DataFrame:
     if _missing_bo2023_objects(["atlas_versions"]):
-        return pd.DataFrame()
-    return _load_table(
+        return remote_atlas_api.atlas_catalog()
+    df = _load_table(
         """
         SELECT atlas_id, atlas_name, species, level, build_version, gene_id_type,
                normalization, created_at, notes
@@ -250,10 +251,13 @@ def _load_atlas_catalog() -> pd.DataFrame:
         ORDER BY atlas_id DESC
         """
     )
+    return remote_atlas_api.atlas_catalog() if df.empty else df
 
 
 @st.cache_data(show_spinner=False)
 def _load_atlas_region_options(atlas_id: int) -> pd.DataFrame:
+    if remote_atlas_api.is_configured() and _load_atlas_catalog().empty is False and _missing_bo2023_objects(["reference_expression"]):
+        return remote_atlas_api.atlas_regions(atlas_id)
     return _load_table(
         """
         SELECT
@@ -272,6 +276,8 @@ def _load_atlas_region_options(atlas_id: int) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def _load_atlas_celltype_options(atlas_id: int) -> pd.DataFrame:
+    if remote_atlas_api.is_configured() and _missing_bo2023_objects(["reference_expression"]):
+        return remote_atlas_api.atlas_celltypes(atlas_id)
     return _load_table(
         """
         SELECT cell_type_marker, COUNT(DISTINCT gene_symbol) AS n_genes
@@ -302,6 +308,8 @@ def _expression_filter_sql(region_ids: list[str], celltype: str | None) -> tuple
 
 @st.cache_data(show_spinner=False)
 def _load_atlas_region_ranking(atlas_id: int, region_ids: tuple[str, ...], celltype: str | None) -> pd.DataFrame:
+    if remote_atlas_api.is_configured() and _missing_bo2023_objects(["reference_expression"]):
+        return remote_atlas_api.atlas_region_ranking(atlas_id, region_ids, celltype)
     extra_sql, extra_params = _expression_filter_sql(list(region_ids), celltype)
     return _load_table(
         f"""
@@ -325,6 +333,8 @@ def _load_atlas_region_ranking(atlas_id: int, region_ids: tuple[str, ...], cellt
 
 @st.cache_data(show_spinner=False)
 def _load_atlas_gene_candidates(atlas_id: int, region_ids: tuple[str, ...], celltype: str | None, limit: int = 40) -> list[str]:
+    if remote_atlas_api.is_configured() and _missing_bo2023_objects(["reference_expression"]):
+        return remote_atlas_api.atlas_gene_candidates(atlas_id, region_ids, celltype, limit)
     extra_sql, extra_params = _expression_filter_sql(list(region_ids), celltype)
     df = _load_table(
         f"""
@@ -351,6 +361,8 @@ def _load_atlas_expression_matrix(
     gene_symbols: tuple[str, ...],
     celltype: str | None,
 ) -> pd.DataFrame:
+    if remote_atlas_api.is_configured() and _missing_bo2023_objects(["reference_expression"]):
+        return remote_atlas_api.atlas_expression_matrix(atlas_id, region_ids, gene_symbols, celltype)
     genes = [g.strip().upper() for g in gene_symbols if g.strip()]
     extra_sql, extra_params = _expression_filter_sql(list(region_ids), celltype)
     gene_sql = ""
@@ -376,6 +388,8 @@ def _load_atlas_expression_matrix(
 
 @st.cache_data(show_spinner=False)
 def _load_marker_evidence(atlas_id: int, region_ids: tuple[str, ...], celltype: str | None, limit: int = 200) -> pd.DataFrame:
+    if remote_atlas_api.is_configured() and _missing_bo2023_objects(["reference_expression"]):
+        return remote_atlas_api.marker_evidence(atlas_id, region_ids, celltype, limit)
     sigset = _load_table(
         """
         SELECT sigset_id, method, topk_per_region, created_at

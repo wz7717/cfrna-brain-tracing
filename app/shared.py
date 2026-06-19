@@ -6,7 +6,6 @@ from html import escape
 import os
 import sqlite3
 import types
-import urllib.request
 import pandas as pd
 import streamlit as st
 from app.i18n import tr
@@ -697,56 +696,13 @@ def render_result_hint(text: str) -> None:
     return None
 
 
-def _get_config_value(name: str) -> str | None:
-    value = os.environ.get(name)
-    if value:
-        return value
-    try:
-        secret_value = st.secrets.get(name)
-    except Exception:
-        secret_value = None
-    return str(secret_value).strip() if secret_value else None
-
-
-def _download_database_if_configured(db_path: Path) -> bool:
-    url = _get_config_value("CFRNA_DB_URL")
-    if not url:
-        return False
-
-    db_path.parent.mkdir(parents=True, exist_ok=True)
-    tmp_path = db_path.with_suffix(db_path.suffix + ".download")
-    if tmp_path.exists():
-        tmp_path.unlink()
-
-    st.info(tr("正在下载远程参考数据库，首次启动可能需要几分钟。", "Downloading the remote reference database; first startup can take a few minutes."))
-    with urllib.request.urlopen(url, timeout=300) as response, tmp_path.open("wb") as fh:
-        while True:
-            chunk = response.read(1024 * 1024)
-            if not chunk:
-                break
-            fh.write(chunk)
-
-    if tmp_path.stat().st_size == 0:
-        tmp_path.unlink(missing_ok=True)
-        raise RuntimeError("Downloaded database is empty.")
-
-    sqlite3.connect(tmp_path).execute("PRAGMA schema_version").connection.close()
-    tmp_path.replace(db_path)
-    return True
-
-
 @st.cache_resource
 def init_database() -> str:
     db_path = Path(DB_PATH)
-    downloaded = False
-    if not db_path.exists():
-        downloaded = _download_database_if_configured(db_path)
     db = CSFRNASourceDatabase(DB_PATH)
     if not db_path.exists(): db.initialize_database(); db.close()
     else: db.connect(); db.create_database_schema(); db.close()
     run_migrations(DB_PATH)
-    if downloaded:
-        st.success(tr("远程参考数据库已加载。", "Remote reference database loaded."))
     buildkit_dir = PROJECT_ROOT / "bo2023_bulk_atlas_buildkit"
     try:
         if buildkit_dir.exists():
