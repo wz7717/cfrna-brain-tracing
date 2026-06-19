@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from core.models import softmax_confidence, trace_corr
+from core.reference_projection import apply_projector, load_projector_npz
 
 
 DEFAULT_BO2023_NETWORK_MODEL = (
@@ -23,6 +24,12 @@ DEFAULT_BO2023_NETWORK_PAIRWISE_RESCUE = (
     / "data"
     / "models"
     / "bo2023_saleem_network_pairwise_rescue_model.json"
+)
+DEFAULT_BO2023_REFERENCE_PROJECTOR = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "models"
+    / "bo2023_reference_projector_linear_full.npz"
 )
 
 
@@ -127,19 +134,62 @@ def _apply_pairwise_rescue(
     return order, {"enabled": True, "switched": False}
 
 
+@lru_cache(maxsize=2)
+def _load_reference_projector(projector_path: Path = DEFAULT_BO2023_REFERENCE_PROJECTOR):
+    if not projector_path.exists():
+        return None
+    return load_projector_npz(projector_path)
+
+
+def _sample_logcpm_series(expression: pd.DataFrame) -> tuple[pd.Series, str]:
+    sample = expression.dropna(subset=["gene_symbol"]).copy()
+    sample["gene_symbol"] = sample["gene_symbol"].astype(str).str.strip()
+    if "read_count" in sample.columns:
+        read_count = pd.to_numeric(sample["read_count"], errors="coerce").fillna(0.0).clip(lower=0.0)
+        if float(read_count.sum()) > 0:
+            cpm = read_count / float(read_count.sum()) * 1_000_000.0
+            sample["_score_value"] = np.log1p(cpm)
+            return sample.groupby("gene_symbol")["_score_value"].mean(), "read_count_logcpm"
+    if "log_tpm" in sample.columns:
+        sample["_score_value"] = pd.to_numeric(sample["log_tpm"], errors="coerce")
+        if sample["_score_value"].notna().any():
+            return sample.groupby("gene_symbol")["_score_value"].mean().fillna(0.0), "stored_log_tpm_fallback"
+    sample["tpm_value"] = pd.to_numeric(sample.get("tpm_value", 0.0), errors="coerce").fillna(0.0)
+    sample["_score_value"] = np.log1p(sample["tpm_value"].clip(lower=0.0))
+    return sample.groupby("gene_symbol")["_score_value"].mean(), "log1p_tpm_fallback"
+
+
 def trace_network_expression(
     expression: pd.DataFrame,
     model_path: Path = DEFAULT_BO2023_NETWORK_MODEL,
     metadata_path: Path = DEFAULT_BO2023_NETWORK_METADATA,
     pairwise_rescue_path: Path = DEFAULT_BO2023_NETWORK_PAIRWISE_RESCUE,
+    projector_path: Path = DEFAULT_BO2023_REFERENCE_PROJECTOR,
     min_overlap_fraction: float = 0.50,
+    project_to_vsd: bool = True,
 ) -> dict[str, Any]:
     model = load_network_model(model_path)
-    sample = expression[["gene_symbol", "tpm_value"]].dropna().copy()
-    sample["gene_symbol"] = sample["gene_symbol"].astype(str)
-    sample["tpm_value"] = pd.to_numeric(sample["tpm_value"], errors="coerce").fillna(0.0)
-    series = sample.groupby("gene_symbol")["tpm_value"].mean()
-    present = np.asarray([gene in series.index for gene in model["genes"]], dtype=bool)
+    input_series, input_scale = _sample_logcpm_series(expression)
+    projector = _load_reference_projector(projector_path) if project_to_vsd else None
+    projection_meta: dict[str, Any] = {
+        "enabled": bool(projector is not None and project_to_vsd),
+        "input_scale": input_scale,
+        "projector_path": str(projector_path) if projector_path else None,
+    }
+    if projector is not None and project_to_vsd:
+        projected = apply_projector(projector, pd.DataFrame({"query": input_series}))
+        series = projected["query"]
+        projection_meta.update(
+            {
+                "output_scale": "projected_vsd",
+                "n_projector_genes": int(len(projector.genes)),
+                "n_input_projector_overlap_genes": int(pd.Index(projector.genes).intersection(input_series.index).size),
+            }
+        )
+    else:
+        series = input_series
+        projection_meta["output_scale"] = input_scale
+    present = np.asarray([gene in input_series.index for gene in model["genes"]], dtype=bool)
     overlap_fraction = float(present.mean()) if len(present) else 0.0
     if overlap_fraction < float(min_overlap_fraction):
         return {
@@ -153,6 +203,7 @@ def trace_network_expression(
                 "overlap_fraction": overlap_fraction,
                 "traceability": "insufficient",
                 "error": "insufficient network-model gene overlap",
+                "reference_projection": projection_meta,
             },
         }
     vector = series.reindex(model["genes"]).fillna(0.0).to_numpy(dtype=float)
@@ -187,6 +238,7 @@ def trace_network_expression(
             "overlap_fraction": overlap_fraction,
             "traceability": "high",
             "pairwise_rescue": rescue_meta,
+            "reference_projection": projection_meta,
             "model_metadata": metadata,
             "pairwise_rescue_validation": pairwise_model.get("validation", {}) if pairwise_model else {},
         },

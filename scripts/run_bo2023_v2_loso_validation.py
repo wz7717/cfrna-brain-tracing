@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from reporting.benchmark_figure_export import export_benchmark_paper_figures  # noqa: E402
+from core.reference_projection import clean_excel_date_gene_symbol  # noqa: E402
 from scripts.run_bo2023_loso_validation import (  # noqa: E402
     build_region_reference,
     export_loso_dashboard,
@@ -43,7 +44,7 @@ DEFAULT_OUTDIR = ROOT / "results" / "bo2023_loso_30_v2_ensemble_adapted"
 def map_matrix_to_symbols(matrix: pd.DataFrame, gene_map_path: Path) -> pd.DataFrame:
     mapping = pd.read_csv(gene_map_path, usecols=["Gene.stable.ID", "Gene.name"])
     mapping["Gene.stable.ID"] = mapping["Gene.stable.ID"].astype(str).str.strip()
-    mapping["Gene.name"] = mapping["Gene.name"].astype(str).str.strip()
+    mapping["Gene.name"] = mapping["Gene.name"].map(clean_excel_date_gene_symbol)
     symbol_by_id = mapping.drop_duplicates("Gene.stable.ID").set_index("Gene.stable.ID")["Gene.name"]
     gene_symbols = matrix.index.to_series().map(symbol_by_id).replace("", pd.NA).fillna(matrix.index.to_series())
     out = matrix.groupby(gene_symbols, sort=True).mean()

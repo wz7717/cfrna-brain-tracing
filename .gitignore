@@ -75,6 +75,7 @@ tmp_article.txt
 # Office and PDF scratch files
 ~$*.docx
 *.temp.pdf
+output/pdf/rendered_*/
 
 # Local recovery / temporary files
 sqlite_recovery_backup_*/

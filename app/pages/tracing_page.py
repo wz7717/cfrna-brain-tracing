@@ -65,8 +65,8 @@ def _render_network_primary(network_out: dict) -> None:
     render_section_band(
         tr("Network 主结论", "Primary Network Conclusion"),
         tr(
-            "经验证的 SaleemNetworks 上层来源预测；精确 Region 排名在下方作为二级候选。",
-            "Validated SaleemNetworks-level source prediction; exact Region rankings remain secondary candidates below.",
+            "经验证的 projected VSD SaleemNetworks 上层来源预测；下方继续展示 logCPM resolution group 与 local exact rerank。",
+            "Validated projected-VSD SaleemNetworks-level source prediction; logCPM resolution-group and local exact reranking continue below.",
         ),
     )
     c1, c2, c3 = st.columns(3)
@@ -151,10 +151,10 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
     if network_out:
         _render_network_primary(network_out)
         render_section_band(
-            tr("Region 二级候选", "Secondary Region Candidates"),
+            tr("Region 三级候选", "Three-tier Region Candidates"),
             tr(
-                "精确脑区用于在 Network 主结论下继续探索，不继承 Network 层级的验证准确率。",
-                "Exact regions support exploration under the Network conclusion and do not inherit Network-level validation accuracy.",
+                "正式主线为 projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank。",
+                "The formal route is projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank.",
             ),
         )
         resolution = meta.get("region_resolution_annotation", {})
@@ -185,7 +185,7 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
     col_table, col_plot = st.columns([0.95, 1.05])
     with col_table:
         render_panel_header(
-            tr("Region 二级候选表" if network_out else "脑区排名表", "Secondary Region Candidate Table" if network_out else "Region Ranking Table"),
+            tr("Region 三级候选表" if network_out else "脑区排名表", "Three-tier Region Candidate Table" if network_out else "Region Ranking Table"),
             tr("展示候选脑区的得分、置信度、fraction 和稳定性。", "Top candidate regions with score, confidence, fraction and stability signals."),
         )
         rename = {
@@ -205,7 +205,7 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
         st.dataframe(df_rank.rename(columns=rename).head(top_regions), use_container_width=True, hide_index=True)
     with col_plot:
         render_panel_header(
-            tr("Region 二级候选图" if network_out else "脑区排名图", "Secondary Region Candidate Plot" if network_out else "Source Ranking Plot"),
+            tr("Region 三级候选图" if network_out else "脑区排名图", "Three-tier Region Candidate Plot" if network_out else "Source Ranking Plot"),
             tr("用条形图快速比较前列脑区。", "Quick visual comparison of leading source regions."),
         )
         st.plotly_chart(make_score_bar(df_rank.head(max(10, top_regions))), use_container_width=True)
@@ -432,8 +432,8 @@ def display_source_tracing() -> None:
     if is_vsd_atlas:
         st.info(
             tr(
-                "Bo2023 VSD 的正式输出采用两级口径：同尺度 VSD 输入配合相关性分析时，SaleemNetworks 为已验证的主结论，精确 Region 为二级候选。Marker/ensemble 仍仅作探索性对照。",
-                "Formal Bo2023 VSD output is two-level: for same-scale VSD input with correlation, SaleemNetworks is the validated primary conclusion and exact Regions are secondary candidates. Marker/ensemble remains exploratory.",
+                "Bo2023 VSD 的正式输出采用三级路线：projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank。Marker/ensemble 仍仅作探索性对照。",
+                "Formal Bo2023 VSD output uses the three-tier route: projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank. Marker/ensemble remains exploratory.",
             )
         )
     method_display = st.radio(
@@ -477,7 +477,7 @@ def display_source_tracing() -> None:
                     )
                     network_out = None
                     if is_vsd_atlas and _is_bo2023_atlas(atlas_meta) and method_key == "correlation":
-                        if use_value == "vsd" and DEFAULT_BO2023_NETWORK_MODEL.exists():
+                        if DEFAULT_BO2023_NETWORK_MODEL.exists():
                             network_out = trace_network_expression(cfrna_df)
                             if not network_out.get("results"):
                                 st.warning(
@@ -487,13 +487,6 @@ def display_source_tracing() -> None:
                                     )
                                 )
                                 network_out = None
-                        elif use_value != "vsd":
-                            st.info(
-                                tr(
-                                    "Network 主结论仅对与 Bo2023 reference 同尺度的 VSD 输入启用；当前输入尺度未经过该路径验证，因此仅展示 Region 候选结果。",
-                                    "The primary Network conclusion is enabled only for input on the same VSD scale as the Bo2023 reference. This input scale is not validated for that path, so only Region candidates are shown.",
-                                )
-                            )
                     if network_out:
                         secondary_out = trace_bo2023_secondary_regions(
                             cfrna_df,
@@ -511,7 +504,8 @@ def display_source_tracing() -> None:
                                     "The Bo2023-specific secondary Region scorer did not return results; falling back to the generic correlation Region ranking.",
                                 )
                             )
-                        out = annotate_region_candidates(out, network_out)
+                        if not out.get("meta", {}).get("region_resolution_annotation", {}).get("enabled"):
+                            out = annotate_region_candidates(out, network_out)
                     _render_v2_results(sample_id, out, top_regions, network_out=network_out)
                 else:
                     if use_markers:

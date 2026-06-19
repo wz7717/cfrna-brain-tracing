@@ -270,8 +270,13 @@ class DataProcessor:
 
     def get_sample_expression(self, sample_id: str) -> pd.DataFrame:
         with self._get_conn() as conn:
+            available = {row[1] for row in conn.execute("PRAGMA table_info(cfrna_expression)").fetchall()}
+            cols = ["gene_symbol", "tpm_value", "detected"]
+            for optional in ["read_count", "log_tpm", "zscore_tpm", "gene_id_type", "expression_unit"]:
+                if optional in available:
+                    cols.append(optional)
             return pd.read_sql_query(
-                "SELECT gene_symbol, tpm_value, detected FROM cfrna_expression WHERE sample_id = ?",
+                f"SELECT {', '.join(cols)} FROM cfrna_expression WHERE sample_id = ?",
                 conn,
                 params=[sample_id],
             )
