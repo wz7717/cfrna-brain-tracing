@@ -19,11 +19,11 @@ GitHub release, tag and Zenodo DOI have been completed.
 
 Zenodo DOI has been generated.
 
-- Version DOI: `https://doi.org/10.5281/zenodo.20773675`
-- Concept DOI: `https://doi.org/10.5281/zenodo.20773674`
+- Original v0.1.0 version DOI: `https://doi.org/10.5281/zenodo.20773675`
+- Concept DOI used in manuscript: `https://doi.org/10.5281/zenodo.20773674`
 - Zenodo record: `https://zenodo.org/records/20773675`
 - Zenodo title: `wz7717/cfrna-brain-tracing: cfRNA-BrainTrace v0.1.0`
 
 ## Manuscript Replacement
 
-The version DOI has been used for both the manuscript release DOI and the data/source archival DOI fields.
+The concept DOI has been used for both the manuscript release DOI and the data/source archival DOI fields so that the manuscript can point to the latest archived release while avoiding circular version-DOI insertion after publication.

@@ -33,7 +33,7 @@
 
 - Added: root-level MIT `LICENSE` file for the project with copyright holder `王震`.
 - Planned: release tag `v0.1.0`; not yet created locally because final submission assets are still being completed.
-- Zenodo archival DOI generated for the manuscript release: `https://doi.org/10.5281/zenodo.20773675`.
+- Zenodo archival concept DOI generated for the manuscript release: `https://doi.org/10.5281/zenodo.20773674`.
 - Stable Streamlit web-service URL supplied by author: `https://brain-cfrna-tracing.streamlit.app/`.
 - Added: synthetic public example input/output package under `submission_ready_assets/example_io/`.
 - Missing: separate public archival DOI for processed evaluation tables and figure source data.
@@ -42,12 +42,12 @@
 ## Unresolved submission placeholders
 
 - Corresponding author email: `wangzhen@cibr.ac.cn`
-- Zenodo DOI: `https://doi.org/10.5281/zenodo.20773675`.
+- Zenodo DOI: `https://doi.org/10.5281/zenodo.20773674`.
 - Stable web-service URL: `https://brain-cfrna-tracing.streamlit.app/`.
 - Software license: MIT License.
 - Public example input/output: synthetic example package under `submission_ready_assets/example_io/`.
 - Funding statement: `This work received no specific funding.`
-- Data/source DOI: `https://doi.org/10.5281/zenodo.20773675`.
+- Data/source DOI: `https://doi.org/10.5281/zenodo.20773674`.
 
 Resolved: processed evaluation tables and figure source data are included in the Zenodo-archived release.
 
@@ -81,7 +81,7 @@ No validation numbers were changed. The final-candidate draft retains the suppli
 | Corresponding author email | Done | `wangzhen@cibr.ac.cn` supplied by author. |
 | Funding statement | Done | `This work received no specific funding.` |
 | License | Done | Root-level MIT `LICENSE` added; manuscript states MIT License. |
-| Zenodo DOI | Done | `https://doi.org/10.5281/zenodo.20773675`. |
+| Zenodo DOI | Done | `https://doi.org/10.5281/zenodo.20773674`. |
 | Stable web service URL | Done | `https://brain-cfrna-tracing.streamlit.app/` supplied by author. |
 | Public example input/output | Done | Synthetic input/output package prepared under `submission_ready_assets/example_io/`. |
 | Supplementary information file | Done | Supplementary PDF, Markdown and Tables S1-S6 exist locally. |

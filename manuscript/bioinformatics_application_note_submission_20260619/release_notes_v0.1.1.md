@@ -1,6 +1,6 @@
-# cfRNA-BrainTrace v0.1.0
+# cfRNA-BrainTrace v0.1.1
 
-Initial release prepared for the Bioinformatics Application Note submission.
+Consistency release prepared for the Bioinformatics Application Note submission. This release updates the final manuscript to cite the Zenodo concept DOI so the archived manuscript and cloud records are self-consistent.
 
 ## DOI
 
