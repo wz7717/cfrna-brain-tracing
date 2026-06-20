@@ -16,7 +16,11 @@ External validation was limited by the label resolution available in each datase
 
 ### S4 Figures and tables
 
-Supplementary Figure S1 provides the main route and validation summary artwork. Supplementary Tables S1-S5 provide the internal validation design, internal validation results, external validation design, external validation results and figure/table index. Together, these materials document both how the route was tested and what result each validation setting supports.
+Supplementary Figure S1 provides the main route and validation summary artwork. Supplementary Tables S1-S6 provide the internal validation design, internal validation results, external validation design, external validation results, figure/table index and claim-boundary summary. Together, these materials document both how the route was tested and what result each validation setting supports.
+
+### S5 Model development and locked evaluation timeline
+
+The production route was fixed before generating the final submission validation tables. External AHBA, TCGA/BraTS and biofluid analyses were not used to select the final route; they were used only for mapped-label transfer evaluation, coarse tumour-tissue consistency assessment and biofluid transfer stress testing. Development comparisons that used the same internal validation framework are reported as development evidence rather than independent confirmation.
 
 ## Supplementary Results
 

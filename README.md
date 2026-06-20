@@ -4,21 +4,25 @@ cfRNA-BrainTrace is a Python and Streamlit application for hierarchical
 brain-origin candidate inference from RNA expression profiles using a primate
 transcriptomic reference.
 
-The locked workflow is:
+The current submission workflow is:
 
 ```text
-Bo2023 VSD reference
--> fold-selected 200 genes
--> Pearson correlation
--> Top-3 pairwise rescue
+Query logCPM/logTPM-compatible expression
+-> reference-fitted projection to Bo2023-like VSD
+-> 10-class Network Top3 beam generation
+-> logCPM-compatible resolution-group and exploratory exact-region reranking
 ```
 
-The software reports candidates at four levels:
+Projected VSD is used only for broad Network beam generation. Downstream
+resolution-group and exploratory exact-region candidates are reranked within
+the retained Network beam using logCPM-compatible local expression. Exact-region
+output is a candidate ranking, not a deterministic localization endpoint.
 
-1. lobe;
-2. broad anatomy;
-3. 10-class anatomical Network;
-4. exploratory exact region.
+The software reports candidates at three main levels:
+
+1. 10-class anatomical Network;
+2. resolution group;
+3. exploratory exact region.
 
 Current evidence supports coarse candidate ranking more strongly than exact
 localization. Biofluid cohorts without patient-level anatomical truth are
@@ -102,10 +106,26 @@ full conversion to Bo2023 VSD.
 
 ## Validation summary
 
-- Bo2023 strict LOSO Network Top1/Top3: 55.8% / 88.0%.
-- Bo2023 leave-one-monkey-out Top1/Top3: 53.2% / 86.7%.
-- AHBA normal-human Network Top1/Top3: 32.6% / 55.4%.
-- Paired TCGA-LGG/BraTS broad-anatomy Top3 strict/tolerant:
+Current submission route:
+
+- Network projected-VSD LOSO Top1/Top3: 58.00% / 91.58%.
+- Network projected-VSD LOMO Top1/Top3: 53.72% / 91.33%.
+- Locked three-tier route LOSO Network Top3: 92.38%.
+- Locked three-tier route LOMO Network Top3: 91.21%.
+- Resolution-group Top3 LOSO/LOMO: 72.36% / 69.09%.
+- Exact-region Top3 LOSO/LOMO: 45.33% / 42.36%.
+- AHBA mapped-label Network Top1/Top3: 74.68% / 94.42%.
+- AHBA resolution-group Top1/Top3: 36.26% / 67.03%.
+- AHBA exact-region Top1/Top3: 24.18% / 42.86%.
+- TCGA/BraTS Network Top3: 40.00%.
+- TCGA/BraTS broad-anatomy Top3: 64.62%.
+
+Legacy baseline / previous route:
+
+- Earlier Bo2023 strict LOSO Network Top1/Top3: 55.8% / 88.0%.
+- Earlier Bo2023 leave-one-monkey-out Top1/Top3: 53.2% / 86.7%.
+- Earlier AHBA normal-human Network Top1/Top3: 32.6% / 55.4%.
+- Earlier paired TCGA-LGG/BraTS broad-anatomy Top3 strict/tolerant:
   75.4% / 83.1%.
 
 See `manuscript/` for the Bioinformatics Application Note draft and
@@ -113,6 +133,6 @@ supplementary material.
 
 ## Status
 
-This is a research software release candidate. It is not a clinical diagnostic
-device. The public repository URL, archived release DOI and OSI-approved
-license must be finalized before journal submission.
+This is a research software release. It is not a clinical diagnostic device.
+The manuscript release is archived through Zenodo and the repository is
+released under the MIT License.

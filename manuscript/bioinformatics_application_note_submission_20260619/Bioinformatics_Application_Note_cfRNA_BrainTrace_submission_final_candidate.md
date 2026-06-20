@@ -2,14 +2,14 @@
 
 **Article type:** Application Note  
 **Category:** Gene expression  
-**Authors and affiliations:** Author information to be supplied in the submission system  
+**Authors and affiliations:** [AUTHOR NAMES AND AFFILIATIONS REQUIRED BEFORE SUBMISSION]  
 **Corresponding author:** wangzhen@cibr.ac.cn
 
 ## Abstract
 
 ### Summary
 
-cfRNA-BrainTrace is a Python and Streamlit application for hierarchical brain-origin candidate ranking from RNA expression profiles. The locked production route projects query profiles into a Bo2023-like variance-stabilized space to generate a broad 10-class macaque functional-anatomical Network Top3 beam, followed by logCPM-compatible local reranking for resolution-group and exploratory exact-region candidates. The software reports ranked candidates, marker coverage, entropy, score margins, route identifiers and scope warnings. In internal validation, Network Top3 accuracy reached 92.38% in leave-one-sample-out and 91.21% in leave-one-monkey-out evaluation, with lower accuracy at resolution-group and exact-region levels. AHBA mapped-label validation supported coarse cross-species transfer, whereas TCGA/BraTS and unlabeled biofluid analyses defined transfer limitations. cfRNA-BrainTrace is intended for reproducible coarse candidate ranking and resolution-limit auditing, not stand-alone clinical localization from unlabeled biofluid RNA.
+cfRNA-BrainTrace is a Python and Streamlit application for hierarchical brain-origin candidate ranking from RNA expression profiles using a primate transcriptomic atlas. The locked production route uses projected variance-stabilized expression to generate a 10-class macaque Network Top3 beam, followed by logCPM-compatible reranking for resolution-group and exploratory exact-region candidates, while reporting marker coverage, entropy, score margins and scope warnings. In internal validation, Network Top3 accuracy reached 92.38% in leave-one-sample-out and 91.21% in leave-one-monkey-out evaluation, with lower accuracy at finer anatomical levels. External mapped-label and tumour/biofluid analyses define transfer limitations; cfRNA-BrainTrace is intended for reproducible coarse candidate ranking and resolution-limit auditing, not stand-alone clinical localization from unlabeled biofluid RNA.
 
 ### Availability and Implementation
 
@@ -58,6 +58,10 @@ This work received no specific funding.
 ## Conflict of Interest
 
 None declared.
+
+## AI-assisted editing disclosure
+
+The authors used large language model tools to assist with language editing, manuscript-format checking and code-documentation review. All scientific claims, analyses, code, validation results and final text were reviewed and approved by the authors, who take full responsibility for the content.
 
 ## Data availability
 
