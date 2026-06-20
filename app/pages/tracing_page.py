@@ -160,6 +160,71 @@ def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
     return out[["gene_symbol", "tpm_value"]], query_source
 
 
+NETWORK_DESCRIPTIONS = [
+    {
+        "Network": "Cingulate gyrus",
+        "Location": "Medial cerebral cortex above the corpus callosum",
+        "Function": "Emotion, motivation, pain, attention control and action monitoring",
+    },
+    {
+        "Network": "Frontal (agranular frontal motor areas)",
+        "Location": "Posterior frontal motor and premotor cortex",
+        "Function": "Motor planning, action execution, eye movement and motor control",
+    },
+    {
+        "Network": "Hippocampal formation",
+        "Location": "Medial temporal lobe",
+        "Function": "Memory, spatial navigation, episodic learning and contextual encoding",
+    },
+    {
+        "Network": "Lateral Prefrontal Cortex",
+        "Location": "Lateral prefrontal cortex",
+        "Function": "Executive function, working memory, decision making and cognitive control",
+    },
+    {
+        "Network": "Occipital/Temporal",
+        "Location": "Occipital cortex and posterior temporal visual regions",
+        "Function": "Visual processing, object recognition and ventral visual-stream functions",
+    },
+    {
+        "Network": "Operculum/Insula",
+        "Location": "Insula and frontal/parietal/temporal opercular cortex",
+        "Function": "Interoception, taste, pain, somatosensory integration and salience processing",
+    },
+    {
+        "Network": "Orbitomedial Prefrontal Cortex (OMPFC)",
+        "Location": "Orbital and medial prefrontal cortex",
+        "Function": "Reward, valuation, emotion-guided decisions and social behavior",
+    },
+    {
+        "Network": "Parietal, and Parieto-occipital region",
+        "Location": "Parietal cortex and parieto-occipital junction",
+        "Function": "Spatial attention, sensory integration, visuospatial processing and action guidance",
+    },
+    {
+        "Network": "Subcortical",
+        "Location": "Subcortical structures such as thalamus, striatum and basal ganglia",
+        "Function": "Sensory/motor relay, reward, movement regulation and state control",
+    },
+    {
+        "Network": "Temporal",
+        "Location": "Lateral and anterior temporal cortex",
+        "Function": "Auditory, semantic, memory-related, object and social-information processing",
+    },
+]
+
+
+def _render_network_description_table() -> None:
+    render_panel_header(
+        tr("Bo2023 10 个 Network 说明", "Bo2023 10-Network Guide"),
+        tr(
+            "公开 demo 只展示这些粗粒度解剖-功能候选来源，不展示完整 Bo2023 表达矩阵。",
+            "The public demo shows only these coarse anatomical-functional candidate sources, not the full Bo2023 expression matrix.",
+        ),
+    )
+    st.dataframe(pd.DataFrame(NETWORK_DESCRIPTIONS), use_container_width=True, hide_index=True)
+
+
 def _render_public_demo_tracing() -> None:
     render_section_band(
         tr("公开 Demo 模式", "Public Demo Mode"),
@@ -185,6 +250,7 @@ def _render_public_demo_tracing() -> None:
             "Requires gene_symbol/gene plus one expression column. Recommended names: raw_counts/count/read_count or logCPM; TPM/logTPM is fallback only.",
         )
     )
+    _render_network_description_table()
     if uploaded is None:
         return
 
