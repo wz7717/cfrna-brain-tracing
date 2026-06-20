@@ -33,7 +33,7 @@
 
 - Added: root-level MIT `LICENSE` file for the project with copyright holder `王震`.
 - Planned: release tag `v0.1.0`; not yet created locally because final submission assets are still being completed.
-- Missing/unverified: Zenodo or Figshare archival DOI for the manuscript release.
+- Zenodo archival DOI generated for the manuscript release: `https://doi.org/10.5281/zenodo.20773675`.
 - Stable Streamlit web-service URL supplied by author: `https://brain-cfrna-tracing.streamlit.app/`.
 - Added: synthetic public example input/output package under `submission_ready_assets/example_io/`.
 - Missing: separate public archival DOI for processed evaluation tables and figure source data.
@@ -42,14 +42,14 @@
 ## Unresolved submission placeholders
 
 - Corresponding author email: `wangzhen@cibr.ac.cn`
-- `[ZENODO DOI REQUIRED BEFORE SUBMISSION]`
+- Zenodo DOI: `https://doi.org/10.5281/zenodo.20773675`.
 - Stable web-service URL: `https://brain-cfrna-tracing.streamlit.app/`.
 - Software license: MIT License.
 - Public example input/output: synthetic example package under `submission_ready_assets/example_io/`.
 - Funding statement: `This work received no specific funding.`
-- `[DOI REQUIRED BEFORE SUBMISSION]`
+- Data/source DOI: `https://doi.org/10.5281/zenodo.20773675`.
 
-Unresolved: processed evaluation tables and figure source data still require public archival DOI before submission.
+Resolved: processed evaluation tables and figure source data are included in the Zenodo-archived release.
 
 ## Validation numbers
 
@@ -81,12 +81,12 @@ No validation numbers were changed. The final-candidate draft retains the suppli
 | Corresponding author email | Done | `wangzhen@cibr.ac.cn` supplied by author. |
 | Funding statement | Done | `This work received no specific funding.` |
 | License | Done | Root-level MIT `LICENSE` added; manuscript states MIT License. |
-| Zenodo DOI | Missing | Archive the manuscript release and replace `[ZENODO DOI REQUIRED BEFORE SUBMISSION]`. |
+| Zenodo DOI | Done | `https://doi.org/10.5281/zenodo.20773675`. |
 | Stable web service URL | Done | `https://brain-cfrna-tracing.streamlit.app/` supplied by author. |
 | Public example input/output | Done | Synthetic input/output package prepared under `submission_ready_assets/example_io/`. |
 | Supplementary information file | Done | Supplementary PDF, Markdown and Tables S1-S6 exist locally. |
-| Processed evaluation tables | Done locally | Tables S1-S6 exist locally; public DOI archival remains missing. |
-| Figure source data | Needs author input | Local tables support plotted values, but public source-data archival remains missing. |
+| Processed evaluation tables | Done | Tables S1-S6 are included in the Zenodo-archived release. |
+| Figure source data | Done | Figure source artwork and supporting tables are included in the Zenodo-archived release. |
 | Tagged release | Needs final action | Planned tag: `v0.1.0`; create after final assets are committed. |
 | Repository README | Done | `README.md` exists. |
 | Installation instructions | Done | Present in `README.md`. |
@@ -96,4 +96,4 @@ No validation numbers were changed. The final-candidate draft retains the suppli
 | Benchmark scripts | Done | `scripts/` and `benchmark_runner.py` exist. |
 | Figure 1 finalized | Done locally | PNG and high-resolution TIF exist; final journal layout check still recommended. |
 | Alt text finalized | Done | Updated to match actual Figure 1 content. |
-| Data availability finalized | Missing | Public archival DOI and final repository release details remain unresolved. |
+| Data availability finalized | Done | DOI and release details are now included. |
