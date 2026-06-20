@@ -65,8 +65,8 @@ def _render_network_primary(network_out: dict) -> None:
     render_section_band(
         tr("Network 主结论", "Primary Network Conclusion"),
         tr(
-            "经验证的 projected VSD SaleemNetworks 上层来源预测；下方继续展示 logCPM resolution group 与 local exact rerank。",
-            "Validated projected-VSD SaleemNetworks-level source prediction; logCPM resolution-group and local exact reranking continue below.",
+            "经验证的 SaleemNetworks 上层来源预测；精确 Region 排名在下方作为二级候选。",
+            "Validated SaleemNetworks-level source prediction; exact Region rankings remain secondary candidates below.",
         ),
     )
     c1, c2, c3 = st.columns(3)
@@ -106,6 +106,110 @@ def _render_network_primary(network_out: dict) -> None:
         )
         figure.update_layout(yaxis={"categoryorder": "total ascending"}, coloraxis_showscale=False)
         st.plotly_chart(figure, use_container_width=True)
+
+
+def _read_demo_expression(uploaded_file) -> pd.DataFrame:
+    name = str(uploaded_file.name).lower()
+    if name.endswith((".xlsx", ".xls")):
+        df = pd.read_excel(uploaded_file)
+    else:
+        raw = uploaded_file.getvalue()
+        sep = "\t" if name.endswith((".tsv", ".txt")) or raw[:2048].count(b"\t") > raw[:2048].count(b",") else ","
+        df = pd.read_csv(io.BytesIO(raw), sep=sep)
+
+    lower_map = {str(col).strip().lower(): col for col in df.columns}
+    gene_col = lower_map.get("gene_symbol") or lower_map.get("gene") or lower_map.get("symbol")
+    value_col = (
+        lower_map.get("tpm_value")
+        or lower_map.get("tpm")
+        or lower_map.get("expression")
+        or lower_map.get("value")
+        or lower_map.get("count")
+        or lower_map.get("read_count")
+    )
+    if gene_col is None or value_col is None:
+        raise ValueError("Input must include gene_symbol/gene and tpm_value/tpm/expression/value columns.")
+
+    out = df[[gene_col, value_col]].copy()
+    out.columns = ["gene_symbol", "tpm_value"]
+    out["gene_symbol"] = out["gene_symbol"].astype(str).str.strip()
+    out["tpm_value"] = pd.to_numeric(out["tpm_value"], errors="coerce")
+    out = out.dropna(subset=["gene_symbol", "tpm_value"])
+    out = out[out["gene_symbol"] != ""]
+    if out.empty:
+        raise ValueError("No valid expression rows were found.")
+    return out
+
+
+def _render_public_demo_tracing() -> None:
+    render_section_band(
+        tr("公开 Demo 模式", "Public Demo Mode"),
+        tr(
+            "云端公开版只使用随仓库发布的轻量 Network 模型，不下载或公开完整 Bo2023 数据库。",
+            "The public cloud demo uses only packaged lightweight Network models and does not download or expose the full Bo2023 database.",
+        ),
+    )
+    st.info(
+        tr(
+            "上传表达矩阵后，系统仅输出 SaleemNetworks 级别候选来源。完整 atlas 浏览和精确 Region 二级候选需要私有后端 API 或本地完整数据库。",
+            "After upload, the system reports SaleemNetworks-level candidate sources only. Full atlas browsing and exact Region candidates require the private API or a local full database.",
+        )
+    )
+    uploaded = st.file_uploader(
+        tr("上传表达矩阵 CSV/TSV/XLSX", "Upload expression matrix CSV/TSV/XLSX"),
+        type=["csv", "tsv", "txt", "xlsx", "xls"],
+        key="public_demo_expression_upload",
+    )
+    st.caption(
+        tr(
+            "至少包含 gene_symbol 和 tpm_value 两列；也接受 gene/tpm/expression/value 等常见列名。",
+            "Requires at least gene_symbol and tpm_value columns; common aliases such as gene/tpm/expression/value are accepted.",
+        )
+    )
+    if uploaded is None:
+        return
+
+    try:
+        expr = _read_demo_expression(uploaded)
+    except Exception as exc:
+        st.error(f"{tr('无法读取输入文件', 'Could not read input file')}: {exc}")
+        return
+
+    render_kpi_cards(
+        [
+            {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Network demo", "Used for Network demo")},
+            {"icon": "MODEL", "label": tr("模型", "Model"), "value": "SaleemNetworks", "note": tr("轻量公开模型", "Lightweight public model")},
+            {"icon": "DB", "label": tr("完整数据库", "Full database"), "value": tr("未使用", "Not used"), "note": tr("避免公开 Bo2023 数据", "Avoids exposing Bo2023 data")},
+        ]
+    )
+    if st.button(tr("运行公开 Demo 溯源", "Run Public Demo Tracing"), type="primary", use_container_width=True):
+        try:
+            network_out = trace_network_expression(expr)
+            if not network_out.get("results"):
+                meta = network_out.get("meta", {})
+                st.warning(
+                    tr(
+                        f"模型基因重叠不足：{meta.get('n_overlap_genes', 0)}/{meta.get('n_model_genes', 0)}。",
+                        f"Insufficient model-gene overlap: {meta.get('n_overlap_genes', 0)}/{meta.get('n_model_genes', 0)}.",
+                    )
+                )
+                return
+            _render_network_primary(network_out)
+            result_df = pd.DataFrame(network_out["results"])
+            st.download_button(
+                tr("下载 Demo JSON", "Download demo JSON"),
+                json.dumps(network_out, ensure_ascii=False, indent=2),
+                "public_demo_network_tracing.json",
+                "application/json",
+            )
+            st.download_button(
+                tr("下载 Demo CSV", "Download demo CSV"),
+                result_df.to_csv(index=False).encode("utf-8-sig"),
+                "public_demo_network_tracing.csv",
+                "text/csv",
+            )
+        except Exception as exc:
+            st.error(f"{tr('公开 Demo 分析失败', 'Public demo analysis failed')}: {exc}")
 
 
 def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out: dict | None = None) -> None:
@@ -151,10 +255,10 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
     if network_out:
         _render_network_primary(network_out)
         render_section_band(
-            tr("Region 三级候选", "Three-tier Region Candidates"),
+            tr("Region 二级候选", "Secondary Region Candidates"),
             tr(
-                "正式主线为 projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank。",
-                "The formal route is projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank.",
+                "精确脑区用于在 Network 主结论下继续探索，不继承 Network 层级的验证准确率。",
+                "Exact regions support exploration under the Network conclusion and do not inherit Network-level validation accuracy.",
             ),
         )
         resolution = meta.get("region_resolution_annotation", {})
@@ -185,7 +289,7 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
     col_table, col_plot = st.columns([0.95, 1.05])
     with col_table:
         render_panel_header(
-            tr("Region 三级候选表" if network_out else "脑区排名表", "Three-tier Region Candidate Table" if network_out else "Region Ranking Table"),
+            tr("Region 二级候选表" if network_out else "脑区排名表", "Secondary Region Candidate Table" if network_out else "Region Ranking Table"),
             tr("展示候选脑区的得分、置信度、fraction 和稳定性。", "Top candidate regions with score, confidence, fraction and stability signals."),
         )
         rename = {
@@ -205,7 +309,7 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
         st.dataframe(df_rank.rename(columns=rename).head(top_regions), use_container_width=True, hide_index=True)
     with col_plot:
         render_panel_header(
-            tr("Region 三级候选图" if network_out else "脑区排名图", "Three-tier Region Candidate Plot" if network_out else "Source Ranking Plot"),
+            tr("Region 二级候选图" if network_out else "脑区排名图", "Secondary Region Candidate Plot" if network_out else "Source Ranking Plot"),
             tr("用条形图快速比较前列脑区。", "Quick visual comparison of leading source regions."),
         )
         st.plotly_chart(make_score_bar(df_rank.head(max(10, top_regions))), use_container_width=True)
@@ -364,7 +468,8 @@ def display_source_tracing() -> None:
     if not samples_df.empty and "species" in samples_df.columns:
         samples_df = samples_df[samples_df["species"].apply(lambda x: matches_species(x, db_mode))].copy()
     if len(samples_df) == 0:
-        st.info(tr("当前数据库模式下没有样本，请先上传对应数据库的数据。", "There are no samples in the current database mode. Upload data for this workspace first."))
+        st.info(tr("当前云端数据库没有样本，已切换到轻量公开 Demo 模式。", "The current cloud database has no samples; switching to lightweight public demo mode."))
+        _render_public_demo_tracing()
         return
 
     st.markdown(f'<div class="action-zone">{tr("操作区：选择待分析样本", "Action zone: choose a sample for tracing")}</div>', unsafe_allow_html=True)
@@ -432,8 +537,8 @@ def display_source_tracing() -> None:
     if is_vsd_atlas:
         st.info(
             tr(
-                "Bo2023 VSD 的正式输出采用三级路线：projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank。Marker/ensemble 仍仅作探索性对照。",
-                "Formal Bo2023 VSD output uses the three-tier route: projected VSD Network Top3 beam -> logCPM resolution group rerank -> logCPM local exact rerank. Marker/ensemble remains exploratory.",
+                "Bo2023 VSD 的正式输出采用两级口径：同尺度 VSD 输入配合相关性分析时，SaleemNetworks 为已验证的主结论，精确 Region 为二级候选。Marker/ensemble 仍仅作探索性对照。",
+                "Formal Bo2023 VSD output is two-level: for same-scale VSD input with correlation, SaleemNetworks is the validated primary conclusion and exact Regions are secondary candidates. Marker/ensemble remains exploratory.",
             )
         )
     method_display = st.radio(
@@ -477,7 +582,7 @@ def display_source_tracing() -> None:
                     )
                     network_out = None
                     if is_vsd_atlas and _is_bo2023_atlas(atlas_meta) and method_key == "correlation":
-                        if DEFAULT_BO2023_NETWORK_MODEL.exists():
+                        if use_value == "vsd" and DEFAULT_BO2023_NETWORK_MODEL.exists():
                             network_out = trace_network_expression(cfrna_df)
                             if not network_out.get("results"):
                                 st.warning(
@@ -487,6 +592,13 @@ def display_source_tracing() -> None:
                                     )
                                 )
                                 network_out = None
+                        elif use_value != "vsd":
+                            st.info(
+                                tr(
+                                    "Network 主结论仅对与 Bo2023 reference 同尺度的 VSD 输入启用；当前输入尺度未经过该路径验证，因此仅展示 Region 候选结果。",
+                                    "The primary Network conclusion is enabled only for input on the same VSD scale as the Bo2023 reference. This input scale is not validated for that path, so only Region candidates are shown.",
+                                )
+                            )
                     if network_out:
                         secondary_out = trace_bo2023_secondary_regions(
                             cfrna_df,
@@ -504,8 +616,7 @@ def display_source_tracing() -> None:
                                     "The Bo2023-specific secondary Region scorer did not return results; falling back to the generic correlation Region ranking.",
                                 )
                             )
-                        if not out.get("meta", {}).get("region_resolution_annotation", {}).get("enabled"):
-                            out = annotate_region_candidates(out, network_out)
+                        out = annotate_region_candidates(out, network_out)
                     _render_v2_results(sample_id, out, top_regions, network_out=network_out)
                 else:
                     if use_markers:
