@@ -1,0 +1,7 @@
+﻿Item,Content,Use in manuscript
+Figure 1,Formal route diagram and validation summary,Main Application Note figure
+Supplementary Figure S1,Main figure source artwork reproduced in the supplementary PDF,Supplementary visual reference
+Table S1,Internal validation design,Documents LOSO/LOMO operations
+Table S2,Internal validation results,"Reports Network, group and exact-region metrics"
+Table S3,External validation design,Documents label support and allowed conclusions
+Table S4,External validation results,"Reports AHBA, TCGA/BraTS and GSE189919 outcomes"

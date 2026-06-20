@@ -1,0 +1,6 @@
+﻿Avoid,Use
+Projected VSD creates a new Bo2023 atlas.,Only query profiles are projected for Network beam generation.
+Projected VSD is best for exact-region inference.,Projected VSD supports Network beam; logCPM supports downstream reranking.
+TCGA/BraTS validates Bo2023 exact regions.,TCGA/BraTS supports coarse anatomical consistency.
+GSE189919 validates accuracy.,GSE189919 verifies projection feasibility only.
+Exact Top1 is deterministic localization.,Exact outputs are exploratory local candidate rankings.

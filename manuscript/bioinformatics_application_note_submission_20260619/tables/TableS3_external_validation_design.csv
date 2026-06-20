@@ -1,0 +1,4 @@
+﻿Dataset,Sample type,n,Truth label type,Allowed conclusion
+AHBA,Human normal brain RNA-seq,242 total; 233 supported; 91 exact-evaluable,Mapped anatomical labels,Cross-species mapped-label validation
+TCGA/BraTS,Glioma tissue RNA-seq with MRI-derived labels,65 patients,Human imaging labels,Coarse anatomical consistency only
+GSE189919,External count matrix,51 samples,No patient-level anatomical truth,Projection feasibility only

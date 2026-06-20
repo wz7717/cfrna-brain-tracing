@@ -1,0 +1,168 @@
+{
+  "results": [
+    {
+      "network_id": "Orbitomedial Prefrontal Cortex (OMPFC)",
+      "rank": 1,
+      "score": 0.7468681541689042,
+      "confidence": 0.10116675785642291
+    },
+    {
+      "network_id": "Operculum/Insula",
+      "rank": 2,
+      "score": 0.7409606920784018,
+      "confidence": 0.1005708808628561
+    },
+    {
+      "network_id": "Cingulate gyrus",
+      "rank": 3,
+      "score": 0.7409125952305913,
+      "confidence": 0.10056604383682885
+    },
+    {
+      "network_id": "Lateral Prefrontal Cortex",
+      "rank": 4,
+      "score": 0.7402385315991308,
+      "confidence": 0.10049827876566937
+    },
+    {
+      "network_id": "Parietal, and Parieto-occipital region",
+      "rank": 5,
+      "score": 0.7374533572353225,
+      "confidence": 0.10021876296685116
+    },
+    {
+      "network_id": "Frontal (agranular frontal motor areas)",
+      "rank": 6,
+      "score": 0.7359771305348264,
+      "confidence": 0.1000709264999863
+    },
+    {
+      "network_id": "Subcortical",
+      "rank": 7,
+      "score": 0.7353946314801436,
+      "confidence": 0.1000126522538932
+    },
+    {
+      "network_id": "Temporal",
+      "rank": 8,
+      "score": 0.734301584118433,
+      "confidence": 0.09990339341163215
+    },
+    {
+      "network_id": "Occipital/Temporal",
+      "rank": 9,
+      "score": 0.7291402890979849,
+      "confidence": 0.09938909089989402
+    },
+    {
+      "network_id": "Hippocampal formation",
+      "rank": 10,
+      "score": 0.7110083402872669,
+      "confidence": 0.09760321264586483
+    }
+  ],
+  "meta": {
+    "endpoint": "SaleemNetworks",
+    "method": "discriminative_gene_pearson_correlation_with_top3_pairwise_rescue",
+    "n_networks": 10,
+    "n_model_genes": 200,
+    "n_overlap_genes": 200,
+    "overlap_fraction": 1.0,
+    "traceability": "high",
+    "pairwise_rescue": {
+      "enabled": true,
+      "switched": false
+    },
+    "reference_projection": {
+      "enabled": true,
+      "input_scale": "log1p_tpm_fallback",
+      "projector_path": "D:\\Download\\cfrna-brain-tracing-streamlit-cloud-ready\\data\\models\\bo2023_reference_projector_linear_full.npz",
+      "output_scale": "projected_vsd",
+      "n_projector_genes": 21668,
+      "n_input_projector_overlap_genes": 200
+    },
+    "model_metadata": {
+      "created_at": "2026-06-16T07:56:51.600562+00:00",
+      "dataset": "Bo2023_WangLab_VSD_region",
+      "endpoint": "SaleemNetworks",
+      "n_training_samples": 819,
+      "n_networks": 10,
+      "n_genes": 200,
+      "method": "fold-validated discriminative-gene Pearson correlation",
+      "input_requirement": "sample values must be on the same Bo2023 VSD-normalized scale",
+      "full_loso_validation": {
+        "n": 819,
+        "top1_hits": 432,
+        "top1_accuracy": 0.5274725274725275,
+        "top3_hits": 721,
+        "top3_accuracy": 0.8803418803418803,
+        "macro_auc": 0.8121999950549788,
+        "median_true_rank": 1.0,
+        "n_switches": 0
+      }
+    },
+    "pairwise_rescue_validation": {
+      "created_at": "2026-06-16T07:56:36.178390+00:00",
+      "dataset": "Bo2023_WangLab_VSD_region",
+      "endpoint": "SaleemNetworks",
+      "validation_design": "retrospective full strict LOSO with fold-local high-confusion pair discovery and pair-specific correlation",
+      "n_test_samples": 819,
+      "n_classes": 10,
+      "global_top_n_genes": 200,
+      "gene_pool_size": 1000,
+      "pair_top_n_genes": 100,
+      "max_pairs_per_truth": 2,
+      "min_pair_errors": 3,
+      "pair_min_margin": 0.002,
+      "routes": {
+        "network_discriminative_correlation_top200": {
+          "n": 819,
+          "top1_hits": 432,
+          "top1_accuracy": 0.5274725274725275,
+          "top3_hits": 721,
+          "top3_accuracy": 0.8803418803418803,
+          "macro_auc": 0.8121999950549788,
+          "median_true_rank": 1.0,
+          "n_switches": 0
+        },
+        "network_pairwise_correlation_rescue_top3": {
+          "n": 819,
+          "top1_hits": 457,
+          "top1_accuracy": 0.557997557997558,
+          "top3_hits": 721,
+          "top3_accuracy": 0.8803418803418803,
+          "macro_auc": 0.813357605012318,
+          "median_true_rank": 1.0,
+          "n_switches": 99
+        },
+        "network_pairwise_correlation_rescue_top5": {
+          "n": 819,
+          "top1_hits": 456,
+          "top1_accuracy": 0.5567765567765568,
+          "top3_hits": 720,
+          "top3_accuracy": 0.8791208791208791,
+          "macro_auc": 0.8132628623894018,
+          "median_true_rank": 1.0,
+          "n_switches": 102
+        }
+      },
+      "paired_changes": {
+        "network_pairwise_correlation_rescue_top3": {
+          "top1_gains": 45,
+          "top1_losses": 20,
+          "top3_gains": 0,
+          "top3_losses": 0
+        },
+        "network_pairwise_correlation_rescue_top5": {
+          "top1_gains": 45,
+          "top1_losses": 21,
+          "top3_gains": 0,
+          "top3_losses": 1
+        }
+      },
+      "best_pairwise_route": "network_pairwise_correlation_rescue_top3",
+      "meets_adoption_rule": true,
+      "decision": "`network_pairwise_correlation_rescue_top3` 在本轮回顾性全量严格 LOSO 中同时提高 Top1 且未降低 Top3，可进入独立队列确认；独立确认前不替换正式 Top200 路径。"
+    }
+  }
+}

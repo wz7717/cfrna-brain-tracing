@@ -1,0 +1,6 @@
+﻿Component,Implementation,Claim boundary
+Projector,Query logCPM/logTPM-compatible expression -> Bo2023-like VSD,Network beam only; not a new atlas
+Network,Projected-VSD Top3 candidate generation,Primary endpoint
+Resolution group,logCPM local rerank within Network beam,Main region-level endpoint
+Exact region,logCPM local candidate rerank,Exploratory local ranking
+External validation,AHBA mapped labels; TCGA/BraTS coarse labels,AHBA mapped-label support; TCGA/BraTS coarse consistency only

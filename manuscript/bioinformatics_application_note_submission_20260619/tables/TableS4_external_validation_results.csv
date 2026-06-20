@@ -1,0 +1,9 @@
+﻿Dataset,Route,Endpoint,Top1,Top3,Conclusion
+AHBA,Hybrid,Network,74.68%,94.42%,Strong mapped-label Network support
+AHBA,Hybrid,Resolution group,36.26%,67.03%,Moderate group-level support
+AHBA,Hybrid,Exact region,24.18%,42.86%,Only exact-evaluable mapped labels
+AHBA,logCPM baseline,Exact region,17.58%,30.77%,Below hybrid exact Top3
+AHBA,Projected VSD only,Exact region,10.99%,29.67%,Below hybrid exact Top3
+TCGA/BraTS,Hybrid,Network,15.38%,40.00%,Coarse consistency only
+TCGA/BraTS,Hybrid,Broad anatomy,13.85%,64.62%,Coarse consistency only
+GSE189919,Projection feasibility,Projector gene overlap,15622/21668,72.10%,No accuracy claim

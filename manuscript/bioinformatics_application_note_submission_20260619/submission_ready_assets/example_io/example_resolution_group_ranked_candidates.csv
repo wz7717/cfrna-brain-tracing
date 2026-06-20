@@ -1,0 +1,14 @@
+resolution_group_rank,resolution_group,resolution_group_score,network_id,resolution_group_members,group_plausibility_tier,group_calibration_flags,manual_review_recommended
+1,24c',1.5579759466808054,Cingulate gyrus,24c',single_region_low_resolution,same_network_only,True
+2,Cingulate gyrus::23b + 23c + 24b',1.4422785342633235,Cingulate gyrus,23b | 23c | 24b',strong_internal_support,same_network_only;compact_group_size,True
+3,24a',1.4303517418602576,Cingulate gyrus,24a',single_region_low_resolution,same_network_only,True
+4,24b,1.2456809489866463,Cingulate gyrus,24b,single_region_low_resolution,same_network_only,True
+5,Orbitomedial Prefrontal Cortex (OMPFC)::11l + 11m + 12m + 12o + 13a + 13b + 13l + 32,1.049019878036317,Orbitomedial Prefrontal Cortex (OMPFC),11l | 11m | 12m | 12o | 13a | 13b | 13l | 32,requires_manual_review,same_network_only;large_group_size;do_not_interpret_as_single_functional_area,True
+6,24c,0.9229808634519769,Cingulate gyrus,24c,single_region_low_resolution,same_network_only,True
+7,23a,0.8404230908129626,Cingulate gyrus,23a,single_region_low_resolution,same_network_only,True
+8,24a,0.652793213996781,Cingulate gyrus,24a,single_region_low_resolution,same_network_only,True
+9,Orbitomedial Prefrontal Cortex (OMPFC)::14c + 14r + 25,0.20933104416012852,Orbitomedial Prefrontal Cortex (OMPFC),14c | 14r | 25,strong_internal_support,same_network_only;compact_group_size,True
+10,31,0.03375777675392538,Cingulate gyrus,31,single_region_low_resolution,same_network_only,True
+11,Operculum/Insula::G + Iapl + Id + Ig + PrCo + Ri + SII,-0.44120583668715707,Operculum/Insula,G | Iapl | Id | Ig | PrCo | Ri | SII,requires_manual_review,same_network_only;large_group_size;do_not_interpret_as_single_functional_area,True
+12,13m,-0.48680524852872475,Orbitomedial Prefrontal Cortex (OMPFC),13m,single_region_low_resolution,same_network_only,True
+13,Operculum/Insula::Ia + Ial + Iapm + Pi,-1.3717291146293809,Operculum/Insula,Ia | Ial | Iapm | Pi,strong_internal_support,same_network_only;compact_group_size,True

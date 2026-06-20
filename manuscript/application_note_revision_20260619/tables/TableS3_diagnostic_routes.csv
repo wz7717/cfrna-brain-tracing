@@ -1,0 +1,5 @@
+﻿Route,Validation,Level,Top1,Top3,Interpretation
+Projected VSD direct,LOSO,Exact region,0.1671,0.3563,Better than logCPM baseline but not enough as main endpoint
+Projected VSD direct,LOMO,Exact region,0.1453,0.3116,Below native VSD Top3; diagnostic only
+Projected Network + logCPM local,LOSO,Exact region,0.2088,0.4263,Supports downstream local rerank
+Projected Network + logCPM local,Formal LOSO,Exact region,0.2248,0.4533,Best formal exact route but still exploratory

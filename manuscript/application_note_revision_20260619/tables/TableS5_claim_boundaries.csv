@@ -1,0 +1,6 @@
+﻿Do not write,Use instead
+The whole Bo2023 atlas was reprojected into a new atlas.,Only the query is projected to Bo2023-like VSD for Network beam generation.
+Projected VSD is universally superior at exact-region resolution.,Projected VSD supports Network beam generation; group/exact rerank uses logCPM local space.
+TCGA/BraTS validates Bo2023 exact-region accuracy.,TCGA/BraTS supports coarse anatomical consistency only.
+Caudate exact Top1 performed well.,Caudate/Putamen/Insula are stable at Network/group Top3; Caudate exact Top1 was 0.
+Exact Top1 is a deterministic localization result.,Exact outputs are local candidate rankings with clear limits.
