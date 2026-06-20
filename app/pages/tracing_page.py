@@ -4,6 +4,7 @@ import io
 import json
 import traceback
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -108,7 +109,7 @@ def _render_network_primary(network_out: dict) -> None:
         st.plotly_chart(figure, use_container_width=True)
 
 
-def _read_demo_expression(uploaded_file) -> pd.DataFrame:
+def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
     name = str(uploaded_file.name).lower()
     if name.endswith((".xlsx", ".xls")):
         df = pd.read_excel(uploaded_file)
@@ -119,40 +120,58 @@ def _read_demo_expression(uploaded_file) -> pd.DataFrame:
 
     lower_map = {str(col).strip().lower(): col for col in df.columns}
     gene_col = lower_map.get("gene_symbol") or lower_map.get("gene") or lower_map.get("symbol")
-    value_col = (
-        lower_map.get("tpm_value")
-        or lower_map.get("tpm")
-        or lower_map.get("expression")
-        or lower_map.get("value")
-        or lower_map.get("count")
-        or lower_map.get("read_count")
-    )
+    value_col = None
+    query_source = ""
+    for source, candidates in [
+        ("raw_counts", ["raw_counts", "raw_count", "counts", "count", "read_count", "readcount", "reads"]),
+        ("logcpm", ["logcpm", "log_cpm", "log2cpm", "log2_cpm"]),
+        ("logtpm_fallback", ["logtpm", "log_tpm", "log1p_tpm"]),
+        ("tpm_fallback", ["tpm_value", "tpm", "expression", "value"]),
+    ]:
+        found = next((lower_map.get(candidate) for candidate in candidates if candidate in lower_map), None)
+        if found is not None:
+            value_col = found
+            query_source = source
+            break
     if gene_col is None or value_col is None:
-        raise ValueError("Input must include gene_symbol/gene and tpm_value/tpm/expression/value columns.")
+        raise ValueError("Input must include gene_symbol/gene and one expression column: raw counts, logCPM, logTPM or TPM.")
 
     out = df[[gene_col, value_col]].copy()
-    out.columns = ["gene_symbol", "tpm_value"]
+    out.columns = ["gene_symbol", "query_value"]
     out["gene_symbol"] = out["gene_symbol"].astype(str).str.strip()
-    out["tpm_value"] = pd.to_numeric(out["tpm_value"], errors="coerce")
-    out = out.dropna(subset=["gene_symbol", "tpm_value"])
+    out["query_value"] = pd.to_numeric(out["query_value"], errors="coerce")
+    out = out.dropna(subset=["gene_symbol", "query_value"])
     out = out[out["gene_symbol"] != ""]
     if out.empty:
         raise ValueError("No valid expression rows were found.")
-    return out
+    out = out.groupby("gene_symbol", as_index=False)["query_value"].mean()
+
+    if query_source == "raw_counts":
+        total = float(out["query_value"].clip(lower=0).sum())
+        if total <= 0:
+            raise ValueError("Raw counts must sum to a positive value.")
+        cpm = out["query_value"].clip(lower=0) / total * 1_000_000.0
+        out["tpm_value"] = np.log2(cpm + 1.0)
+    elif query_source == "tpm_fallback":
+        out["tpm_value"] = np.log1p(out["query_value"].clip(lower=0))
+    else:
+        out["tpm_value"] = out["query_value"]
+
+    return out[["gene_symbol", "tpm_value"]], query_source
 
 
 def _render_public_demo_tracing() -> None:
     render_section_band(
         tr("公开 Demo 模式", "Public Demo Mode"),
         tr(
-            "云端公开版只使用随仓库发布的轻量 Network 模型，不下载或公开完整 Bo2023 数据库。",
-            "The public cloud demo uses only packaged lightweight Network models and does not download or expose the full Bo2023 database.",
+            "云端公开版推荐上传 raw counts 或 logCPM；系统不要求用户上传 VSD，也不下载或公开完整 Bo2023 数据库。",
+            "The public cloud demo recommends raw counts or logCPM input; users are not asked to upload VSD, and the full Bo2023 database is not downloaded or exposed.",
         ),
     )
     st.info(
         tr(
-            "上传表达矩阵后，系统仅输出 SaleemNetworks 级别候选来源。完整 atlas 浏览和精确 Region 二级候选需要私有后端 API 或本地完整数据库。",
-            "After upload, the system reports SaleemNetworks-level candidate sources only. Full atlas browsing and exact Region candidates require the private API or a local full database.",
+            "最佳输入是 RNA-seq raw gene counts，系统会内部计算 logCPM；logCPM 可直接上传。TPM/logTPM 仅作为兼容旧表格的 fallback，精细脑区解释应更谨慎。",
+            "The best input is RNA-seq raw gene counts, which are converted internally to logCPM; logCPM can be uploaded directly. TPM/logTPM is accepted only as a legacy fallback and should be interpreted more cautiously for fine regions.",
         )
     )
     uploaded = st.file_uploader(
@@ -162,22 +181,30 @@ def _render_public_demo_tracing() -> None:
     )
     st.caption(
         tr(
-            "至少包含 gene_symbol 和 tpm_value 两列；也接受 gene/tpm/expression/value 等常见列名。",
-            "Requires at least gene_symbol and tpm_value columns; common aliases such as gene/tpm/expression/value are accepted.",
+            "至少包含 gene_symbol/gene 和一个表达列。推荐列名：raw_counts/count/read_count 或 logCPM；TPM/logTPM 仅为 fallback。",
+            "Requires gene_symbol/gene plus one expression column. Recommended names: raw_counts/count/read_count or logCPM; TPM/logTPM is fallback only.",
         )
     )
     if uploaded is None:
         return
 
     try:
-        expr = _read_demo_expression(uploaded)
+        expr, query_source = _read_demo_expression(uploaded)
     except Exception as exc:
         st.error(f"{tr('无法读取输入文件', 'Could not read input file')}: {exc}")
         return
+    if query_source in {"tpm_fallback", "logtpm_fallback"}:
+        st.warning(
+            tr(
+                f"当前输入被识别为 {query_source}。该路径用于兼容旧表格，不等同于当前验证路线中的 Bo2023 logCPM 输入；结果应谨慎解释。",
+                f"Input was detected as {query_source}. This is a legacy compatibility path and is not equivalent to the Bo2023 logCPM route used in current validation; interpret results cautiously.",
+            )
+        )
 
     render_kpi_cards(
         [
             {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Network demo", "Used for Network demo")},
+            {"icon": "SRC", "label": tr("Query 来源", "Query source"), "value": query_source, "note": tr("raw counts 会转为 logCPM", "raw counts are converted to logCPM")},
             {"icon": "MODEL", "label": tr("模型", "Model"), "value": "SaleemNetworks", "note": tr("轻量公开模型", "Lightweight public model")},
             {"icon": "DB", "label": tr("完整数据库", "Full database"), "value": tr("未使用", "Not used"), "note": tr("避免公开 Bo2023 数据", "Avoids exposing Bo2023 data")},
         ]
@@ -194,6 +221,10 @@ def _render_public_demo_tracing() -> None:
                     )
                 )
                 return
+            network_out.setdefault("meta", {})["query_source"] = query_source
+            network_out["meta"]["input_recommendation"] = (
+                "raw counts/logCPM preferred; TPM/logTPM fallback only; user-uploaded VSD is not required"
+            )
             _render_network_primary(network_out)
             result_df = pd.DataFrame(network_out["results"])
             st.download_button(

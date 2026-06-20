@@ -57,15 +57,32 @@ cfrna-tracing --help
 
 ## Input format
 
-The minimal expression table contains:
+Recommended query input is a gene-level RNA-seq expression table with:
 
 ```text
 gene_symbol
-tpm_value
+raw_counts
 ```
 
-Optional sample, subject, diagnosis and anatomical metadata can be included
-and are retained in exported reports.
+or a pre-normalized logCPM table:
+
+```text
+gene_symbol
+logCPM
+```
+
+Raw counts are converted internally to logCPM. The validated route uses
+logCPM-derived query expression with projected VSD for Network-level candidate
+generation, followed by logCPM-based resolution-group and local reranking where
+the full private reference is available.
+
+TPM or logTPM tables remain accepted for backward compatibility, but they are
+treated as fallback inputs and fine-region interpretations should be reported
+more cautiously. Users are not expected to upload VSD; VSD-like query
+expression is generated internally by the projector.
+
+Optional sample, subject, diagnosis and anatomical metadata can be included and
+are retained in exported reports.
 
 ## Reproducibility and data policy
 

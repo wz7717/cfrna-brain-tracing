@@ -83,6 +83,16 @@ class DataProcessor:
             "TPM": "tpm_value",
             "fpkm": "tpm_value",
             "FPKM": "tpm_value",
+            "logtpm": "log_tpm_input",
+            "log_tpm": "log_tpm_input",
+            "log1p_tpm": "log_tpm_input",
+            "logcpm": "logcpm_value",
+            "log_cpm": "logcpm_value",
+            "log2cpm": "logcpm_value",
+            "log2_cpm": "logcpm_value",
+            "raw_counts": "read_count",
+            "raw_count": "read_count",
+            "counts": "read_count",
             "reads": "read_count",
             "count": "read_count",
             "readcount": "read_count",
@@ -130,20 +140,23 @@ class DataProcessor:
     def validate_expression_data(self, df: pd.DataFrame) -> Tuple[bool, List[str]]:
         df = self._normalize_columns(df.copy())
         errors = []
-        for col in ["gene_symbol", "tpm_value"]:
-            if col not in df.columns:
-                errors.append(f"缺少必需列: {col}")
+        if "gene_symbol" not in df.columns:
+            errors.append("缺少必需列: gene_symbol")
+        value_cols = [col for col in ["read_count", "logcpm_value", "log_tpm_input", "tpm_value"] if col in df.columns]
+        if not value_cols:
+            errors.append("缺少表达值列: 推荐 raw_counts/count/read_count 或 logCPM；TPM/logTPM 仅作为 fallback")
         if errors:
             return False, errors
 
         if df["gene_symbol"].astype(str).str.strip().eq("").any() or df["gene_symbol"].isnull().any():
             errors.append("存在空的基因符号")
 
-        df["tpm_value"] = pd.to_numeric(df["tpm_value"], errors="coerce")
-        if df["tpm_value"].isnull().any():
-            errors.append("存在空的 TPM 值或不可解析数值")
-        if (df["tpm_value"].fillna(0) < 0).any():
-            errors.append("TPM 值不能为负数")
+        for col in value_cols:
+            values = pd.to_numeric(df[col], errors="coerce")
+            if values.isnull().any():
+                errors.append(f"存在空的 {col} 值或不可解析数值")
+            if (values.fillna(0) < 0).any():
+                errors.append(f"{col} 值不能为负数")
         if len(df) < 10:
             errors.append(f"数据量过少，至少需要 10 个基因（当前: {len(df)}）")
         return len(errors) == 0, errors
@@ -151,9 +164,25 @@ class DataProcessor:
     def preprocess_expression_data(self, df: pd.DataFrame, min_tpm: float = 0.1, log_transform: bool = True) -> pd.DataFrame:
         df = self._normalize_columns(df.copy())
         df["gene_symbol"] = df["gene_symbol"].astype(str).str.strip()
-        df["tpm_value"] = pd.to_numeric(df["tpm_value"], errors="coerce").fillna(0.0)
         if "read_count" in df.columns:
-            df["read_count"] = pd.to_numeric(df["read_count"], errors="coerce").fillna(0).astype(int)
+            df["read_count"] = pd.to_numeric(df["read_count"], errors="coerce").fillna(0.0)
+
+        expression_unit = "TPM_fallback"
+        if "read_count" in df.columns and "tpm_value" not in df.columns and "logcpm_value" not in df.columns:
+            total = float(df["read_count"].clip(lower=0).sum())
+            if total <= 0:
+                raise ValueError("raw counts/read_count 总和必须大于 0")
+            cpm = df["read_count"].clip(lower=0) / total * 1_000_000.0
+            df["tpm_value"] = np.log2(cpm + 1.0)
+            expression_unit = "logCPM_from_raw_counts"
+        elif "logcpm_value" in df.columns:
+            df["tpm_value"] = pd.to_numeric(df["logcpm_value"], errors="coerce").fillna(0.0)
+            expression_unit = "logCPM"
+        elif "log_tpm_input" in df.columns and "tpm_value" not in df.columns:
+            df["tpm_value"] = pd.to_numeric(df["log_tpm_input"], errors="coerce").fillna(0.0)
+            expression_unit = "logTPM_fallback"
+        else:
+            df["tpm_value"] = pd.to_numeric(df["tpm_value"], errors="coerce").fillna(0.0)
 
         df = df[df["tpm_value"] >= float(min_tpm)].copy()
         df = df.groupby("gene_symbol", as_index=False).agg({
@@ -166,7 +195,7 @@ class DataProcessor:
         df["zscore_tpm"] = 0.0 if std == 0 else (df["log_tpm"] - df["log_tpm"].mean()) / std
         df["detected"] = (df["tpm_value"] >= 1.0).astype(int)
         df["gene_id_type"] = guess_gene_id_type(df["gene_symbol"].tolist())
-        df["expression_unit"] = "TPM"
+        df["expression_unit"] = expression_unit
         return df
 
     def compute_sample_qc(self, df: pd.DataFrame) -> Dict[str, float]:
@@ -270,13 +299,8 @@ class DataProcessor:
 
     def get_sample_expression(self, sample_id: str) -> pd.DataFrame:
         with self._get_conn() as conn:
-            available = {row[1] for row in conn.execute("PRAGMA table_info(cfrna_expression)").fetchall()}
-            cols = ["gene_symbol", "tpm_value", "detected"]
-            for optional in ["read_count", "log_tpm", "zscore_tpm", "gene_id_type", "expression_unit"]:
-                if optional in available:
-                    cols.append(optional)
             return pd.read_sql_query(
-                f"SELECT {', '.join(cols)} FROM cfrna_expression WHERE sample_id = ?",
+                "SELECT gene_symbol, tpm_value, detected FROM cfrna_expression WHERE sample_id = ?",
                 conn,
                 params=[sample_id],
             )

@@ -103,11 +103,11 @@ def _render_upload_preview(df: pd.DataFrame, qc: dict) -> None:
                 "icon": "GENE",
                 "label": tr("检测到的基因", "Detected Genes"),
                 "value": f"{int((df['tpm_value'] > 0).sum()):,}",
-                "note": tr("TPM 大于 0 的基因数", "Genes with non-zero TPM"),
+                "note": tr("表达值大于 0 的基因数", "Genes with non-zero expression"),
             },
             {
-                "icon": "TPM",
-                "label": tr("TPM 中位数", "Median TPM"),
+                "icon": "EXP",
+                "label": tr("表达值中位数", "Median expression"),
                 "value": f"{pd.to_numeric(df['tpm_value'], errors='coerce').fillna(0).median():.2f}",
                 "note": tr("表达强度中位数", "Median expression intensity"),
             },
@@ -136,10 +136,10 @@ def _render_upload_preview(df: pd.DataFrame, qc: dict) -> None:
     with col_a:
         render_panel_header(
             tr("表达分布", "Expression Distribution"),
-            tr("查看上传样本的 TPM 分布，用于快速识别极端稀疏或异常偏移。", "Upload-time TPM profile in log-scaled form."),
+            tr("查看上传样本的内部表达值分布；推荐输入 raw counts/logCPM，TPM/logTPM 仅作为 fallback。", "Review the internal expression-value distribution; raw counts/logCPM are preferred and TPM/logTPM is fallback only."),
         )
         fig = px.histogram(df, x="tpm_value", nbins=60, color_discrete_sequence=["#2f6df6"])
-        fig.update_xaxes(type="log", title=tr("TPM（对数坐标）", "TPM (log scale)"))
+        fig.update_xaxes(type="log", title=tr("内部表达值（对数坐标）", "Internal expression value (log scale)"))
         fig.update_layout(height=340, margin=dict(l=10, r=10, t=10, b=10), showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
     with col_b:
@@ -206,8 +206,8 @@ def display_data_upload():
         tr("上传表达矩阵", "Upload expression matrix"),
         type=["csv", "tsv", "txt", "xlsx"],
         help=tr(
-            "必需列：gene_symbol, tpm_value。可选列：read_count 以及嵌入式样本元数据。",
-            "Required columns: gene_symbol, tpm_value. Optional columns include read_count and embedded sample metadata.",
+            "推荐列：gene_symbol + raw_counts/count/read_count，或 gene_symbol + logCPM。TPM/logTPM 仅作为兼容旧表格的 fallback；不要求用户上传 VSD。",
+            "Recommended columns: gene_symbol plus raw_counts/count/read_count, or gene_symbol plus logCPM. TPM/logTPM is accepted only as a legacy fallback; users are not asked to upload VSD.",
         ),
     )
 
@@ -221,9 +221,15 @@ def display_data_upload():
             embedded_meta = processor.extract_embedded_metadata(df)
             is_valid, validation_errors = processor.validate_expression_data(df)
             if is_valid:
-                qc_input = df[["gene_symbol", "tpm_value"]].copy()
-                qc_input["gene_symbol"] = qc_input["gene_symbol"].astype(str).str.strip()
-                qc_input["tpm_value"] = pd.to_numeric(qc_input["tpm_value"], errors="coerce").fillna(0.0)
+                qc_input = processor.preprocess_expression_data(df, min_tpm=0.0)
+                unit = str(qc_input["expression_unit"].iloc[0]) if "expression_unit" in qc_input.columns and len(qc_input) else "unknown"
+                if "fallback" in unit.lower():
+                    st.warning(
+                        tr(
+                            f"当前输入被识别为 {unit}。TPM/logTPM 仅用于兼容旧表格，不等同于当前验证路线中的 raw counts/logCPM 输入。",
+                            f"Input was detected as {unit}. TPM/logTPM is only a legacy compatibility path and is not equivalent to the raw counts/logCPM route used in current validation.",
+                        )
+                    )
                 _render_upload_preview(qc_input, compute_sample_qc(qc_input))
             else:
                 st.error(tr("上传文件未通过校验。", "The uploaded file did not pass validation."))
