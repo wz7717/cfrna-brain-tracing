@@ -27,7 +27,10 @@ PAGES = {
     "bo2023": {"zh": "Bo2023 图谱浏览器", "en": "Bo2023 Atlas Browser", "icon": "BO", "section": "ATLAS", "func": display_atlas_browser},
 }
 
-NAV_ORDER = ["OVERVIEW", "DATA BROWSER", "ANALYSIS", "BENCHMARK", "ATLAS"]
+for _hidden_page in ("atlas", "bo2023"):
+    PAGES.pop(_hidden_page, None)
+
+NAV_ORDER = ["OVERVIEW", "DATA BROWSER", "ANALYSIS", "BENCHMARK"]
 
 SECTION_LABELS = {
     "OVERVIEW": {"zh": "数据总览", "en": "Overview"},
@@ -118,7 +121,7 @@ def _render_sidebar() -> None:
                 <strong>{tr("推荐流程", "Recommended workflow")}</strong><br>
                 {tr(
                     "建议从 Dashboard 开始，先查看样本与数据库状态，再上传矩阵、运行溯源分析，最后用 Benchmark 和 atlas 解释结果。",
-                    "Start from Dashboard, review samples and database status, then upload matrices, run tracing analysis, and finish with Benchmark plus atlas-based interpretation.",
+                    "Start from Dashboard, review samples and database status, then upload matrices, run tracing analysis, and finish with Benchmark review.",
                 )}
             </div>
             """,
