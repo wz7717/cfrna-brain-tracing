@@ -15,9 +15,9 @@ def table_exists(db_path: str, table: str) -> bool:
         conn.close()
 
 
-def get_atlas_options(db_path: str, species_mode: str | None = None):
+def get_atlas_options(db_path: str, species_mode: str | None = None, include_legacy: bool = True):
     if not table_exists(db_path, "atlas_versions"):
-        return [(1, "default atlas (legacy)")]
+        return [(1, "default atlas (legacy)")] if include_legacy else []
     conn = sqlite3.connect(db_path)
     try:
         df = pd.read_sql_query(
@@ -27,7 +27,7 @@ def get_atlas_options(db_path: str, species_mode: str | None = None):
     finally:
         conn.close()
     if df.empty:
-        return [(1, "default atlas (legacy)")]
+        return [(1, "default atlas (legacy)")] if include_legacy else []
 
     if species_mode:
         mode = str(species_mode).lower().strip()

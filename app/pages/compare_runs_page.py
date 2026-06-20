@@ -33,7 +33,19 @@ def display_run_compare():
     except Exception:
         pass
     if runs_df.empty:
-        st.info(tr("当前数据库模式下没有可对比的分析记录。请先运行至少一次 v2 溯源分析。", "There are no comparable analysis runs in the current database mode. Run at least one v2 tracing analysis first."))
+        render_section_band(
+            tr("公开 Demo 空状态", "Public Demo Empty State"),
+            tr(
+                "公开云端 demo 只运行轻量 Network 溯源，不把用户上传样本或结果写入 analysis_runs / analysis_results。",
+                "The public cloud demo runs lightweight Network tracing only and does not persist uploaded samples or results into analysis_runs / analysis_results.",
+            ),
+        )
+        st.info(
+            tr(
+                "Run Compare 仅适用于完整数据库、本地 v2 分析记录或私有后端 API 持久化后的结果。公开 demo 的 JSON/CSV 下载结果目前不会出现在这里。",
+                "Run Compare is available only for a full database, local v2 analysis records, or persisted results from a private backend API. Public demo JSON/CSV downloads do not appear here.",
+            )
+        )
         return
 
     render_kpi_cards(

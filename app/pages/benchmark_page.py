@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json as _json
+import sqlite3
 import traceback
 from typing import Dict
 
@@ -15,7 +16,7 @@ from app.database_mode import database_label, get_database_mode
 from app.i18n import tr
 from app.shared import DB_PATH, init_processor, render_page_hero, render_result_hint
 from core.methods import METHOD_SPECS, method_choices, method_help_markdown, method_label
-from data.dao import get_atlas_options
+from data.dao import get_atlas_options, table_exists
 
 
 def _download_df_button(df: pd.DataFrame, label: str, filename: str) -> None:
@@ -34,6 +35,73 @@ def _safe_float(value):
         return float(value)
     except Exception:
         return None
+
+
+def _count_table_rows(table_name: str) -> int:
+    if not table_exists(DB_PATH, table_name):
+        return 0
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        cur = conn.cursor()
+        cur.execute(f"SELECT COUNT(*) FROM {table_name}")
+        return int(cur.fetchone()[0])
+    finally:
+        conn.close()
+
+
+def _count_default_labeled_samples(limit: int | None = None) -> int:
+    if not table_exists(DB_PATH, "cfrna_samples"):
+        return 0
+    try:
+        from benchmark.label_utils import default_label_extractor
+    except Exception:
+        return 0
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        df = pd.read_sql_query("SELECT metadata FROM cfrna_samples", conn)
+    finally:
+        conn.close()
+    n = 0
+    for row in df.to_dict("records"):
+        if default_label_extractor(row):
+            n += 1
+            if limit is not None and n >= int(limit):
+                break
+    return n
+
+
+def _render_public_demo_benchmark_boundary(n_atlas: int, n_sigsets: int, n_labeled: int) -> None:
+    render_section_band(
+        tr("公开 Demo 边界", "Public Demo Boundary"),
+        tr(
+            "公开云端 demo 只暴露轻量 SaleemNetworks 模型，不下载、不展示完整 Bo2023 reference，也不保存用户上传数据。",
+            "The public cloud demo exposes only the lightweight SaleemNetworks model; it does not download or expose the full Bo2023 reference and does not persist uploaded data.",
+        ),
+    )
+    render_kpi_cards(
+        [
+            {"icon": "ATL", "label": tr("真实 atlas", "Real atlases"), "value": f"{n_atlas:,}", "note": tr("需要完整数据库", "Requires full database")},
+            {"icon": "SIG", "label": tr("Signature sets", "Signature sets"), "value": f"{n_sigsets:,}", "note": tr("Benchmark 前置条件", "Benchmark prerequisite")},
+            {"icon": "LBL", "label": tr("带标签样本", "Labeled samples"), "value": f"{n_labeled:,}", "note": tr("用于准确率评估", "Used for accuracy evaluation")},
+        ]
+    )
+    st.info(
+        tr(
+            "完整 Benchmark 需要真实 atlas_versions、signature_sets 和带 ground truth 标签的样本。当前公开 demo 下已禁用运行按钮；可在 Tracing 页面上传 raw counts/logCPM 运行 Network 级轻量溯源。",
+            "Full Benchmark requires real atlas_versions, signature_sets and ground-truth labeled samples. The run button is disabled in the current public demo state; use the Tracing page to upload raw counts/logCPM for lightweight Network-level tracing.",
+        )
+    )
+    try:
+        from app.pages.tracing_page import _render_network_description_table
+
+        _render_network_description_table()
+    except Exception:
+        st.caption(
+            tr(
+                "公开 demo 的输出边界：仅展示 Bo2023 10 个 SaleemNetworks 粗粒度位置/功能候选，不给出完整 reference matrix 或论文级 Benchmark。",
+                "Public demo output boundary: only the 10 coarse Bo2023 SaleemNetworks anatomical-functional candidates are shown, without full reference matrices or paper-grade Benchmark.",
+            )
+        )
 
 
 def _suite_summary(detail_df: pd.DataFrame, metrics_df: pd.DataFrame, k: int) -> dict:
@@ -199,7 +267,13 @@ def display_benchmark_page() -> None:
         pills=[tr("性能摘要", "Performance summary"), tr("图旁解释", "Explanation-first figures"), tr("论文级输出", "Paper-ready outputs")],
     )
     processor = init_processor()
-    atlas_opts = get_atlas_options(DB_PATH, species_mode=db_mode)
+    atlas_opts = get_atlas_options(DB_PATH, species_mode=db_mode, include_legacy=False)
+    n_atlas = len(atlas_opts)
+    n_sigsets = _count_table_rows("signature_sets")
+    n_labeled = _count_default_labeled_samples()
+    if n_atlas == 0 or n_sigsets == 0 or n_labeled == 0:
+        _render_public_demo_benchmark_boundary(n_atlas, n_sigsets, n_labeled)
+        return
     if not atlas_opts:
         st.info(
             tr(
@@ -236,7 +310,30 @@ def display_benchmark_page() -> None:
     col1, col2, col3 = st.columns(3)
     atlas_id = col1.number_input("atlas_id", min_value=1, value=1, step=1)
     sigset_id_in = col2.text_input("sigset_id", value="")
-    use_value = col3.selectbox("use_value", ["log1p", "tpm", "zscore"], index=0)
+    use_value_labels = {
+        "log1p": tr("logCPM / log expression 主路线", "logCPM / log-expression primary route"),
+        "zscore": tr("logCPM 标准化对照", "standardized log-expression control"),
+        "tpm": tr("TPM / logTPM fallback", "TPM / logTPM fallback"),
+    }
+    use_value = col3.selectbox(
+        tr("输入表达尺度", "Input expression scale"),
+        ["log1p", "zscore", "tpm"],
+        index=0,
+        format_func=lambda x: use_value_labels.get(x, x),
+    )
+    st.caption(
+        tr(
+            "推荐 Benchmark 使用 raw counts/logCPM 派生的 logCPM 表达路线；TPM/logTPM 仅用于兼容旧数据，结果应按 fallback 解释。",
+            "Benchmark should prefer the logCPM route derived from raw counts/logCPM inputs; TPM/logTPM is kept only for legacy compatibility and should be interpreted as fallback.",
+        )
+    )
+    if use_value == "tpm":
+        st.warning(
+            tr(
+                "当前选择的是 TPM/logTPM fallback，不等同于当前验证路线中的 Bo2023 logCPM 路线。",
+                "The selected TPM/logTPM fallback is not equivalent to the Bo2023 logCPM route used in the current validation path.",
+            )
+        )
 
     st.markdown(f'<div class="form-section">{tr("正则化与 Bootstrap", "Regularization and Bootstrap")}</div>', unsafe_allow_html=True)
     col4, col5, col6 = st.columns(3)
