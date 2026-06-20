@@ -120,13 +120,8 @@ Current submission route:
 - TCGA/BraTS Network Top3: 40.00%.
 - TCGA/BraTS broad-anatomy Top3: 64.62%.
 
-Legacy baseline / previous route:
-
-- Earlier Bo2023 strict LOSO Network Top1/Top3: 55.8% / 88.0%.
-- Earlier Bo2023 leave-one-monkey-out Top1/Top3: 53.2% / 86.7%.
-- Earlier AHBA normal-human Network Top1/Top3: 32.6% / 55.4%.
-- Earlier paired TCGA-LGG/BraTS broad-anatomy Top3 strict/tolerant:
-  75.4% / 83.1%.
+Earlier baseline routes were used during development but are not part of the
+current submission route or reported validation results.
 
 See `manuscript/` for the Bioinformatics Application Note draft and
 supplementary material.
