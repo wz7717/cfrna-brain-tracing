@@ -2,6 +2,11 @@
 
 Initial release prepared for the Bioinformatics Application Note submission.
 
+## DOI
+
+- Zenodo version DOI: https://doi.org/10.5281/zenodo.20773675
+- Zenodo concept DOI: https://doi.org/10.5281/zenodo.20773674
+
 ## Included
 
 - Python and Streamlit code for cfRNA-BrainTrace.
