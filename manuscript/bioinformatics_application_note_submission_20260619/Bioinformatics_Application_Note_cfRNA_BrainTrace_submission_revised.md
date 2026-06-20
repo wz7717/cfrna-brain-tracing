@@ -1,9 +1,11 @@
 # cfRNA-BrainTrace: hierarchical brain-origin candidate ranking from RNA expression profiles with a primate transcriptomic atlas
 
+**Superseded draft notice:** This file is retained for provenance only. The current submission version is `Bioinformatics_Application_Note_cfRNA_BrainTrace_submission_ready_final.md` / `.docx`.
+
 **Article type:** Application Note  
 **Category:** Gene expression  
 **Authors and affiliations:** Author information to be supplied in the submission system  
-**Corresponding author:** [CORRESPONDING AUTHOR EMAIL REQUIRED BEFORE SUBMISSION]
+**Corresponding author:** wangzhen@cibr.ac.cn
 
 ## Abstract
 
@@ -13,11 +15,11 @@ cfRNA-BrainTrace is a Python and Streamlit application for hierarchical brain-or
 
 ### Availability and Implementation
 
-Implemented in Python 3.11+ with command-line and Streamlit interfaces. The development repository is **https://github.com/wz7717/cfrna-brain-tracing** and contains README documentation, installation instructions, a command-line entry point, Streamlit entry points, tests, lightweight model artifacts and validation/benchmark scripts. The manuscript version is archived at **[ZENODO DOI REQUIRED BEFORE SUBMISSION]**. A live demonstration is available at **[STABLE WEB SERVICE URL REQUIRED BEFORE SUBMISSION]**. The software is released under **[LICENSE REQUIRED BEFORE SUBMISSION]**. Public example input/output files are **[EXAMPLE INPUT/OUTPUT REQUIRED BEFORE SUBMISSION]**.
+Implemented in Python 3.11+ with command-line and Streamlit interfaces. The development repository is **https://github.com/wz7717/cfrna-brain-tracing** and contains README documentation, installation instructions, a command-line entry point, Streamlit entry points, tests, lightweight model artifacts and validation/benchmark scripts. The manuscript-associated release is archived at **https://doi.org/10.5281/zenodo.20773674**. A live demonstration is available at **https://brain-cfrna-tracing.streamlit.app/**. The software is released under the **MIT License**. Synthetic public example input/output files are provided under `submission_ready_assets/example_io/`.
 
 ### Contact
 
-**[CORRESPONDING AUTHOR EMAIL REQUIRED BEFORE SUBMISSION]**
+**wangzhen@cibr.ac.cn**
 
 ### Supplementary information
 
@@ -53,7 +55,7 @@ The intended use of cfRNA-BrainTrace is coarse brain-origin candidate ranking fr
 
 ## Funding
 
-[FUNDING INFORMATION REQUIRED BEFORE SUBMISSION]
+This work received no specific funding.
 
 ## Conflict of Interest
 
@@ -61,7 +63,7 @@ None declared.
 
 ## Data availability
 
-The Bo2023 macaque transcriptomic atlas, Allen Human Brain Atlas, TCGA/BraTS and GEO datasets are available from their original repositories under their original access conditions. Processed non-sensitive evaluation tables and figure source data will be archived at **[DOI REQUIRED BEFORE SUBMISSION]** and must be available before submission.
+The Bo2023 macaque transcriptomic atlas, Allen Human Brain Atlas, TCGA/BraTS and GEO datasets are available from their original repositories under their original access conditions. Processed non-sensitive evaluation tables and figure source data are archived at **https://doi.org/10.5281/zenodo.20773674**.
 
 ## References
 

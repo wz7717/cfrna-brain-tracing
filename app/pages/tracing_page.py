@@ -239,6 +239,12 @@ def _render_public_demo_tracing() -> None:
             "The best input is RNA-seq raw gene counts, which are converted internally to logCPM; logCPM can be uploaded directly. TPM/logTPM is accepted only as a legacy fallback and should be interpreted more cautiously for fine regions.",
         )
     )
+    st.info(
+        tr(
+            "诊断信息需联合解读：marker coverage 反映可用模型基因支持度，entropy 和 score margin 反映排序不确定性，scope warnings 提示低置信度或超出参考范围的情况。没有解剖真值的 biofluid 输出只作为 transfer stress test，不作为 localization validation。",
+            "Diagnostics should be interpreted together: marker coverage reflects usable model-gene support, entropy and score margin reflect ranking ambiguity, and scope warnings flag low-confidence or out-of-reference cases. Biofluid outputs without anatomical truth are transfer stress tests, not localization-validation results.",
+        )
+    )
     uploaded = st.file_uploader(
         tr("上传表达矩阵 CSV/TSV/XLSX", "Upload expression matrix CSV/TSV/XLSX"),
         type=["csv", "tsv", "txt", "xlsx", "xls"],

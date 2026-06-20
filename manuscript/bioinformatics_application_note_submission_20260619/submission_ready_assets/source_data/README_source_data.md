@@ -16,15 +16,11 @@ It contains local copies of the current supplementary tables and Figure 1 artwor
 
 ## Status
 
-Prepared locally, but not yet publicly archived.
-
-Before submission, archive this directory or the full manuscript release on Zenodo/Figshare/another approved repository and replace:
-
-- `[ZENODO DOI REQUIRED BEFORE SUBMISSION]`
-- `[DOI REQUIRED BEFORE SUBMISSION]`
+Archived with the manuscript-associated GitHub/Zenodo release. The manuscript
+uses the Zenodo concept DOI `https://doi.org/10.5281/zenodo.20773674`, which
+resolves to the latest public release version.
 
 ## Notes
 
 The tables are derived summary/evaluation tables intended for manuscript support.
 They do not include patient-level MRI, clinical data, raw TCGA/GEO/AHBA matrices, or raw Bo2023 source matrices.
-

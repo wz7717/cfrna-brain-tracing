@@ -14,13 +14,25 @@ Internal validation used the Bo2023 macaque brain reference. Two settings were e
 
 External validation was limited by the label resolution available in each dataset. AHBA human brain RNA-seq was used for mapped-label validation because its anatomical labels could be harmonized to Network, resolution-group and a subset of exact-region labels. TCGA/BraTS glioma tissue RNA-seq with MRI-derived labels was used only for coarse anatomical consistency because its truth labels are human imaging labels, not Bo2023 macaque exact-region identifiers. GSE189919 was used to test whether an external matrix could be projected into the model gene space; it was not used for accuracy estimation because patient-level anatomical truth was unavailable.
 
-### S4 Figures and tables
+### S4 Label harmonization and allowed conclusions
 
-Supplementary Figure S1 provides the main route and validation summary artwork. Supplementary Tables S1-S6 provide the internal validation design, internal validation results, external validation design, external validation results, figure/table index and claim-boundary summary. Together, these materials document both how the route was tested and what result each validation setting supports.
+Label harmonization was performed only to the level supported by each dataset. AHBA anatomical labels were mapped to the macaque-derived Network, resolution-group and exact-region hierarchy where a supported mapping existed, and results are interpreted as mapped-label transfer rather than direct anatomical equivalence. TCGA/BraTS labels were derived from human MRI/tumour context and therefore support only coarse tumour-tissue anatomical consistency. Biofluid datasets without patient-level anatomical truth were not used for localization accuracy and are reported only as projection-feasibility or transfer stress tests.
 
-### S5 Model development and locked evaluation timeline
+### S5 Model artifacts and projected-VSD projector
+
+The repository contains lightweight model artifacts in `data/models/`, including Network model files, region-resolution dictionaries, route metadata and the reference-fitted projector `bo2023_reference_projector_linear_full.npz`. The projector stores gene-wise slope, intercept and clipping parameters fitted from reference data. At inference time, a single query profile can be mapped into Bo2023-like projected-VSD space using these fixed parameters without target-cohort labels or target-cohort distribution fitting. Projected VSD is used only for Network Top3 beam generation; resolution-group and exploratory exact-region reranking use logCPM-compatible local expression within that beam.
+
+### S6 Example input/output
+
+Synthetic public example files are provided in `submission_ready_assets/example_io/`. They document accepted input columns, Network ranked candidates, three-tier JSON output, resolution-group ranked candidates, exact-region ranked candidates and the local generation script. The example files are format and reproducibility aids only; they are not biological validation samples.
+
+### S7 Model development and locked evaluation timeline
 
 The production route was fixed before generating the final submission validation tables. External AHBA, TCGA/BraTS and biofluid analyses were not used to select the final route; they were used only for mapped-label transfer evaluation, coarse tumour-tissue consistency assessment and biofluid transfer stress testing. Development comparisons that used the same internal validation framework are reported as development evidence rather than independent confirmation.
+
+### S8 Figures and tables
+
+Supplementary Figure S1 provides the main route and validation summary artwork. Supplementary Tables S1-S6 provide the internal validation design, internal validation results, external validation design, external validation results, figure/table index and claim-boundary summary. Together, these materials document both how the route was tested and what result each validation setting supports.
 
 ## Supplementary Results
 

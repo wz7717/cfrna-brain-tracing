@@ -133,6 +133,10 @@ supplementary material.
 
 ## Status
 
-This is a research software release. It is not a clinical diagnostic device.
-The manuscript release is archived through Zenodo and the repository is
-released under the MIT License.
+This repository contains the public submission release candidate for the
+Bioinformatics Application Note describing cfRNA-BrainTrace. The software is
+intended for research use in hierarchical brain-origin candidate ranking and
+resolution-limit auditing. It is not a clinical diagnostic device and does not
+provide stand-alone clinical localization from unlabeled biofluid RNA. The
+manuscript-associated release is archived at Zenodo and should be cited using
+the DOI provided in the manuscript.
