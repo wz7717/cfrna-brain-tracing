@@ -1,7 +1,0 @@
-﻿Dataset,Route,Endpoint,Top1,Top3,Allowed claim
-AHBA,Hybrid,Network,0.7468,0.9442,Cross-species mapped-label support
-AHBA,Hybrid,Resolution group,0.3626,0.6703,Group-level mapped-label support
-AHBA,Hybrid,Exact region,0.2418,0.4286,Only evaluable mapped labels
-TCGA/BraTS,Hybrid,Network,0.1538,0.4000,Coarse anatomical consistency
-TCGA/BraTS,Hybrid,Broad anatomy,0.1385,0.6462,Coarse anatomical consistency
-GSE189919,Projection feasibility,Gene overlap,15622/21668,0.7210,No accuracy claim
