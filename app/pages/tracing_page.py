@@ -55,7 +55,7 @@ def _render_vsd_mode_notice(atlas_meta: dict) -> None:
     )
 
 
-def _render_network_primary(network_out: dict) -> None:
+def _render_network_primary(network_out: dict, show_validation_caption: bool = True) -> None:
     rows = network_out.get("results", [])
     meta = network_out.get("meta", {})
     if not rows:
@@ -74,7 +74,7 @@ def _render_network_primary(network_out: dict) -> None:
     c1.metric(tr("最可能来源 Network", "Top source Network"), str(top.get("network_id", "NA")))
     c2.metric(tr("Network Top1 置信度", "Network Top1 confidence"), f"{float(top.get('confidence', 0.0)):.3f}")
     c3.metric(tr("Network 模型基因数", "Network model genes"), f"{int(meta.get('n_model_genes', 0))}")
-    if validation:
+    if validation and show_validation_caption:
         st.caption(
             tr(
                 f"固定算法全量 LOSO 验证：Top1 {float(validation.get('top1_accuracy', 0)):.1%}；Top3 {float(validation.get('top3_accuracy', 0)):.1%}。该性能仅代表 SaleemNetworks 上层终点。",
@@ -107,6 +107,67 @@ def _render_network_primary(network_out: dict) -> None:
         )
         figure.update_layout(yaxis={"categoryorder": "total ascending"}, coloraxis_showscale=False)
         st.plotly_chart(figure, use_container_width=True)
+
+
+def _render_public_demo_diagnostics(network_out: dict) -> None:
+    rows = network_out.get("results", [])
+    meta = network_out.get("meta", {})
+    scores = [float(row.get("score", 0.0)) for row in rows]
+    probs = np.asarray([float(row.get("confidence", 0.0)) for row in rows], dtype=float)
+    probs = probs[probs > 0]
+    entropy = float(-(probs * np.log(probs)).sum()) if probs.size else 0.0
+    margin = float(scores[0] - scores[1]) if len(scores) >= 2 else float("nan")
+    n_overlap = int(meta.get("n_overlap_genes", 0))
+    n_model = int(meta.get("n_model_genes", 0))
+    coverage = float(meta.get("overlap_fraction", 0.0))
+
+    st.info(
+        tr(
+            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the locked three-tier route LOSO/LOMO Network Top3 is 92.38%/91.21%. Exact-region output is exploratory.",
+            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the locked three-tier route LOSO/LOMO Network Top3 is 92.38%/91.21%. Exact-region output is exploratory.",
+        )
+    )
+    render_section_band(
+        tr("Public demo diagnostics", "Public demo diagnostics"),
+        tr(
+            "Marker coverage, entropy, score margin and scope warnings should be read together before interpreting ranked candidates.",
+            "Marker coverage, entropy, score margin and scope warnings should be read together before interpreting ranked candidates.",
+        ),
+    )
+    render_kpi_cards(
+        [
+            {
+                "icon": "COV",
+                "label": tr("Marker coverage", "Marker coverage"),
+                "value": f"{n_overlap}/{n_model}",
+                "note": f"{coverage:.1%} of public Network model genes overlapped",
+            },
+            {
+                "icon": "ENT",
+                "label": tr("Entropy", "Entropy"),
+                "value": f"{entropy:.3f}",
+                "note": "Higher entropy means a flatter, more ambiguous Network ranking.",
+            },
+            {
+                "icon": "MAR",
+                "label": tr("Score margin", "Score margin"),
+                "value": "NA" if np.isnan(margin) else f"{margin:.4f}",
+                "note": "Small Top1-Top2 margin means the leading candidate is weakly separated.",
+            },
+            {
+                "icon": "SCP",
+                "label": tr("Scope warning", "Scope warning"),
+                "value": tr("Coarse-only", "Coarse-only"),
+                "note": "Public demo output is a Network candidate ranking, not deterministic localization.",
+            },
+        ]
+    )
+    st.warning(
+        tr(
+            "Biofluid outputs without independent anatomical truth are transfer stress tests, not localization-validation results.",
+            "Biofluid outputs without independent anatomical truth are transfer stress tests, not localization-validation results.",
+        )
+    )
 
 
 def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
@@ -297,7 +358,10 @@ def _render_public_demo_tracing() -> None:
             network_out["meta"]["input_recommendation"] = (
                 "raw counts/logCPM preferred; TPM/logTPM fallback only; user-uploaded VSD is not required"
             )
-            _render_network_primary(network_out)
+            network_out["meta"].pop("model_metadata", None)
+            network_out["meta"].pop("pairwise_rescue_validation", None)
+            _render_network_primary(network_out, show_validation_caption=False)
+            _render_public_demo_diagnostics(network_out)
             result_df = pd.DataFrame(network_out["results"])
             st.download_button(
                 tr("下载 Demo JSON", "Download demo JSON"),
