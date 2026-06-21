@@ -1,7 +1,0 @@
-﻿Validation,Level,n,Top1,Top3,Median true rank
-LOSO formal hybrid,Network,814,0.5835,0.9238,1.0
-LOSO formal hybrid,Resolution group,814,0.4447,0.7236,2.0
-LOSO formal hybrid,Exact region,814,0.2248,0.4533,4.0
-LOMO formal hybrid,Network,819,0.5775,0.9121,1.0
-LOMO formal hybrid,Resolution group,812,0.4138,0.6909,2.0
-LOMO formal hybrid,Exact region,812,0.2217,0.4236,5.0

@@ -40,7 +40,7 @@ Date: 2026-06-21
 
 ## Legacy baseline
 
-- README keeps the older 55.8%/88.0%, 53.2%/86.7%, 32.6%/55.4% and 75.4%/83.1% values only under `Legacy baseline / previous route`.
+- README no longer reports legacy baseline validation numbers; it retains only a brief historical note that earlier baseline routes were used during development and are not part of the current submission route.
 - These values are not presented as current submission-route results.
 
 ## Zenodo DOI and archive

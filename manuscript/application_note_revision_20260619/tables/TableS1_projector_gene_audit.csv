@@ -1,9 +1,0 @@
-﻿Metric,Value,Interpretation
-Common Bo2023 samples,819,"Counts, VSD and metadata aligned"
-Common genes after symbol mapping,21668,Projector gene space
-Locked Network genes in common panel,199/200,One prior date-like symbol issue cleaned
-Projector global Pearson,0.9961,Strong sample-level VSD-like reconstruction
-Projector median sample Pearson,0.9969,Supports Network beam use
-Projector median gene Pearson,0.6619,Do not claim gene-perfect reconstruction
-Date-like symbols after cleaning,0,Excel-mangled symbols removed
-Ensembl fallback symbols,5499,Interpretability limitation
