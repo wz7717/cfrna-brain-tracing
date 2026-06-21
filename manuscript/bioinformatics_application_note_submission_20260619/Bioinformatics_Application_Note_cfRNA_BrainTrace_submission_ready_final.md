@@ -13,7 +13,7 @@ cfRNA-BrainTrace is a Python and Streamlit application for hierarchical brain-or
 
 ### Availability and Implementation
 
-Implemented in Python 3.11+ with command-line and Streamlit interfaces. Source code, README documentation, installation instructions, command-line and Streamlit entry points, unit tests, lightweight model artifacts, supplementary tables, validation/benchmark scripts and synthetic public example input/output files are available at **https://github.com/wz7717/cfrna-brain-tracing**. The manuscript release is archived at **https://doi.org/10.5281/zenodo.20773674**. A live Streamlit demonstration is available at **https://brain-cfrna-tracing.streamlit.app/**. The software is released under the **MIT License**.
+Implemented in Python 3.11+ with command-line and Streamlit interfaces. Source code, README documentation, installation instructions, command-line and Streamlit entry points, unit tests, lightweight model artifacts, supplementary tables, validation/benchmark scripts and synthetic public example input/output files are available at **https://github.com/wz7717/cfrna-brain-tracing**. The manuscript-associated software release is **v0.1.6** and is archived at **https://doi.org/10.5281/zenodo.20773674**. A live Streamlit demonstration is available at **https://brain-cfrna-tracing.streamlit.app/**. The software is released under the **MIT License**.
 
 ### Contact
 
@@ -65,7 +65,7 @@ The authors used large language model tools to assist with language editing, man
 
 ## Data availability
 
-The Bo2023 macaque transcriptomic atlas, Allen Human Brain Atlas, TCGA/BraTS and GEO datasets are available from their original repositories under their original access conditions. Repository scripts, processed non-sensitive evaluation tables and figure source data are archived with the release at **https://doi.org/10.5281/zenodo.20773674**.
+The Bo2023 macaque transcriptomic atlas, Allen Human Brain Atlas, TCGA/BraTS and GEO datasets are available from their original repositories under their original access conditions. Repository scripts, processed non-sensitive evaluation tables and figure source data are archived with the manuscript-associated v0.1.6 release at **https://doi.org/10.5281/zenodo.20773674**.
 
 ## References
 

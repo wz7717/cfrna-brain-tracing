@@ -24,7 +24,11 @@ The repository contains lightweight model artifacts in `data/models/`, including
 
 ### S6 Example input/output
 
-Synthetic public example files are provided in `submission_ready_assets/example_io/`. They document accepted input columns, Network ranked candidates, three-tier JSON output, resolution-group ranked candidates, exact-region ranked candidates and the local generation script. The example files are format and reproducibility aids only; they are not biological validation samples.
+Synthetic public example files are provided in `submission_ready_assets/example_io/` as part of the v0.1.6 public submission release. They document accepted input columns, Network ranked candidates, three-tier JSON output, resolution-group ranked candidates, exact-region ranked candidates and the local generation script. The example files are format and reproducibility aids only; they are not biological validation samples.
+
+### S6a Software availability
+
+The manuscript-associated software release is v0.1.6. The public GitHub repository is available at `https://github.com/wz7717/cfrna-brain-tracing`, and the archived release is cited in the manuscript using the Zenodo DOI.
 
 ### S7 Model development and locked evaluation timeline
 

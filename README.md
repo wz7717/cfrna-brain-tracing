@@ -128,10 +128,10 @@ supplementary material.
 
 ## Status
 
-This repository contains the public submission release candidate for the
+This repository contains the v0.1.6 public submission release for the
 Bioinformatics Application Note describing cfRNA-BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The
-manuscript-associated release is archived at Zenodo and should be cited using
-the DOI provided in the manuscript.
+manuscript-associated v0.1.6 release is archived at Zenodo and should be cited
+using the DOI provided in the manuscript.

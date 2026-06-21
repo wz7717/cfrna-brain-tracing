@@ -13,7 +13,7 @@ Date: 2026-06-21
 ## README consistency
 
 - README is synchronized with the manuscript route and validation numbers.
-- README Status was updated to describe the public submission release candidate, research-use scope, non-clinical status, Zenodo archival and manuscript DOI citation.
+- README Status was updated to describe the v0.1.6 public submission release, research-use scope, non-clinical status, Zenodo archival and manuscript DOI citation.
 - README no longer states that public repository URL, archived release DOI or OSI-approved license still need finalization.
 
 ## Current submission route
@@ -47,7 +47,7 @@ Date: 2026-06-21
 
 - Zenodo concept DOI: `https://doi.org/10.5281/zenodo.20773674`.
 - Latest checked version DOI before this final audit update: `https://doi.org/10.5281/zenodo.20776703`.
-- Manuscript and README use the Zenodo concept DOI so the citation resolves to the latest public release after any final GitHub/Zenodo synchronization.
+- Manuscript and README use the Zenodo concept DOI for the manuscript-associated v0.1.6 release so the citation resolves to the latest public release after final GitHub/Zenodo synchronization.
 - The Zenodo record is public and not draft/private.
 - The Zenodo archive contains the GitHub source archive for the manuscript-associated release, including source code, README/release notes, synthetic example input/output, supplementary files, processed non-sensitive evaluation tables, figure source data, validation/benchmark scripts and license information.
 

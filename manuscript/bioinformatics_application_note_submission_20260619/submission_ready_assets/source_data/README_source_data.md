@@ -1,6 +1,7 @@
 # Source Data Working Package
 
-This directory is prepared for public archival with the manuscript release.
+This directory is prepared for public archival with the manuscript-associated
+v0.1.6 release.
 It contains local copies of the current supplementary tables and Figure 1 artwork.
 
 ## Included Files
@@ -16,7 +17,7 @@ It contains local copies of the current supplementary tables and Figure 1 artwor
 
 ## Status
 
-Archived with the manuscript-associated GitHub/Zenodo release. The manuscript
+Archived with the manuscript-associated v0.1.6 GitHub/Zenodo release. The manuscript
 uses the Zenodo concept DOI `https://doi.org/10.5281/zenodo.20773674`, which
 resolves to the latest public release version.
 
