@@ -1,13 +1,38 @@
 from __future__ import annotations
 
 import pandas as pd
+import pytest
 
 from app.shared import DB_PATH
-from core.bo2023_region_tracing import ROUTE_NAME, trace_bo2023_secondary_regions
+from core.bo2023_region_tracing import (
+    DEFAULT_BO2023_COUNTS,
+    DEFAULT_BO2023_GENE_MAP,
+    DEFAULT_BO2023_SAMPLE_INFO,
+    ROUTE_NAME,
+    trace_bo2023_secondary_regions,
+)
 from core.network_tracing import load_network_model
 
 
+CONTROLLED_BO2023_INPUTS = (
+    DEFAULT_BO2023_COUNTS,
+    DEFAULT_BO2023_SAMPLE_INFO,
+    DEFAULT_BO2023_GENE_MAP,
+)
+
+
+def _skip_if_controlled_bo2023_inputs_missing() -> None:
+    missing = [path for path in CONTROLLED_BO2023_INPUTS if not path.exists()]
+    if missing:
+        pytest.skip(
+            "Controlled Bo2023 raw expression inputs are not included in the public release: "
+            + ", ".join(str(path) for path in missing)
+        )
+
+
 def test_bo2023_secondary_region_tracing_uses_network_top3_beam():
+    _skip_if_controlled_bo2023_inputs_missing()
+
     model = load_network_model()
     expression = pd.DataFrame(
         {
