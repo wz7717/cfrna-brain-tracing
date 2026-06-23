@@ -179,6 +179,15 @@ python -m pip install numpy pandas scipy matplotlib openpyxl nibabel pytest jupy
 # 启动 Jupyter Lab
 python -m jupyter lab</code></pre>
 
+      <div class="cell-title">PowerShell/Linux: 将授权数据集中放入 tests/controlled_data</div>
+      <button class="copy" data-copy="ps-stage-data">复制</button>
+      <pre><code id="ps-stage-data">cd /storage/wangzhen/cfrna-brain-tracing-0.1.6
+
+# 只在 /storage/wangzhen 下查找源文件，并复制到 tests/controlled_data。
+# 先 dry-run 查看将复制哪些文件；确认后去掉 --dry-run。
+python scripts/stage_validation_data_under_tests.py --source-root /storage/wangzhen --dry-run
+python scripts/stage_validation_data_under_tests.py --source-root /storage/wangzhen</code></pre>
+
       <div class="warning">
         <strong>运行时间预期：</strong>Bo2023 LOSO 约数分钟，Bo2023 LOMO 约 10 分钟量级，AHBA formal external 可能接近 1 小时。长任务建议一个单元跑完后再继续，不要并行执行这些验证脚本。
       </div>
@@ -350,17 +359,29 @@ TARGETS = {
 
       <div class="cell-title">Cell 4: 双模式输入文件检查</div>
       <button class="copy" data-copy="cell-inputs">复制</button>
-      <pre><code id="cell-inputs">INPUTS = {
-    "Bo2023 counts": ROOT / "bo2023 data" / "mfas5_819samples_28415genes_featurecounts_counts.txt",
-    "Bo2023 VSD": ROOT / "bo2023 data" / "mfas5_819samples_23605genes_vsd4_rmbatch.xls",
-    "Bo2023 sample info": ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx",
-    "Bo2023 gene map": ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.cleaned_symbols.csv",
-    "Projector NPZ": ROOT / "data" / "models" / "bo2023_reference_projector_linear_full.npz",
-    "AHBA zip 1": ROOT / "data" / "ahba_human_rnaseq" / "raw_zips" / "H0351_2001_rnaseq.zip",
-    "AHBA zip 2": ROOT / "data" / "ahba_human_rnaseq" / "raw_zips" / "H0351_2002_rnaseq.zip",
-    "TCGA counts": ROOT / "data" / "tcga_brain_tumor_expression" / "tcga_gbm_lgg_primary_tumor_unstranded_counts_sample_sum.tsv",
-    "TCGA corrected MRI truth": ROOT / "results" / "brats_tcga_lgg_65_mri_truth_corrected_20260612" / "corrected_direct_overlap_mri_truth.csv",
-    "GSE189919 TPM": ROOT / "data" / "external_validation" / "GSE189919" / "GSE189919_tpm_count.csv.gz",
+      <pre><code id="cell-inputs">CONTROLLED_DATA_DIR = ROOT / "tests" / "controlled_data"
+
+def staged_or_default(staged_relative: str, default_path: Path) -> Path:
+    staged = CONTROLLED_DATA_DIR / staged_relative
+    return staged if staged.exists() else default_path
+
+INPUTS = {
+    "Bo2023 counts": staged_or_default("bo2023/mfas5_819samples_28415genes_featurecounts_counts.txt", ROOT / "bo2023 data" / "mfas5_819samples_28415genes_featurecounts_counts.txt"),
+    "Bo2023 VSD": staged_or_default("bo2023/mfas5_819samples_23605genes_vsd4_rmbatch.xls", ROOT / "bo2023 data" / "mfas5_819samples_23605genes_vsd4_rmbatch.xls"),
+    "Bo2023 sample info": staged_or_default("bo2023/Information of sequenced samples_update_full878_filter819.xlsx", ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"),
+    "Bo2023 gene map": staged_or_default("bo2023/04_expressed_genes_neocortex_plus_subcortical.cleaned_symbols.csv", ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.cleaned_symbols.csv"),
+    "Bo2023 region meta": staged_or_default("bo2023/01_region_level_meta.csv", ROOT / "bo2023_bulk_atlas_buildkit" / "01_region_level_meta.csv"),
+    "Projector NPZ": staged_or_default("models/bo2023_reference_projector_linear_full.npz", ROOT / "data" / "models" / "bo2023_reference_projector_linear_full.npz"),
+    "AHBA zip dir": staged_or_default("ahba/raw_zips", ROOT / "data" / "ahba_human_rnaseq" / "raw_zips"),
+    "AHBA zip 1": staged_or_default("ahba/raw_zips/H0351_2001_rnaseq.zip", ROOT / "data" / "ahba_human_rnaseq" / "raw_zips" / "H0351_2001_rnaseq.zip"),
+    "AHBA zip 2": staged_or_default("ahba/raw_zips/H0351_2002_rnaseq.zip", ROOT / "data" / "ahba_human_rnaseq" / "raw_zips" / "H0351_2002_rnaseq.zip"),
+    "TCGA counts": staged_or_default("tcga/tcga_gbm_lgg_primary_tumor_unstranded_counts_sample_sum.tsv", ROOT / "data" / "tcga_brain_tumor_expression" / "tcga_gbm_lgg_primary_tumor_unstranded_counts_sample_sum.tsv"),
+    "TCGA manifest": staged_or_default("tcga/tcga_gbm_lgg_gdc_star_counts_manifest.csv", ROOT / "data" / "tcga_brain_tumor_expression" / "tcga_gbm_lgg_gdc_star_counts_manifest.csv"),
+    "TCGA corrected MRI truth": staged_or_default("tcga/corrected_direct_overlap_mri_truth.csv", ROOT / "results" / "brats_tcga_lgg_65_mri_truth_corrected_20260612" / "corrected_direct_overlap_mri_truth.csv"),
+    "GSE189919 data dir": staged_or_default("gse189919", ROOT / "data" / "external_validation" / "GSE189919"),
+    "GSE189919 TPM": staged_or_default("gse189919/GSE189919_tpm_count.csv.gz", ROOT / "data" / "external_validation" / "GSE189919" / "GSE189919_tpm_count.csv.gz"),
+    "GSE189919 counts": staged_or_default("gse189919/GSE189919_count.csv.gz", ROOT / "data" / "external_validation" / "GSE189919" / "GSE189919_count.csv.gz"),
+    "GSE189919 SOFT": staged_or_default("gse189919/GSE189919_family.soft.gz", ROOT / "data" / "external_validation" / "GSE189919" / "GSE189919_family.soft.gz"),
 }
 
 for label, path in INPUTS.items():
@@ -381,10 +402,10 @@ if missing_public:
     raise FileNotFoundError(["Public audit 缺少必要 GitHub 文件", missing_public])
 
 CONTROLLED_INPUTS = {
-    "bo2023": [INPUTS["Bo2023 counts"], INPUTS["Bo2023 VSD"], INPUTS["Bo2023 sample info"]],
-    "ahba": [INPUTS["AHBA zip 1"], INPUTS["AHBA zip 2"], INPUTS["Bo2023 counts"], INPUTS["Bo2023 VSD"], INPUTS["Bo2023 sample info"]],
-    "tcga": [INPUTS["TCGA counts"], INPUTS["TCGA corrected MRI truth"], INPUTS["Bo2023 counts"], INPUTS["Bo2023 VSD"], INPUTS["Bo2023 sample info"]],
-    "gse189919": [INPUTS["GSE189919 TPM"], INPUTS["Projector NPZ"]],
+    "bo2023": [INPUTS["Bo2023 counts"], INPUTS["Bo2023 VSD"], INPUTS["Bo2023 sample info"], INPUTS["Bo2023 gene map"]],
+    "ahba": [INPUTS["AHBA zip 1"], INPUTS["AHBA zip 2"], INPUTS["Bo2023 counts"], INPUTS["Bo2023 VSD"], INPUTS["Bo2023 sample info"], INPUTS["Bo2023 gene map"], INPUTS["Projector NPZ"]],
+    "tcga": [INPUTS["TCGA counts"], INPUTS["TCGA manifest"], INPUTS["TCGA corrected MRI truth"], INPUTS["Bo2023 counts"], INPUTS["Bo2023 VSD"], INPUTS["Bo2023 sample info"], INPUTS["Bo2023 gene map"], INPUTS["Bo2023 region meta"], INPUTS["Projector NPZ"]],
+    "gse189919": [INPUTS["GSE189919 TPM"], INPUTS["GSE189919 counts"], INPUTS["GSE189919 SOFT"], INPUTS["Projector NPZ"]],
 }
 DATA_AVAILABLE = {name: len(missing_paths(paths)) == 0 for name, paths in CONTROLLED_INPUTS.items()}
 
@@ -460,7 +481,15 @@ print("OK: projected-VSD 只作为 Network Top3 beam；区域层级 rerank 为 l
       <pre><code id="cell-loso-net-run">loso_net_out = AUDIT_DIR / "bo2023_projected_vsd_loso"
 if DATA_AVAILABLE["bo2023"]:
     run_cmd(
-        [sys.executable, "scripts/run_bo2023_projected_vsd_loso.py", "--outdir", str(loso_net_out)],
+        [
+            sys.executable,
+            "scripts/run_bo2023_projected_vsd_loso.py",
+            "--counts", str(INPUTS["Bo2023 counts"]),
+            "--vsd", str(INPUTS["Bo2023 VSD"]),
+            "--sample-info", str(INPUTS["Bo2023 sample info"]),
+            "--gene-map", str(INPUTS["Bo2023 gene map"]),
+            "--outdir", str(loso_net_out),
+        ],
         loso_net_out,
         timeout=1800,
     )
@@ -505,7 +534,15 @@ if DATA_AVAILABLE["bo2023"]:
       <pre><code id="cell-formal-loso-run">formal_loso_out = AUDIT_DIR / "bo2023_hybrid_formal_loso"
 if DATA_AVAILABLE["bo2023"]:
     run_cmd(
-        [sys.executable, "scripts/run_bo2023_hybrid_formal_loso.py", "--outdir", str(formal_loso_out)],
+        [
+            sys.executable,
+            "scripts/run_bo2023_hybrid_formal_loso.py",
+            "--counts", str(INPUTS["Bo2023 counts"]),
+            "--vsd", str(INPUTS["Bo2023 VSD"]),
+            "--sample-info", str(INPUTS["Bo2023 sample info"]),
+            "--gene-map", str(INPUTS["Bo2023 gene map"]),
+            "--outdir", str(formal_loso_out),
+        ],
         formal_loso_out,
         timeout=2400,
     )
@@ -567,7 +604,15 @@ save_metric_barplot(plot_rows, formal_loso_out / "hybrid_formal_loso_metrics.png
       <pre><code id="cell-lomo-run">formal_lomo_out = AUDIT_DIR / "bo2023_projected_vsd_formal_lomo"
 if DATA_AVAILABLE["bo2023"]:
     run_cmd(
-        [sys.executable, "scripts/run_bo2023_projected_vsd_formal_lomo.py", "--outdir", str(formal_lomo_out)],
+        [
+            sys.executable,
+            "scripts/run_bo2023_projected_vsd_formal_lomo.py",
+            "--counts", str(INPUTS["Bo2023 counts"]),
+            "--vsd", str(INPUTS["Bo2023 VSD"]),
+            "--sample-info", str(INPUTS["Bo2023 sample info"]),
+            "--gene-map", str(INPUTS["Bo2023 gene map"]),
+            "--outdir", str(formal_lomo_out),
+        ],
         formal_lomo_out,
         timeout=3600,
     )
@@ -632,10 +677,13 @@ if DATA_AVAILABLE["ahba"]:
         [
             sys.executable,
             "scripts/run_ahba_projected_vsd_formal_three_tier_external.py",
-            "--projector",
-            str(ROOT / "data" / "models" / "bo2023_reference_projector_linear_full.npz"),
-            "--outdir",
-            str(ahba_out),
+            "--zip-dir", str(INPUTS["AHBA zip dir"]),
+            "--bo-counts", str(INPUTS["Bo2023 counts"]),
+            "--bo-vsd", str(INPUTS["Bo2023 VSD"]),
+            "--sample-info", str(INPUTS["Bo2023 sample info"]),
+            "--gene-map", str(INPUTS["Bo2023 gene map"]),
+            "--projector", str(INPUTS["Projector NPZ"]),
+            "--outdir", str(ahba_out),
         ],
         ahba_out,
         timeout=7200,
@@ -699,10 +747,16 @@ if DATA_AVAILABLE["tcga"]:
         [
             sys.executable,
             "scripts/run_tcga_labeled_hybrid_formal_external.py",
-            "--projector",
-            str(ROOT / "data" / "models" / "bo2023_reference_projector_linear_full.npz"),
-            "--outdir",
-            str(tcga_out),
+            "--tcga-counts", str(INPUTS["TCGA counts"]),
+            "--manifest", str(INPUTS["TCGA manifest"]),
+            "--labels", str(INPUTS["TCGA corrected MRI truth"]),
+            "--bo-counts", str(INPUTS["Bo2023 counts"]),
+            "--bo-vsd", str(INPUTS["Bo2023 VSD"]),
+            "--sample-info", str(INPUTS["Bo2023 sample info"]),
+            "--gene-map", str(INPUTS["Bo2023 gene map"]),
+            "--projector", str(INPUTS["Projector NPZ"]),
+            "--region-meta", str(INPUTS["Bo2023 region meta"]),
+            "--outdir", str(tcga_out),
         ],
         tcga_out,
         timeout=1800,
@@ -761,8 +815,8 @@ save_metric_barplot(plot_rows, tcga_out / "tcga_labeled_hybrid_formal_metrics_di
 gse_out.mkdir(parents=True, exist_ok=True)
 
 if DATA_AVAILABLE["gse189919"]:
-    projector_npz = ROOT / "data" / "models" / "bo2023_reference_projector_linear_full.npz"
-    gse_tpm = ROOT / "data" / "external_validation" / "GSE189919" / "GSE189919_tpm_count.csv.gz"
+    projector_npz = INPUTS["Projector NPZ"]
+    gse_tpm = INPUTS["GSE189919 TPM"]
     d = np.load(projector_npz, allow_pickle=True)
     projector_genes = pd.Index(d["genes"].astype(str))
     gse_genes = pd.read_csv(gse_tpm, index_col="Geneid", usecols=["Geneid"]).index.astype(str).str.strip()
@@ -826,7 +880,12 @@ if not DATA_AVAILABLE["gse189919"]:
 else:
     try:
         run_cmd(
-            [sys.executable, "scripts/analyze_gse189919_csf_tracing_validation.py", "--outdir", str(gse_out / "full_script")],
+            [
+                sys.executable,
+                "scripts/analyze_gse189919_csf_tracing_validation.py",
+                "--data-dir", str(INPUTS["GSE189919 data dir"]),
+                "--outdir", str(gse_out / "full_script"),
+            ],
             gse_out / "full_script",
             timeout=1800,
         )
