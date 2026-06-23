@@ -418,10 +418,11 @@ full_region_test_inputs = [
 ]
 if not missing_paths(full_region_test_inputs):
     assert "17 passed" in pytest_stdout, "Controlled-data mode should run the full region tracing test."
-    print("OK: controlled-data mode pytest summary includes 17 passed.")
+    expected_pytest_summary = "17 passed"
 else:
     assert "16 passed, 1 skipped" in pytest_stdout, "Public audit mode should skip the controlled Bo2023 full region tracing test."
-    print("OK: public audit mode pytest summary includes 16 passed, 1 skipped.")</code></pre>
+    expected_pytest_summary = "16 passed, 1 skipped"
+print("OK: pytest summary matched:", expected_pytest_summary)</code></pre>
 
       <div class="cell-title">Cell 6: projected-VSD 使用边界检查</div>
       <button class="copy" data-copy="cell-codeaudit">复制</button>
