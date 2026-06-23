@@ -408,6 +408,10 @@ pytest_proc = run_cmd(
 )
 
 pytest_stdout = pytest_proc.stdout
+import re
+
+pytest_stdout_clean = re.sub(r"\x1b\[[0-9;]*m", "", pytest_stdout)
+pytest_stdout_clean = " ".join(pytest_stdout_clean.split())
 full_region_test_inputs = [
     INPUTS["Bo2023 counts"],
     INPUTS["Bo2023 sample info"],
@@ -417,10 +421,10 @@ full_region_test_inputs = [
     ),
 ]
 if not missing_paths(full_region_test_inputs):
-    assert "17 passed" in pytest_stdout, "Controlled-data mode should run the full region tracing test."
+    assert re.search(r"\b17 passed\b", pytest_stdout_clean), "Controlled-data mode should run the full region tracing test."
     expected_pytest_summary = "17 passed"
 else:
-    assert "16 passed, 1 skipped" in pytest_stdout, "Public audit mode should skip the controlled Bo2023 full region tracing test."
+    assert re.search(r"\b16 passed, 1 skipped\b", pytest_stdout_clean), "Public audit mode should skip the controlled Bo2023 full region tracing test."
     expected_pytest_summary = "16 passed, 1 skipped"
 print("OK: pytest summary matched:", expected_pytest_summary)</code></pre>
 
