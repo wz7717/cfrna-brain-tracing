@@ -411,7 +411,10 @@ pytest_stdout = pytest_proc.stdout
 full_region_test_inputs = [
     INPUTS["Bo2023 counts"],
     INPUTS["Bo2023 sample info"],
-    INPUTS["Bo2023 gene map"],
+    INPUTS.get(
+        "Bo2023 gene map",
+        ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.cleaned_symbols.csv",
+    ),
 ]
 if not missing_paths(full_region_test_inputs):
     assert "17 passed" in pytest_stdout, "Controlled-data mode should run the full region tracing test."
