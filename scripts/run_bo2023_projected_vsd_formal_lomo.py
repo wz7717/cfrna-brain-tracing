@@ -149,6 +149,7 @@ def main() -> int:
     exact_rows: list[dict[str, Any]] = []
     group_rows: list[dict[str, Any]] = []
     fold_rows: list[dict[str, Any]] = []
+    unsupported_rows: list[dict[str, Any]] = []
 
     for fold_no, monkey_id in enumerate(sorted(set(monkey_labels)), start=1):
         test_indices = np.flatnonzero(monkey_labels == monkey_id)
@@ -201,6 +202,23 @@ def main() -> int:
             "n_test_samples": int(len(test_indices)),
             "n_train_regions": int(len(region_training)),
         }
+        for sample_idx in test_indices:
+            sample_id = samples[int(sample_idx)]
+            truth_region = str(sample_ann.loc[sample_id, "region_id"])
+            if truth_region not in region_training:
+                unsupported_rows.append(
+                    {
+                        "fold": fold_no,
+                        "heldout_monkey_id": monkey_id,
+                        "sample_id": sample_id,
+                        "truth_network": str(network_labels[int(sample_idx)]),
+                        "truth_region": truth_region,
+                        "reason": "truth_region_absent_from_training_monkeys",
+                        "network_included_in_evaluation": True,
+                        "resolution_group_included_in_evaluation": False,
+                        "exact_region_included_in_evaluation": False,
+                    }
+                )
 
         for route_family, route_data in route_spaces.items():
             network_values = route_data["network_train_values"]
@@ -367,6 +385,10 @@ def main() -> int:
     group_summary = pd.DataFrame(group_summary_rows)
 
     pd.DataFrame(fold_rows).to_csv(args.outdir / "formal_lomo_fold_summary.csv", index=False)
+    pd.DataFrame(unsupported_rows).to_csv(
+        args.outdir / "formal_lomo_region_unsupported_samples.csv",
+        index=False,
+    )
     network_df.to_csv(args.outdir / "formal_lomo_network_detail.csv", index=False)
     exact_df.to_csv(args.outdir / "formal_lomo_exact_region_detail.csv", index=False)
     group_df.to_csv(args.outdir / "formal_lomo_resolution_group_detail.csv", index=False)
@@ -380,7 +402,34 @@ def main() -> int:
     )
     summary = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
-        "validation_design": "formal three-tier leave-one-monkey-out; route-specific network, resolution-group, and exact-region components rebuilt fold-locally",
+        "validation_design": "formal three-tier leave-one-monkey-out; Network is evaluated for every supported Network label, while resolution-group and exact-region metrics require the truth region to remain represented in the training monkeys",
+        "evaluation_denominators": {
+            "network_n": int(
+                len(
+                    network_df[
+                        network_df["route_family"].eq("hybrid_projected_network_logcpm_exact")
+                    ]
+                )
+            ),
+            "resolution_group_n": int(
+                len(
+                    group_df[
+                        group_df["route_family"].eq("hybrid_projected_network_logcpm_exact")
+                    ]
+                )
+            ),
+            "exact_region_n": int(
+                len(
+                    exact_df[
+                        exact_df["route_family"].eq("hybrid_projected_network_logcpm_exact")
+                    ]
+                )
+            ),
+            "region_unsupported_n": int(len(unsupported_rows)),
+            "region_unsupported_reason": "truth region absent from all training monkeys",
+        },
+        "network_implementation": "fold-local projected-VSD Network scoring with fold-local discriminative genes and pairwise Top1 rescue constrained to the original Network Top3 set",
+        "region_implementation": "logCPM-compatible local resolution-group and exact-region reranking within the projected-VSD Network Top3 beam",
         "routes": {
             "network": network_summary.to_dict(orient="records"),
             "resolution_group": group_summary.to_dict(orient="records"),

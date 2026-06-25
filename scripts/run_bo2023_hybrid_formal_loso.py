@@ -191,6 +191,7 @@ def main() -> int:
     exact_rows: list[dict[str, Any]] = []
     group_rows: list[dict[str, Any]] = []
     fold_rows: list[dict[str, Any]] = []
+    unsupported_rows: list[dict[str, Any]] = []
     max_folds = len(samples) if args.max_folds == 0 else min(args.max_folds, len(samples))
 
     for fold_no, sample_idx in enumerate(range(max_folds), start=1):
@@ -203,8 +204,6 @@ def main() -> int:
             region: train_idx[region_labels[train_idx] == region]
             for region in train_regions
         }
-        if truth_region not in region_training:
-            continue
 
         network_reference = build_centroids(vsd_values[locked_rows, :], network_labels, networks, train_idx)
         projected_locked = loo_project_rows(logcpm_values, vsd_values, locked_rows, sample_idx)
@@ -212,12 +211,54 @@ def main() -> int:
         network_top = [networks[int(i)] for i in np.argsort(network_scores)[::-1][:3].tolist()]
         network_rows.append(network_row(sample_id, truth_network, network_top, len(locked_rows)))
 
+        region_evaluable = truth_region in region_training
+        fold_row = {
+            "fold_no": fold_no,
+            "sample_id": sample_id,
+            "n_train_samples": int(len(train_idx)),
+            "network_evaluable": True,
+            "region_evaluable": bool(region_evaluable),
+            "region_non_evaluable_reason": "" if region_evaluable else "truth_region_absent_from_training_fold",
+            "n_candidate_regions": 0,
+            "n_local_genes": 0,
+        }
+        if not region_evaluable:
+            unsupported_rows.append(
+                {
+                    "fold_no": fold_no,
+                    "sample_id": sample_id,
+                    "truth_network": truth_network,
+                    "truth_region": truth_region,
+                    "reason": "truth_region_absent_from_training_fold",
+                    "network_included_in_evaluation": True,
+                    "resolution_group_included_in_evaluation": False,
+                    "exact_region_included_in_evaluation": False,
+                }
+            )
+            fold_rows.append(fold_row)
+            continue
+
         candidates = sorted(
             region
             for region in train_regions
             if metadata.loc[samples[int(region_training[region][0])], "network_id"] in set(network_top)
         )
         if len(candidates) < 2:
+            fold_row["region_evaluable"] = False
+            fold_row["region_non_evaluable_reason"] = "fewer_than_two_candidate_regions_in_network_beam"
+            unsupported_rows.append(
+                {
+                    "fold_no": fold_no,
+                    "sample_id": sample_id,
+                    "truth_network": truth_network,
+                    "truth_region": truth_region,
+                    "reason": "fewer_than_two_candidate_regions_in_network_beam",
+                    "network_included_in_evaluation": True,
+                    "resolution_group_included_in_evaluation": False,
+                    "exact_region_included_in_evaluation": False,
+                }
+            )
+            fold_rows.append(fold_row)
             continue
         candidate_training = {region: region_training[region] for region in candidates}
         gene_order, _ = select_group_discriminative_genes(
@@ -268,15 +309,9 @@ def main() -> int:
         )
         group_detail["route_family"] = "hybrid_projected_network_logcpm_exact"
         group_rows.append(group_detail)
-        fold_rows.append(
-            {
-                "fold_no": fold_no,
-                "sample_id": sample_id,
-                "n_train_samples": int(len(train_idx)),
-                "n_candidate_regions": int(len(candidates)),
-                "n_local_genes": int(len(local_rows)),
-            }
-        )
+        fold_row["n_candidate_regions"] = int(len(candidates))
+        fold_row["n_local_genes"] = int(len(local_rows))
+        fold_rows.append(fold_row)
 
     network_df = pd.DataFrame(network_rows)
     exact_df = pd.DataFrame(exact_rows)
@@ -289,12 +324,25 @@ def main() -> int:
     exact_df.to_csv(args.outdir / "hybrid_formal_loso_exact_region_detail.csv", index=False)
     group_df.to_csv(args.outdir / "hybrid_formal_loso_resolution_group_detail.csv", index=False)
     pd.DataFrame(fold_rows).to_csv(args.outdir / "hybrid_formal_loso_fold_summary.csv", index=False)
+    pd.DataFrame(unsupported_rows).to_csv(
+        args.outdir / "hybrid_formal_loso_region_unsupported_samples.csv",
+        index=False,
+    )
     network_summary.to_csv(args.outdir / "hybrid_formal_loso_network_route_metrics.csv", index=False)
     exact_summary.to_csv(args.outdir / "hybrid_formal_loso_exact_region_route_metrics.csv", index=False)
     group_summary.to_csv(args.outdir / "hybrid_formal_loso_resolution_group_route_metrics.csv", index=False)
     summary = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
-        "validation_design": "complete three-tier LOSO for hybrid route; projected VSD network Top3 beam, logCPM resolution/local exact rerank",
+        "validation_design": "three-tier LOSO; Network is evaluated for every supported Network label, while resolution-group and exact-region metrics require the truth region to remain represented in the training fold",
+        "evaluation_denominators": {
+            "network_n": int(len(network_df)),
+            "resolution_group_n": int(len(group_df)),
+            "exact_region_n": int(len(exact_df)),
+            "region_unsupported_n": int(len(unsupported_rows)),
+            "region_unsupported_reason": "truth region absent from the training fold or fewer than two candidate regions in the Network Top3 beam",
+        },
+        "network_implementation": "fold-local logCPM-to-VSD projection with locked Network genes and correlation-ranked Network Top3; no pairwise rescue in this LOSO script",
+        "region_implementation": "logCPM-compatible local resolution-group and exact-region reranking within the projected-VSD Network Top3 beam",
         "network": network_summary.to_dict(orient="records")[0],
         "resolution_group": group_summary.to_dict(orient="records")[0],
         "exact_region": exact_summary.to_dict(orient="records")[0],

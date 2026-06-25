@@ -1,5 +1,5 @@
-﻿Validation,Data,Held-out unit,Route tested,Reported endpoints
-Network LOSO,Bo2023 macaque brain RNA-seq,Single sample,Projected VSD vs logCPM/native VSD Network scoring,"Network Top1, Network Top3, median true-rank"
-Network LOMO,Bo2023 macaque brain RNA-seq,One monkey,Projected VSD vs logCPM/native VSD Network scoring,"Network Top1, Network Top3, median true-rank"
-Formal three-tier LOSO,Bo2023 macaque brain RNA-seq,Single sample,Projected-VSD Network beam plus logCPM group/exact rerank,"Network, resolution-group and exact-region Top1/Top3"
-Formal three-tier LOMO,Bo2023 macaque brain RNA-seq,One monkey,"Fold-local Network, group and exact components","Network, resolution-group and exact-region Top1/Top3"
+Validation,Data,Held-out unit,Route tested,Reported endpoints,Denominator policy
+Network LOSO,Bo2023 macaque brain RNA-seq,Single sample,Projected VSD vs logCPM/native VSD Network scoring,"Network Top1, Network Top3, median true-rank",All 819 samples
+Network LOMO,Bo2023 macaque brain RNA-seq,One monkey,Projected VSD vs logCPM/native VSD Network scoring,"Network Top1, Network Top3, median true-rank",All 819 samples
+Formal three-tier LOSO,Bo2023 macaque brain RNA-seq,Single sample,Projected-VSD Network beam plus logCPM group/exact rerank,"Network, resolution-group and exact-region Top1/Top3","Network n=819; group/exact n=814 reference-supported samples"
+Formal three-tier LOMO,Bo2023 macaque brain RNA-seq,One monkey,"Fold-local Network beam plus logCPM group/exact rerank","Network, resolution-group and exact-region Top1/Top3","Network n=819; group/exact n=812 reference-supported samples"

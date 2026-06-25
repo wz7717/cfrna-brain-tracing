@@ -1,9 +1,9 @@
-﻿Dataset,Route,Endpoint,Top1,Top3,Median true-rank,Interpretation
-Bo2023 LOSO,Projected VSD Network,Network,58.00%,91.58%,1.0,Supports projected-VSD Network beam
-Bo2023 LOMO,Projected VSD Network,Network,53.72%,91.33%,1.0,Supports donor-level Network beam
-Bo2023 LOSO,Formal hybrid,Network,58.35%,92.38%,1.0,Primary endpoint
-Bo2023 LOSO,Formal hybrid,Resolution group,44.47%,72.36%,2.0,Main region-level endpoint
-Bo2023 LOSO,Formal hybrid,Exact region,22.48%,45.33%,4.0,Exploratory ranking
-Bo2023 LOMO,Formal hybrid,Network,57.75%,91.21%,1.0,Cross-monkey support
-Bo2023 LOMO,Formal hybrid,Resolution group,41.38%,69.09%,2.0,Main region-level endpoint
-Bo2023 LOMO,Formal hybrid,Exact region,22.17%,42.36%,5.0,Exploratory ranking
+Dataset,Route,Endpoint,Evaluated n,Top1,Top3,Median true-rank,Interpretation
+Bo2023 LOSO,Projected VSD Network,Network,819,58.00%,91.58%,1.0,Supports projected-VSD Network beam
+Bo2023 LOMO,Projected VSD Network,Network,819,53.72%,91.33%,1.0,Supports donor-level Network beam
+Bo2023 LOSO,Formal hybrid,Network,819,58.24%,92.19%,1.0,Primary endpoint across all Network-evaluable samples
+Bo2023 LOSO,Formal hybrid,Resolution group,814,44.47%,72.36%,2.0,Main region-level endpoint among reference-supported samples
+Bo2023 LOSO,Formal hybrid,Exact region,814,22.48%,45.33%,4.0,Exploratory ranking among reference-supported samples
+Bo2023 LOMO,Formal hybrid,Network,819,57.75%,91.21%,1.0,Cross-monkey support
+Bo2023 LOMO,Formal hybrid,Resolution group,812,41.38%,69.09%,2.0,Main region-level endpoint among reference-supported samples
+Bo2023 LOMO,Formal hybrid,Exact region,812,22.17%,42.36%,5.0,Exploratory ranking among reference-supported samples

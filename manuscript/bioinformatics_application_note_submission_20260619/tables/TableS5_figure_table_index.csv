@@ -1,5 +1,5 @@
 ﻿Item,Content,Use in manuscript
-Figure 1,Formal route diagram and validation summary,Main Application Note figure
+Figure 1,Formal route diagram and validation summary; numeric source in Figure1_validation_summary.csv,Main Application Note figure
 Supplementary Figure S1,Main figure source artwork reproduced in the supplementary PDF,Supplementary visual reference
 Table S1,Internal validation design,Documents LOSO/LOMO operations
 Table S2,Internal validation results,"Reports Network, group and exact-region metrics"

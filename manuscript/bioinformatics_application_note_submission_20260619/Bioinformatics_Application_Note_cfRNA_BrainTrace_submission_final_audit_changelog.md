@@ -1,12 +1,12 @@
 # Final submission audit changelog
 
-Date: 2026-06-21
+Date: 2026-06-25
 
 ## Manuscript changes
 
 - Generated final clean Markdown and Word files from the current submission-ready manuscript text.
-- No scientific mainline or validation numbers were changed.
-- Retained the locked production-route wording: uploaded RNA expression profiles are converted into logCPM/logTPM-compatible inputs, projected into Bo2023-like projected-VSD space only for 10-class macaque Network Top3 beam generation, and then reranked using logCPM-compatible local expression for resolution-group and exploratory exact-region candidates.
+- The scientific mainline was retained. The formal LOSO Network denominator was corrected from the conditional 814-sample region-evaluable subset to all 819 Network-evaluable samples.
+- Retained the three-tier route wording: uploaded RNA expression profiles are converted into logCPM/logTPM-compatible inputs, projected into Bo2023-like projected-VSD space only for 10-class macaque Network Top3 beam generation, and then reranked using logCPM-compatible local expression for resolution-group and exploratory exact-region candidates.
 - Retained the AI-assisted editing disclosure.
 - Retained the author placeholder `[AUTHOR NAMES AND AFFILIATIONS REQUIRED BEFORE SUBMISSION]` because complete author names and affiliations cannot be verified from the available files.
 
@@ -24,11 +24,11 @@ Date: 2026-06-21
 
 ## Validation numbers
 
-- Current submission numbers are consistent across the main manuscript, README, supplementary markdown and Tables S1-S6.
+- Current submission numbers are consistent across the main manuscript, README, supplementary markdown, Tables S1-S6 and Figure 1 source data.
 - Figure source data and Figure 1 labels use rounded display values consistent with the manuscript:
   - Network projected-VSD LOSO Top1/Top3: 58.00% / 91.58%.
   - Network projected-VSD LOMO Top1/Top3: 53.72% / 91.33%.
-  - Locked three-tier route LOSO Network Top3: 92.38%.
+  - Locked three-tier route LOSO Network Top1/Top3: 58.24% / 92.19% (n=819).
   - Locked three-tier route LOMO Network Top3: 91.21%.
   - Resolution-group Top3 LOSO/LOMO: 72.36% / 69.09%.
   - Exact-region Top3 LOSO/LOMO: 45.33% / 42.36%.
@@ -41,13 +41,14 @@ Date: 2026-06-21
 ## Legacy baseline
 
 - README no longer reports legacy baseline validation numbers; it retains only a brief historical note that earlier baseline routes were used during development and are not part of the current submission route.
-- These values are not presented as current submission-route results.
+- The former formal LOSO Network Top3 value of 92.38% is explicitly labeled as a legacy denominator inconsistency.
+- The alternate MRI-truth result of Network Top3 36.92% and broad Top3 80.00% is explicitly excluded from the locked Table S4 submission route.
 
 ## Zenodo DOI and archive
 
 - Zenodo concept DOI: `https://doi.org/10.5281/zenodo.20773674`.
-- Latest checked version DOI before this final audit update: `https://doi.org/10.5281/zenodo.20776703`.
-- Manuscript and README use the Zenodo concept DOI for the manuscript-associated v0.1.6 release so the citation resolves to the latest public release after final GitHub/Zenodo synchronization.
+- Manuscript-associated v0.1.6 version DOI: `https://doi.org/10.5281/zenodo.20780280`.
+- Manuscript and README identify both the fixed v0.1.6 version DOI and the project concept DOI.
 - The Zenodo record is public and not draft/private.
 - The Zenodo archive contains the GitHub source archive for the manuscript-associated release, including source code, README/release notes, synthetic example input/output, supplementary files, processed non-sensitive evaluation tables, figure source data, validation/benchmark scripts and license information.
 
@@ -89,7 +90,8 @@ Date: 2026-06-21
 ## Figure source data
 
 - Figure source data exist in `submission_ready_assets/source_data/`.
-- `README_source_data.md` was updated to state that the package is archived with the manuscript-associated GitHub/Zenodo release and uses the Zenodo concept DOI.
+- `Figure1_validation_summary.csv` is the authoritative numeric source for Figure 1.
+- `README_source_data.md` identifies both the manuscript-associated version DOI and the project concept DOI.
 - Source-data tables are consistent with the manuscript validation numbers.
 
 ## Repository paths
@@ -117,6 +119,17 @@ All manuscript-mentioned paths were checked and exist:
 - No target-cohort labels or target-cohort distribution fitting are used by the default projection path.
 - Projected VSD is used for Network scoring/beam generation, while downstream resolution-group and exact-region reranking use logCPM-compatible local expression.
 
+## Reproduction status
+
+- Local unit tests: `17 passed`.
+- Victor controlled-data workflow: completed successfully on 2026-06-25.
+- Formal LOSO: Network `n=819`, Top1/Top3 58.24%/92.19%; resolution-group and exact-region `n=814`.
+- Independent projected-VSD Network LOMO: `n=819`, Top1/Top3 53.72%/91.33%.
+- Formal LOMO: Network `n=819`, Top1/Top3 57.75%/91.21%; resolution-group and exact-region `n=812`.
+- AHBA mapped-label, TCGA/BraTS coarse-consistency and GSE189919 projection-feasibility results matched the submission tables.
+- GSE189919's optional legacy algorithm audit remains a non-blocking technical limitation and does not support a localization-accuracy claim.
+- The complete command, input, output, target, actual, consistency and difference-reason inventory is written to `output/v016_jupyter_validation/jupyter_validation_summary.csv`.
+
 ## AI disclosure and cover letter
 
 - The manuscript retains `AI-assisted editing disclosure`.
@@ -124,7 +137,12 @@ All manuscript-mentioned paths were checked and exist:
 
 ## Unresolved inconsistencies
 
-- No unresolved workflow or validation-number inconsistency was found after the final edits.
+- The formal LOSO denominator inconsistency was corrected: Network uses all
+  819 samples, while resolution-group and exact-region metrics use the 814
+  reference-supported folds. The former 92.38% Network Top3 value is legacy.
+- Formal LOSO and formal LOMO use the same three-tier architecture but different
+  fold-local Network construction; this is now disclosed rather than described
+  as algorithmically identical.
 - The only unresolved pre-submission item is the complete author/affiliation block, which needs author input before submission.
 
 ## Final recommendation

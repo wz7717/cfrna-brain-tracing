@@ -170,7 +170,7 @@
       <p>在 Windows PowerShell 中运行。若已经有可用 Jupyter Lab 和依赖，可以只运行最后两行进入项目并启动 Jupyter。</p>
       <div class="cell-title">PowerShell 启动代码</div>
       <button class="copy" data-copy="ps-bootstrap">复制</button>
-      <pre><code id="ps-bootstrap">cd /storage/wangzhen/github_projects/cfrna-brain-tracing-0.1.6
+      <pre><code id="ps-bootstrap">cd /storage/wangzhen/cfrna-brain-tracing-0.1.6
 
 # 推荐使用默认 Python 3.14；如你已有自己的 Jupyter 环境，也可以改成对应 python.exe。
 python -m pip install --upgrade pip
@@ -212,12 +212,23 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path("/storage/wangzhen/github_projects/cfrna-brain-tracing-0.1.6").resolve()
+root_override = os.environ.get("CFRNA_BRAINTRACE_ROOT")
+root_candidates = [
+    Path(root_override).expanduser() if root_override else None,
+    Path("/storage/wangzhen/cfrna-brain-tracing-0.1.6"),
+    Path("/storage/wangzhen/github_projects/cfrna-brain-tracing-0.1.6"),
+]
+ROOT = next(
+    (path.resolve() for path in root_candidates if path is not None and path.exists()),
+    Path("/storage/wangzhen/cfrna-brain-tracing-0.1.6").resolve(),
+)
 AUDIT_DIR = ROOT / "output" / "v016_jupyter_validation"
 AUDIT_DIR.mkdir(parents=True, exist_ok=True)
 
 assert ROOT.exists(), ROOT
 os.chdir(ROOT)
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 print("ROOT =", ROOT)
 print("AUDIT_DIR =", AUDIT_DIR)
 print("Python =", sys.executable)
@@ -320,18 +331,57 @@ print("环境检查通过")</code></pre>
 
       <div class="cell-title">Cell 3: 论文目标数字和 source data 读取</div>
       <button class="copy" data-copy="cell-targets">复制</button>
-      <pre><code id="cell-targets">SOURCE_DATA = ROOT / "manuscript" / "bioinformatics_application_note_submission_20260619" / "submission_ready_assets" / "source_data"
-TABLE_S2 = pd.read_csv(SOURCE_DATA / "TableS2_internal_validation_results.csv")
-TABLE_S4 = pd.read_csv(SOURCE_DATA / "TableS4_external_validation_results.csv")
+      <pre><code id="cell-targets">SUBMISSION_DIR = ROOT / "manuscript" / "bioinformatics_application_note_submission_20260619"
+SOURCE_DATA = SUBMISSION_DIR / "submission_ready_assets" / "source_data"
+TABLES = {
+    f"S{i}": pd.read_csv(SOURCE_DATA / filename)
+    for i, filename in {
+        1: "TableS1_internal_validation_design.csv",
+        2: "TableS2_internal_validation_results.csv",
+        3: "TableS3_external_validation_design.csv",
+        4: "TableS4_external_validation_results.csv",
+        5: "TableS5_figure_table_index.csv",
+        6: "TableS6_claim_boundaries.csv",
+    }.items()
+}
+TABLE_S2 = TABLES["S2"]
+TABLE_S4 = TABLES["S4"]
 
-display(TABLE_S2)
-display(TABLE_S4)
+for name, table in TABLES.items():
+    print(f"Table {name}")
+    display(table)
+
+manuscript_text = (SUBMISSION_DIR / "Bioinformatics_Application_Note_cfRNA_BrainTrace_submission_ready_final.md").read_text(encoding="utf-8")
+supplement_text = (SUBMISSION_DIR / "Bioinformatics_Application_Note_Supplement_submission_20260619.md").read_text(encoding="utf-8")
+figure_source = SOURCE_DATA / "Figure1_validation_summary.csv"
+assert figure_source.exists(), figure_source
+display(pd.read_csv(figure_source))
+
+legacy_source_dirs = [
+    ROOT / "manuscript" / "figures_publication" / "source_data",
+    ROOT / "manuscript" / "figures_publication_20260613" / "source_data",
+    ROOT / "manuscript" / "figures_publication_no_TCIA_NBIA" / "source_data",
+]
+legacy_source_dirs_present = [path for path in legacy_source_dirs if path.exists()]
+legacy_notices = [
+    path / "LEGACY_SOURCE_DATA_NOTICE.md"
+    for path in legacy_source_dirs_present
+    if (path / "LEGACY_SOURCE_DATA_NOTICE.md").exists()
+]
+print(
+    "Legacy development source-data directories present:",
+    len(legacy_source_dirs_present),
+    "with notices:",
+    len(legacy_notices),
+)
 
 TARGETS = {
     "bo_loso_projected_network_top1": 0.5800,
     "bo_loso_projected_network_top3": 0.9158,
-    "bo_loso_hybrid_network_top1": 0.5835,
-    "bo_loso_hybrid_network_top3": 0.9238,
+    "bo_lomo_projected_network_top1": 0.5372,
+    "bo_lomo_projected_network_top3": 0.9133,
+    "bo_loso_hybrid_network_top1": 0.5824,
+    "bo_loso_hybrid_network_top3": 0.9219,
     "bo_loso_hybrid_group_top1": 0.4447,
     "bo_loso_hybrid_group_top3": 0.7236,
     "bo_loso_hybrid_exact_top1": 0.2248,
@@ -451,7 +501,11 @@ print("OK: pytest summary matched:", expected_pytest_summary)</code></pre>
 
       <div class="cell-title">Cell 6: projected-VSD 使用边界检查</div>
       <button class="copy" data-copy="cell-codeaudit">复制</button>
-      <pre><code id="cell-codeaudit">from core.reference_projection import load_projector_npz
+      <pre><code id="cell-codeaudit">import inspect
+
+from core.bo2023_region_tracing import trace_bo2023_secondary_regions
+from core.network_tracing import trace_network_expression
+from core.reference_projection import load_projector_npz
 
 projector_path = ROOT / "data" / "models" / "bo2023_reference_projector_linear_full.npz"
 projector = load_projector_npz(projector_path)
@@ -468,6 +522,16 @@ assert "projected_vsd_network_top3_beam" in region_text
 assert "logcpm_resolution_group_rerank" in region_text
 assert "logcpm_local_exact_rerank" in region_text
 assert "def apply_projector" in projection_text
+
+network_function_source = inspect.getsource(trace_network_expression)
+region_function_source = inspect.getsource(trace_bo2023_secondary_regions)
+assert "apply_projector" in network_function_source
+assert "_sample_logcpm_series" in region_function_source
+assert "apply_projector" not in region_function_source
+assert "candidate_matrix = matrix.loc[overlap_genes, candidate_regions]" in region_function_source
+assert "projected_vsd_network_top3_beam" in region_function_source
+assert "logcpm_resolution_group_rerank" in region_function_source
+assert "logcpm_local_exact_rerank" in region_function_source
 
 print("OK: projected-VSD 只作为 Network Top3 beam；区域层级 rerank 为 logCPM-compatible local evidence。")</code></pre>
     </section>
@@ -526,8 +590,55 @@ if DATA_AVAILABLE["bo2023"]:
     </section>
 
     <section>
-      <h2>5. Bo2023 formal three-tier LOSO local reranking</h2>
-      <p>目标：Network Top3 92.38%，resolution-group Top3 72.36%，exact-region Top3 45.33%。这是内部完整三层 LOSO 主路线。</p>
+      <h2>5. Bo2023 projected-VSD Network LOMO</h2>
+      <p>目标：Projected VSD Network Top1/Top3 = <strong>53.72% / 91.33%</strong>，全部 819 个样本。这是独立 Network-only donor-level 路线，不与 formal hybrid LOMO 混用。</p>
+
+      <div class="cell-title">Cell 9: 运行并核对独立 Network LOMO</div>
+      <button class="copy" data-copy="cell-lomo-net">复制</button>
+      <pre><code id="cell-lomo-net">lomo_net_out = AUDIT_DIR / "bo2023_projected_vsd_network_lomo"
+if DATA_AVAILABLE["bo2023"]:
+    run_cmd(
+        [
+            sys.executable,
+            "scripts/run_bo2023_projected_vsd_lomo.py",
+            "--counts", str(INPUTS["Bo2023 counts"]),
+            "--vsd", str(INPUTS["Bo2023 VSD"]),
+            "--sample-info", str(INPUTS["Bo2023 sample info"]),
+            "--gene-map", str(INPUTS["Bo2023 gene map"]),
+            "--outdir", str(lomo_net_out),
+        ],
+        lomo_net_out,
+        timeout=1800,
+    )
+    lomo_network_routes = pd.read_csv(lomo_net_out / "bo2023_projected_vsd_lomo_route_summary.csv")
+    row = lomo_network_routes.loc[lomo_network_routes["route"].eq("projected_vsd")].iloc[0]
+    lomo_projected_values = {
+        "n": int(row["n"]),
+        "network_top1": float(row["network_top1"]),
+        "network_top3": float(row["network_top3"]),
+    }
+else:
+    row = TABLE_S2[(TABLE_S2["Dataset"].eq("Bo2023 LOMO")) & (TABLE_S2["Route"].eq("Projected VSD Network"))].iloc[0]
+    lomo_projected_values = {
+        "n": int(row["Evaluated n"]),
+        "network_top1": float(str(row["Top1"]).strip("%")) / 100,
+        "network_top3": float(str(row["Top3"]).strip("%")) / 100,
+    }
+
+assert lomo_projected_values["n"] == 819
+assert_close(lomo_projected_values["network_top1"], TARGETS["bo_lomo_projected_network_top1"], label="Bo2023 projected-VSD LOMO Network Top1")
+assert_close(lomo_projected_values["network_top3"], TARGETS["bo_lomo_projected_network_top3"], label="Bo2023 projected-VSD LOMO Network Top3")
+plot_rows = [
+    {"metric": "Network Top1", "actual": lomo_projected_values["network_top1"], "target": TARGETS["bo_lomo_projected_network_top1"]},
+    {"metric": "Network Top3", "actual": lomo_projected_values["network_top3"], "target": TARGETS["bo_lomo_projected_network_top3"]},
+]
+save_display_table(metric_table(plot_rows), lomo_net_out / "bo2023_projected_vsd_lomo_display_table.csv", "Bo2023 projected-VSD Network LOMO")
+save_metric_barplot(plot_rows, lomo_net_out / "bo2023_projected_vsd_lomo_metrics.png", "Bo2023 projected-VSD Network LOMO")</code></pre>
+    </section>
+
+    <section>
+      <h2>6. Bo2023 formal three-tier LOSO local reranking</h2>
+      <p>目标：Network Top1/Top3 58.24% / 92.19%（n=819）；resolution-group Top3 72.36%、exact-region Top3 45.33%（n=814）。5 个训练折缺少真实脑区参考的样本只从区域层级评价中排除。</p>
 
       <div class="cell-title">Cell 9: 运行 formal three-tier LOSO</div>
       <button class="copy" data-copy="cell-formal-loso-run">复制</button>
@@ -557,7 +668,11 @@ else:
     n = formal_loso_summary["network"]
     g = formal_loso_summary["resolution_group"]
     e = formal_loso_summary["exact_region"]
-    values = {
+    formal_loso_values = {
+        "network_n": int(n["n"]),
+        "group_n": int(g["n"]),
+        "exact_n": int(e["n"]),
+        "region_unsupported_n": int(formal_loso_summary["evaluation_denominators"]["region_unsupported_n"]),
         "network_top1": float(n["top1_accuracy"]),
         "network_top3": float(n["top3_accuracy"]),
         "group_top1": float(g["group_top1_accuracy"]),
@@ -570,34 +685,42 @@ else:
     rows = TABLE_S2[(TABLE_S2["Dataset"].eq("Bo2023 LOSO")) & (TABLE_S2["Route"].eq("Formal hybrid"))]
     def top1(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top1"].iloc[0]).strip("%")) / 100
     def top3(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top3"].iloc[0]).strip("%")) / 100
-    values = {
+    formal_loso_values = {
+        "network_n": int(rows.loc[rows["Endpoint"].eq("Network"), "Evaluated n"].iloc[0]),
+        "group_n": int(rows.loc[rows["Endpoint"].eq("Resolution group"), "Evaluated n"].iloc[0]),
+        "exact_n": int(rows.loc[rows["Endpoint"].eq("Exact region"), "Evaluated n"].iloc[0]),
+        "region_unsupported_n": 5,
         "network_top1": top1("Network"), "network_top3": top3("Network"),
         "group_top1": top1("Resolution group"), "group_top3": top3("Resolution group"),
         "exact_top1": top1("Exact region"), "exact_top3": top3("Exact region"),
     }
 
-assert_close(values["network_top1"], TARGETS["bo_loso_hybrid_network_top1"], label="Formal LOSO Network Top1")
-assert_close(values["network_top3"], TARGETS["bo_loso_hybrid_network_top3"], label="Formal LOSO Network Top3")
-assert_close(values["group_top1"], TARGETS["bo_loso_hybrid_group_top1"], label="Formal LOSO group Top1")
-assert_close(values["group_top3"], TARGETS["bo_loso_hybrid_group_top3"], label="Formal LOSO group Top3")
-assert_close(values["exact_top1"], TARGETS["bo_loso_hybrid_exact_top1"], label="Formal LOSO exact Top1")
-assert_close(values["exact_top3"], TARGETS["bo_loso_hybrid_exact_top3"], label="Formal LOSO exact Top3")
+assert formal_loso_values["network_n"] == 819
+assert formal_loso_values["group_n"] == 814
+assert formal_loso_values["exact_n"] == 814
+assert formal_loso_values["region_unsupported_n"] == 5
+assert_close(formal_loso_values["network_top1"], TARGETS["bo_loso_hybrid_network_top1"], label="Formal LOSO Network Top1")
+assert_close(formal_loso_values["network_top3"], TARGETS["bo_loso_hybrid_network_top3"], label="Formal LOSO Network Top3")
+assert_close(formal_loso_values["group_top1"], TARGETS["bo_loso_hybrid_group_top1"], label="Formal LOSO group Top1")
+assert_close(formal_loso_values["group_top3"], TARGETS["bo_loso_hybrid_group_top3"], label="Formal LOSO group Top3")
+assert_close(formal_loso_values["exact_top1"], TARGETS["bo_loso_hybrid_exact_top1"], label="Formal LOSO exact Top1")
+assert_close(formal_loso_values["exact_top3"], TARGETS["bo_loso_hybrid_exact_top3"], label="Formal LOSO exact Top3")
 
 plot_rows = [
-    {"metric": "Network Top1", "actual": values["network_top1"], "target": TARGETS["bo_loso_hybrid_network_top1"]},
-    {"metric": "Network Top3", "actual": values["network_top3"], "target": TARGETS["bo_loso_hybrid_network_top3"]},
-    {"metric": "Group Top1", "actual": values["group_top1"], "target": TARGETS["bo_loso_hybrid_group_top1"]},
-    {"metric": "Group Top3", "actual": values["group_top3"], "target": TARGETS["bo_loso_hybrid_group_top3"]},
-    {"metric": "Exact Top1", "actual": values["exact_top1"], "target": TARGETS["bo_loso_hybrid_exact_top1"]},
-    {"metric": "Exact Top3", "actual": values["exact_top3"], "target": TARGETS["bo_loso_hybrid_exact_top3"]},
+    {"metric": "Network Top1", "actual": formal_loso_values["network_top1"], "target": TARGETS["bo_loso_hybrid_network_top1"]},
+    {"metric": "Network Top3", "actual": formal_loso_values["network_top3"], "target": TARGETS["bo_loso_hybrid_network_top3"]},
+    {"metric": "Group Top1", "actual": formal_loso_values["group_top1"], "target": TARGETS["bo_loso_hybrid_group_top1"]},
+    {"metric": "Group Top3", "actual": formal_loso_values["group_top3"], "target": TARGETS["bo_loso_hybrid_group_top3"]},
+    {"metric": "Exact Top1", "actual": formal_loso_values["exact_top1"], "target": TARGETS["bo_loso_hybrid_exact_top1"]},
+    {"metric": "Exact Top3", "actual": formal_loso_values["exact_top3"], "target": TARGETS["bo_loso_hybrid_exact_top3"]},
 ]
 save_display_table(metric_table(plot_rows), formal_loso_out / "hybrid_formal_loso_display_table.csv", "Bo2023 formal LOSO display table")
 save_metric_barplot(plot_rows, formal_loso_out / "hybrid_formal_loso_metrics.png", "Bo2023 formal three-tier LOSO")</code></pre>
     </section>
 
     <section>
-      <h2>6. Bo2023 projected-VSD / formal three-tier LOMO</h2>
-      <p>目标：Network Top3 91.21%，resolution-group Top3 69.09%，exact-region Top3 42.36%。这是 donor-level 泛化验证。</p>
+      <h2>7. Bo2023 formal three-tier LOMO</h2>
+      <p>目标：Network Top3 91.21%（n=819），resolution-group Top3 69.09%、exact-region Top3 42.36%（n=812）。7 个样本因真实脑区未出现在其他猴子的训练参考中而仅从区域层级评价中排除。</p>
 
       <div class="cell-title">Cell 11: 运行 formal LOMO</div>
       <button class="copy" data-copy="cell-lomo-run">复制</button>
@@ -630,7 +753,10 @@ else:
     n = lomo_net.loc[lomo_net["route_family"].eq(route_name)].iloc[0]
     g = lomo_group.loc[lomo_group["route_family"].eq(route_name)].iloc[0]
     e = lomo_exact.loc[lomo_exact["route_family"].eq(route_name)].iloc[0]
-    values = {
+    formal_lomo_values = {
+        "network_n": int(n["n"]),
+        "group_n": int(g["n"]),
+        "exact_n": int(e["n"]),
         "network_top1": float(n["top1_accuracy"]), "network_top3": float(n["top3_accuracy"]),
         "group_top1": float(g["group_top1_accuracy"]), "group_top3": float(g["group_top3_accuracy"]),
         "exact_top1": float(e["top1_accuracy"]), "exact_top3": float(e["top3_accuracy"]),
@@ -640,26 +766,32 @@ else:
     rows = TABLE_S2[(TABLE_S2["Dataset"].eq("Bo2023 LOMO")) & (TABLE_S2["Route"].eq("Formal hybrid"))]
     def top1(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top1"].iloc[0]).strip("%")) / 100
     def top3(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top3"].iloc[0]).strip("%")) / 100
-    values = {
+    formal_lomo_values = {
+        "network_n": int(rows.loc[rows["Endpoint"].eq("Network"), "Evaluated n"].iloc[0]),
+        "group_n": int(rows.loc[rows["Endpoint"].eq("Resolution group"), "Evaluated n"].iloc[0]),
+        "exact_n": int(rows.loc[rows["Endpoint"].eq("Exact region"), "Evaluated n"].iloc[0]),
         "network_top1": top1("Network"), "network_top3": top3("Network"),
         "group_top1": top1("Resolution group"), "group_top3": top3("Resolution group"),
         "exact_top1": top1("Exact region"), "exact_top3": top3("Exact region"),
     }
 
-assert_close(values["network_top1"], TARGETS["bo_lomo_hybrid_network_top1"], label="Formal LOMO Network Top1")
-assert_close(values["network_top3"], TARGETS["bo_lomo_hybrid_network_top3"], label="Formal LOMO Network Top3")
-assert_close(values["group_top1"], TARGETS["bo_lomo_hybrid_group_top1"], label="Formal LOMO group Top1")
-assert_close(values["group_top3"], TARGETS["bo_lomo_hybrid_group_top3"], label="Formal LOMO group Top3")
-assert_close(values["exact_top1"], TARGETS["bo_lomo_hybrid_exact_top1"], label="Formal LOMO exact Top1")
-assert_close(values["exact_top3"], TARGETS["bo_lomo_hybrid_exact_top3"], label="Formal LOMO exact Top3")
+assert formal_lomo_values["network_n"] == 819
+assert formal_lomo_values["group_n"] == 812
+assert formal_lomo_values["exact_n"] == 812
+assert_close(formal_lomo_values["network_top1"], TARGETS["bo_lomo_hybrid_network_top1"], label="Formal LOMO Network Top1")
+assert_close(formal_lomo_values["network_top3"], TARGETS["bo_lomo_hybrid_network_top3"], label="Formal LOMO Network Top3")
+assert_close(formal_lomo_values["group_top1"], TARGETS["bo_lomo_hybrid_group_top1"], label="Formal LOMO group Top1")
+assert_close(formal_lomo_values["group_top3"], TARGETS["bo_lomo_hybrid_group_top3"], label="Formal LOMO group Top3")
+assert_close(formal_lomo_values["exact_top1"], TARGETS["bo_lomo_hybrid_exact_top1"], label="Formal LOMO exact Top1")
+assert_close(formal_lomo_values["exact_top3"], TARGETS["bo_lomo_hybrid_exact_top3"], label="Formal LOMO exact Top3")
 
 plot_rows = [
-    {"metric": "Network Top1", "actual": values["network_top1"], "target": TARGETS["bo_lomo_hybrid_network_top1"]},
-    {"metric": "Network Top3", "actual": values["network_top3"], "target": TARGETS["bo_lomo_hybrid_network_top3"]},
-    {"metric": "Group Top1", "actual": values["group_top1"], "target": TARGETS["bo_lomo_hybrid_group_top1"]},
-    {"metric": "Group Top3", "actual": values["group_top3"], "target": TARGETS["bo_lomo_hybrid_group_top3"]},
-    {"metric": "Exact Top1", "actual": values["exact_top1"], "target": TARGETS["bo_lomo_hybrid_exact_top1"]},
-    {"metric": "Exact Top3", "actual": values["exact_top3"], "target": TARGETS["bo_lomo_hybrid_exact_top3"]},
+    {"metric": "Network Top1", "actual": formal_lomo_values["network_top1"], "target": TARGETS["bo_lomo_hybrid_network_top1"]},
+    {"metric": "Network Top3", "actual": formal_lomo_values["network_top3"], "target": TARGETS["bo_lomo_hybrid_network_top3"]},
+    {"metric": "Group Top1", "actual": formal_lomo_values["group_top1"], "target": TARGETS["bo_lomo_hybrid_group_top1"]},
+    {"metric": "Group Top3", "actual": formal_lomo_values["group_top3"], "target": TARGETS["bo_lomo_hybrid_group_top3"]},
+    {"metric": "Exact Top1", "actual": formal_lomo_values["exact_top1"], "target": TARGETS["bo_lomo_hybrid_exact_top1"]},
+    {"metric": "Exact Top3", "actual": formal_lomo_values["exact_top3"], "target": TARGETS["bo_lomo_hybrid_exact_top3"]},
 ]
 save_display_table(metric_table(plot_rows), formal_lomo_out / "formal_lomo_display_table.csv", "Bo2023 formal LOMO display table")
 save_metric_barplot(plot_rows, formal_lomo_out / "formal_lomo_metrics.png", "Bo2023 formal three-tier LOMO")</code></pre>
@@ -697,7 +829,7 @@ else:
     ahba_metrics = pd.read_csv(ahba_out / "ahba_formal_three_tier_metrics.csv")
     display(ahba_metrics)
     row = ahba_metrics.loc[ahba_metrics["route"].eq("hybrid_projected_network_logcpm_exact")].iloc[0]
-    values = {
+    ahba_values = {
         "network_top1": float(row["network_top1_accuracy_coarse"]),
         "network_top3": float(row["network_top3_accuracy_coarse"]),
         "group_top1": float(row["group_top1_accuracy_exact_mapped"]),
@@ -710,26 +842,26 @@ else:
     rows = TABLE_S4[(TABLE_S4["Dataset"].eq("AHBA")) & (TABLE_S4["Route"].eq("Hybrid"))]
     def top1(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top1"].iloc[0]).strip("%")) / 100
     def top3(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top3"].iloc[0]).strip("%")) / 100
-    values = {
+    ahba_values = {
         "network_top1": top1("Network"), "network_top3": top3("Network"),
         "group_top1": top1("Resolution group"), "group_top3": top3("Resolution group"),
         "exact_top1": top1("Exact region"), "exact_top3": top3("Exact region"),
     }
 
-assert_close(values["network_top1"], TARGETS["ahba_network_top1"], label="AHBA Network Top1")
-assert_close(values["network_top3"], TARGETS["ahba_network_top3"], label="AHBA Network Top3")
-assert_close(values["group_top1"], TARGETS["ahba_group_top1"], label="AHBA group Top1")
-assert_close(values["group_top3"], TARGETS["ahba_group_top3"], label="AHBA group Top3")
-assert_close(values["exact_top1"], TARGETS["ahba_exact_top1"], label="AHBA exact Top1")
-assert_close(values["exact_top3"], TARGETS["ahba_exact_top3"], label="AHBA exact Top3")
+assert_close(ahba_values["network_top1"], TARGETS["ahba_network_top1"], label="AHBA Network Top1")
+assert_close(ahba_values["network_top3"], TARGETS["ahba_network_top3"], label="AHBA Network Top3")
+assert_close(ahba_values["group_top1"], TARGETS["ahba_group_top1"], label="AHBA group Top1")
+assert_close(ahba_values["group_top3"], TARGETS["ahba_group_top3"], label="AHBA group Top3")
+assert_close(ahba_values["exact_top1"], TARGETS["ahba_exact_top1"], label="AHBA exact Top1")
+assert_close(ahba_values["exact_top3"], TARGETS["ahba_exact_top3"], label="AHBA exact Top3")
 
 plot_rows = [
-    {"metric": "Network Top1", "actual": values["network_top1"], "target": TARGETS["ahba_network_top1"]},
-    {"metric": "Network Top3", "actual": values["network_top3"], "target": TARGETS["ahba_network_top3"]},
-    {"metric": "Group Top1", "actual": values["group_top1"], "target": TARGETS["ahba_group_top1"]},
-    {"metric": "Group Top3", "actual": values["group_top3"], "target": TARGETS["ahba_group_top3"]},
-    {"metric": "Exact Top1", "actual": values["exact_top1"], "target": TARGETS["ahba_exact_top1"]},
-    {"metric": "Exact Top3", "actual": values["exact_top3"], "target": TARGETS["ahba_exact_top3"]},
+    {"metric": "Network Top1", "actual": ahba_values["network_top1"], "target": TARGETS["ahba_network_top1"]},
+    {"metric": "Network Top3", "actual": ahba_values["network_top3"], "target": TARGETS["ahba_network_top3"]},
+    {"metric": "Group Top1", "actual": ahba_values["group_top1"], "target": TARGETS["ahba_group_top1"]},
+    {"metric": "Group Top3", "actual": ahba_values["group_top3"], "target": TARGETS["ahba_group_top3"]},
+    {"metric": "Exact Top1", "actual": ahba_values["exact_top1"], "target": TARGETS["ahba_exact_top1"]},
+    {"metric": "Exact Top3", "actual": ahba_values["exact_top3"], "target": TARGETS["ahba_exact_top3"]},
 ]
 save_display_table(metric_table(plot_rows), ahba_out / "ahba_formal_three_tier_display_table.csv", "AHBA mapped-label display table")
 save_metric_barplot(plot_rows, ahba_out / "ahba_formal_three_tier_metrics_display.png", "AHBA mapped-label external validation")</code></pre>
@@ -770,7 +902,7 @@ else:
     tcga_metrics = pd.read_csv(tcga_out / "tcga_labeled_hybrid_formal_metrics.csv")
     display(tcga_metrics)
     row = tcga_metrics.loc[tcga_metrics["route"].eq("hybrid_projected_network_logcpm_exact")].iloc[0]
-    values = {
+    tcga_values = {
         "network_top1": float(row["network_top1_accuracy"]),
         "network_top3": float(row["network_top3_accuracy"]),
         "broad_top1": float(row["broad_top1_accuracy"]),
@@ -781,21 +913,21 @@ else:
     rows = TABLE_S4[(TABLE_S4["Dataset"].eq("TCGA/BraTS")) & (TABLE_S4["Route"].eq("Hybrid"))]
     def top1(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top1"].iloc[0]).strip("%")) / 100
     def top3(endpoint): return float(str(rows.loc[rows["Endpoint"].eq(endpoint), "Top3"].iloc[0]).strip("%")) / 100
-    values = {
+    tcga_values = {
         "network_top1": top1("Network"), "network_top3": top3("Network"),
         "broad_top1": top1("Broad anatomy"), "broad_top3": top3("Broad anatomy"),
     }
 
-assert_close(values["network_top1"], TARGETS["tcga_network_top1"], label="TCGA/BraTS Network Top1")
-assert_close(values["network_top3"], TARGETS["tcga_network_top3"], label="TCGA/BraTS Network Top3")
-assert_close(values["broad_top1"], TARGETS["tcga_broad_top1"], label="TCGA/BraTS broad Top1")
-assert_close(values["broad_top3"], TARGETS["tcga_broad_top3"], label="TCGA/BraTS broad Top3")
+assert_close(tcga_values["network_top1"], TARGETS["tcga_network_top1"], label="TCGA/BraTS Network Top1")
+assert_close(tcga_values["network_top3"], TARGETS["tcga_network_top3"], label="TCGA/BraTS Network Top3")
+assert_close(tcga_values["broad_top1"], TARGETS["tcga_broad_top1"], label="TCGA/BraTS broad Top1")
+assert_close(tcga_values["broad_top3"], TARGETS["tcga_broad_top3"], label="TCGA/BraTS broad Top3")
 
 plot_rows = [
-    {"metric": "Network Top1", "actual": values["network_top1"], "target": TARGETS["tcga_network_top1"]},
-    {"metric": "Network Top3", "actual": values["network_top3"], "target": TARGETS["tcga_network_top3"]},
-    {"metric": "Broad Top1", "actual": values["broad_top1"], "target": TARGETS["tcga_broad_top1"]},
-    {"metric": "Broad Top3", "actual": values["broad_top3"], "target": TARGETS["tcga_broad_top3"]},
+    {"metric": "Network Top1", "actual": tcga_values["network_top1"], "target": TARGETS["tcga_network_top1"]},
+    {"metric": "Network Top3", "actual": tcga_values["network_top3"], "target": TARGETS["tcga_network_top3"]},
+    {"metric": "Broad Top1", "actual": tcga_values["broad_top1"], "target": TARGETS["tcga_broad_top1"]},
+    {"metric": "Broad Top3", "actual": tcga_values["broad_top3"], "target": TARGETS["tcga_broad_top3"]},
 ]
 save_display_table(metric_table(plot_rows), tcga_out / "tcga_labeled_hybrid_formal_display_table.csv", "TCGA/BraTS coarse consistency display table")
 save_metric_barplot(plot_rows, tcga_out / "tcga_labeled_hybrid_formal_metrics_display.png", "TCGA/BraTS coarse consistency")</code></pre>
@@ -870,28 +1002,62 @@ plot_rows = [
 save_display_table(metric_table(plot_rows), gse_out / "gse189919_projection_feasibility_display_table.csv", "GSE189919 projection feasibility display table")
 save_metric_barplot(plot_rows, gse_out / "gse189919_projection_feasibility_metrics.png", "GSE189919 projector gene overlap")</code></pre>
 
-      <div class="cell-title">Cell 18: 可选运行完整 GSE 技术脚本</div>
+      <div class="cell-title">Cell 18: 可选 GSE 技术审计（非投稿准确率路线）</div>
       <button class="copy" data-copy="cell-gse-optional">复制</button>
-      <pre><code id="cell-gse-optional"># ?????????????? prediction-collapse / algorithm-audit ???
-# ???? Algorithm audit failed ????????? Table S4 ? projection-feasibility ???
-# Table S4 claim ????????? gene overlap?
+      <pre><code id="cell-gse-optional"># 该脚本检查 prediction collapse 和旧 production-baseline 算法关系。
+# 它没有患者级解剖真值，不能支持 localization accuracy。
+gse_algorithm_audit = {
+    "status": "NOT_RUN",
+    "submission_claim": "projection feasibility only",
+    "localization_accuracy_claim": False,
+    "reason": "",
+}
 if not DATA_AVAILABLE["gse189919"]:
-    print("Public audit mode: GSE189919 raw matrix is not available, skip full technical script.")
+    gse_algorithm_audit.update(
+        status="NOT_RUN_PUBLIC_MODE",
+        reason="raw GSE189919 matrix unavailable; Table S4 overlap audit remains valid",
+    )
 else:
-    try:
-        run_cmd(
-            [
-                sys.executable,
-                "scripts/analyze_gse189919_csf_tracing_validation.py",
-                "--data-dir", str(INPUTS["GSE189919 data dir"]),
-                "--outdir", str(gse_out / "full_script"),
-            ],
-            gse_out / "full_script",
-            timeout=1800,
+    full_out = gse_out / "full_script"
+    full_out.mkdir(parents=True, exist_ok=True)
+    args = [
+        sys.executable,
+        "scripts/analyze_gse189919_csf_tracing_validation.py",
+        "--data-dir", str(INPUTS["GSE189919 data dir"]),
+        "--outdir", str(full_out),
+    ]
+    print("Running optional non-blocking audit:", " ".join(args))
+    proc = subprocess.run(
+        args,
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        timeout=1800,
+    )
+    (full_out / "run.log").write_text(proc.stdout, encoding="utf-8", errors="replace")
+    if proc.returncode == 0:
+        gse_algorithm_audit.update(status="PASSED_TECHNICAL_AUDIT", reason="optional algorithm checks passed")
+    elif "Algorithm audit failed" in proc.stdout:
+        gse_algorithm_audit.update(
+            status="EXPECTED_LEGACY_ALGORITHM_LIMITATION",
+            reason=(
+                "legacy production baseline equals direct correlation/raw argmax in audited routes; "
+                "this does not affect the Table S4 gene-overlap claim and provides no localization accuracy evidence"
+            ),
         )
-    except Exception as exc:
-        print("?? GSE ??????? algorithm audit???? localization accuracy claim?")
-        print(type(exc).__name__, exc)</code></pre>
+    else:
+        gse_algorithm_audit.update(
+            status="TECHNICAL_ERROR",
+            reason=f"optional script exited with code {proc.returncode}; inspect {full_out / 'run.log'}",
+        )
+
+(gse_out / "gse189919_algorithm_audit_status.json").write_text(
+    json.dumps(gse_algorithm_audit, indent=2, ensure_ascii=False),
+    encoding="utf-8",
+)
+display(pd.DataFrame([gse_algorithm_audit]))
+print("GSE189919 submission conclusion remains projection feasibility only.")</code></pre>
     </section>
 
     <section>
@@ -900,50 +1066,126 @@ else:
 
       <div class="cell-title">Cell 19: 生成汇总表</div>
       <button class="copy" data-copy="cell-summary">复制</button>
-      <pre><code id="cell-summary">rows = []
+      <pre><code id="cell-summary">def joined_paths(paths: list[Path]) -> str:
+    return " | ".join(str(path) for path in paths)
 
-rows.append({
-    "route": "Bo2023 projected-VSD Network LOSO",
-    "target": "Network Top1 58.00%; Top3 91.58%",
-    "output": str(loso_net_out / "bo2023_projected_vsd_loso_route_summary.csv"),
-    "display_table": str(loso_net_out / "bo2023_projected_vsd_loso_display_table.csv"),
-    "display_figure": str(loso_net_out / "bo2023_projected_vsd_loso_metrics.png"),
-})
-rows.append({
-    "route": "Bo2023 formal three-tier LOSO",
-    "target": "Network Top3 92.38%; group Top3 72.36%; exact Top3 45.33%",
-    "output": str(formal_loso_out / "hybrid_formal_loso_summary.json"),
-    "display_table": str(formal_loso_out / "hybrid_formal_loso_display_table.csv"),
-    "display_figure": str(formal_loso_out / "hybrid_formal_loso_metrics.png"),
-})
-rows.append({
-    "route": "Bo2023 formal three-tier LOMO",
-    "target": "Network Top3 91.21%; group Top3 69.09%; exact Top3 42.36%",
-    "output": str(formal_lomo_out / "formal_lomo_validation_summary.json"),
-    "display_table": str(formal_lomo_out / "formal_lomo_display_table.csv"),
-    "display_figure": str(formal_lomo_out / "formal_lomo_metrics.png"),
-})
-rows.append({
-    "route": "AHBA mapped-label external validation",
-    "target": "Network Top3 94.42%; group Top3 67.03%; exact Top3 42.86%",
-    "output": str(ahba_out / "ahba_formal_three_tier_metrics.csv"),
-    "display_table": str(ahba_out / "ahba_formal_three_tier_display_table.csv"),
-    "display_figure": str(ahba_out / "ahba_formal_three_tier_metrics_display.png"),
-})
-rows.append({
-    "route": "TCGA/BraTS coarse consistency",
-    "target": "Network Top3 40.00%; broad Top3 64.62%",
-    "output": str(tcga_out / "tcga_labeled_hybrid_formal_metrics.csv"),
-    "display_table": str(tcga_out / "tcga_labeled_hybrid_formal_display_table.csv"),
-    "display_figure": str(tcga_out / "tcga_labeled_hybrid_formal_metrics_display.png"),
-})
-rows.append({
-    "route": "GSE189919 projection feasibility",
-    "target": "15622/21668 projector gene overlap; 72.10%",
-    "output": str(gse_out / "gse189919_projector_gene_overlap_summary.json"),
-    "display_table": str(gse_out / "gse189919_projection_feasibility_display_table.csv"),
-    "display_figure": str(gse_out / "gse189919_projection_feasibility_metrics.png"),
-})
+rows = [
+    {
+        "route": "Bo2023 projected-VSD Network LOSO",
+        "status": "MATCHED",
+        "command": "python scripts/run_bo2023_projected_vsd_loso.py ...",
+        "inputs": joined_paths(CONTROLLED_INPUTS["bo2023"]),
+        "output": str(loso_net_out / "bo2023_projected_vsd_loso_route_summary.csv"),
+        "target": "n=819; Top1 58.00%; Top3 91.58%",
+        "actual": f"n=819; Top1 {actual_top1:.2%}; Top3 {actual_top3:.2%}",
+        "consistent": True,
+        "difference_reason": "",
+    },
+    {
+        "route": "Bo2023 projected-VSD Network LOMO",
+        "status": "MATCHED",
+        "command": "python scripts/run_bo2023_projected_vsd_lomo.py ...",
+        "inputs": joined_paths(CONTROLLED_INPUTS["bo2023"]),
+        "output": str(lomo_net_out / "bo2023_projected_vsd_lomo_route_summary.csv"),
+        "target": "n=819; Top1 53.72%; Top3 91.33%",
+        "actual": f"n={lomo_projected_values['n']}; Top1 {lomo_projected_values['network_top1']:.2%}; Top3 {lomo_projected_values['network_top3']:.2%}",
+        "consistent": True,
+        "difference_reason": "",
+    },
+    {
+        "route": "Bo2023 formal three-tier LOSO",
+        "status": "MATCHED_AFTER_DENOMINATOR_FIX",
+        "command": "python scripts/run_bo2023_hybrid_formal_loso.py ...",
+        "inputs": joined_paths(CONTROLLED_INPUTS["bo2023"]),
+        "output": str(formal_loso_out / "hybrid_formal_loso_summary.json"),
+        "target": "Network n=819 Top3 92.19%; group/exact n=814 Top3 72.36%/45.33%",
+        "actual": (
+            f"Network n={formal_loso_values['network_n']} Top3 {formal_loso_values['network_top3']:.2%}; "
+            f"group n={formal_loso_values['group_n']} Top3 {formal_loso_values['group_top3']:.2%}; "
+            f"exact n={formal_loso_values['exact_n']} Top3 {formal_loso_values['exact_top3']:.2%}"
+        ),
+        "consistent": True,
+        "difference_reason": "Five truth regions are absent after sample holdout; those samples remain in Network evaluation only. The old 92.38% value used the conditional n=814 denominator.",
+    },
+    {
+        "route": "Bo2023 formal three-tier LOMO",
+        "status": "MATCHED",
+        "command": "python scripts/run_bo2023_projected_vsd_formal_lomo.py ...",
+        "inputs": joined_paths(CONTROLLED_INPUTS["bo2023"]),
+        "output": str(formal_lomo_out / "formal_lomo_validation_summary.json"),
+        "target": "Network n=819 Top3 91.21%; group/exact n=812 Top3 69.09%/42.36%",
+        "actual": (
+            f"Network n={formal_lomo_values['network_n']} Top3 {formal_lomo_values['network_top3']:.2%}; "
+            f"group n={formal_lomo_values['group_n']} Top3 {formal_lomo_values['group_top3']:.2%}; "
+            f"exact n={formal_lomo_values['exact_n']} Top3 {formal_lomo_values['exact_top3']:.2%}"
+        ),
+        "consistent": True,
+        "difference_reason": "Seven truth regions are absent from the remaining training monkeys and are excluded only from region-level evaluation.",
+    },
+    {
+        "route": "AHBA mapped-label external validation",
+        "status": "MATCHED",
+        "command": "python scripts/run_ahba_projected_vsd_formal_three_tier_external.py ...",
+        "inputs": joined_paths(CONTROLLED_INPUTS["ahba"]),
+        "output": str(ahba_out / "ahba_formal_three_tier_metrics.csv"),
+        "target": "Network Top3 94.42%; group Top3 67.03%; exact Top3 42.86%",
+        "actual": f"Network Top3 {ahba_values['network_top3']:.2%}; group Top3 {ahba_values['group_top3']:.2%}; exact Top3 {ahba_values['exact_top3']:.2%}",
+        "consistent": True,
+        "difference_reason": "Mapped-label transfer; exact metrics use 91 exact-evaluable samples.",
+    },
+    {
+        "route": "TCGA/BraTS coarse consistency",
+        "status": "MATCHED",
+        "command": "python scripts/run_tcga_labeled_hybrid_formal_external.py ...",
+        "inputs": joined_paths(CONTROLLED_INPUTS["tcga"]),
+        "output": str(tcga_out / "tcga_labeled_hybrid_formal_metrics.csv"),
+        "target": "n=65; Network Top3 40.00%; broad Top3 64.62%",
+        "actual": f"n=65; Network Top3 {tcga_values['network_top3']:.2%}; broad Top3 {tcga_values['broad_top3']:.2%}",
+        "consistent": True,
+        "difference_reason": "Coarse consistency only; no Bo2023 exact-region claim.",
+    },
+    {
+        "route": "GSE189919 projection feasibility",
+        "status": "MATCHED",
+        "command": "gene-space overlap audit; optional technical script is non-blocking",
+        "inputs": joined_paths(CONTROLLED_INPUTS["gse189919"]),
+        "output": str(gse_out / "gse189919_projector_gene_overlap_summary.json"),
+        "target": "15622/21668 projector genes; 72.10%",
+        "actual": f"{summary['n_overlap_genes']}/{summary['n_projector_genes']}; {summary['coverage_vs_projector']:.2%}",
+        "consistent": True,
+        "difference_reason": f"No anatomical truth and no localization-accuracy claim. Optional algorithm audit status: {gse_algorithm_audit['status']}.",
+    },
+    {
+        "route": "Legacy MRI-truth side route",
+        "status": "LEGACY_INCONSISTENCY",
+        "command": "python scripts/evaluate_brats_tcga_lgg_65_mri_truth.py",
+        "inputs": "legacy predictions and alternate truth/matching rules",
+        "output": "not used for Table S4",
+        "target": "Do not use as submission route",
+        "actual": "Network Top3 36.92%; broad Top3 80.00%",
+        "consistent": False,
+        "difference_reason": "Different prediction file and MRI truth/matching rule from the locked Table S4 route.",
+    },
+    {
+        "route": "Development-era figure source directories",
+        "status": "LEGACY_INCONSISTENCY" if legacy_source_dirs_present else "NOT_PRESENT_IN_CURRENT_RELEASE",
+        "command": "source-data inventory only",
+        "inputs": joined_paths(legacy_source_dirs_present),
+        "output": joined_paths(legacy_notices),
+        "target": "Current submission source_data only",
+        "actual": (
+            "Older baseline numbers remain in archived development directories"
+            if legacy_source_dirs_present
+            else "Archived development source-data directories are not included in this release"
+        ),
+        "consistent": not legacy_source_dirs_present,
+        "difference_reason": (
+            "Present historical directories are legacy/inconsistency material and must not be cited as current submission evidence."
+            if legacy_source_dirs_present
+            else "No historical source-data directory is present; the current submission source_data is authoritative."
+        ),
+    },
+]
 
 summary_df = pd.DataFrame(rows)
 summary_path = AUDIT_DIR / "jupyter_validation_summary.csv"
@@ -954,10 +1196,14 @@ md = ["# cfRNA-BrainTrace v0.1.6 Jupyter validation summary", ""]
 for row in rows:
     md.extend([
         f"## {row['route']}",
+        f"- Status: {row['status']}",
+        f"- Command: `{row['command']}`",
+        f"- Inputs: `{row['inputs']}`",
         f"- Target: {row['target']}",
+        f"- Actual: {row['actual']}",
+        f"- Consistent: {row['consistent']}",
+        f"- Difference reason: {row['difference_reason']}",
         f"- Output: `{row['output']}`",
-        f"- Display table: `{row['display_table']}`",
-        f"- Display figure: `{row['display_figure']}`",
         "",
     ])
 (AUDIT_DIR / "jupyter_validation_summary.md").write_text("\n".join(md), encoding="utf-8")
