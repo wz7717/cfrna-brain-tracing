@@ -46,7 +46,7 @@ The first internal analysis evaluated Network-level candidate generation. Projec
 
 ### S2 Formal internal three-tier validation
 
-In the complete LOSO validation, the formal route achieved Network Top1/Top3 of 58.24%/92.19% across all 819 samples. Resolution-group and exact-region Top3 were 72.36% and 45.33% among 814 reference-supported samples. In complete LOMO validation, Network Top3 was 91.21% across all 819 samples, while resolution-group and exact-region Top3 were 69.09% and 42.36% among 812 reference-supported samples. The earlier LOSO Network value of 92.38% was conditional on the 814 region-evaluable samples and is retained only as a legacy denominator inconsistency, not as the submission result. Median true-rank increased from Network to exact-region levels, consistent with decreasing anatomical certainty at finer resolution. Resolution group is therefore the preferred region-level endpoint, while exact-region output is retained as a candidate ranking.
+In the complete LOSO validation, the formal route achieved Network Top1/Top3 of 58.24%/92.19% across all 819 samples. Resolution-group and exact-region Top3 were 72.36% and 45.33% among 814 reference-supported samples. In complete LOMO validation, Network Top3 was 91.21% across all 819 samples, while resolution-group and exact-region Top3 were 69.09% and 42.36% among 812 reference-supported samples. The 92.19% LOSO Network Top3 value uses all 819 Network-evaluable samples as the denominator. Region-level LOSO metrics use 814 reference-supported samples because five samples lacked a truth-region reference after fold construction. Region-level LOMO metrics use 812 reference-supported samples because seven samples lacked a truth-region reference after fold construction. The earlier LOSO Network value of 92.38% was conditional on the 814 region-evaluable samples and is retained only as a legacy denominator inconsistency, not as the submission result. Median true-rank increased from Network to exact-region levels, consistent with decreasing anatomical certainty at finer resolution. Resolution group is therefore the preferred region-level endpoint, while exact-region output is retained as a candidate ranking.
 
 ### S3 External validation results
 
@@ -101,7 +101,7 @@ In AHBA, the hybrid route achieved Network Top1/Top3 of 74.68%/94.42%, resolutio
 
 | Item | Content | Use in manuscript |
 |---|---|---|
-| Figure 1 | Formal route diagram and validation summary; numeric source in `Figure1_validation_summary.csv` | Main Application Note figure |
+| Figure 1 | Two-panel workflow and validation summary; Panel B numeric source in `Figure1_validation_summary.csv` | Main Application Note figure |
 | Table S1 | Internal validation design | Documents LOSO/LOMO operations |
 | Table S2 | Internal validation results | Reports Network, group and exact-region metrics |
 | Table S3 | External validation design | Documents label support and allowed conclusions |

@@ -123,8 +123,8 @@ def _render_public_demo_diagnostics(network_out: dict) -> None:
 
     st.info(
         tr(
-            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the three-tier route LOSO/LOMO Network Top3 is 92.19%/91.21%. Network metrics use all 819 samples; region metrics use reference-supported folds only. Exact-region output is exploratory.",
-            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the three-tier route LOSO/LOMO Network Top3 is 92.19%/91.21%. Network metrics use all 819 samples; region metrics use reference-supported folds only. Exact-region output is exploratory.",
+            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the three-tier route LOSO/LOMO Network Top3 is 92.19%/91.21%. Network metrics use all 819 samples; LOSO region metrics use 814 reference-supported samples and LOMO region metrics use 812. Exact-region output is exploratory.",
+            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the three-tier route LOSO/LOMO Network Top3 is 92.19%/91.21%. Network metrics use all 819 samples; LOSO region metrics use 814 reference-supported samples and LOMO region metrics use 812. Exact-region output is exploratory.",
         )
     )
     render_section_band(
@@ -164,8 +164,8 @@ def _render_public_demo_diagnostics(network_out: dict) -> None:
     )
     st.warning(
         tr(
-            "Biofluid outputs without independent anatomical truth are transfer stress tests, not localization-validation results.",
-            "Biofluid outputs without independent anatomical truth are transfer stress tests, not localization-validation results.",
+            "Biofluid outputs without patient-level anatomical truth are projection-feasibility or transfer-stress analyses, not localization-accuracy results.",
+            "Biofluid outputs without patient-level anatomical truth are projection-feasibility or transfer-stress analyses, not localization-accuracy results.",
         )
     )
 

@@ -1,3 +1,13 @@
+# v3 pre-submission correction note (2026-06-28)
+
+- Author list, correspondence and Contact were corrected in the v3 manuscript outputs: Zhen Wang, Li Zhang and Zheng Wang are listed as authors; Li Zhang and Zheng Wang are corresponding authors with email contacts.
+- LOSO Network Top3 remains 92.19% for the current submission route; any 92.38% mention is legacy-denominator context only.
+- Data availability DOI text was cleaned of Markdown star/italic markup.
+- The extra trailing `Figure legends` heading was removed from the final v3 manuscript outputs.
+- Figure 1 caption now explicitly states that biofluid analyses without patient-level anatomical truth are projection-feasibility or transfer-stress analyses, not localization-accuracy results.
+- AI-assisted editing disclosure is retained; the cover letter should also disclose AI-assisted language editing, manuscript-format checking and code-documentation review.
+- Public-release test statement: 16 passed and 1 skipped; the skipped test requires controlled/original Bo2023 reference files not included in the lightweight public release.
+
 # Final submission audit changelog
 
 Date: 2026-06-25
@@ -8,7 +18,7 @@ Date: 2026-06-25
 - The scientific mainline was retained. The formal LOSO Network denominator was corrected from the conditional 814-sample region-evaluable subset to all 819 Network-evaluable samples.
 - Retained the three-tier route wording: uploaded RNA expression profiles are converted into logCPM/logTPM-compatible inputs, projected into Bo2023-like projected-VSD space only for 10-class macaque Network Top3 beam generation, and then reranked using logCPM-compatible local expression for resolution-group and exploratory exact-region candidates.
 - Retained the AI-assisted editing disclosure.
-- Retained the author placeholder `[AUTHOR NAMES AND AFFILIATIONS REQUIRED BEFORE SUBMISSION]` because complete author names and affiliations cannot be verified from the available files.
+- Updated the author block after author input: `Zhen Wang, Chinese Institute for Brain Research, Beijing`.
 
 ## README consistency
 
@@ -61,8 +71,8 @@ Date: 2026-06-25
 
 ## Author block
 
-- The corresponding author email `wangzhen@cibr.ac.cn` is retained.
-- Full author names, departments, institution, city, postal code and country still require author input before submission.
+- Corresponding authors are listed as `Li Zhang and Zheng Wang`; corresponding-author email addresses still need to be supplied if required by the journal submission system.
+- Author and affiliation are filled as `Zhen Wang, Chinese Institute for Brain Research, Beijing`.
 
 ## Supplementary files
 
@@ -143,8 +153,8 @@ All manuscript-mentioned paths were checked and exist:
 - Formal LOSO and formal LOMO use the same three-tier architecture but different
   fold-local Network construction; this is now disclosed rather than described
   as algorithmically identical.
-- The only unresolved pre-submission item is the complete author/affiliation block, which needs author input before submission.
+- No manuscript-claim inconsistency remains after author/affiliation completion.
 
 ## Final recommendation
 
-Ready after author input.
+Ready after final author-block check.

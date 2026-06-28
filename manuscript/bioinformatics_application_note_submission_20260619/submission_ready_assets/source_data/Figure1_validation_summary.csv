@@ -1,12 +1,12 @@
 validation,endpoint,evaluated_n,top3,display_percent,scope
-Internal LOSO,Network,819,0.9218559218559218,92.2%,All Network-evaluable samples
-Internal LOSO,Resolution group,814,0.7235872235872236,72.4%,Reference-supported samples
-Internal LOSO,Exact region,814,0.4533169533169533,45.3%,Reference-supported samples
-Internal LOMO,Network,819,0.9120879120879121,91.2%,All Network-evaluable samples
-Internal LOMO,Resolution group,812,0.6908866995073891,69.1%,Reference-supported samples
-Internal LOMO,Exact region,812,0.4236453201970443,42.4%,Reference-supported samples
-AHBA external,Network,233,0.944206008583691,94.4%,Mapped-label supported samples
-AHBA external,Resolution group,91,0.6703296703296703,67.0%,Exact-mapped samples
-AHBA external,Exact region,91,0.42857142857142855,42.9%,Exact-mapped samples
-TCGA/BraTS MRI,Network,65,0.4,40.0%,Coarse consistency only
-TCGA/BraTS MRI,Broad anatomy,65,0.6461538461538462,64.6%,Coarse consistency only
+Internal LOSO,Network,819,0.9218559218559218,92.19%,All Network-evaluable samples
+Internal LOSO,Resolution group,814,0.7235872235872236,72.36%,Reference-supported samples
+Internal LOSO,Exact region,814,0.4533169533169533,45.33%,Reference-supported samples
+Internal LOMO,Network,819,0.9120879120879121,91.21%,All Network-evaluable samples
+Internal LOMO,Resolution group,812,0.6908866995073891,69.09%,Reference-supported samples
+Internal LOMO,Exact region,812,0.4236453201970443,42.36%,Reference-supported samples
+AHBA external,Network,233,0.944206008583691,94.42%,Mapped-label supported samples
+AHBA external,Resolution group,91,0.6703296703296703,67.03%,Exact-mapped samples
+AHBA external,Exact region,91,0.42857142857142855,42.86%,Exact-mapped samples
+TCGA/BraTS MRI,Network,65,0.4,40.00%,Coarse consistency only
+TCGA/BraTS MRI,Broad anatomy,65,0.6461538461538462,64.62%,Coarse consistency only

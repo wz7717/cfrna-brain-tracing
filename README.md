@@ -119,6 +119,7 @@ Current submission route:
 - AHBA exact-region Top1/Top3: 24.18% / 42.86%.
 - TCGA/BraTS Network Top3: 40.00%.
 - TCGA/BraTS broad-anatomy Top3: 64.62%.
+- GSE189919 projector gene overlap: 15,622 / 21,668 (72.10%); projection feasibility / transfer stress test only, not localization accuracy.
 
 Earlier baseline routes were used during development but are not part of the
 current submission route or reported validation results.
@@ -127,6 +128,12 @@ Network metrics include all 819 samples. Region-level metrics are restricted
 to folds in which the held-out truth region remains represented in the
 training reference; five LOSO samples and seven LOMO samples are therefore
 excluded only from resolution-group and exact-region evaluation.
+
+The 92.19% LOSO Network Top3 value uses all 819 Network-evaluable samples as
+the denominator. Region-level LOSO metrics use 814 reference-supported samples
+because five samples lacked a truth-region reference after fold construction.
+Region-level LOMO metrics use 812 reference-supported samples because seven
+samples lacked a truth-region reference after fold construction.
 
 See `manuscript/` for the Bioinformatics Application Note draft and
 supplementary material.
