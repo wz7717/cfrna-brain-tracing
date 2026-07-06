@@ -6,6 +6,7 @@ import json
 import os
 import sqlite3
 import tempfile
+import warnings
 import zipfile
 from typing import Optional
 
@@ -109,7 +110,13 @@ def export_run_bundle(db_path: str, run_id: str, out_zip_path: Optional[str] = N
         conn.close()
 
 
-build_report_bundle = export_run_bundle
+def build_report_bundle(*args, **kwargs):
+    warnings.warn(
+        "build_report_bundle is deprecated; use export_run_bundle instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return export_run_bundle(*args, **kwargs)
 
 
 def export_benchmark_paper_figures(*args, **kwargs):

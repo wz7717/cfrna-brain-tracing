@@ -14,7 +14,8 @@ import streamlit as st
 from app.components.layout import render_kpi_cards, render_panel_header, render_section_band
 from app.database_mode import database_label, get_database_mode
 from app.i18n import tr
-from app.shared import DB_PATH, init_processor, render_page_hero, render_result_hint
+from app.services.benchmark_summary import build_benchmark_insights, explanation_for, reviewer_summary
+from app.shared import DB_PATH, init_processor, render_page_hero
 from core.methods import METHOD_SPECS, method_choices, method_help_markdown, method_label
 from data.dao import get_atlas_options, table_exists
 
@@ -104,103 +105,23 @@ def _render_public_demo_benchmark_boundary(n_atlas: int, n_sigsets: int, n_label
         )
 
 
-def _suite_summary(detail_df: pd.DataFrame, metrics_df: pd.DataFrame, k: int) -> dict:
-    summary = detail_df.attrs.get("summary", {}) if hasattr(detail_df, "attrs") else {}
-    metric_map = {}
-    if metrics_df is not None and not metrics_df.empty and {"metric", "value"}.issubset(metrics_df.columns):
-        metric_map = dict(zip(metrics_df["metric"].astype(str), metrics_df["value"]))
-    top1 = _safe_float(summary.get("top1_acc")) or _safe_float(metric_map.get("Top1_acc_valid"))
-    topk = _safe_float(summary.get(f"top{k}_acc")) or _safe_float(metric_map.get(f"Top{k}_acc_valid"))
-    auc = _safe_float(summary.get("auc")) or _safe_float(metric_map.get("MacroAUC_ovr_valid"))
-    stability = _safe_float(summary.get("mean_top1_stability")) or _safe_float(metric_map.get("Mean_top1_stability_valid"))
-    confidence = _safe_float(summary.get("mean_top1_confidence")) or _safe_float(metric_map.get("Mean_top1_confidence_valid"))
-    margin = _safe_float(summary.get("mean_decision_margin")) or _safe_float(metric_map.get("Mean_decision_margin_valid"))
-    abstain = _safe_float(summary.get("abstain_rate")) or _safe_float(metric_map.get("Abstain_rate"))
-    return {
-        "top1": top1,
-        "topk": topk,
-        "auc": auc,
-        "stability": stability,
-        "confidence": confidence,
-        "margin": margin,
-        "abstain": abstain,
-    }
-
-
-def _top_confusion_text(confusion_long_df: pd.DataFrame) -> str:
-    if confusion_long_df is None or confusion_long_df.empty:
-        return tr("暂未发现集中混淆。", "No concentrated confusion pattern is currently visible.")
-    wrong = confusion_long_df[confusion_long_df["truth_region"].astype(str) != confusion_long_df["pred_region"].astype(str)].copy()
-    if wrong.empty:
-        return tr("主要预测集中在对角线，未见明显错误方向。", "Predictions are largely concentrated on the diagonal with no obvious dominant error direction.")
-    sort_cols = [c for c in ["count", "row_fraction"] if c in wrong.columns]
-    wrong = wrong.sort_values(sort_cols, ascending=False).head(3)
-    pairs = [f"{r.truth_region} -> {r.pred_region}" for r in wrong.itertuples()]
-    return " ; ".join(pairs)
-
-
-def _rule_summary_text(summary: dict, confusion_text: str, k: int) -> dict:
-    top1 = summary.get("top1")
-    topk = summary.get("topk")
-    stability = summary.get("stability")
-    auc = summary.get("auc")
-    gap = None if top1 is None or topk is None else topk - top1
-
-    if top1 is not None and top1 >= 0.75:
-        one_liner = tr(
-            "当前模型已具备较好的 Top1 脑区识别能力。",
-            "The current model already shows solid Top1 brain-region identification performance.",
-        )
-    elif gap is not None and gap >= 0.15:
-        one_liner = tr(
-            f"当前模型更擅长把真实脑区缩小到 Top{k} 候选范围，但精细区分仍有提升空间。",
-            f"The current model is better at narrowing the true region into the Top{k} candidate set than making the final fine-grained distinction.",
-        )
-    else:
-        one_liner = tr(
-            "当前模型具备一定识别能力，但精细脑区定位仍需进一步优化。",
-            "The current model provides usable discrimination, but fine-grained brain-region localization still needs optimization.",
-        )
-
-    main_problem = tr(
-        f"当前主要混淆方向包括：{confusion_text}",
-        f"The main current confusion pattern includes: {confusion_text}",
-    )
-
-    if stability is not None and stability < 0.5:
-        next_step = tr(
-            "建议优先提高稳定性，例如增加更稳健的 signature、检查 overlap 基因数，或降低对弱证据样本的解释强度。",
-            "Prioritize improving stability by strengthening the signature set, checking overlap genes, or being more conservative on weak-evidence samples.",
-        )
-    elif auc is not None and auc < 0.65:
-        next_step = tr(
-            "建议优先检查 atlas / signature 是否匹配当前样本类型，并重点排查标签一致性。",
-            "Prioritize checking whether atlas/signature choices match the current sample type, and review label consistency.",
-        )
-    else:
-        next_step = tr(
-            "建议优先针对主要混淆脑区优化 marker 权重或引入更细的区域参考层。",
-            "Prioritize refining marker weights for the dominant confusion pairs or introducing a finer regional reference layer.",
-        )
-    return {"one_liner": one_liner, "main_problem": main_problem, "next_step": next_step}
-
-
-def _explanation_box(title: str, what_zh: str, what_en: str, how_zh: str, how_en: str, good_zh: str, good_en: str, interp_zh: str, interp_en: str) -> None:
+def _render_explanation_box(title: str, module: str, insights: dict) -> None:
+    explanation = explanation_for(module, insights)
     st.info(
         f"""
 **{title}**
 
-**{tr("这是什么", "What")}**  
-{tr(what_zh, what_en)}
+**{tr("What", "What")}**
+{explanation.get("what", "")}
 
-**{tr("怎么看", "How to read")}**  
-{tr(how_zh, how_en)}
+**{tr("How to read", "How to read")}**
+{explanation.get("how", "")}
 
-**{tr("什么结果算好", "What is good")}**  
-{tr(good_zh, good_en)}
+**{tr("What is good", "What is good")}**
+{explanation.get("good", "")}
 
-**{tr("当前结果说明了什么", "Interpretation")}**  
-{tr(interp_zh, interp_en)}
+**{tr("Interpretation", "Interpretation")}**
+{explanation.get("interpretation", "")}
         """
     )
 
@@ -208,12 +129,6 @@ def _explanation_box(title: str, what_zh: str, what_en: str, how_zh: str, how_en
 def _render_qc_overview(processor) -> None:
     qc_overview_df = processor.compute_database_cohort_qc()
     st.markdown(f'<div class="result-zone">{tr("结果区：评估前样本质控概览", "Result zone: pre-benchmark cohort QC overview")}</div>', unsafe_allow_html=True)
-    render_result_hint(
-        tr(
-            "建议先看样本总体风险结构，再决定是否仅在 Low risk 样本上运行 Benchmark。",
-            "Review the cohort risk structure first, then decide whether Benchmark should be run only on Low-risk samples.",
-        )
-    )
     if qc_overview_df.empty:
         st.info(tr("当前数据库中没有可用于 cohort QC 校准的样本表达矩阵。", "No cohort-calibratable sample matrices are currently available in the database."))
         return
@@ -444,17 +359,18 @@ def display_benchmark_page() -> None:
         st.warning(tr("当前没有可展示的 benchmark 结果。", "There is no benchmark output to display yet."))
         return
 
-    summary = _suite_summary(detail_df, metrics_df, int(meta.get("k", 3) or 3))
-    confusion_text = _top_confusion_text(suite.get("confusion_long_df", pd.DataFrame()))
-    insight = _rule_summary_text(summary, confusion_text, int(meta.get("k", 3) or 3))
+    k_value = int(meta.get("k", 3) or 3)
+    insights = build_benchmark_insights(suite, meta=meta, k=k_value)
+    summary = insights["metrics"]
+    confusion_text = insights["major_confusion_text"]
+    reviewer = reviewer_summary(insights)
+    insight = {
+        "one_liner": insights["one_liner"],
+        "main_problem": insights["main_problem"],
+        "next_step": insights["next_step"],
+    }
 
     st.markdown(f'<div class="result-zone">{tr("结果区：Benchmark 总结、图表与自动解释", "Result zone: Benchmark summary, figures and interpretation")}</div>', unsafe_allow_html=True)
-    render_result_hint(
-        tr(
-            "建议先看顶部总结卡片，再依次查看 Top1 / TopK、混淆矩阵、ROC、稳定性和 failure mode，最后再读论文级总结。",
-            "Start with the summary cards, then review Top1 / TopK, confusion matrix, ROC, stability and failure mode before reading the paper-style summary.",
-        )
-    )
 
     render_kpi_cards(
         [
@@ -503,17 +419,7 @@ def display_benchmark_page() -> None:
     fig = px.bar(hit_df, x="metric", y="value", title=tr("核心性能摘要图", "Publish-grade summary metrics"), color_discrete_sequence=["#2f6df6"])
     fig.update_layout(yaxis=dict(range=[0, 1]), height=360, margin=dict(l=10, r=10, t=60, b=10))
     st.plotly_chart(fig, use_container_width=True)
-    _explanation_box(
-        "Top1 / TopK",
-        "Top1 和 TopK accuracy 分别反映最终定位能力与候选范围缩小能力。",
-        "Top1 and TopK accuracy reflect final localization ability and candidate-range narrowing ability.",
-        "先看 Top1，再比较 TopK 是否明显更高。",
-        "Read Top1 first, then check whether TopK is clearly higher.",
-        "Top1 较高，或 TopK 明显高于 Top1，都说明模型具有一定价值。",
-        "A high Top1 or a clear TopK > Top1 gap both indicate practical value.",
-        insight["one_liner"],
-        insight["one_liner"],
-    )
+    _render_explanation_box("Top1 / TopK", "accuracy", insights)
 
     st.markdown("### 1. Confusion Matrix")
     conf_norm = suite.get("confusion_norm_df", pd.DataFrame())
@@ -529,17 +435,7 @@ def display_benchmark_page() -> None:
             fig = px.imshow(conf_raw, text_auto=True, aspect="auto", color_continuous_scale=["#eef4ff", "#9fc0ff", "#2f6df6"])
             fig.update_layout(height=620, margin=dict(l=10, r=10, t=40, b=10))
             st.plotly_chart(fig, use_container_width=True)
-    _explanation_box(
-        "Confusion Matrix",
-        "用于观察真实脑区与预测脑区之间的错配方向。",
-        "Shows where true and predicted regions disagree.",
-        "对角线越集中越好；非对角线亮块提示重点混淆方向。",
-        "A stronger diagonal is better; off-diagonal hot spots indicate important confusion directions.",
-        "相邻或相似脑区之间少量混淆通常比跨系统混淆更容易接受。",
-        "Limited confusion among adjacent or similar regions is usually more acceptable than cross-system confusion.",
-        f"当前最值得关注的混淆方向为：{confusion_text}",
-        f"The most notable confusion pattern is: {confusion_text}",
-    )
+    _render_explanation_box("Confusion Matrix", "confusion", insights)
 
     st.markdown("### 2. Rank Distribution")
     prob_df = suite.get("probability_df", pd.DataFrame())
@@ -559,17 +455,7 @@ def display_benchmark_page() -> None:
             fig = px.bar(counts, x="true_rank", y="n_samples", text="n_samples", color_discrete_sequence=["#2f6df6"])
             fig.update_layout(height=400, margin=dict(l=10, r=10, t=40, b=10))
             st.plotly_chart(fig, use_container_width=True)
-    _explanation_box(
-        "Rank Distribution",
-        "显示真实脑区在候选排序中的位置分布。",
-        "Shows where the true region appears in the ranked candidate list.",
-        "大量样本落在 rank 1-3，通常说明模型具备较好的筛选价值。",
-        "If many samples fall within rank 1-3, the model usually has useful screening value.",
-        "越多样本集中在前几名越好。",
-        "More samples concentrated in the top ranks is better.",
-        tr("如果长尾样本较多，建议回查这些样本的 overlap、QC 和标签质量。", "A long tail suggests checking overlap, QC and label quality for those samples."),
-        tr("如果长尾样本较多，建议回查这些样本的 overlap、QC 和标签质量。", "A long tail suggests checking overlap, QC and label quality for those samples."),
-    )
+    _render_explanation_box("Rank Distribution", "rank", insights)
 
     st.markdown("### 3. ROC / AUC")
     roc_curve_df = suite.get("roc_curve_df", pd.DataFrame())
@@ -581,17 +467,7 @@ def display_benchmark_page() -> None:
     roc_summary_df = suite.get("roc_summary_df", pd.DataFrame())
     if roc_summary_df is not None and not roc_summary_df.empty:
         st.dataframe(roc_summary_df.replace({np.nan: None}), use_container_width=True, hide_index=True)
-    _explanation_box(
-        "ROC / AUC",
-        "衡量脑区与其他脑区之间的可区分程度。",
-        "Measures how well each region can be separated from all others.",
-        "曲线越靠近左上角、AUC 越高，说明排序能力越强。",
-        "Curves closer to the top-left and higher AUC indicate stronger ranking ability.",
-        "AUC 接近 1 最理想，低于 0.65 通常提示区分度有限。",
-        "AUC near 1 is ideal, while values below 0.65 usually indicate limited separation.",
-        tr(f"当前 Macro AUC 为 {summary['auc']:.3f}。" if summary["auc"] is not None else "当前 AUC 暂不可评估。", f"Current Macro AUC is {summary['auc']:.3f}." if summary["auc"] is not None else "AUC is not currently evaluable."),
-        tr(f"当前 Macro AUC 为 {summary['auc']:.3f}。" if summary["auc"] is not None else "当前 AUC 暂不可评估。", f"Current Macro AUC is {summary['auc']:.3f}." if summary["auc"] is not None else "AUC is not currently evaluable."),
-    )
+    _render_explanation_box("ROC / AUC", "roc", insights)
 
     st.markdown("### 4. Confidence / Margin")
     if detail_df is not None and not detail_df.empty:
@@ -603,17 +479,7 @@ def display_benchmark_page() -> None:
             fig = px.box(long_df, x="metric", y="value", color="prediction", points="all", color_discrete_sequence=["#1f9d75", "#d43f56"])
             fig.update_layout(height=440, margin=dict(l=10, r=10, t=40, b=10))
             st.plotly_chart(fig, use_container_width=True)
-    _explanation_box(
-        "Confidence / Margin",
-        "分别反映 Top1 结果的把握程度和 Top1 对 Top2 的领先幅度。",
-        "These reflect confidence in Top1 and the lead of Top1 over Top2.",
-        "正确样本如果整体具有更高 confidence 和更大 margin，说明这些指标有解释价值。",
-        "If correct samples show higher confidence and larger margins overall, these metrics are informative.",
-        "高 confidence 且 margin 明显时，通常说明第一候选更可靠。",
-        "High confidence with a clear margin usually means the first candidate is more reliable.",
-        tr("可以把 confidence 和 margin 作为结果分层和人工复核优先级的辅助依据。", "Confidence and margin can help stratify results and prioritize manual review."),
-        tr("可以把 confidence 和 margin 作为结果分层和人工复核优先级的辅助依据。", "Confidence and margin can help stratify results and prioritize manual review."),
-    )
+    _render_explanation_box("Confidence / Margin", "confidence_margin", insights)
 
     st.markdown("### 5. Bootstrap Stability")
     stability_bin_df = suite.get("stability_bin_df", pd.DataFrame())
@@ -627,17 +493,7 @@ def display_benchmark_page() -> None:
             fig2 = px.bar(stability_bin_df, x="stability_bin", y="top1_acc", text="n_samples", color_discrete_sequence=["#74a1ff"])
             fig2.update_layout(yaxis=dict(range=[0, 1]), height=360, margin=dict(l=10, r=10, t=40, b=10))
             st.plotly_chart(fig2, use_container_width=True)
-    _explanation_box(
-        "Bootstrap Stability",
-        "衡量重复抽样后 Top1 是否仍保持一致。",
-        "Measures whether Top1 remains consistent after resampling.",
-        "稳定性越高，说明结果越不依赖少数基因。",
-        "Higher stability means the result depends less on a few specific genes.",
-        "稳定性较高时，模型结论通常更适合写入正式结果。",
-        "Higher stability usually makes the conclusion more suitable for formal reporting.",
-        tr(f"当前平均稳定性为 {summary['stability']:.3f}。" if summary["stability"] is not None else "当前稳定性指标暂不可评估。", f"Current mean stability is {summary['stability']:.3f}." if summary["stability"] is not None else "Stability is not currently evaluable."),
-        tr(f"当前平均稳定性为 {summary['stability']:.3f}。" if summary["stability"] is not None else "当前稳定性指标暂不可评估。", f"Current mean stability is {summary['stability']:.3f}." if summary["stability"] is not None else "Stability is not currently evaluable."),
-    )
+    _render_explanation_box("Bootstrap Stability", "stability", insights)
 
     st.markdown("### 6. Failure Mode")
     failure_rows = []
@@ -662,40 +518,18 @@ def display_benchmark_page() -> None:
         fig.update_layout(height=420, margin=dict(l=10, r=10, t=40, b=10), xaxis_tickangle=-18, yaxis=dict(range=[0, 1]))
         st.plotly_chart(fig, use_container_width=True)
         st.dataframe(failure_df, use_container_width=True, hide_index=True)
-    _explanation_box(
-        "Failure Mode",
-        "把错误类型拆解开，帮助快速定位问题更像样本质量、证据不足，还是模型本身区分困难。",
-        "Breaks down error types to show whether the issue is sample quality, insufficient evidence or model discrimination difficulty.",
-        "先看占比最高的失败模式，再回到上面的图解释它为什么出现。",
-        "Read the dominant failure category first, then interpret it using the plots above.",
-        "理想状态是正确 Top1 占主导，其余错误类型分散且比例较低。",
-        "Ideally, correct Top1 dominates and other failure classes remain scattered and small.",
-        tr("如果某一种失败模式占比过高，通常说明当前瓶颈已经比较集中。", "If one failure category dominates, the current bottleneck is likely concentrated rather than random."),
-        tr("如果某一种失败模式占比过高，通常说明当前瓶颈已经比较集中。", "If one failure category dominates, the current bottleneck is likely concentrated rather than random."),
-    )
+    _render_explanation_box("Failure Mode", "failure", insights)
 
     st.markdown(f"### {tr('样本级明细', 'Sample-level details')}")
     st.dataframe(detail_df.replace({np.nan: None}), use_container_width=True, hide_index=True)
 
     render_section_band(tr("适合写入论文结果的总结", "Paper-style result summary"), tr("可直接作为论文 Results 或补充说明的起点。", "Can serve as a starting point for manuscript Results or supplementary text."))
     st.markdown(f"**{tr('性能总结', 'Performance summary')}**")
-    st.write(insight["one_liner"])
+    st.write(reviewer["performance"])
     st.markdown(f"**{tr('错误模式总结', 'Error-pattern summary')}**")
-    st.write(insight["main_problem"])
+    st.write(reviewer["error"])
     st.markdown(f"**{tr('稳定性与可信度总结', 'Stability and confidence summary')}**")
-    stability_text_zh = (
-        f"当前平均稳定性为 {summary['stability']:.3f}。"
-        if summary["stability"] is not None
-        else "当前稳定性暂不可评估。"
-    ) + " 结合 confidence 与 margin，可进一步判断哪些样本更适合被写入正式结论。"
-    stability_text_en = (
-        f"Current mean stability is {summary['stability']:.3f}."
-        if summary["stability"] is not None
-        else "Stability is not currently evaluable."
-    ) + " Confidence and margin can help decide which samples are most suitable for formal interpretation."
-    st.write(
-        tr(stability_text_zh, stability_text_en)
-    )
+    st.write(reviewer["stability"])
 
     st.markdown(f'<div class="export-zone">{tr("导出区：下载表格、JSON、图包和 PDF 报告", "Export zone: download tables, JSON, figure bundle and PDF report")}</div>', unsafe_allow_html=True)
     c1, c2, c3 = st.columns(3)

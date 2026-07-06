@@ -463,7 +463,6 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] > button[kind="prim
 }
 
 .glass-note,
-.result-hint,
 .info-box,
 .success-box,
 .warning-box {
@@ -471,13 +470,6 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] > button[kind="prim
   border: 1px solid rgba(211, 222, 235, 0.88);
   background: rgba(255,255,255,0.9);
   box-shadow: var(--cf-shadow-soft);
-}
-
-.result-hint {
-  margin: -0.15rem 0 1rem 0;
-  padding: 0.82rem 0.95rem;
-  border-left: 4px solid var(--cf-blue);
-  color: var(--cf-text-soft);
 }
 
 .glass-note {
@@ -880,14 +872,6 @@ div[data-testid="stAlert"] {
 .update-item-note,
 .page-hero-subtitle {
   display: none !important;
-}
-
-.result-hint {
-  display: none !important;
-}
-
-.result-hint strong {
-  font-size: 0.82rem;
 }
 
 .action-zone,

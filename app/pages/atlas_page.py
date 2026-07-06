@@ -11,7 +11,7 @@ import streamlit as st
 from app.components.layout import render_kpi_cards, render_panel_header, render_section_band
 from app.database_mode import DATABASE_MODES, database_label, get_database_mode, matches_species
 from app.i18n import tr
-from app.shared import DB_PATH, render_page_hero, render_result_hint
+from app.shared import DB_PATH, render_page_hero
 from data.dao import get_atlas_options
 from data import remote_atlas_api
 
@@ -672,12 +672,6 @@ def _display_imported_bo2023_region_browser() -> None:
             {"icon": "SMP", "label": tr("最大样本数", "Max samples"), "value": f"{int(overview['sample_count'].max()):,}", "note": tr("单个脑区聚合样本数", "Samples aggregated in one region")},
         ]
     )
-    render_result_hint(
-        tr(
-            "这里展示的是已经由 819 个样本聚合得到的 Bo2023_WangLab_VSD_region atlas，可直接浏览 110 个猕猴脑区。",
-            "This table shows the imported Bo2023_WangLab_VSD_region atlas aggregated from 819 samples; 110 macaque brain regions are directly browsable.",
-        )
-    )
     keyword = st.text_input(tr("筛选脑区", "Filter regions"), placeholder=tr("例如 F1, V1, thalamus", "e.g. F1, V1, thalamus"), key="bo2023_region_filter")
     view = overview.copy()
     if keyword.strip():
@@ -704,12 +698,6 @@ def _display_imported_bo2023_region_browser() -> None:
 
 def _display_legacy_atlas() -> None:
     render_section_band(tr("参考图谱", "Reference Atlas"), tr("浏览 legacy atlas 的脑区注释和参考表达。", "Browse legacy atlas annotations and reference expression."))
-    render_result_hint(
-        tr(
-            "建议先确认脑区 ID、全称和层级关系，再输入基因查看该基因在不同脑区中的参考表达差异。",
-            "Review region IDs, full names and hierarchy first, then inspect how a gene varies across regions.",
-        )
-    )
     regions_df = _load_table(
         """
         SELECT region_id, region_name, region_acronym, parent_region_id
@@ -771,7 +759,6 @@ def _display_bo2023_expression_browser() -> None:
             {"icon": "MED", "label": tr("中位 avg TPM", "Median avg TPM"), "value": f"{float(expr['avg_tpm'].median()):.2f}", "note": tr("整体表达水平", "Overall expression level")},
         ]
     )
-    render_result_hint(tr("先看 Top region 排名，再看热图确认这个基因是否具有清晰脑区偏好。", "Review the top region ranking first, then use the heatmap to confirm whether the gene has a clear regional preference."))
     topn = st.slider(tr("显示 Top N region", "Show Top N regions"), 5, min(80, len(expr)), min(20, len(expr)), key="bo2023_expr_topn")
     top_expr = expr.head(topn)
     col1, col2 = st.columns(2)
@@ -869,7 +856,6 @@ def _display_bo2023_browser() -> None:
             {"icon": "OBJ", "label": tr("对象数", "Objects"), "value": f"{len(_get_bo2023_table_names()) + len(_get_bo2023_views())}", "note": tr("Bo2023 表和视图", "Bo2023 tables and views")},
         ]
     )
-    render_result_hint(tr("根据问题选择标签页：脑区总览看注释与覆盖，QC 看质量，表达浏览器看表达偏好，全表预览用于核对导入内容。", "Pick tabs by task: use Region Overview for annotation and coverage, QC for quality, Expression Browser for regional preference, and Table Preview for import auditing."))
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([tr("脑区总览", "Region Overview"), tr("QC 与覆盖", "QC & Coverage"), tr("基因 / 模块检索", "Gene / Module Search"), tr("表达浏览器", "Expression Browser"), tr("全表预览", "Table Preview")])
 
@@ -993,12 +979,6 @@ def _display_human_atlas_browser_v2() -> None:
             {"icon": "MAX", "label": tr("最高 avg TPM", "Maximum avg TPM"), "value": f"{float(expr['avg_tpm'].max()):.2f}", "note": tr("最强表达脑区", "Strongest region")},
             {"icon": "MED", "label": tr("中位 avg TPM", "Median avg TPM"), "value": f"{float(expr['avg_tpm'].median()):.2f}", "note": tr("整体表达水平", "Overall level")},
         ]
-    )
-    render_result_hint(
-        tr(
-            "优先查看 region ranking 判断最高表达脑区，再用热图确认该基因是否具有人脑区域偏好。",
-            "Start with the region ranking to identify the strongest regions, then use the heatmap to confirm whether the gene has a human brain regional preference.",
-        )
     )
 
     col1, col2 = st.columns(2)

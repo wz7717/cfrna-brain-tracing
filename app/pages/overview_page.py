@@ -18,7 +18,7 @@ from app.components.layout import (
 )
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
-from app.shared import DB_PATH, render_page_hero, render_result_hint
+from app.shared import DB_PATH, render_page_hero
 
 
 def _safe_query(query: str, params: Iterable | None = None) -> pd.DataFrame:
@@ -688,7 +688,6 @@ def display_database_overview():
             tr("带 QC 的结果解释", "QC-aware interpretation"),
         ],
     )
-    render_result_hint(copy["glass_note"])
     _render_global_workbench_search()
 
     render_kpi_cards(
@@ -713,12 +712,6 @@ def display_database_overview():
     with col3:
         _render_qc_panel(_qc_distribution_df())
 
-    render_result_hint(
-        tr(
-            "优先看 KPI、QC 分布和参考图谱覆盖范围；如果样本数或 atlas 覆盖不足，建议先完成数据上传或补充参考资源。",
-            "Start with the KPI cards, QC distribution and atlas coverage. If sample count or atlas coverage is limited, expand the uploaded data or reference resources first.",
-        )
-    )
 
     render_section_band(
         tr("更新与快捷操作", "Updates & Quick Actions"),

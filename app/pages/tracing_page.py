@@ -14,7 +14,7 @@ from app.components.plot_panels import make_fraction_ci_bar, make_score_bar, mak
 from app.components.result_cards import render_primary_metrics, render_run_meta
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
-from app.shared import DB_PATH, init_processor, init_tracer, render_page_hero, render_result_hint
+from app.shared import DB_PATH, init_processor, init_tracer, is_public_demo_mode, render_page_hero
 from core.bo2023_region_tracing import trace_bo2023_secondary_regions
 from core.methods import canonical_method
 from core.network_tracing import DEFAULT_BO2023_NETWORK_MODEL, trace_network_expression
@@ -121,17 +121,11 @@ def _render_public_demo_diagnostics(network_out: dict) -> None:
     n_model = int(meta.get("n_model_genes", 0))
     coverage = float(meta.get("overlap_fraction", 0.0))
 
-    st.info(
-        tr(
-            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the three-tier route LOSO/LOMO Network Top3 is 92.19%/91.21%. Network metrics use all 819 samples; LOSO region metrics use 814 reference-supported samples and LOMO region metrics use 812. Exact-region output is exploratory.",
-            "Current manuscript validation context: projected-VSD is used only for Network Top3 beam generation; downstream resolution-group and exploratory exact-region outputs use logCPM-compatible local expression. Network projected-VSD LOSO/LOMO Top3 is 91.58%/91.33%; the three-tier route LOSO/LOMO Network Top3 is 92.19%/91.21%. Network metrics use all 819 samples; LOSO region metrics use 814 reference-supported samples and LOMO region metrics use 812. Exact-region output is exploratory.",
-        )
-    )
     render_section_band(
-        tr("Public demo diagnostics", "Public demo diagnostics"),
+        tr("Result confidence checks", "Result confidence checks"),
         tr(
-            "Marker coverage, entropy, score margin and scope warnings should be read together before interpreting ranked candidates.",
-            "Marker coverage, entropy, score margin and scope warnings should be read together before interpreting ranked candidates.",
+            "Read marker coverage, entropy and score margin together before interpreting the ranked Network candidates.",
+            "Read marker coverage, entropy and score margin together before interpreting the ranked Network candidates.",
         ),
     )
     render_kpi_cards(
@@ -156,9 +150,9 @@ def _render_public_demo_diagnostics(network_out: dict) -> None:
             },
             {
                 "icon": "SCP",
-                "label": tr("Scope warning", "Scope warning"),
-                "value": tr("Coarse-only", "Coarse-only"),
-                "note": "Public demo output is a Network candidate ranking, not deterministic localization.",
+                "label": tr("Interpretation scope", "Interpretation scope"),
+                "value": tr("Network-level", "Network-level"),
+                "note": "This output is a ranked Network-level candidate list, not deterministic anatomical localization.",
             },
         ]
     )
@@ -288,22 +282,16 @@ def _render_network_description_table() -> None:
 
 def _render_public_demo_tracing() -> None:
     render_section_band(
-        tr("公开 Demo 模式", "Public Demo Mode"),
+        tr("上传表达矩阵", "Upload Expression Matrix"),
         tr(
-            "云端公开版推荐上传 raw counts 或 logCPM；系统不要求用户上传 VSD，也不下载或公开完整 Bo2023 数据库。",
-            "The public cloud demo recommends raw counts or logCPM input; users are not asked to upload VSD, and the full Bo2023 database is not downloaded or exposed.",
+            "推荐上传 gene_symbol 加 raw counts 或 logCPM；系统会运行固定的 Network 级公开溯源流程。",
+            "Upload gene_symbol plus raw counts or logCPM; the demo runs a fixed Network-level tracing workflow.",
         ),
     )
     st.info(
         tr(
-            "最佳输入是 RNA-seq raw gene counts，系统会内部计算 logCPM；logCPM 可直接上传。TPM/logTPM 仅作为兼容旧表格的 fallback，精细脑区解释应更谨慎。",
-            "The best input is RNA-seq raw gene counts, which are converted internally to logCPM; logCPM can be uploaded directly. TPM/logTPM is accepted only as a legacy fallback and should be interpreted more cautiously for fine regions.",
-        )
-    )
-    st.info(
-        tr(
-            "诊断信息需联合解读：marker coverage 反映可用模型基因支持度，entropy 和 score margin 反映排序不确定性，scope warnings 提示低置信度或超出参考范围的情况。没有解剖真值的 biofluid 输出只作为 transfer stress test，不作为 localization validation。",
-            "Diagnostics should be interpreted together: marker coverage reflects usable model-gene support, entropy and score margin reflect ranking ambiguity, and scope warnings flag low-confidence or out-of-reference cases. Biofluid outputs without anatomical truth are transfer stress tests, not localization-validation results.",
+            "公开 demo 输出是 Network 级候选排名，需结合覆盖度、entropy 和 score margin 判断可信度；没有解剖真值的 biofluid 输入不作为定位准确性验证。",
+            "The public demo returns Network-level candidate rankings. Interpret them with coverage, entropy and score margin; biofluid inputs without anatomical truth are not localization-accuracy validation.",
         )
     )
     uploaded = st.file_uploader(
@@ -313,11 +301,12 @@ def _render_public_demo_tracing() -> None:
     )
     st.caption(
         tr(
-            "至少包含 gene_symbol/gene 和一个表达列。推荐列名：raw_counts/count/read_count 或 logCPM；TPM/logTPM 仅为 fallback。",
-            "Requires gene_symbol/gene plus one expression column. Recommended names: raw_counts/count/read_count or logCPM; TPM/logTPM is fallback only.",
+            "至少包含 gene_symbol/gene 和一个表达列。推荐列名：raw_counts/count/read_count 或 logCPM。",
+            "Requires gene_symbol/gene plus one expression column. Recommended names: raw_counts/count/read_count or logCPM.",
         )
     )
-    _render_network_description_table()
+    with st.expander(tr("查看 10 个 Network 候选范围", "View the 10 Network candidate scopes"), expanded=False):
+        _render_network_description_table()
     if uploaded is None:
         return
 
@@ -336,13 +325,13 @@ def _render_public_demo_tracing() -> None:
 
     render_kpi_cards(
         [
-            {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Network demo", "Used for Network demo")},
+            {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Network 溯源", "Used for Network tracing")},
             {"icon": "SRC", "label": tr("Query 来源", "Query source"), "value": query_source, "note": tr("raw counts 会转为 logCPM", "raw counts are converted to logCPM")},
             {"icon": "MODEL", "label": tr("模型", "Model"), "value": "SaleemNetworks", "note": tr("轻量公开模型", "Lightweight public model")},
-            {"icon": "DB", "label": tr("完整数据库", "Full database"), "value": tr("未使用", "Not used"), "note": tr("避免公开 Bo2023 数据", "Avoids exposing Bo2023 data")},
+            {"icon": "SCOPE", "label": tr("输出范围", "Output scope"), "value": tr("Network 级", "Network-level"), "note": tr("候选排名", "Candidate ranking")},
         ]
     )
-    if st.button(tr("运行公开 Demo 溯源", "Run Public Demo Tracing"), type="primary", use_container_width=True):
+    if st.button(tr("运行 Network 级溯源", "Run Network-level tracing"), type="primary", use_container_width=True):
         try:
             network_out = trace_network_expression(expr)
             if not network_out.get("results"):
@@ -364,13 +353,13 @@ def _render_public_demo_tracing() -> None:
             _render_public_demo_diagnostics(network_out)
             result_df = pd.DataFrame(network_out["results"])
             st.download_button(
-                tr("下载 Demo JSON", "Download demo JSON"),
+                tr("下载结果 JSON", "Download results JSON"),
                 json.dumps(network_out, ensure_ascii=False, indent=2),
                 "public_demo_network_tracing.json",
                 "application/json",
             )
             st.download_button(
-                tr("下载 Demo CSV", "Download demo CSV"),
+                tr("下载结果 CSV", "Download results CSV"),
                 result_df.to_csv(index=False).encode("utf-8-sig"),
                 "public_demo_network_tracing.csv",
                 "text/csv",
@@ -399,17 +388,6 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
     st.markdown(
         f'<div class="result-zone">{tr("结果区：主要发现、排名、稳定性与导出结果", "Result zone: main findings, rankings, stability and exports")}</div>',
         unsafe_allow_html=True,
-    )
-    render_result_hint(
-        tr(
-            "请将 Top 脑区解释为与 cfRNA 样本表达指纹最相近的候选脑区，而不是绝对 RNA 贡献比例。优先结合 confidence、rank/signature 证据和 bootstrap stability。",
-            "Interpret Top regions as the brain areas whose reference expression fingerprints best match the cfRNA sample, not as absolute RNA contribution fractions. Combine confidence, rank/signature evidence and bootstrap stability.",
-        )
-        if meta.get("vsd_compatible_mode")
-        else tr(
-            "建议先看 Top1 脑区、置信度和稳定性，再结合排名表、fraction CI 和 signature 信号判断结论是否足够稳健。",
-            "Start with the Top1 region, confidence and stability, then combine the ranking table, fraction CI and signature evidence to judge whether the conclusion is robust enough.",
-        )
     )
     if meta.get("vsd_compatible_mode"):
         st.info(
@@ -561,12 +539,6 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
 def _render_legacy_results(sample_id: str, results: dict, top_regions: int) -> None:
     st.success(tr("分析完成（legacy 路径）。", "Analysis completed (legacy path)."))
     st.markdown(f'<div class="result-zone">{tr("结果区：legacy 分析结果", "Result zone: legacy analysis results")}</div>', unsafe_allow_html=True)
-    render_result_hint(
-        tr(
-            "legacy 结果适合快速筛查或与 v2 结果对照。建议先看最可能来源和排名表，再决定是否切换到 v2 做更稳健解释。",
-            "Legacy results are best used for quick screening or comparison with v2. Read the top source and ranking table first, then decide whether to switch to v2 for a more robust interpretation.",
-        )
-    )
 
     top_source = None
     confidence = 0.0
@@ -629,6 +601,10 @@ def display_source_tracing() -> None:
             tr("结果解释", "Result interpretation"),
         ],
     )
+    if is_public_demo_mode():
+        _render_public_demo_tracing()
+        return
+
     processor = init_processor()
     tracer = init_tracer()
     samples_df = processor.get_all_samples()
@@ -749,7 +725,7 @@ def display_source_tracing() -> None:
                     )
                     network_out = None
                     if is_vsd_atlas and _is_bo2023_atlas(atlas_meta) and method_key == "correlation":
-                        if use_value == "vsd" and DEFAULT_BO2023_NETWORK_MODEL.exists():
+                        if use_value in {"vsd", "zscore"} and DEFAULT_BO2023_NETWORK_MODEL.exists():
                             network_out = trace_network_expression(cfrna_df)
                             if not network_out.get("results"):
                                 st.warning(
@@ -759,11 +735,11 @@ def display_source_tracing() -> None:
                                     )
                                 )
                                 network_out = None
-                        elif use_value != "vsd":
+                        elif use_value not in {"vsd", "zscore"}:
                             st.info(
                                 tr(
-                                    "Network 主结论仅对与 Bo2023 reference 同尺度的 VSD 输入启用；当前输入尺度未经过该路径验证，因此仅展示 Region 候选结果。",
-                                    "The primary Network conclusion is enabled only for input on the same VSD scale as the Bo2023 reference. This input scale is not validated for that path, so only Region candidates are shown.",
+                                    "Network 主结论仅对 Bo2023 VSD/z-score 输入启用；当前输入尺度未经过该路径验证，因此仅展示 Region 候选结果。",
+                                    "The primary Network conclusion is enabled only for Bo2023 VSD/z-score inputs. This input scale is not validated for that path, so only Region candidates are shown.",
                                 )
                             )
                     if network_out:

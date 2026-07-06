@@ -7,7 +7,7 @@ import streamlit as st
 from app.components.layout import render_kpi_cards, render_panel_header, render_section_band
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
-from app.shared import DB_PATH, render_page_hero, render_result_hint
+from app.shared import DB_PATH, render_page_hero
 from data.dao import get_run_results, list_runs
 
 
@@ -103,12 +103,6 @@ def display_run_compare():
     )
 
     st.markdown(f'<div class="result-zone">{tr("结果区：Run 对比矩阵与得分图", "Result zone: run-level comparison matrix and score plot")}</div>', unsafe_allow_html=True)
-    render_result_hint(
-        tr(
-            "重点看同一脑区在不同 Run 中的 score、fraction 或 confidence 是否同向变化；如果 Top1 频繁变化，通常说明参数较敏感或证据尚不够集中。",
-            "Focus on whether the same region changes consistently across runs in score, fraction or confidence. If Top1 flips frequently, the model may be parameter-sensitive or the evidence may still be diffuse.",
-        )
-    )
 
     col_table, col_plot = st.columns([1.0, 1.05])
     with col_table:

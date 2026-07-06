@@ -7,7 +7,7 @@ import streamlit as st
 from app.components.layout import render_kpi_cards, render_panel_header, render_section_band
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
-from app.shared import init_processor, render_page_hero, render_result_hint
+from app.shared import init_processor, render_page_hero
 
 
 def display_sample_list():
@@ -43,12 +43,6 @@ def display_sample_list():
     )
 
     st.markdown(f'<div class="result-zone">{tr("结果区：当前数据库样本列表", "Result zone: current sample registry")}</div>', unsafe_allow_html=True)
-    render_result_hint(
-        tr(
-            "建议先核对 sample ID、subject ID、collection date 和 QC status；删除样本前，请确认它不再参与后续 tracing 或 benchmark。",
-            "Check sample ID, subject ID, collection date and QC status first. Before deletion, make sure the sample is no longer needed for tracing or benchmark workflows.",
-        )
-    )
     st.dataframe(
         samples_df,
         use_container_width=True,

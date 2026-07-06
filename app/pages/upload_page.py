@@ -7,7 +7,7 @@ import streamlit as st
 from app.components.layout import render_kpi_cards, render_panel_header, render_section_band
 from app.database_mode import database_label, default_species, get_database_mode
 from app.i18n import tr
-from app.shared import init_processor, render_page_hero, render_result_hint
+from app.shared import init_processor, render_page_hero
 from data.qc import compute_sample_qc
 
 
@@ -152,12 +152,6 @@ def _render_upload_preview(df: pd.DataFrame, qc: dict) -> None:
         fig2.update_layout(height=340, margin=dict(l=10, r=10, t=10, b=10), yaxis={"categoryorder": "total ascending"}, showlegend=False)
         st.plotly_chart(fig2, use_container_width=True)
 
-    render_result_hint(
-        tr(
-            "建议先看总体风险和 RBC / immune / brain 三类评分，再检查高表达基因是否由血浆背景主导。单样本模式常显示 Uncalibrated，表示仍需要队列参照。",
-            "Review the overall risk together with RBC, immune and brain scores first, then inspect whether top expressed genes are dominated by plasma background. Single-sample mode often returns Uncalibrated, which means cohort calibration is still needed.",
-        )
-    )
 
     warnings = []
     for key in [

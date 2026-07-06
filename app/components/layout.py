@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from html import escape
+import os
 from typing import Iterable
 
 import streamlit as st
@@ -9,19 +10,26 @@ from app.i18n import tr
 
 
 def render_top_toolbar(current_page: str) -> None:
+    is_public = os.environ.get("CFRNA_PUBLIC_DEMO", "").strip().lower() in {"1", "true", "yes", "on"}
+    status_html = (
+        f'<div class="top-toolbar-links">'
+        f'<span class="top-toolbar-chip">Public demo</span>'
+        f'</div>'
+        if is_public
+        else f'<div class="top-toolbar-links">'
+        f'<span class="top-toolbar-chip">Mode: Workbench</span>'
+        f'<span class="top-toolbar-chip">SQLite backend</span>'
+        f'<span class="top-toolbar-chip">Read-only UI state</span>'
+        f'</div>'
+    )
     st.markdown(
         f'<div class="top-toolbar">'
         f'<div class="top-toolbar-meta">'
-        f'<span>{escape(tr("cfRNA 脑损伤溯源数据库", "cfRNA Brain Injury Source Tracing Database"))}</span>'
+        f'<span>{escape(tr("cfRNA Brain Injury Source Tracing Database", "cfRNA Brain Injury Source Tracing Database"))}</span>'
         f'<span>|</span>'
         f'<span>{escape(current_page)}</span>'
         f'</div>'
-        f'<div class="top-toolbar-links">'
-        f'<span class="top-toolbar-chip">{escape(tr("首页", "Home"))}</span>'
-        f'<span class="top-toolbar-chip">{escape(tr("帮助", "Help"))}</span>'
-        f'<span class="top-toolbar-chip">{escape(tr("下载", "Download"))}</span>'
-        f'<span class="top-toolbar-chip">{escape(tr("关于", "About"))}</span>'
-        f'</div>'
+        f'{status_html}'
         f'</div>',
         unsafe_allow_html=True,
     )
