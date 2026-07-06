@@ -1,9 +1,16 @@
-﻿Item,Content,Use in manuscript
+Item,Content,Use in manuscript
 Figure 1,Two-panel workflow and validation summary; Panel B numeric source in Figure1_validation_summary.csv,Main Application Note figure
-Supplementary Figure S1,Main figure source artwork reproduced in the supplementary PDF,Supplementary visual reference
 Table S1,Internal validation design,Documents LOSO/LOMO operations
+Table S1a,Ten Network labels and anatomy mapping,"Lists all 10 Network classes, region counts, resolution-group counts and classical neuroanatomy mapping"
 Table S2,Internal validation results,"Reports Network, group and exact-region metrics"
 Table S3,External validation design,Documents label support and allowed conclusions
 Table S4,External validation results,"Reports AHBA, TCGA/BraTS and GSE189919 outcomes"
+Table S4a,AHBA formal hybrid 95% confidence intervals and random baselines,Documents uncertainty and baseline context for the main AHBA external validation
+Table S4b,Internal weighted random baselines,Documents endpoint-specific uniform and weighted random baselines for formal internal validation
 Table S5,Figure/table index,Indexes manuscript figure and supplementary tables
 Table S6,Claim boundaries,Defines unsupported interpretations and permitted claims
+Table S7,Marker selection methodology,"Documents marker selection stages, feature counts and fold policy"
+Table S8,Network-level class F1,"Reports class-level precision, recall and F1 for Network endpoints"
+Table S9,Largest Network Top1 confusion pairs,Summarizes major Network-level error modes and points to repository supplement matrices
+Table S10,Named same-field comparator families,"Positions cfRNA-BrainTrace relative to deconvolution, enrichment and atlas-query comparators"
+Table S11,Local exact-region fusion-weight sensitivity,Reports available archived lambda sensitivity values for exact-region local fusion

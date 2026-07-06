@@ -771,14 +771,8 @@
       ]
     },
     "full_loso_validation": {
-      "route": "projected_vsd_network_top3_logcpm_resolution_local_exact",
-      "legacy_exact_route": "top3_beam_local_top50_top100_zfusion_w0p25",
+      "route": "hybrid_projected_network_logcpm_exact",
       "n_test_samples": 814,
-      "legacy_exact_top1_accuracy": 0.22235872235872237,
-      "legacy_exact_top3_accuracy": 0.44471744471744473,
-      "legacy_baseline_top1_accuracy": 0.21253071253071254,
-      "legacy_baseline_top3_accuracy": 0.41646191646191644,
-      "legacy_validation_design": "strict outer LOSO; same Network Top3 beam; fold-local Region gene-count variants",
       "formal_three_tier_loso": {
         "created_at_utc": "2026-06-16T11:53:06.711752+00:00",
         "validation_design": "complete three-tier LOSO for hybrid route; projected VSD network Top3 beam, logCPM resolution/local exact rerank",
@@ -821,7 +815,21 @@
           "conditional_top1_given_network_top1": 0.28,
           "conditional_top3_given_network_top1": 0.5515789473684211
         }
-      }
+      },
+      "validation_design": "P0 formal three-tier LOSO; Network evaluated for all 819 Network-evaluable samples; resolution-group and exact-region metrics evaluated on 814 reference-supported samples",
+      "network_top1_hits": 477,
+      "network_top1_accuracy": 0.5824175824175825,
+      "network_top3_hits": 755,
+      "network_top3_accuracy": 0.9218559218559218,
+      "resolution_group_top1_hits": 362,
+      "resolution_group_top1_accuracy": 0.44471744471744473,
+      "resolution_group_top3_hits": 589,
+      "resolution_group_top3_accuracy": 0.7235872235872236,
+      "exact_region_top1_hits": 183,
+      "exact_region_top1_accuracy": 0.22481572481572482,
+      "exact_region_top3_hits": 369,
+      "exact_region_top3_accuracy": 0.4533169533169533,
+      "source": "reports/p0_hard_evidence_20260629/formal_loso_rerun_20260629/hybrid_formal_loso_summary.json"
     }
   }
 }

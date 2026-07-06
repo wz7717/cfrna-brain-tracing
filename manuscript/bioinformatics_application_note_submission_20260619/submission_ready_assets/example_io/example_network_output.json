@@ -162,7 +162,7 @@
       },
       "best_pairwise_route": "network_pairwise_correlation_rescue_top3",
       "meets_adoption_rule": true,
-      "decision": "`network_pairwise_correlation_rescue_top3` 在本轮回顾性全量严格 LOSO 中同时提高 Top1 且未降低 Top3，可进入独立队列确认；独立确认前不替换正式 Top200 路径。"
+      "decision": "network_pairwise_correlation_rescue_top3 在本轮回顾性全量严格 LOSO 中同时提高 Top1 且未降低 Top3，可进入独立队列确认；独立确认前不替换正式 Top200 路径。"
     }
   }
 }
