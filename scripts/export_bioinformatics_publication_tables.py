@@ -10,6 +10,13 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "manuscript" / "tables_publication"
 FIG_DATA = ROOT / "manuscript" / "figures_publication" / "source_data"
+AHBA_FORMAL = (
+    ROOT
+    / "results"
+    / "bo2023_reference_projection_20260616_cleaned_symbols"
+    / "ahba_external_formal_three_tier"
+    / "ahba_formal_three_tier_metrics.csv"
+)
 
 
 def wilson(hits: int, n: int, z: float = 1.959963984540054) -> tuple[float, float]:
@@ -23,6 +30,10 @@ def wilson(hits: int, n: int, z: float = 1.959963984540054) -> tuple[float, floa
 def estimate(hits: int, n: int) -> str:
     low, high = wilson(hits, n)
     return f"{100 * hits / n:.1f}% ({100 * low:.1f}-{100 * high:.1f})"
+
+
+def hits_from_accuracy(metric: float, n: int) -> int:
+    return int(round(float(metric) * int(n)))
 
 
 def markdown_table(frame: pd.DataFrame) -> str:
@@ -42,7 +53,7 @@ def main() -> None:
     table1 = pd.DataFrame(
         [
             ["Bo2023 macaque atlas", "Macaque brain tissue RNA-seq", "819 samples; 9 monkeys", "110 regions; 10 Networks", "Model development and internal LOSO/LOMO validation"],
-            ["AHBA RNA-seq", "Normal human brain tissue RNA-seq", "242 total; 233 supported", "Harmonized Network/broad anatomy; 91 exact-mapped", "Cross-species external validation"],
+            ["AHBA RNA-seq", "Normal human brain tissue RNA-seq", "242 total; 233 supported", "Formal Network/resolution-group/exact-region endpoints; 91 exact-mapped", "Cross-species external validation"],
             ["Ivy GAP", "Human glioblastoma anatomic-structure RNA-seq", "122 samples", "5 tumor microanatomic structures", "Disease-domain prediction distribution; no location accuracy"],
             ["TCGA GBM/LGG", "Human glioma bulk tissue RNA-seq", "801 samples; 800 patients", "GBM and LGG projects", "Disease-domain prediction distribution"],
             ["TCIA-linked TCGA", "RNA-seq patients with MRI collections", "156 matched; 105 segmentation-ready; 73 complete BraTS4", "MRI location truth pending", "Draft B validation cohort assembly"],
@@ -51,17 +62,25 @@ def main() -> None:
     )
 
     endpoint = pd.read_csv(FIG_DATA / "Figure2_endpoint_metrics.csv")
+    role_by_endpoint = {
+        "Network": "Primary",
+        "Region Group": "Secondary",
+        "Exact Region": "Exploratory",
+    }
     table2_rows: list[list[str | int]] = []
     for row in endpoint.itertuples(index=False):
+        n = int(row.n)
+        top1_hits = int(getattr(row, "top1_hits", hits_from_accuracy(row.top1, n)))
+        top3_hits = int(getattr(row, "top3_hits", hits_from_accuracy(row.top3, n)))
         table2_rows.append(
             [
                 row.validation,
                 row.endpoint,
-                row.role,
-                f"{row.top1_hits}/{row.n}",
-                estimate(int(row.top1_hits), int(row.n)),
-                f"{row.top3_hits}/{row.n}",
-                estimate(int(row.top3_hits), int(row.n)),
+                getattr(row, "role", role_by_endpoint.get(row.endpoint, "")),
+                f"{top1_hits}/{n}",
+                estimate(top1_hits, n),
+                f"{top3_hits}/{n}",
+                estimate(top3_hits, n),
             ]
         )
     table2 = pd.DataFrame(
@@ -69,19 +88,28 @@ def main() -> None:
         columns=["Validation", "Endpoint", "Analysis role", "Top1 hits/n", "Top1 accuracy (95% CI)", "Top3 hits/n", "Top3 accuracy (95% CI)"],
     )
 
-    ahba = json.loads(
-        (ROOT / "results" / "ahba_human_rnaseq_external_validation_margin0p002_20260604" / "ahba_rnaseq_external_validation_metrics.json").read_text(encoding="utf-8")
-    )
+    ahba_metrics = pd.read_csv(AHBA_FORMAL)
+    ahba = ahba_metrics.loc[ahba_metrics["route"].eq("hybrid_projected_network_logcpm_exact")].iloc[0]
     mri = json.loads(
         (ROOT / "results" / "tcga_rnaseq_tcia_mri_collection_match_20260605" / "tcga_rnaseq_tcia_mri_match_summary.json").read_text(encoding="utf-8")
     )
+    ahba_supported = int(ahba["n_samples_supported_for_accuracy"])
+    ahba_exact_n = int(ahba["n_samples_exact_region_evaluable"])
+    ahba_network_top1 = hits_from_accuracy(ahba["network_top1_accuracy_coarse"], ahba_supported)
+    ahba_network_top3 = hits_from_accuracy(ahba["network_top3_accuracy_coarse"], ahba_supported)
+    ahba_group_top1 = hits_from_accuracy(ahba["group_top1_accuracy_exact_mapped"], ahba_exact_n)
+    ahba_group_top3 = hits_from_accuracy(ahba["group_top3_accuracy_exact_mapped"], ahba_exact_n)
+    ahba_exact_top1 = hits_from_accuracy(ahba["region_top1_accuracy_exact_mapped"], ahba_exact_n)
+    ahba_exact_top3 = hits_from_accuracy(ahba["region_top3_accuracy_exact_mapped"], ahba_exact_n)
+
     table3 = pd.DataFrame(
         [
-            ["AHBA", "Network Top1", "58/233", estimate(58, 233), "Primary endpoint; harmonized cross-species labels"],
-            ["AHBA", "Network Top3", "129/233", estimate(129, 233), "Primary endpoint; harmonized cross-species labels"],
-            ["AHBA", "Broad anatomy Top1", "103/233", estimate(103, 233), "Secondary coarse-anatomy evidence"],
-            ["AHBA", "Exact Region Top1", "9/91", estimate(9, 91), "Exploratory; exact-mapped subset"],
-            ["AHBA", "Exact Region Top3", "27/91", estimate(27, 91), "Exploratory; exact-mapped subset"],
+            ["AHBA", "Network Top1", f"{ahba_network_top1}/{ahba_supported}", estimate(ahba_network_top1, ahba_supported), "Primary endpoint; harmonized cross-species labels"],
+            ["AHBA", "Network Top3", f"{ahba_network_top3}/{ahba_supported}", estimate(ahba_network_top3, ahba_supported), "Primary endpoint; harmonized cross-species labels"],
+            ["AHBA", "Resolution Group Top1", f"{ahba_group_top1}/{ahba_exact_n}", estimate(ahba_group_top1, ahba_exact_n), "Secondary endpoint; exact-mapped subset"],
+            ["AHBA", "Resolution Group Top3", f"{ahba_group_top3}/{ahba_exact_n}", estimate(ahba_group_top3, ahba_exact_n), "Secondary endpoint; exact-mapped subset"],
+            ["AHBA", "Exact Region Top1", f"{ahba_exact_top1}/{ahba_exact_n}", estimate(ahba_exact_top1, ahba_exact_n), "Exploratory; exact-mapped subset"],
+            ["AHBA", "Exact Region Top3", f"{ahba_exact_top3}/{ahba_exact_n}", estimate(ahba_exact_top3, ahba_exact_n), "Exploratory; exact-mapped subset"],
             ["TCGA-TCIA", "MRI collection match", f"{mri['n_matched_patients']}/{mri['n_rnaseq_patients']}", f"{100 * mri['matched_fraction']:.1f}%", "Cohort coverage only; not tracing accuracy"],
             ["TCGA-TCIA", "Segmentation-ready", "105/800", "13.1%", "Draft B candidate cohort"],
             ["TCGA-TCIA", "Complete BraTS4", "73/800", "9.1%", "Draft B highest-priority cohort"],
@@ -105,13 +133,13 @@ def main() -> None:
 
 {markdown_table(table2)}
 
-**Legend.** Values are binomial proportions with two-sided Wilson 95% confidence intervals. LOSO denotes strict leave-one-sample-out validation; LOMO denotes leave-one-monkey-out validation. The pairwise-rescue margin of 0.002 was selected retrospectively in the LOSO threshold screen and requires independent or nested confirmation.
+**Legend.** Values are binomial proportions with two-sided Wilson 95% confidence intervals. LOSO denotes strict leave-one-sample-out validation; LOMO denotes leave-one-monkey-out validation. The main internal results use the P0 formal hard-evidence hybrid route.
 
 ## Table 3. Human external validation and MRI-linked cohort coverage
 
 {markdown_table(table3)}
 
-**Legend.** AHBA accuracy uses harmonized human-to-macaque labels and is not strict macaque exact-region accuracy. TCGA-TCIA rows describe cohort availability only. Tumor-location accuracy must not be reported until segmentation-derived or curated MRI location truth is available.
+**Legend.** AHBA accuracy uses the P0 formal three-tier hybrid route on harmonized human-to-macaque labels. TCGA-TCIA rows describe cohort availability only. Tumor-location accuracy must not be reported until segmentation-derived or curated MRI location truth is available.
 
 ## Reporting rules
 

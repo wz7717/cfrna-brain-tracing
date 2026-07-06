@@ -4,11 +4,40 @@ import numpy as np
 
 from core.models import apply_value_transform
 from scripts.run_bo2023_v2_loso_validation import InMemoryVsdFoldEngine
+from source_tracing_v2 import SourceTracingEngineV2
 
 
 def test_vsd_values_are_not_transformed_again():
     values = np.asarray([[0.8, 4.2], [2.0, 7.1]], dtype=float)
     np.testing.assert_allclose(apply_value_transform(values, "vsd"), values)
+
+
+def test_blend_ensemble_weights_preserves_single_primary_signal():
+    corr_only = SourceTracingEngineV2._blend_ensemble_weights(
+        {"corr": 1.0, "nnls": 0.0},
+        {"corr": True, "nnls": True},
+        ensemble_alpha=0.5,
+    )
+    assert corr_only == {"corr": 1.0}
+
+    nnls_only = SourceTracingEngineV2._blend_ensemble_weights(
+        {"corr": 0.0, "nnls": 1.0},
+        {"corr": True, "nnls": True},
+        ensemble_alpha=0.5,
+    )
+    assert nnls_only == {"nnls": 1.0}
+
+
+def test_vsd_reference_detection_uses_normalization_field():
+    assert SourceTracingEngineV2._is_vsd_reference({"normalization": "VSD_batch_removed"})
+    assert SourceTracingEngineV2._is_vsd_reference({"normalization": "vst"})
+    assert not SourceTracingEngineV2._is_vsd_reference(
+        {
+            "atlas_name": "TPM atlas with vsd note",
+            "normalization": "log1p_tpm",
+            "notes": "Compared against a VSD reference during development.",
+        }
+    )
 
 
 def test_vsd_engine_uses_only_available_adapted_signals_without_marker_weights():
@@ -43,6 +72,7 @@ def test_vsd_engine_uses_only_available_adapted_signals_without_marker_weights()
     assert np.isclose(weights["nnls"], 0.3125)
     assert np.isclose(weights["rank"], 0.375)
     assert result["meta"]["use_value"] == "vsd"
+    assert result["meta"]["reference_weighting"]["rank_reference_scale"] == "reference_stored_avg_tpm_field"
     assert result["results"][0]["region_id"] == "R1"
 
 

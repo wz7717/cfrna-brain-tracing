@@ -111,8 +111,9 @@ def load_tcga_counts(path: Path) -> pd.DataFrame:
     matrix = pd.read_csv(path, sep="\t", index_col=0)
     matrix.index = matrix.index.astype(str).str.strip()
     matrix.columns = matrix.columns.astype(str).str.strip()
+    matrix = matrix.apply(pd.to_numeric, errors="coerce").fillna(0.0).astype("float32")
     matrix = matrix.groupby(matrix.index).mean()
-    return matrix.apply(pd.to_numeric, errors="coerce").fillna(0.0).astype("float32")
+    return matrix.astype("float32")
 
 
 def candidate_regions(metadata: pd.DataFrame, network_top: list[str], region_training: dict[str, np.ndarray]) -> list[str]:

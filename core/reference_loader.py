@@ -72,7 +72,7 @@ def get_latest_sigset_id(db_path: str, atlas_id: int = 1) -> Optional[int]:
 
 
 def load_marker_signature_genes(
-    db_path: str, topk_per_region: int = 200
+    db_path: str, topk_per_region: int = 200, atlas_id: int = 1
 ) -> Optional[List[str]]:
     conn = sqlite3.connect(db_path)
     try:
@@ -93,7 +93,7 @@ def load_marker_signature_genes(
         if 'atlas_id' in df.columns:
             df = df[
                 (df['atlas_id'].isna())
-                | (df['atlas_id'].astype(float).astype(int) == 1)
+                | (df['atlas_id'].astype(float).astype(int) == int(atlas_id))
             ]
         df = (
             df.sort_values(
@@ -131,7 +131,7 @@ def load_reference_matrix(
     )
     if genes_filter is None:
         genes_filter = load_marker_signature_genes(
-            db_path, topk_per_region=fallback_marker_topk
+            db_path, topk_per_region=fallback_marker_topk, atlas_id=atlas_id
         )
 
     conn = sqlite3.connect(db_path)

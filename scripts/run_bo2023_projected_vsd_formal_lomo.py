@@ -51,12 +51,35 @@ from scripts.run_bo2023_projected_vsd_region_local_rerank import fit_project_row
 
 EXACT_ROUTE = "top3_beam_local_top50_top100_zfusion_w0p25"
 GROUP_ROUTE = "top3_network_beam_local_region_candidates"
+DEFAULT_LABEL_CURATION_MAP = ROOT / "reports" / "bo2023_publication_label_curation_map_20260704.csv"
 
 
-def read_metadata(path: Path, sheet: str, region_col: str, network_col: str, monkey_col: str) -> pd.DataFrame:
+def read_label_curation_map(path: Path | None) -> dict[str, str]:
+    if path is None or not path.exists():
+        return {}
+    curation = pd.read_csv(path, dtype=str).fillna("")
+    return {
+        str(row.old_region_id).strip(): str(row.new_region_id).strip()
+        for row in curation.itertuples(index=False)
+        if str(row.old_region_id).strip()
+        and str(row.new_region_id).strip()
+        and str(row.old_region_id).strip() != str(row.new_region_id).strip()
+    }
+
+
+def read_metadata(
+    path: Path,
+    sheet: str,
+    region_col: str,
+    network_col: str,
+    monkey_col: str,
+    label_map: dict[str, str] | None = None,
+) -> pd.DataFrame:
     info = pd.read_excel(path, sheet_name=sheet, usecols=["No.", region_col, network_col, monkey_col])
     info["sample_id"] = info["No."].astype(str).str.strip()
     info["region_id"] = info[region_col].astype(str).str.strip()
+    if label_map:
+        info["region_id"] = info["region_id"].map(lambda value: label_map.get(value, value))
     info["endpoint_label"] = info[network_col].astype(str).str.strip()
     info["monkey_id"] = info[monkey_col].astype(str).str.strip()
     info = info.drop_duplicates("sample_id")
@@ -120,15 +143,24 @@ def main() -> int:
     parser.add_argument("--similarity-threshold", type=float, default=0.95)
     parser.add_argument("--merge-similarity-threshold", type=float, default=0.90)
     parser.add_argument("--max-group-size", type=int, default=8)
+    parser.add_argument("--label-curation-map", type=Path, default=DEFAULT_LABEL_CURATION_MAP)
     parser.add_argument("--outdir", type=Path, required=True)
     args = parser.parse_args()
 
     args.outdir.mkdir(parents=True, exist_ok=True)
+    label_map = read_label_curation_map(args.label_curation_map)
     gene_map = read_gene_map(args.gene_map)
     counts, _ = map_index_to_symbols(read_bo2023_gene_matrix(args.counts, dtype="float32"), gene_map)
     vsd, _ = map_index_to_symbols(read_bo2023_gene_matrix(args.vsd, dtype="float32"), gene_map)
     counts, vsd, genes, samples = align_matrices(counts, vsd)
-    metadata = read_metadata(args.sample_info, args.sample_sheet, args.region_col, args.network_col, args.monkey_col)
+    metadata = read_metadata(
+        args.sample_info,
+        args.sample_sheet,
+        args.region_col,
+        args.network_col,
+        args.monkey_col,
+        label_map,
+    )
     samples = [sample for sample in samples if sample in set(metadata["sample_id"])]
     counts = counts.loc[genes, samples]
     vsd = vsd.loc[genes, samples]

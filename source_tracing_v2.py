@@ -121,14 +121,15 @@ class SourceTracingEngineV2:
 
     @staticmethod
     def _is_vsd_reference(atlas_meta: Dict[str, Any]) -> bool:
-        text = " ".join(
-            str(atlas_meta.get(k, "") or "").lower()
-            for k in ["atlas_name", "build_version", "normalization", "notes"]
-        )
-        return "vsd" in text or "batch_removed" in text or "batch removed" in text
+        normalization = str(atlas_meta.get("normalization", "") or "").strip().lower()
+        return normalization in {"vsd", "vst"} or normalization.startswith(("vsd_", "vst_"))
 
-    def _load_marker_signature_genes(self, topk_per_region: int = 200) -> Optional[List[str]]:
-        return rl_load_marker_signature_genes(self.db_path, topk_per_region=topk_per_region)
+    def _load_marker_signature_genes(
+        self, topk_per_region: int = 200, atlas_id: int = 1
+    ) -> Optional[List[str]]:
+        return rl_load_marker_signature_genes(
+            self.db_path, topk_per_region=topk_per_region, atlas_id=atlas_id
+        )
 
     @staticmethod
     def _safe_numeric(s: pd.Series, fill: float = 0.0) -> pd.Series:
@@ -244,15 +245,17 @@ class SourceTracingEngineV2:
             mat = mat.loc[mat.sum(axis=1) > 0]
             genes = mat.index.values.astype(object)
             regions = list(mat.columns)
-            # 同时保留原始 TPM 矩阵，供 trace() 中秩相关等信号直接使用，避免重复 IO
-            A_tpm_raw = mat.values.astype(float)
-            A_base = self._apply_value_transform(A_tpm_raw, use_value)
+            # Keep the reference's stored scale for rank-based signals. For VSD atlases,
+            # avg_tpm is a schema-compatible storage field and does not imply raw TPM.
+            A_rank_ref = mat.values.astype(float)
+            A_base = self._apply_value_transform(A_rank_ref, use_value)
             W_ref = np.ones_like(A_base, dtype=float)
             meta: Dict[str, Any] = {
                 'weighting_active': False,
                 'n_weighted_pairs': 0,
                 'reference_gene_id_type': guess_gene_id_type(list(map(str, genes[: min(len(genes), 200)]))),
-                '_A_tpm_cache': A_tpm_raw,   # 内部缓存，供 trace() 使用
+                'rank_reference_scale': 'reference_stored_avg_tpm_field',
+                '_A_rank_cache': A_rank_ref,
             }
 
             if enable_weighting and self._table_exists(conn, 'region_gene_signature'):
@@ -420,13 +423,13 @@ class SourceTracingEngineV2:
         return np.asarray(A_base, dtype=float) * np.asarray(W_ref, dtype=float), np.asarray(b_base, dtype=float) * np.asarray(W_sample, dtype=float)
 
     @staticmethod
-    def _rank_correlation_scores(A_tpm: np.ndarray, b_tpm: np.ndarray) -> np.ndarray:
-        if A_tpm.size == 0 or b_tpm.size == 0:
+    def _rank_correlation_scores(A_rank_ref: np.ndarray, b_rank_values: np.ndarray) -> np.ndarray:
+        if A_rank_ref.size == 0 or b_rank_values.size == 0:
             return np.array([], dtype=float)
-        b_rank = rankdata(np.asarray(b_tpm, dtype=float), method='average')
+        b_rank = rankdata(np.asarray(b_rank_values, dtype=float), method='average')
         scores = []
-        for j in range(A_tpm.shape[1]):
-            a_rank = rankdata(np.asarray(A_tpm[:, j], dtype=float), method='average')
+        for j in range(A_rank_ref.shape[1]):
+            a_rank = rankdata(np.asarray(A_rank_ref[:, j], dtype=float), method='average')
             a0 = a_rank - a_rank.mean()
             b0 = b_rank - b_rank.mean()
             den = np.sqrt((a0 @ a0) * (b0 @ b0) + 1e-12)
@@ -454,9 +457,18 @@ class SourceTracingEngineV2:
         primary_total = corr_base + nnls_base
         blended = dict(base)
         if primary_total > 0:
-            if availability.get('corr', False):
+            if corr_base > 0 and nnls_base > 0:
+                if availability.get('corr', False):
+                    blended['corr'] = primary_total * alpha
+                if availability.get('nnls', False):
+                    blended['nnls'] = primary_total * (1.0 - alpha)
+            elif corr_base > 0 and availability.get('corr', False):
+                blended['corr'] = primary_total
+            elif nnls_base > 0 and availability.get('nnls', False):
+                blended['nnls'] = primary_total
+            elif availability.get('corr', False):
                 blended['corr'] = primary_total * alpha
-            if availability.get('nnls', False):
+            elif availability.get('nnls', False):
                 blended['nnls'] = primary_total * (1.0 - alpha)
             if 'corr' not in blended and availability.get('nnls', False):
                 blended['nnls'] = primary_total
@@ -691,27 +703,27 @@ class SourceTracingEngineV2:
         regions = list(regions)
         sample_feat = self._load_sample_features(sample_id, genes)
 
-        # 从已缓存的 ref_meta 取原始 TPM 矩阵，避免重复数据库 IO
-        # ref_meta['_A_tpm_cache'] 在 _load_reference_bundle 中与 A_base 同步构建
-        _A_tpm_cached = ref_meta.get('_A_tpm_cache')
-        if _A_tpm_cached is not None and len(_A_tpm_cached):
+        # Use the cached reference-scale matrix for rank correlation. This is the
+        # stored reference scale, not necessarily raw TPM for VSD atlases.
+        _A_rank_cached = ref_meta.get('_A_rank_cache', ref_meta.get('_A_tpm_cache'))
+        if _A_rank_cached is not None and len(_A_rank_cached):
             # 需要对齐到 keep 过滤后的 gene 顺序
             # genes_before_keep 在上方 keep 操作前已记录（通过 A_base 原始行索引）
             # 此处通过 genes（已 keep 过滤）直接切片即可，因为 keep 是对 genes 的 bool mask
-            A_tpm = np.asarray(_A_tpm_cached, dtype=float)[keep, :]
+            A_rank_ref = np.asarray(_A_rank_cached, dtype=float)[keep, :]
         else:
             # fallback：仍走原有路径，保持向后兼容
-            genes_raw, A_tpm_full, _regions_chk = self._load_reference_matrix(
+            genes_raw, A_rank_full, _regions_chk = self._load_reference_matrix(
                 atlas_id=atlas_id, sigset_id=resolved_sigset_id, use_value='tpm'
             )
             if len(genes_raw) and not np.array_equal(genes_raw.astype(str), genes.astype(str)):
-                ref_raw_df = pd.DataFrame(A_tpm_full, index=genes_raw.astype(str), columns=_regions_chk)
-                A_tpm = ref_raw_df.reindex(index=genes.astype(str), columns=regions).fillna(0.0).to_numpy(dtype=float)
+                ref_raw_df = pd.DataFrame(A_rank_full, index=genes_raw.astype(str), columns=_regions_chk)
+                A_rank_ref = ref_raw_df.reindex(index=genes.astype(str), columns=regions).fillna(0.0).to_numpy(dtype=float)
             else:
-                A_tpm = np.asarray(A_tpm_full, dtype=float)
-            if A_tpm.shape[0] != len(genes):
-                ref_raw_df = pd.DataFrame(A_tpm_full, index=np.asarray(genes_raw).astype(str), columns=_regions_chk)
-                A_tpm = ref_raw_df.reindex(index=genes.astype(str), columns=regions).fillna(0.0).to_numpy(dtype=float)
+                A_rank_ref = np.asarray(A_rank_full, dtype=float)
+            if A_rank_ref.shape[0] != len(genes):
+                ref_raw_df = pd.DataFrame(A_rank_full, index=np.asarray(genes_raw).astype(str), columns=_regions_chk)
+                A_rank_ref = ref_raw_df.reindex(index=genes.astype(str), columns=regions).fillna(0.0).to_numpy(dtype=float)
 
         m = canonical_method(method)
 
@@ -739,7 +751,7 @@ class SourceTracingEngineV2:
                 ci, stability = self._bootstrap_nnls(A, b, regions, tp.bootstrap_n, tp.bootstrap_gene_frac, tp.l2, tp.random_seed)
         elif m == 'ensemble':
             fractions, recon_err = self._trace_nnls_simplex(A, b, l2=tp.l2)
-            rank_scores = self._rank_correlation_scores(A_tpm, sample_feat['tpm_value'].to_numpy(dtype=float))
+            rank_scores = self._rank_correlation_scores(A_rank_ref, sample_feat['tpm_value'].to_numpy(dtype=float))
             panel_scores = self._marker_panel_scores(sample_feat, W_ref_k, regions, topk=ep['marker_panel_topk'])
             has_region_weighting = bool(ref_meta.get('weighting_active', False))
             availability = {

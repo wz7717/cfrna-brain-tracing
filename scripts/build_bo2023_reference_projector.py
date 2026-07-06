@@ -35,6 +35,13 @@ DEFAULT_SAMPLE_INFO = ROOT / "bo2023 data" / "Information of sequenced samples_u
 DEFAULT_GENE_MAP = ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.csv"
 DEFAULT_MODEL_GENES = ROOT / "data" / "models" / "bo2023_saleem_network_top200_model_genes.csv"
 
+EXCEL_DATE_GENE_SYMBOL_FIXES = {
+    "2021-09-06 00:00:00": "SEPT6",
+    "2021-09-06": "SEPT6",
+    "9/6/2021": "SEPT6",
+    "2021/09/06": "SEPT6",
+}
+
 
 def default_outdir() -> Path:
     return ROOT / "results" / f"bo2023_reference_projection_{datetime.now().strftime('%Y%m%d')}"
@@ -55,7 +62,9 @@ def read_locked_model_genes(path: Path) -> list[str]:
     df = pd.read_csv(path)
     if "gene_symbol" not in df.columns:
         return []
-    return sorted(df["gene_symbol"].dropna().astype(str).str.strip().unique().tolist())
+    genes = df["gene_symbol"].dropna().astype(str).str.strip()
+    genes = genes.replace(EXCEL_DATE_GENE_SYMBOL_FIXES)
+    return sorted(genes[genes != ""].unique().tolist())
 
 
 def main() -> int:

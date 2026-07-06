@@ -179,7 +179,8 @@ class InMemoryVsdFoldEngine(SourceTracingEngineV2):
                 "weighting_active": self.fold_weighting_active,
                 "n_weighted_pairs": self.fold_n_weighted_pairs,
                 "reference_gene_id_type": "symbol_like",
-                "_A_tpm_cache": self.fold_reference.copy(),
+                "rank_reference_scale": "reference_stored_avg_tpm_field",
+                "_A_rank_cache": self.fold_reference.copy(),
             },
         )
 

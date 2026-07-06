@@ -38,6 +38,7 @@ class CSFRNASourceDatabase:
                 hemi TEXT,
                 layer TEXT,
                 atlas_version TEXT,
+                atlas_id INTEGER DEFAULT 1,
                 coordinates TEXT,
                 UNIQUE(region_id, layer, hemi)
             )
@@ -59,6 +60,7 @@ class CSFRNASourceDatabase:
                 sample_count INTEGER,
                 expression_class TEXT,
                 cell_type_marker TEXT,
+                atlas_id INTEGER DEFAULT 1,
                 FOREIGN KEY (region_id) REFERENCES macaque_brain_atlas(region_id)
             )
         """)
@@ -129,6 +131,7 @@ class CSFRNASourceDatabase:
                 specificity_score REAL,
                 expression_level TEXT,
                 is_marker INTEGER,
+                atlas_id INTEGER DEFAULT 1,
                 FOREIGN KEY (region_id) REFERENCES macaque_brain_atlas(region_id)
             )
         """)
