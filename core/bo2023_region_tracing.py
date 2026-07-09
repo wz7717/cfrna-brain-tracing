@@ -31,6 +31,12 @@ DEFAULT_VALIDATION_SUMMARY = (
     / "models"
     / "bo2023_exact_region_validation_summary.json"
 )
+DEFAULT_PACKAGED_REGION_REFERENCE = (
+    ROOT
+    / "data"
+    / "models"
+    / "bo2023_region_logcpm_reference_matrix.npz"
+)
 DEFAULT_FORMAL_THREE_TIER_SUMMARY = (
     ROOT
     / "results"
@@ -89,6 +95,33 @@ def _load_raw_logcpm_reference_matrix(
     return region_matrix.astype("float32"), region_network, "raw_featurecounts_logcpm"
 
 
+@lru_cache(maxsize=2)
+def _load_packaged_region_reference_matrix(
+    path: Path = DEFAULT_PACKAGED_REGION_REFERENCE,
+) -> tuple[pd.DataFrame, dict[str, str], str]:
+    if not path.exists():
+        return pd.DataFrame(), {}, "packaged_region_reference_missing"
+    try:
+        payload = np.load(path, allow_pickle=False)
+        genes = payload["genes"].astype(str)
+        regions = payload["regions"].astype(str)
+        matrix = pd.DataFrame(payload["matrix"].astype("float32"), index=genes, columns=regions)
+        region_network = {
+            str(region): str(network)
+            for region, network in zip(
+                payload["region_network_regions"].astype(str),
+                payload["region_network_networks"].astype(str),
+            )
+            if str(region).strip() and str(network).strip()
+        }
+    except Exception:
+        return pd.DataFrame(), {}, "packaged_region_reference_unreadable"
+    matrix.index = matrix.index.astype(str)
+    matrix.columns = matrix.columns.astype(str)
+    matrix = matrix.loc[matrix.abs().sum(axis=1) > 0].sort_index()
+    return matrix, region_network, "packaged_region_logcpm_reference"
+
+
 @lru_cache(maxsize=4)
 def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame, dict[str, str], str]:
     conn = sqlite3.connect(db_path)
@@ -144,6 +177,9 @@ def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame
 
 def _load_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame, dict[str, str], str]:
     matrix, region_network, source = _load_raw_logcpm_reference_matrix()
+    if not matrix.empty and region_network:
+        return matrix, region_network, source
+    matrix, region_network, source = _load_packaged_region_reference_matrix()
     if not matrix.empty and region_network:
         return matrix, region_network, source
     return _load_db_reference_matrix(db_path, atlas_id)

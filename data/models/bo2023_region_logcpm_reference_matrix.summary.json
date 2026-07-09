@@ -1,0 +1,10 @@
+{
+  "source": "Bo2023 featurecounts -> gene symbols -> logCPM -> region mean centroids",
+  "n_input_samples": 819,
+  "n_genes": 26478,
+  "n_regions": 110,
+  "n_region_network_mappings": 108,
+  "counts_path": "bo2023 data\\mfas5_819samples_28415genes_featurecounts_counts.txt",
+  "sample_info_path": "bo2023 data\\Information of sequenced samples_update_full878_filter819.xlsx",
+  "gene_map_path": "bo2023_bulk_atlas_buildkit\\04_expressed_genes_neocortex_plus_subcortical.cleaned_symbols.csv"
+}
