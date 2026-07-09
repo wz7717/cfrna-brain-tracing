@@ -22,12 +22,12 @@ PAGES = {
     "bo2023": {"zh": "Bo2023 图谱浏览器", "en": "Bo2023 Atlas Browser", "icon": "BO", "section": "ATLAS", "func": "app.pages.atlas_page:display_atlas_browser"},
 }
 
-for _hidden_page in ("atlas", "bo2023"):
+for _hidden_page in ("atlas", "bo2023", "compare"):
     PAGES.pop(_hidden_page, None)
 
 if is_public_demo_mode():
-    PAGES = {page_key: meta for page_key, meta in PAGES.items() if page_key in {"tracing", "benchmark"}}
-    NAV_ORDER = ["ANALYSIS", "BENCHMARK"]
+    PAGES = {page_key: meta for page_key, meta in PAGES.items() if page_key in {"tracing"}}
+    NAV_ORDER = ["ANALYSIS"]
 else:
     NAV_ORDER = ["OVERVIEW", "DATA BROWSER", "ANALYSIS", "BENCHMARK"]
 
@@ -128,7 +128,7 @@ def _render_sidebar() -> None:
                 <strong>{tr("公开 Demo 流程", "Public demo workflow") if public_demo else tr("推荐流程", "Recommended workflow")}</strong><br>
                 {tr(
                     "上传表达矩阵 -> 运行 Network 级溯源 -> 下载结果。",
-                    "Upload expression matrix -> run Network-level tracing -> download results.",
+                    "Upload expression matrix -> run Bo2023 three-tier tracing -> download results.",
                 ) if public_demo else tr(
                     "建议从 Dashboard 开始，先查看样本与数据库状态，再上传矩阵、运行溯源分析，最后用 Benchmark 和 atlas 解释结果。",
                     "Start from Dashboard, review samples and database status, then upload matrices, run tracing analysis, and finish with Benchmark review.",

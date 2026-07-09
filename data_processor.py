@@ -299,8 +299,15 @@ class DataProcessor:
 
     def get_sample_expression(self, sample_id: str) -> pd.DataFrame:
         with self._get_conn() as conn:
+            cursor = conn.cursor()
+            cursor.execute("PRAGMA table_info(cfrna_expression)")
+            available_cols = {row[1] for row in cursor.fetchall()}
+            select_cols = ["gene_symbol", "tpm_value", "detected"]
+            for optional_col in ["read_count", "log_tpm", "zscore_tpm", "expression_unit"]:
+                if optional_col in available_cols:
+                    select_cols.append(optional_col)
             return pd.read_sql_query(
-                "SELECT gene_symbol, tpm_value, detected FROM cfrna_expression WHERE sample_id = ?",
+                f"SELECT {', '.join(select_cols)} FROM cfrna_expression WHERE sample_id = ?",
                 conn,
                 params=[sample_id],
             )

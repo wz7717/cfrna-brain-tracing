@@ -14,12 +14,11 @@ from app.components.plot_panels import make_fraction_ci_bar, make_score_bar, mak
 from app.components.result_cards import render_primary_metrics, render_run_meta
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
-from app.shared import DB_PATH, init_processor, init_tracer, is_public_demo_mode, render_page_hero
+from app.shared import DB_PATH, init_processor, is_public_demo_mode, render_page_hero
 from core.bo2023_region_tracing import trace_bo2023_secondary_regions
-from core.methods import canonical_method
 from core.network_tracing import DEFAULT_BO2023_NETWORK_MODEL, trace_network_expression
 from core.region_resolution import annotate_region_candidates
-from data.dao import get_atlas_metadata, get_atlas_options, get_sigset_options, table_exists
+from data.dao import get_atlas_options, table_exists
 
 
 METHOD_LABELS = {
@@ -202,17 +201,178 @@ def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
     out = out.groupby("gene_symbol", as_index=False)["query_value"].mean()
 
     if query_source == "raw_counts":
-        total = float(out["query_value"].clip(lower=0).sum())
-        if total <= 0:
+        out["read_count"] = out["query_value"].clip(lower=0)
+        if float(out["read_count"].sum()) <= 0:
             raise ValueError("Raw counts must sum to a positive value.")
-        cpm = out["query_value"].clip(lower=0) / total * 1_000_000.0
-        out["tpm_value"] = np.log2(cpm + 1.0)
+        return out[["gene_symbol", "read_count"]], query_source
+    elif query_source in {"logcpm", "logtpm_fallback"}:
+        out["log_tpm"] = out["query_value"]
+        return out[["gene_symbol", "log_tpm"]], query_source
     elif query_source == "tpm_fallback":
-        out["tpm_value"] = np.log1p(out["query_value"].clip(lower=0))
+        out["tpm_value"] = out["query_value"].clip(lower=0)
     else:
-        out["tpm_value"] = out["query_value"]
+        out["log_tpm"] = out["query_value"]
+        return out[["gene_symbol", "log_tpm"]], query_source
 
     return out[["gene_symbol", "tpm_value"]], query_source
+
+
+def _select_locked_bo2023_atlas(db_mode: str) -> tuple[int, str]:
+    atlas_opts = get_atlas_options(DB_PATH, species_mode=db_mode)
+    if not atlas_opts:
+        return 1, "Bo2023 locked reference"
+    for atlas_id, label in atlas_opts:
+        text = str(label).lower()
+        if "bo2023" in text or "wanglab" in text or "vsd" in text:
+            return int(atlas_id), str(label)
+    atlas_id, label = atlas_opts[0]
+    return int(atlas_id), str(label)
+
+
+def _locked_route_expression(cfrna_df: pd.DataFrame) -> tuple[pd.DataFrame, str]:
+    expr = cfrna_df.copy()
+    if "gene_symbol" not in expr.columns:
+        raise ValueError("Expression data must include gene_symbol.")
+    expr["gene_symbol"] = expr["gene_symbol"].astype(str).str.strip()
+    expr = expr[expr["gene_symbol"] != ""].copy()
+    if expr.empty:
+        raise ValueError("Expression data has no valid gene_symbol rows.")
+
+    if "read_count" in expr.columns:
+        read_count = pd.to_numeric(expr["read_count"], errors="coerce").fillna(0.0).clip(lower=0.0)
+        if float(read_count.sum()) > 0:
+            out = pd.DataFrame({"gene_symbol": expr["gene_symbol"], "read_count": read_count})
+            return out.groupby("gene_symbol", as_index=False)["read_count"].mean(), "raw_counts"
+
+    if "expression_unit" in expr.columns and "tpm_value" in expr.columns:
+        units = expr["expression_unit"].astype(str).str.lower()
+        if units.str.contains("logcpm|log_cpm|log2cpm|log2_cpm", regex=True, na=False).any():
+            values = pd.to_numeric(expr["tpm_value"], errors="coerce")
+            out = pd.DataFrame({"gene_symbol": expr["gene_symbol"], "log_tpm": values})
+            return out.dropna(subset=["log_tpm"]).groupby("gene_symbol", as_index=False)["log_tpm"].mean(), "stored_logCPM"
+
+    if "log_tpm" in expr.columns:
+        values = pd.to_numeric(expr["log_tpm"], errors="coerce")
+        if values.notna().any():
+            out = pd.DataFrame({"gene_symbol": expr["gene_symbol"], "log_tpm": values})
+            return out.dropna(subset=["log_tpm"]).groupby("gene_symbol", as_index=False)["log_tpm"].mean(), "stored_log"
+
+    if "tpm_value" in expr.columns:
+        values = pd.to_numeric(expr["tpm_value"], errors="coerce").fillna(0.0).clip(lower=0.0)
+        out = pd.DataFrame({"gene_symbol": expr["gene_symbol"], "tpm_value": values})
+        return out.groupby("gene_symbol", as_index=False)["tpm_value"].mean(), "TPM_fallback"
+
+    raise ValueError("Expression data must include read_count, logCPM/log_tpm, or tpm_value.")
+
+
+def _render_resolution_group_top3(out: dict) -> None:
+    group_rows = out.get("meta", {}).get("region_resolution_annotation", {}).get("group_ranking", [])
+    if not group_rows:
+        return
+    render_panel_header(
+        tr("Resolution group Top3", "Resolution Group Top3"),
+        tr(
+            "分辨率组用于报告 Bo2023 训练数据可稳定区分的候选范围。",
+            "Resolution groups report the candidate scope that the Bo2023 training data can separate more reliably.",
+        ),
+    )
+    st.dataframe(pd.DataFrame(group_rows).head(3), use_container_width=True, hide_index=True)
+
+
+def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int, topk: int = 30) -> tuple[dict, dict]:
+    network_out = trace_network_expression(expr)
+    if not network_out.get("results"):
+        meta = network_out.get("meta", {})
+        raise ValueError(
+            f"Insufficient Network model-gene overlap: {meta.get('n_overlap_genes', 0)}/"
+            f"{meta.get('n_model_genes', 0)}."
+        )
+    out = trace_bo2023_secondary_regions(expr, network_out, DB_PATH, int(atlas_id), topk=max(int(topk), 3))
+    if not out.get("results"):
+        meta = out.get("meta", {})
+        raise ValueError(str(meta.get("error") or "Bo2023 three-tier route returned no region candidates."))
+    out = annotate_region_candidates(out, network_out)
+    return network_out, out
+
+
+def _render_locked_three_tier_results(sample_id: str, out: dict, network_out: dict) -> None:
+    network_df = pd.DataFrame(network_out.get("results", [])).head(3)
+    exact_df = pd.DataFrame(out.get("results", [])).head(3)
+    group_rows = out.get("meta", {}).get("region_resolution_annotation", {}).get("group_ranking", [])
+    group_df = pd.DataFrame(group_rows).head(3)
+
+    st.success(tr("Bo2023 锁定三层路线已完成。", "Locked Bo2023 three-tier route completed."))
+    render_section_band(
+        tr("Network Top3", "Network Top3"),
+        tr("这是论文主路线的上层主结论。", "This is the primary upper-level conclusion in the manuscript route."),
+    )
+    if network_df.empty:
+        st.warning(tr("没有可展示的 Network 候选。", "No Network candidates are available."))
+    else:
+        st.dataframe(network_df, use_container_width=True, hide_index=True)
+
+    _render_public_demo_diagnostics(network_out)
+
+    render_section_band(
+        tr("Resolution group Top3", "Resolution Group Top3"),
+        tr(
+            "这是更稳健的可分辨候选组层级，优先用于报告 exact-region 低分辨率时的不确定范围。",
+            "This is the more robust resolvable candidate-group tier, useful when exact-region calls are low-resolution.",
+        ),
+    )
+    if group_df.empty:
+        st.info(tr("当前结果没有 resolution group ranking。", "No resolution group ranking is available for this result."))
+    else:
+        st.dataframe(group_df, use_container_width=True, hide_index=True)
+
+    render_section_band(
+        tr("Exact-region exploratory Top3", "Exact-Region Exploratory Top3"),
+        tr(
+            "精确脑区只作为探索性候选，不继承 Network 层级的验证准确率。",
+            "Exact regions are exploratory candidates and do not inherit Network-level validation accuracy.",
+        ),
+    )
+    for warning in out.get("meta", {}).get("warnings", []) or []:
+        st.warning(str(warning))
+    resolution = out.get("meta", {}).get("region_resolution_annotation", {})
+    if resolution.get("manual_review_recommended"):
+        st.warning(
+            tr(
+                f"Exact-region Top1 需要人工复核；建议同时报告候选组 [{resolution.get('top1_group_members', '')}]。",
+                f"Exact-region Top1 needs manual review; also report candidate group [{resolution.get('top1_group_members', '')}].",
+            )
+        )
+    if exact_df.empty:
+        st.warning(tr("没有可展示的 exact-region 候选。", "No exact-region candidates are available."))
+    else:
+        st.dataframe(exact_df, use_container_width=True, hide_index=True)
+
+    export_df = pd.concat(
+        [
+            network_df.assign(tier="network_top3"),
+            group_df.assign(tier="resolution_group_top3"),
+            exact_df.assign(tier="exact_region_exploratory_top3"),
+        ],
+        ignore_index=True,
+        sort=False,
+    )
+    export_out = dict(out)
+    export_out["network_primary"] = network_out
+    c1, c2 = st.columns(2)
+    with c1:
+        st.download_button(
+            tr("下载 CSV", "Download CSV"),
+            export_df.to_csv(index=False).encode("utf-8-sig"),
+            f"bo2023_three_tier_top3_{sample_id}.csv",
+            "text/csv",
+        )
+    with c2:
+        st.download_button(
+            tr("下载 JSON", "Download JSON"),
+            json.dumps(export_out, ensure_ascii=False, indent=2),
+            f"bo2023_three_tier_{sample_id}.json",
+            "application/json",
+        )
 
 
 NETWORK_DESCRIPTIONS = [
@@ -781,6 +941,130 @@ def display_source_tracing() -> None:
                     _render_legacy_results(sample_id, results, top_regions)
             except Exception as exc:
                 st.error(tr("分析失败：当前样本与参数组合未能完成溯源计算。", "Analysis failed: the current sample and parameter combination could not complete tracing."))
+                st.info(f"{tr('原始错误', 'Original error')}: {exc}")
+                with st.expander(tr("开发者调试信息", "Developer debug details"), expanded=False):
+                    st.code(traceback.format_exc(), language="python")
+
+
+def _render_public_demo_tracing() -> None:
+    render_section_band(
+        tr("上传表达矩阵", "Upload Expression Matrix"),
+        tr(
+            "上传 gene_symbol 加 raw counts 或 logCPM；系统只运行锁定的 Bo2023 三层溯源路线。",
+            "Upload gene_symbol plus raw counts or logCPM; the app only runs the locked Bo2023 three-tier tracing route.",
+        ),
+    )
+    st.info(
+        tr(
+            "主结论看 Network Top3；resolution group Top3 是更稳健的可分辨候选范围；exact-region Top3 只作探索性定位候选。",
+            "Read Network Top3 as the primary conclusion; resolution group Top3 is the more robust candidate scope; exact-region Top3 remains exploratory.",
+        )
+    )
+    uploaded = st.file_uploader(
+        tr("上传表达矩阵 CSV/TSV/XLSX", "Upload expression matrix CSV/TSV/XLSX"),
+        type=["csv", "tsv", "txt", "xlsx", "xls"],
+        key="public_demo_expression_upload_locked",
+    )
+    st.caption(
+        tr(
+            "至少包含 gene_symbol/gene 和一个表达列。推荐列名：raw_counts/count/read_count 或 logCPM。",
+            "Requires gene_symbol/gene plus one expression column. Recommended names: raw_counts/count/read_count or logCPM.",
+        )
+    )
+    with st.expander(tr("查看 10 个 Network 候选范围", "View the 10 Network candidate scopes"), expanded=False):
+        _render_network_description_table()
+    if uploaded is None:
+        return
+
+    try:
+        expr, query_source = _read_demo_expression(uploaded)
+    except Exception as exc:
+        st.error(f"{tr('无法读取输入文件', 'Could not read input file')}: {exc}")
+        return
+
+    if query_source in {"tpm_fallback", "logtpm_fallback"}:
+        st.warning(
+            tr(
+                f"当前输入被识别为 {query_source}，仅作为旧表格兼容入口；论文主路线推荐 raw counts 或 logCPM。",
+                f"Input was detected as {query_source}; this is only a legacy table compatibility path. The manuscript route prefers raw counts or logCPM.",
+            )
+        )
+
+    atlas_id, atlas_label = _select_locked_bo2023_atlas(get_database_mode())
+    render_kpi_cards(
+        [
+            {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Bo2023 三层路线", "Used for the Bo2023 three-tier route")},
+            {"icon": "SRC", "label": tr("输入口径", "Query source"), "value": query_source, "note": tr("raw counts 会在模型内转 logCPM", "raw counts are converted to logCPM inside the model")},
+            {"icon": "REF", "label": tr("参考图谱", "Reference"), "value": "Bo2023", "note": atlas_label},
+            {"icon": "SCOPE", "label": tr("输出范围", "Output scope"), "value": tr("三层 Top3", "Three-tier Top3"), "note": "Network / resolution group / exact-region"},
+        ]
+    )
+
+    if st.button(tr("Run locked Bo2023 three-tier route", "Run locked Bo2023 three-tier route"), type="primary", use_container_width=True):
+        try:
+            network_out, out = _run_locked_bo2023_route(expr, atlas_id, topk=30)
+            network_out.setdefault("meta", {})["query_source"] = query_source
+            network_out["meta"]["input_recommendation"] = "raw counts/logCPM preferred; TPM/logTPM fallback only"
+            network_out["meta"].pop("model_metadata", None)
+            network_out["meta"].pop("pairwise_rescue_validation", None)
+            _render_locked_three_tier_results("uploaded_expression", out, network_out)
+        except Exception as exc:
+            st.error(f"{tr('Bo2023 三层路线运行失败', 'Locked Bo2023 route failed')}: {exc}")
+
+
+def display_source_tracing() -> None:
+    db_mode = get_database_mode()
+    render_page_hero(
+        tr(f"{database_label(db_mode)} - Bo2023 三层溯源", f"{database_label(db_mode)} - Bo2023 Three-Tier Tracing"),
+        tr(
+            "上传或选择 cfRNA 表达矩阵后，只运行论文主路线：Network Top3 -> resolution group Top3 -> exact-region exploratory Top3。",
+            "Upload or select a cfRNA expression matrix and run only the manuscript route: Network Top3 -> resolution group Top3 -> exact-region exploratory Top3.",
+        ),
+        eyebrow=tr("主路线", "Locked Route"),
+        pills=[
+            "gene_symbol + raw_counts/logCPM",
+            "Bo2023 Network Top3",
+            "resolution group Top3",
+            "exact-region exploratory Top3",
+        ],
+    )
+    if is_public_demo_mode():
+        _render_public_demo_tracing()
+        return
+
+    processor = init_processor()
+    samples_df = processor.get_all_samples()
+    if not samples_df.empty and "species" in samples_df.columns:
+        samples_df = samples_df[samples_df["species"].apply(lambda x: matches_species(x, db_mode))].copy()
+    if len(samples_df) == 0:
+        st.info(tr("当前数据库没有可分析样本，可直接上传表达矩阵运行 Demo。", "No analyzable samples are available; upload an expression matrix to run the demo."))
+        _render_public_demo_tracing()
+        return
+
+    st.markdown(f'<div class="action-zone">{tr("操作区：选择样本并运行锁定路线", "Action zone: choose a sample and run the locked route")}</div>', unsafe_allow_html=True)
+    sample_id = st.selectbox(tr("选择样本", "Choose sample"), samples_df["sample_id"].astype(str).tolist(), index=0)
+    cfrna_df = processor.get_sample_expression(sample_id)
+    expr, query_source = _locked_route_expression(cfrna_df)
+    atlas_id, atlas_label = _select_locked_bo2023_atlas(db_mode)
+    render_kpi_cards(
+        [
+            {"icon": "SMP", "label": tr("样本 ID", "Sample ID"), "value": sample_id, "note": tr("当前分析样本", "Current analysis sample")},
+            {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("进入锁定路线的基因数", "Genes entering the locked route")},
+            {"icon": "SRC", "label": tr("输入口径", "Input scale"), "value": query_source, "note": tr("优先 raw counts/logCPM", "raw counts/logCPM preferred")},
+            {"icon": "REF", "label": tr("参考图谱", "Reference"), "value": "Bo2023", "note": atlas_label},
+        ]
+    )
+    if query_source == "TPM_fallback":
+        st.warning(tr("该样本未检出 read_count 或 logCPM/log_tpm，当前仅使用 TPM fallback；结果应降级解释。", "This sample has no read_count or logCPM/log_tpm, so TPM fallback is used and interpretation should be downgraded."))
+
+    if st.button(tr("Run locked Bo2023 three-tier route", "Run locked Bo2023 three-tier route"), type="primary", use_container_width=True):
+        with st.spinner(tr("正在运行 Bo2023 三层候选排名...", "Running Bo2023 three-tier candidate ranking...")):
+            try:
+                network_out, out = _run_locked_bo2023_route(expr, atlas_id, topk=30)
+                network_out.setdefault("meta", {})["query_source"] = query_source
+                _render_locked_three_tier_results(sample_id, out, network_out)
+            except Exception as exc:
+                st.error(tr("分析失败：锁定 Bo2023 主路线未能完成。", "Analysis failed: the locked Bo2023 manuscript route could not complete."))
                 st.info(f"{tr('原始错误', 'Original error')}: {exc}")
                 with st.expander(tr("开发者调试信息", "Developer debug details"), expanded=False):
                     st.code(traceback.format_exc(), language="python")
