@@ -75,12 +75,84 @@ def pad(values: list[str], k: int) -> list[str]:
     return values[:k] + [""] * max(0, k - len(values))
 
 
-def candidate_regions_from_networks(metadata: pd.DataFrame, network_top: list[str], region_training: dict[str, np.ndarray]) -> list[str]:
+def candidate_regions_from_networks(
+    metadata: pd.DataFrame,
+    network_top: list[str],
+    region_training: dict[str, np.ndarray],
+    region_col: str = "region_id",
+) -> list[str]:
     return sorted(
         region
-        for region in metadata.loc[metadata["network_id"].isin(network_top), "region_id"].dropna().astype(str).unique()
+        for region in metadata.loc[metadata["network_id"].isin(network_top), region_col].dropna().astype(str).unique()
         if region in region_training
     )
+
+
+def qualify_allowed_regions(
+    allowed_regions: list[str],
+    allowed_networks: list[str],
+    region_to_networks: dict[str, set[str]],
+) -> list[str]:
+    """Return Network-qualified Bo2023 region keys for an AHBA mapped label."""
+    allowed_network_set = set(allowed_networks)
+    return sorted(
+        {
+            f"{network}::{region}"
+            for region in allowed_regions
+            for network in region_to_networks.get(region, set())
+            if network in allowed_network_set
+        }
+    )
+
+
+def collapse_technical_replicates(
+    metadata: pd.DataFrame,
+    counts: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Collapse AHBA technical RNA-seq replicates at donor + tissue-sample level.
+
+    Raw counts are summed before logCPM calculation.  Each merge is permitted
+    only when the repeated assay rows have identical anatomical annotations.
+    """
+    required = {"ahba_donor", "sample_name", "ahba_sample_uid", "replicate_sample", "well_id", "main_structure", "sub_structure", "ontology_structure_id"}
+    missing = required - set(metadata.columns)
+    if missing:
+        raise ValueError(f"AHBA metadata missing columns required for replicate collapse: {sorted(missing)}")
+    rows: list[pd.Series] = []
+    matrices: list[pd.Series] = []
+    audit_rows: list[dict[str, Any]] = []
+    annotation_cols = ["well_id", "main_structure", "sub_structure", "ontology_structure_id", "ontology_structure_acronym", "hemisphere", "brain"]
+    for (donor, sample_name), frame in metadata.groupby(["ahba_donor", "sample_name"], sort=True, dropna=False):
+        sample_ids = frame["ahba_sample_uid"].astype(str).tolist()
+        if not set(sample_ids).issubset(set(counts.columns.astype(str))):
+            absent = sorted(set(sample_ids) - set(counts.columns.astype(str)))
+            raise ValueError(f"AHBA count matrix is missing replicate columns: {absent}")
+        for column in annotation_cols:
+            if column in frame.columns and frame[column].astype(str).nunique(dropna=False) != 1:
+                raise ValueError(f"Conflicting {column} within technical replicate group {donor}|{sample_name}")
+        primary = frame.loc[frame["replicate_sample"].astype(str).str.lower().eq("no")]
+        representative = (primary.iloc[0] if len(primary) else frame.iloc[0]).copy()
+        collapsed_id = f"{donor}|{sample_name}"
+        representative["ahba_sample_uid"] = collapsed_id
+        representative["replicate_sample"] = "collapsed"
+        representative["n_assay_rows_collapsed"] = int(len(frame))
+        rows.append(representative)
+        matrices.append(counts.loc[:, sample_ids].sum(axis=1).rename(collapsed_id))
+        audit_rows.append(
+            {
+                "collapsed_sample_id": collapsed_id,
+                "ahba_donor": donor,
+                "sample_name": sample_name,
+                "n_assay_rows": int(len(frame)),
+                "source_assay_sample_ids": " | ".join(sample_ids),
+                "contains_technical_replicate": bool(len(frame) > 1),
+                "main_structure": str(representative["main_structure"]),
+                "sub_structure": str(representative["sub_structure"]),
+            }
+        )
+    collapsed_metadata = pd.DataFrame(rows).reset_index(drop=True)
+    collapsed_counts = pd.concat(matrices, axis=1).astype("float32")
+    return collapsed_metadata, collapsed_counts, pd.DataFrame(audit_rows)
 
 
 def group_hits(
@@ -112,7 +184,7 @@ def summarize_detail(detail: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for route, frame in detail.groupby("route", sort=True):
         supported = frame[frame["supported_for_accuracy"].astype(bool)]
-        exact = supported[supported["allowed_bo2023_regions"].fillna("").astype(str).str.len() > 0]
+        exact = supported[supported["allowed_bo2023_region_keys"].fillna("").astype(str).str.len() > 0]
         rows.append(
             {
                 "route": route,
@@ -208,11 +280,28 @@ def main() -> int:
     parser.add_argument("--similarity-threshold", type=float, default=0.95)
     parser.add_argument("--merge-similarity-threshold", type=float, default=0.90)
     parser.add_argument("--max-group-size", type=int, default=8)
+    parser.add_argument(
+        "--collapse-technical-replicates",
+        action="store_true",
+        default=True,
+        help="Collapse AHBA technical replicate assay rows by donor + tissue sample before validation (default).",
+    )
+    parser.add_argument(
+        "--keep-technical-replicates",
+        action="store_false",
+        dest="collapse_technical_replicates",
+        help="Historical compatibility mode: retain technical replicate assay rows as separate observations.",
+    )
     parser.add_argument("--outdir", type=Path, default=DEFAULT_OUTDIR)
     args = parser.parse_args()
     args.outdir.mkdir(parents=True, exist_ok=True)
 
     ahba_metadata, ahba_counts = load_ahba_counts(args.zip_dir)
+    n_ahba_assay_rows_before = int(len(ahba_metadata))
+    replicate_audit = pd.DataFrame()
+    if args.collapse_technical_replicates:
+        ahba_metadata, ahba_counts, replicate_audit = collapse_technical_replicates(ahba_metadata, ahba_counts)
+        replicate_audit.to_csv(args.outdir / "ahba_technical_replicate_collapse_audit.csv", index=False, encoding="utf-8-sig")
     ahba_logcpm = compute_logcpm(ahba_counts)
     ahba_projected = apply_projector(load_projector_npz(args.projector), ahba_logcpm)
 
@@ -230,20 +319,15 @@ def main() -> int:
     bo_counts = bo_counts.loc[:, samples]
     bo_vsd = bo_vsd.loc[:, samples]
     bo_logcpm = bo_logcpm.loc[:, samples]
+    bo_metadata["region_key"] = bo_metadata["network_id"].astype(str) + "::" + bo_metadata["region_id"].astype(str)
 
     sample_pos = {sample: idx for idx, sample in enumerate(samples)}
-    region_training = build_training(bo_metadata, "region_id", sample_pos)
+    region_training = build_training(bo_metadata, "region_key", sample_pos)
     network_training = build_training(bo_metadata, "network_id", sample_pos)
     regions = sorted(region_training)
     networks = sorted(network_training)
-    region_network = {
-        region: (
-            values[0]
-            if len(values := sorted(bo_metadata.loc[bo_metadata["region_id"].eq(region), "network_id"].astype(str).unique())) == 1
-            else None
-        )
-        for region in regions
-    }
+    region_network = bo_metadata.drop_duplicates("region_key").set_index("region_key")["network_id"].astype(str).to_dict()
+    region_to_networks = bo_metadata.groupby("region_id")["network_id"].agg(lambda values: set(values.astype(str))).to_dict()
 
     route_spaces = {
         "logcpm_baseline": {
@@ -291,12 +375,13 @@ def main() -> int:
             supported = bool(label_map["supported_for_accuracy"])
             allowed_networks = split_pipe(label_map["allowed_bo2023_networks"])
             allowed_regions = split_pipe(label_map["allowed_bo2023_regions"])
+            allowed_region_keys = qualify_allowed_regions(allowed_regions, allowed_networks, region_to_networks)
             network_sample = network_query_matrix[sample_id].to_numpy(dtype=np.float32)
             exact_sample = exact_query_matrix[sample_id].to_numpy(dtype=np.float32)
 
             network_scores = correlation_scores(network_reference, network_sample, network_rows)
             network_top = [networks[i] for i in np.argsort(network_scores)[::-1][:3].tolist()]
-            candidates = candidate_regions_from_networks(bo_metadata, network_top, region_training)
+            candidates = candidate_regions_from_networks(bo_metadata, network_top, region_training, region_col="region_key")
             if len(candidates) < 1:
                 continue
 
@@ -339,7 +424,7 @@ def main() -> int:
             fused = args.exact_fusion_weight * zscore(scores50) + (1.0 - args.exact_fusion_weight) * zscore(scores100)
             ranked_regions = [candidates[i] for i in np.argsort(fused)[::-1].tolist()]
             ranked_groups = distinct_ranked_groups(ranked_regions, annotations)
-            group_hit1, group_hit3, _, allowed_groups = group_hits(ranked_regions, annotations, allowed_regions)
+            group_hit1, group_hit3, _, allowed_groups = group_hits(ranked_regions, annotations, allowed_region_keys)
             padded_regions = pad(ranked_regions, 3)
             padded_groups = pad(ranked_groups, 3)
             pred_annotation = annotations[padded_regions[0]]
@@ -358,6 +443,7 @@ def main() -> int:
                     "accuracy_level": label_map["accuracy_level"],
                     "allowed_bo2023_networks": label_map["allowed_bo2023_networks"],
                     "allowed_bo2023_regions": label_map["allowed_bo2023_regions"],
+                    "allowed_bo2023_region_keys": " | ".join(allowed_region_keys),
                     "allowed_resolution_groups": " | ".join(allowed_groups),
                     "network_top1": network_top[0],
                     "network_top2": network_top[1] if len(network_top) > 1 else "",
@@ -367,13 +453,13 @@ def main() -> int:
                     "region_top1": padded_regions[0],
                     "region_top2": padded_regions[1],
                     "region_top3": padded_regions[2],
-                    "region_top1_exact_hit": hit_any(padded_regions[:1], allowed_regions) if supported and allowed_regions else None,
-                    "region_top3_exact_hit": hit_any(padded_regions, allowed_regions) if supported and allowed_regions else None,
+                    "region_top1_exact_hit": hit_any(padded_regions[:1], allowed_region_keys) if supported and allowed_region_keys else None,
+                    "region_top3_exact_hit": hit_any(padded_regions, allowed_region_keys) if supported and allowed_region_keys else None,
                     "group_top1": padded_groups[0],
                     "group_top2": padded_groups[1],
                     "group_top3": padded_groups[2],
-                    "group_top1_hit": group_hit1 if supported and allowed_regions else None,
-                    "group_top3_hit": group_hit3 if supported and allowed_regions else None,
+                    "group_top1_hit": group_hit1 if supported and allowed_region_keys else None,
+                    "group_top3_hit": group_hit3 if supported and allowed_region_keys else None,
                     "pred_top1_resolution_tier": pred_annotation["resolution_tier"],
                     "pred_top1_resolution_group": pred_annotation["resolution_group"],
                     "pred_top1_group_members": " | ".join(pred_annotation["group_members"]),
@@ -402,6 +488,11 @@ def main() -> int:
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "dataset": "AHBA human RNA-seq raw counts",
         "route": "Network Top3 beam -> resolution group -> local exact rerank",
+        "technical_replicates": {
+            "collapsed": bool(args.collapse_technical_replicates),
+            "n_assay_rows_before": n_ahba_assay_rows_before,
+            "n_evaluable_rows_after": int(len(ahba_metadata)),
+        },
         "metrics": metrics.to_dict(orient="records"),
         "special_labels": special.to_dict(orient="records"),
         "caution": "Cross-species external validation; exact metrics only for AHBA labels with stable Bo2023 region mappings.",

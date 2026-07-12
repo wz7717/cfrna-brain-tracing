@@ -5,8 +5,8 @@ Internal LOSO,Exact region,814,0.4533169533169533,45.33%,Reference-supported sam
 Internal LOMO,Network,819,0.9120879120879121,91.21%,All Network-evaluable samples
 Internal LOMO,Resolution group,812,0.6908866995073891,69.09%,Reference-supported samples
 Internal LOMO,Exact region,812,0.4236453201970443,42.36%,Reference-supported samples
-AHBA external,Network,233,0.944206008583691,94.42%,Mapped-label supported samples
-AHBA external,Resolution group,91,0.6703296703296703,67.03%,Exact-mapped samples
-AHBA external,Exact region,91,0.42857142857142855,42.86%,Exact-mapped samples
-TCGA/BraTS MRI,Network,65,0.4,40.00%,Coarse consistency only
-TCGA/BraTS MRI,Broad anatomy,65,0.6461538461538462,64.62%,Coarse consistency only
+AHBA external,Network,223,0.9461883408071748,94.62%,Technical-replicate-collapsed; network-qualified mapped-label samples
+AHBA external,Resolution group,88,0.625,62.50%,Technical-replicate-collapsed; network-qualified exact-mapped samples
+AHBA external,Exact region,88,0.4659090909090909,46.59%,Technical-replicate-collapsed; network-qualified exact-mapped samples
+TCGA/BraTS MRI,Network,64,0.40625,40.63%,Coarse consistency only; one cerebellar out-of-scope case excluded
+TCGA/BraTS MRI,Broad anatomy,64,0.65625,65.63%,Coarse consistency only; one cerebellar out-of-scope case excluded

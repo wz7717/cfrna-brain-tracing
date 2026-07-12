@@ -1,6 +1,6 @@
 # Formal LOSO/LOMO 分母与 unsupported samples 解释
 
-本文档专门解释 cfRNA-BrainTrace v0.1.6 中最容易混淆的一个问题：
+本文档专门解释 cfRNA-BrainTrace v0.1.7 中最容易混淆的一个问题：
 
 ```text
 为什么 Bo2023 formal LOSO/LOMO 的 Network 分母是 819，

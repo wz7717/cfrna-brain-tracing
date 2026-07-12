@@ -108,21 +108,19 @@ full conversion to Bo2023 VSD.
 
 Current submission route:
 
-- Network projected-VSD LOSO Top1/Top3: 58.00% / 91.58%.
-- Network projected-VSD LOMO Top1/Top3: 53.72% / 91.33%.
 - Locked three-tier route LOSO Network Top1/Top3: 58.24% / 92.19% (`n=819`).
 - Locked three-tier route LOMO Network Top3: 91.21%.
 - Resolution-group Top3 LOSO/LOMO: 72.36% (`n=814`) / 69.09% (`n=812`).
 - Exact-region Top3 LOSO/LOMO: 45.33% (`n=814`) / 42.36% (`n=812`).
-- AHBA mapped-label Network Top1/Top3: 74.68% / 94.42%.
-- AHBA resolution-group Top1/Top3: 36.26% / 67.03%.
-- AHBA exact-region Top1/Top3: 24.18% / 42.86%.
-- TCGA/BraTS Network Top3: 40.00%.
-- TCGA/BraTS broad-anatomy Top3: 64.62%.
+- AHBA technical-replicate-collapsed, network-qualified mapped-label Network Top1/Top3: 73.99% / 94.62% (`n=223`).
+- AHBA technical-replicate-collapsed, network-qualified mapped-label resolution-group Top1/Top3: 40.91% / 62.50% (`n=88`).
+- AHBA technical-replicate-collapsed, network-qualified mapped-label exact-region Top1/Top3: 23.86% / 46.59% (`n=88`).
+- TCGA/BraTS Network Top3: 40.63% (`26/64` evaluable cases).
+- TCGA/BraTS broad-anatomy Top3: 65.63% (`42/64` evaluable cases).
 - GSE189919 projector gene overlap: 15,622 / 21,668 (72.10%); projection feasibility / transfer stress test only, not localization accuracy.
 
-Earlier baseline routes were used during development but are not part of the
-current submission route or reported validation results.
+The repository exposes only the locked three-tier submission route. Historical
+baseline and tumour-adapted routes are not distributed in this release.
 
 Network metrics include all 819 samples. Region-level metrics are restricted
 to folds in which the held-out truth region remains represented in the
@@ -140,11 +138,11 @@ supplementary material.
 
 ## Status
 
-This repository contains the v0.1.6 public submission release for the
+This repository contains the v0.1.7 revised public submission release for the
 Bioinformatics Application Note describing cfRNA-BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The
-manuscript-associated v0.1.6 release is archived at Zenodo with version DOI
-`https://doi.org/10.5281/zenodo.20780280` and concept DOI
+v0.1.7 supersedes v0.1.6; its Zenodo version DOI is assigned when the release
+archive is published. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.

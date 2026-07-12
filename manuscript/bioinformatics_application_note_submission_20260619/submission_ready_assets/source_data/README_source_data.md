@@ -1,7 +1,7 @@
 Source Data Working Package
 
 This directory is prepared for public archival with the manuscript-associated
-v0.1.6 release.
+v0.1.7 release.
 It contains local copies of the current supplementary tables and Figure 1 artwork.
 
 Included Files
@@ -16,14 +16,12 @@ Figure1_validation_summary.csv
 Figure1_cfRNA_BrainTrace_final.svg
 Figure1_cfRNA_BrainTrace_final.pdf
 Figure1_cfRNA_BrainTrace_final.png
-Figure1_cfRNA_BrainTrace_Bioinformatics_lowres.png
-Figure1_cfRNA_BrainTrace_Bioinformatics_highres_178mm.tif
 
 Status
 
-Archived with the manuscript-associated v0.1.6 GitHub/Zenodo release. The manuscript
-uses the Zenodo version DOI https://doi.org/10.5281/zenodo.20780280. The project
-concept DOI is https://doi.org/10.5281/zenodo.20773674.
+Prepared for the manuscript-associated v0.1.7 GitHub/Zenodo release. This release
+supersedes v0.1.6; the persistent Zenodo concept DOI is
+https://doi.org/10.5281/zenodo.20773674.
 
 Notes
 
@@ -37,4 +35,7 @@ reference-supported samples. The 92.19% LOSO Network Top3 value uses all 819
 Network-evaluable samples as the denominator. Five LOSO samples and seven LOMO
 samples lacked a truth-region reference after fold construction and are excluded
 only from region-level evaluation.
+AHBA values use technical-replicate-collapsed independent tissue points and
+Network-plus-region reference keys. TCGA/BraTS values exclude one MRI-derived
+cerebellar out-of-scope case, leaving 64 evaluable cases.
 They do not include patient-level MRI, clinical data, raw TCGA/GEO/AHBA matrices, or raw Bo2023 source matrices.
