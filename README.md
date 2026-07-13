@@ -32,7 +32,6 @@ validation.
 ## Interfaces
 
 - Streamlit application: `streamlit_app.py`
-- Command-line interface: `cli.py`
 - Locked Network inference: `core/network_tracing.py`
 - Versioned models: `data/models/`
 - Validation and export scripts: `scripts/`
@@ -44,19 +43,12 @@ validation.
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-pip install -e .
 ```
 
 ## Run the application
 
 ```bash
 streamlit run streamlit_app.py
-```
-
-## Command-line use
-
-```bash
-cfrna-tracing --help
 ```
 
 ## Input format
@@ -90,8 +82,8 @@ are retained in exported reports.
 
 ## Reproducibility and data policy
 
-This repository contains code, lightweight model artifacts, tests,
-documentation and manuscript assets. It intentionally excludes:
+This deployment repository contains application code, lightweight model
+artifacts and tests. It intentionally excludes:
 
 - patient-level MRI and clinical data;
 - TCGA, GEO, AHBA and other downloaded expression matrices;
@@ -132,9 +124,6 @@ the denominator. Region-level LOSO metrics use 814 reference-supported samples
 because five samples lacked a truth-region reference after fold construction.
 Region-level LOMO metrics use 812 reference-supported samples because seven
 samples lacked a truth-region reference after fold construction.
-
-See `manuscript/` for the Bioinformatics Application Note draft and
-supplementary material.
 
 ## Status
 
