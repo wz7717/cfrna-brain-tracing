@@ -167,6 +167,7 @@ def trace_network_expression(
     projector_path: Path = DEFAULT_BO2023_REFERENCE_PROJECTOR,
     min_overlap_fraction: float = 0.50,
     project_to_vsd: bool = True,
+    enable_pairwise_rescue: bool = True,
 ) -> dict[str, Any]:
     model = load_network_model(model_path)
     input_series, input_scale = _sample_logcpm_series(expression)
@@ -209,7 +210,7 @@ def trace_network_expression(
     vector = series.reindex(model["genes"]).fillna(0.0).to_numpy(dtype=float)
     scores = trace_corr(model["reference"], vector)
     confidence = softmax_confidence(scores)
-    pairwise_model = _load_pairwise_rescue_model(pairwise_rescue_path)
+    pairwise_model = _load_pairwise_rescue_model(pairwise_rescue_path) if enable_pairwise_rescue else {}
     order, rescue_meta = _apply_pairwise_rescue(scores, model["networks"], series, pairwise_model)
     rows = [
         {

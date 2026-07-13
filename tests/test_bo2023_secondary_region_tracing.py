@@ -92,3 +92,34 @@ def test_bo2023_secondary_region_tracing_rejects_missing_network_beam():
 
     assert out["results"] == []
     assert out["meta"]["traceability"] == "insufficient"
+
+
+def test_formal_group_and_exact_rankings_are_independent():
+    rows = [
+        {
+            "region_id": "R1",
+            "resolution_group": "G1",
+            "resolution_group_members": "R1",
+            "exact_local_score": 3.0,
+            "group_local_score": 0.1,
+            "resolution_tier": "high_resolution",
+            "manual_review_recommended": False,
+        },
+        {
+            "region_id": "R2",
+            "resolution_group": "G2",
+            "resolution_group_members": "R2",
+            "exact_local_score": 1.0,
+            "group_local_score": 0.9,
+            "resolution_tier": "high_resolution",
+            "manual_review_recommended": False,
+        },
+    ]
+
+    exact = bo2023_region_tracing._rank_exact_regions(rows, topk=2)  # noqa: SLF001
+    group_input = sorted(rows, key=lambda row: row["group_local_score"], reverse=True)
+    groups = bo2023_region_tracing._rank_resolution_groups(group_input)  # noqa: SLF001
+
+    assert [row["region_id"] for row in exact] == ["R1", "R2"]
+    assert [row["resolution_group"] for row in groups] == ["G2", "G1"]
+    assert groups[0]["group_score"] == 0.9

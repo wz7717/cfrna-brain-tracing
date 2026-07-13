@@ -595,7 +595,7 @@ def _render_tissue_panel(df: pd.DataFrame) -> None:
     )
     fig.update_traces(textinfo="none", hovertemplate="%{label}<br>%{value} records<br>%{percent}")
     fig.update_layout(height=360, margin=dict(l=10, r=10, t=10, b=10), showlegend=True)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def _render_expression_panel(df: pd.DataFrame) -> None:
@@ -622,7 +622,7 @@ def _render_expression_panel(df: pd.DataFrame) -> None:
     )
     fig.update_xaxes(type="log")
     fig.update_layout(height=360, margin=dict(l=10, r=10, t=10, b=10), coloraxis_showscale=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def _render_qc_panel(df: pd.DataFrame) -> None:
@@ -664,7 +664,7 @@ def _render_qc_panel(df: pd.DataFrame) -> None:
         yaxis=dict(showticklabels=False),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     mini = [{"title": str(row["qc_status"]), "note": f"{int(row['n'])} samples | {row['fraction']:.1%}"} for _, row in df.iterrows()]
     render_mini_cards(mini)
 
@@ -738,7 +738,7 @@ def display_database_overview():
         ]
         for idx, (label, target) in enumerate(buttons):
             with quick_cols[idx % 2]:
-                if st.button(label, key=f"overview_jump_{target}", use_container_width=True):
+                if st.button(label, key=f"overview_jump_{target}", width="stretch"):
                     st.session_state.page = target
                     st.rerun()
     with col6:

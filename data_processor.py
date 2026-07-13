@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import io
 import json
+import logging
 import sqlite3
 from typing import Any, Dict, List, Tuple
 
@@ -15,6 +16,9 @@ import pandas as pd
 
 from core.gene_utils import guess_gene_id_type
 from data.qc import compute_cohort_qc, compute_sample_qc as qc_compute_sample_qc, grade_sample_qc
+
+
+logger = logging.getLogger(__name__)
 
 
 class DataProcessor:
@@ -50,7 +54,9 @@ class DataProcessor:
         self.db_path = db_path
 
     def _get_conn(self):
-        return sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON")
+        return conn
 
     def parse_expression_file(self, file_content: Any, file_format: str = "csv") -> pd.DataFrame:
         try:
@@ -224,48 +230,114 @@ class DataProcessor:
             cursor = conn.cursor()
             cursor.execute("PRAGMA table_info(cfrna_samples)")
             cols = {row[1] for row in cursor.fetchall()}
-            payload = {
-                "sample_id": metadata.get("sample_id"),
-                "subject_id": metadata.get("subject_id"),
-                "species": metadata.get("species"),
-                "age_years": metadata.get("age_years"),
-                "sex": metadata.get("sex"),
-                "diagnosis": metadata.get("diagnosis"),
-                "csf_volume_ml": metadata.get("csf_volume_ml"),
-                "collection_date": metadata.get("collection_date"),
-                "extraction_method": metadata.get("extraction_method"),
-                "rna_concentration_ng_ul": metadata.get("rna_concentration_ng_ul"),
-                "rin_value": metadata.get("rin_value"),
-                "library_preparation": metadata.get("library_preparation"),
-                "sequencing_platform": metadata.get("sequencing_platform"),
-                "total_reads": metadata.get("total_reads"),
-                "mapped_reads": metadata.get("mapped_reads"),
-                "mapping_rate": metadata.get("mapping_rate"),
-                "qc_status": metadata.get("qc_status", "Pending"),
-                "metadata": json.dumps(metadata, ensure_ascii=False),
-            }
-            extras = {
-                "plasma_volume_ml": metadata.get("plasma_volume_ml"),
-                "sample_type": metadata.get("sample_type", "plasma"),
-                "gene_id_type": metadata.get("gene_id_type"),
-                "brain_traceability": metadata.get("brain_traceability"),
-                "post_op_day": metadata.get("post_op_day"),
-                "surgery_region": metadata.get("surgery_region"),
-                "surgery_side": metadata.get("surgery_side"),
-            }
-            for k, v in extras.items():
-                if k in cols:
-                    payload[k] = v
-            cols_to_insert = list(payload.keys())
-            values = [payload[c] for c in cols_to_insert]
-            cursor.execute(
-                f"INSERT OR REPLACE INTO cfrna_samples ({', '.join(cols_to_insert)}) VALUES ({','.join(['?'] * len(cols_to_insert))})",
-                values,
-            )
+            payload = self._sample_metadata_payload(metadata, cols)
+            self._upsert_sample_metadata(cursor, payload)
             conn.commit()
         return metadata.get("sample_id")
 
-    def save_expression_data(self, sample_id: str, df: pd.DataFrame):
+    @staticmethod
+    def _sample_metadata_payload(metadata: Dict, available_columns: set[str]) -> Dict:
+        payload = {
+            "sample_id": metadata.get("sample_id"),
+            "subject_id": metadata.get("subject_id"),
+            "species": metadata.get("species"),
+            "age_years": metadata.get("age_years"),
+            "sex": metadata.get("sex"),
+            "diagnosis": metadata.get("diagnosis"),
+            "csf_volume_ml": metadata.get("csf_volume_ml"),
+            "collection_date": metadata.get("collection_date"),
+            "extraction_method": metadata.get("extraction_method"),
+            "rna_concentration_ng_ul": metadata.get("rna_concentration_ng_ul"),
+            "rin_value": metadata.get("rin_value"),
+            "library_preparation": metadata.get("library_preparation"),
+            "sequencing_platform": metadata.get("sequencing_platform"),
+            "total_reads": metadata.get("total_reads"),
+            "mapped_reads": metadata.get("mapped_reads"),
+            "mapping_rate": metadata.get("mapping_rate"),
+            "qc_status": metadata.get("qc_status", "Pending"),
+            "metadata": json.dumps(metadata, ensure_ascii=False),
+        }
+        extras = {
+            "plasma_volume_ml": metadata.get("plasma_volume_ml"),
+            "sample_type": metadata.get("sample_type", "plasma"),
+            "gene_id_type": metadata.get("gene_id_type"),
+            "brain_traceability": metadata.get("brain_traceability"),
+            "post_op_day": metadata.get("post_op_day"),
+            "surgery_region": metadata.get("surgery_region"),
+            "surgery_side": metadata.get("surgery_side"),
+        }
+        for key, value in extras.items():
+            if key in available_columns:
+                payload[key] = value
+        return {key: value for key, value in payload.items() if key in available_columns}
+
+    @staticmethod
+    def _upsert_sample_metadata(conn: sqlite3.Connection | sqlite3.Cursor, payload: Dict) -> None:
+        columns = list(payload)
+        if "sample_id" not in columns or not payload.get("sample_id"):
+            raise ValueError("sample_id is required")
+        update_columns = [column for column in columns if column != "sample_id"]
+        update_sql = ", ".join(f"{column}=excluded.{column}" for column in update_columns)
+        sql = (
+            f"INSERT INTO cfrna_samples ({', '.join(columns)}) "
+            f"VALUES ({', '.join(['?'] * len(columns))}) "
+            f"ON CONFLICT(sample_id) DO UPDATE SET {update_sql}"
+        )
+        conn.execute(sql, [payload[column] for column in columns])
+
+    def save_sample_with_expression(self, metadata: Dict, df: pd.DataFrame) -> str:
+        """Atomically replace one sample's metadata and expression matrix."""
+        sample_id = str(metadata.get("sample_id") or "").strip()
+        if not sample_id:
+            raise ValueError("sample_id is required")
+
+        expression = df.copy()
+        required = {"gene_symbol", "tpm_value", "detected"}
+        missing = sorted(required.difference(expression.columns))
+        if missing:
+            raise ValueError(f"Expression data is missing required columns: {', '.join(missing)}")
+        expression["sample_id"] = sample_id
+
+        conn = self._get_conn()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            sample_columns = {row[1] for row in conn.execute("PRAGMA table_info(cfrna_samples)").fetchall()}
+            expression_columns = {row[1] for row in conn.execute("PRAGMA table_info(cfrna_expression)").fetchall()}
+
+            payload = self._sample_metadata_payload(metadata, sample_columns)
+            self._upsert_sample_metadata(conn, payload)
+
+            columns_to_save = ["sample_id", "gene_symbol", "tpm_value", "detected"]
+            for optional in ["read_count", "log_tpm", "zscore_tpm", "gene_id_type", "expression_unit"]:
+                if optional in expression_columns and optional in expression.columns:
+                    columns_to_save.append(optional)
+
+            conn.execute("DELETE FROM cfrna_expression WHERE sample_id = ?", (sample_id,))
+            placeholders = ", ".join(["?"] * len(columns_to_save))
+            insert_sql = (
+                f"INSERT INTO cfrna_expression ({', '.join(columns_to_save)}) "
+                f"VALUES ({placeholders})"
+            )
+
+            def sqlite_value(value):
+                if pd.isna(value):
+                    return None
+                return value.item() if isinstance(value, np.generic) else value
+
+            rows = (
+                tuple(sqlite_value(value) for value in row)
+                for row in expression[columns_to_save].itertuples(index=False, name=None)
+            )
+            conn.executemany(insert_sql, rows)
+            conn.commit()
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            conn.close()
+        return sample_id
+
+    def save_expression_data(self, sample_id: str, df: pd.DataFrame, *, run_qc: bool = True):
         df = df.copy()
         df["sample_id"] = sample_id
         with self._get_conn() as conn:
@@ -283,6 +355,11 @@ class DataProcessor:
             df[columns_to_save].to_sql("cfrna_expression", conn, if_exists="append", index=False)
             conn.commit()
 
+        # Legacy marker-panel QC remains available to existing callers, but can be
+        # disabled by the current upload workflow because it is not part of the
+        # manuscript tracing route and is not calibrated for a single new sample.
+        if not run_qc:
+            return
         try:
             qc = self.compute_sample_qc(df)
             self.save_sample_qc(sample_id, qc)
@@ -295,7 +372,7 @@ class DataProcessor:
                 )
                 conn2.commit()
         except Exception:
-            pass
+            logger.exception("Legacy sample QC failed after expression storage for sample_id=%s", sample_id)
 
     def get_sample_expression(self, sample_id: str) -> pd.DataFrame:
         with self._get_conn() as conn:
@@ -326,11 +403,20 @@ class DataProcessor:
         return info
 
     def get_all_samples(self) -> pd.DataFrame:
-        with self._get_conn() as conn:
+        conn = self._get_conn()
+        try:
+            columns = ["sample_id", "subject_id", "species", "diagnosis", "collection_date", "qc_status"]
+            has_samples_table = conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'cfrna_samples'"
+            ).fetchone()
+            if not has_samples_table:
+                return pd.DataFrame(columns=columns)
             return pd.read_sql_query(
-                "SELECT sample_id, subject_id, species, diagnosis, collection_date, qc_status FROM cfrna_samples ORDER BY collection_date DESC",
+                f"SELECT {', '.join(columns)} FROM cfrna_samples ORDER BY collection_date DESC",
                 conn,
             )
+        finally:
+            conn.close()
 
     def compute_database_cohort_qc(self) -> pd.DataFrame:
         samples_df = self.get_all_samples()

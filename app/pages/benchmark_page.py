@@ -165,7 +165,7 @@ def _render_qc_overview(processor) -> None:
                 "interpretation",
             ]
         ],
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
@@ -214,7 +214,7 @@ def display_benchmark_page() -> None:
                 {tr("指标", "Metric"): "Failure mode", tr("说明", "Description"): tr("拆解主要错误来源，例如低 overlap、低 margin 或错误 Top1。", "Breaks down major failure patterns such as low overlap, low margin or wrong Top1.")},
             ]
         )
-        st.dataframe(guide, use_container_width=True, hide_index=True)
+        st.dataframe(guide, width="stretch", hide_index=True)
 
     method = st.selectbox(tr("评估方法", "Evaluation method"), method_choices(), format_func=lambda m: f"{m} - {METHOD_SPECS[m].label}", index=0)
     k = st.slider("Top-K", 1, 10, 3)
@@ -269,7 +269,7 @@ def display_benchmark_page() -> None:
         st.session_state["benchmark_suite_meta"] = None
 
     st.markdown(f'<div class="action-zone">{tr("操作区：运行 Benchmark", "Action zone: run Benchmark")}</div>', unsafe_allow_html=True)
-    if st.button(tr("运行论文级 Benchmark", "Run paper-grade Benchmark"), type="primary", use_container_width=True):
+    if st.button(tr("运行论文级 Benchmark", "Run paper-grade Benchmark"), type="primary", width="stretch"):
         with st.spinner(tr("正在运行 Benchmark，请稍候...", "Running Benchmark, please wait...")):
             try:
                 from benchmark_runner import auto_tune_ensemble_weights, default_label_extractor, run_paper_grade_benchmark_suite
@@ -394,13 +394,13 @@ def display_benchmark_page() -> None:
         )
     if grid_df is not None and isinstance(grid_df, pd.DataFrame) and not grid_df.empty:
         with st.expander(tr("自动调参网格结果（Top 20）", "Auto-tuning grid results (Top 20)"), expanded=False):
-            st.dataframe(grid_df.head(20).replace({np.nan: None}), use_container_width=True, hide_index=True)
+            st.dataframe(grid_df.head(20).replace({np.nan: None}), width="stretch", hide_index=True)
 
     render_section_band(tr("Benchmark 总结", "Benchmark Summary"), tr("核心指标、参数快照和论文级阅读顺序集中展示。", "Core metrics, parameter snapshot and paper-style reading order in one place."))
     left, right = st.columns([0.92, 1.08])
     with left:
         render_panel_header(tr("核心指标表", "Core metrics table"), tr("适合用于汇报或参数组间比较。", "Useful for reporting and side-by-side parameter comparison."))
-        st.dataframe(metrics_df.replace({np.nan: None}), use_container_width=True, hide_index=True)
+        st.dataframe(metrics_df.replace({np.nan: None}), width="stretch", hide_index=True)
     with right:
         render_panel_header(tr("参数快照", "Parameter snapshot"), tr("保留本次运行的关键设置。", "Captures the key settings used in this run."))
         st.code(_json.dumps(meta, ensure_ascii=False, indent=2), language="json")
@@ -418,7 +418,7 @@ def display_benchmark_page() -> None:
     ).replace({np.nan: 0.0})
     fig = px.bar(hit_df, x="metric", y="value", title=tr("核心性能摘要图", "Publish-grade summary metrics"), color_discrete_sequence=["#2f6df6"])
     fig.update_layout(yaxis=dict(range=[0, 1]), height=360, margin=dict(l=10, r=10, t=60, b=10))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     _render_explanation_box("Top1 / TopK", "accuracy", insights)
 
     st.markdown("### 1. Confusion Matrix")
@@ -429,12 +429,12 @@ def display_benchmark_page() -> None:
         if conf_norm is not None and not conf_norm.empty:
             fig = px.imshow(conf_norm, text_auto=".2f", aspect="auto", color_continuous_scale=["#eef4ff", "#9fc0ff", "#2f6df6"])
             fig.update_layout(height=620, margin=dict(l=10, r=10, t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
     with t2:
         if conf_raw is not None and not conf_raw.empty:
             fig = px.imshow(conf_raw, text_auto=True, aspect="auto", color_continuous_scale=["#eef4ff", "#9fc0ff", "#2f6df6"])
             fig.update_layout(height=620, margin=dict(l=10, r=10, t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
     _render_explanation_box("Confusion Matrix", "confusion", insights)
 
     st.markdown("### 2. Rank Distribution")
@@ -454,7 +454,7 @@ def display_benchmark_page() -> None:
             counts.columns = ["true_rank", "n_samples"]
             fig = px.bar(counts, x="true_rank", y="n_samples", text="n_samples", color_discrete_sequence=["#2f6df6"])
             fig.update_layout(height=400, margin=dict(l=10, r=10, t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
     _render_explanation_box("Rank Distribution", "rank", insights)
 
     st.markdown("### 3. ROC / AUC")
@@ -463,10 +463,10 @@ def display_benchmark_page() -> None:
         fig = px.line(roc_curve_df, x="fpr", y="tpr", color="region_id", color_discrete_sequence=px.colors.qualitative.Set2)
         fig.add_shape(type="line", x0=0, y0=0, x1=1, y1=1, line=dict(dash="dash", color="#94a3b8"))
         fig.update_layout(height=560, margin=dict(l=10, r=10, t=40, b=10))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     roc_summary_df = suite.get("roc_summary_df", pd.DataFrame())
     if roc_summary_df is not None and not roc_summary_df.empty:
-        st.dataframe(roc_summary_df.replace({np.nan: None}), use_container_width=True, hide_index=True)
+        st.dataframe(roc_summary_df.replace({np.nan: None}), width="stretch", hide_index=True)
     _render_explanation_box("ROC / AUC", "roc", insights)
 
     st.markdown("### 4. Confidence / Margin")
@@ -478,7 +478,7 @@ def display_benchmark_page() -> None:
             long_df["prediction"] = np.where(long_df.get("hit1", 0).astype(int) == 1, tr("Top1 正确", "Top1 correct"), tr("Top1 错误", "Top1 wrong"))
             fig = px.box(long_df, x="metric", y="value", color="prediction", points="all", color_discrete_sequence=["#1f9d75", "#d43f56"])
             fig.update_layout(height=440, margin=dict(l=10, r=10, t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
     _render_explanation_box("Confidence / Margin", "confidence_margin", insights)
 
     st.markdown("### 5. Bootstrap Stability")
@@ -488,11 +488,11 @@ def display_benchmark_page() -> None:
         if not valid.empty and not valid["top1_stability"].isna().all():
             fig = px.scatter(valid, x="top1_stability", y="top1_confidence", color="label", symbol="hit1")
             fig.update_layout(height=520, margin=dict(l=10, r=10, t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
         if stability_bin_df is not None and not stability_bin_df.empty:
             fig2 = px.bar(stability_bin_df, x="stability_bin", y="top1_acc", text="n_samples", color_discrete_sequence=["#74a1ff"])
             fig2.update_layout(yaxis=dict(range=[0, 1]), height=360, margin=dict(l=10, r=10, t=40, b=10))
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width="stretch")
     _render_explanation_box("Bootstrap Stability", "stability", insights)
 
     st.markdown("### 6. Failure Mode")
@@ -516,12 +516,12 @@ def display_benchmark_page() -> None:
         failure_df["fraction"] = failure_df["n_samples"] / max(int(failure_df["n_samples"].sum()), 1)
         fig = px.bar(failure_df, x="failure_mode", y="fraction", text="n_samples", color_discrete_sequence=["#7a9ef8"])
         fig.update_layout(height=420, margin=dict(l=10, r=10, t=40, b=10), xaxis_tickangle=-18, yaxis=dict(range=[0, 1]))
-        st.plotly_chart(fig, use_container_width=True)
-        st.dataframe(failure_df, use_container_width=True, hide_index=True)
+        st.plotly_chart(fig, width="stretch")
+        st.dataframe(failure_df, width="stretch", hide_index=True)
     _render_explanation_box("Failure Mode", "failure", insights)
 
     st.markdown(f"### {tr('样本级明细', 'Sample-level details')}")
-    st.dataframe(detail_df.replace({np.nan: None}), use_container_width=True, hide_index=True)
+    st.dataframe(detail_df.replace({np.nan: None}), width="stretch", hide_index=True)
 
     render_section_band(tr("适合写入论文结果的总结", "Paper-style result summary"), tr("可直接作为论文 Results 或补充说明的起点。", "Can serve as a starting point for manuscript Results or supplementary text."))
     st.markdown(f"**{tr('性能总结', 'Performance summary')}**")

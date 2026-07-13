@@ -7,8 +7,8 @@ from app.i18n import tr
 
 DATABASE_MODES = {
     "rhesus": {
-        "zh": "猕猴血浆cfRNA损伤溯源数据库",
-        "en": "Macaque Plasma cfRNA Injury Tracing Database",
+        "zh": "cfRNA-BrainTrace",
+        "en": "cfRNA-BrainTrace",
         "species_tokens": ["rhesus", "macaca", "macaque", "macaca mulatta", "macaca fascicularis"],
         "default_species": "Macaca mulatta",
     },
@@ -60,6 +60,6 @@ def mode_ready_message(mode: str | None = None) -> str:
             "The workspace is now in Human Brain Transcriptome Atlas mode and prioritizes Homo sapiens atlases, samples and analysis outputs.",
         )
     return tr(
-        "当前已切换到猕猴血浆cfRNA损伤溯源数据库模式，页面会优先展示猕猴相关 atlas、样本和分析结果。",
-        "The workspace is now in Macaque Plasma cfRNA Injury Tracing Database mode and will prioritize macaque-related atlases, samples and analysis outputs.",
+        "当前为 cfRNA-BrainTrace 工作区。",
+        "Current workspace: cfRNA-BrainTrace.",
     )

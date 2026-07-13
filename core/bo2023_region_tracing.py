@@ -35,8 +35,10 @@ DEFAULT_PACKAGED_REGION_REFERENCE = (
     ROOT
     / "data"
     / "models"
-    / "bo2023_region_logcpm_reference_matrix.npz"
+    / "bo2023_formal_region_logcpm_reference_matrix.npz"
 )
+LEGACY_PACKAGED_REGION_REFERENCE = ROOT / "data" / "models" / "bo2023_region_logcpm_reference_matrix.npz"
+DEFAULT_FORMAL_BEAM_GENE_PANELS = ROOT / "data" / "models" / "bo2023_formal_region_beam_gene_panels.json"
 DEFAULT_FORMAL_THREE_TIER_SUMMARY = (
     ROOT
     / "results"
@@ -81,14 +83,20 @@ def _load_raw_logcpm_reference_matrix(
         return pd.DataFrame(), {}, "raw_logcpm_no_metadata_sample_overlap"
 
     logcpm = compute_logcpm(counts.loc[:, samples])
-    region_series = metadata.loc[samples, "region_id"].astype(str)
-    region_network: dict[str, str] = {}
-    for region, rows in metadata.loc[samples].groupby("region_id"):
-        networks = sorted(rows["network_id"].astype(str).dropna().unique().tolist())
-        if len(networks) == 1:
-            region_network[str(region)] = networks[0]
+    sample_metadata = metadata.loc[samples].copy()
+    sample_metadata["region_key"] = (
+        sample_metadata["network_id"].astype(str) + "::" + sample_metadata["region_id"].astype(str)
+    )
+    region_series = sample_metadata["region_key"].astype(str)
+    region_network = (
+        sample_metadata.reset_index()
+        .drop_duplicates("region_key")
+        .set_index("region_key")["network_id"]
+        .astype(str)
+        .to_dict()
+    )
 
-    region_matrix = logcpm.T.assign(region_id=region_series.to_numpy()).groupby("region_id").mean().T
+    region_matrix = logcpm.T.assign(region_key=region_series.to_numpy()).groupby("region_key").mean().T
     region_matrix.index = region_matrix.index.astype(str)
     region_matrix.columns = region_matrix.columns.astype(str)
     region_matrix = region_matrix.loc[region_matrix.abs().sum(axis=1) > 0].sort_index()
@@ -106,14 +114,21 @@ def _load_packaged_region_reference_matrix(
         genes = payload["genes"].astype(str)
         regions = payload["regions"].astype(str)
         matrix = pd.DataFrame(payload["matrix"].astype("float32"), index=genes, columns=regions)
-        region_network = {
-            str(region): str(network)
-            for region, network in zip(
-                payload["region_network_regions"].astype(str),
-                payload["region_network_networks"].astype(str),
-            )
-            if str(region).strip() and str(network).strip()
-        }
+        if "networks" in payload.files:
+            region_network = {
+                str(region): str(network)
+                for region, network in zip(regions, payload["networks"].astype(str))
+                if str(region).strip() and str(network).strip()
+            }
+        else:
+            region_network = {
+                str(region): str(network)
+                for region, network in zip(
+                    payload["region_network_regions"].astype(str),
+                    payload["region_network_networks"].astype(str),
+                )
+                if str(region).strip() and str(network).strip()
+            }
     except Exception:
         return pd.DataFrame(), {}, "packaged_region_reference_unreadable"
     matrix.index = matrix.index.astype(str)
@@ -182,7 +197,36 @@ def _load_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame, d
     matrix, region_network, source = _load_packaged_region_reference_matrix()
     if not matrix.empty and region_network:
         return matrix, region_network, source
+    matrix, region_network, source = _load_packaged_region_reference_matrix(LEGACY_PACKAGED_REGION_REFERENCE)
+    if not matrix.empty and region_network:
+        return matrix, region_network, source
     return _load_db_reference_matrix(db_path, atlas_id)
+
+
+@lru_cache(maxsize=2)
+def _load_formal_beam_gene_panels(path: Path = DEFAULT_FORMAL_BEAM_GENE_PANELS) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("beams", {})
+    except Exception:
+        return {}
+
+
+def _formal_beam_gene_order(
+    overlap_genes: pd.Index,
+    top_networks: list[str],
+    fallback_reference: np.ndarray,
+    max_genes: int,
+) -> tuple[np.ndarray, str]:
+    beam_key = "||".join(sorted(top_networks[:3]))
+    panel = _load_formal_beam_gene_panels().get(beam_key, {})
+    panel_genes = [str(gene) for gene in panel.get("genes", [])]
+    positions = {str(gene): idx for idx, gene in enumerate(overlap_genes.astype(str))}
+    rows = [positions[gene] for gene in panel_genes if gene in positions]
+    if rows:
+        return np.asarray(rows[:max_genes], dtype=int), "full_fit_fisher_top200_beam_panel"
+    return _candidate_gene_order(fallback_reference, max_genes=max_genes), "centroid_variability_fallback"
 
 
 def _candidate_gene_order(reference: np.ndarray, max_genes: int) -> np.ndarray:
@@ -255,14 +299,18 @@ def _resolution_entry(
     model: dict[str, Any],
     region: str,
     region_network: dict[str, str],
+    beam_annotations: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    if beam_annotations and region in beam_annotations:
+        return beam_annotations[region]
     network = str(region_network.get(region, ""))
-    entry = model.get("entries", {}).get(f"{network}||{region}") if model else None
+    display_region = region.split("::", 1)[1] if "::" in region else region
+    entry = model.get("entries", {}).get(f"{network}||{display_region}") if model else None
     if not entry:
         return {
             "resolution_tier": "low_resolution",
-            "resolution_group": region,
-            "group_members": [region],
+            "resolution_group": display_region,
+            "group_members": [display_region],
             "resolution_reasons": ["outside_region_resolution_model"],
             "group_plausibility_tier": "not_calibrated",
             "group_calibration_flags": [],
@@ -271,60 +319,50 @@ def _resolution_entry(
 
 
 def _rank_resolution_groups(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Return distinct groups in the formal Top200 region-correlation order.
+
+    The locked internal validators rank regions for the resolution-group endpoint
+    with the full local Top200 panel and then keep the first occurrence of each
+    resolution group.  Group scores must not be aggregated from exact-region
+    fusion scores, because that defines a different endpoint.
+    """
     groups: dict[str, dict[str, Any]] = {}
     for row in rows:
         group = str(row.get("resolution_group", row["region_id"]))
-        item = groups.setdefault(
-            group,
-            {
-                "resolution_group": group,
-                "best_region_id": row["region_id"],
-                "group_members": row.get("resolution_group_members", row["region_id"]),
-                "member_region_ids": [],
-                "member_scores": [],
-                "resolution_tier": row.get("resolution_tier", "low_resolution"),
-                "manual_review_recommended": bool(row.get("manual_review_recommended", True)),
-                "group_plausibility_tier": row.get("group_plausibility_tier", "not_calibrated"),
-            },
-        )
-        item["member_region_ids"].append(row["region_id"])
-        item["member_scores"].append(float(row["exact_local_score"]))
-        item["manual_review_recommended"] = bool(item["manual_review_recommended"]) or bool(row.get("manual_review_recommended", True))
-        if float(row["exact_local_score"]) > max(item["member_scores"][:-1] or [float("-inf")]):
-            item["best_region_id"] = row["region_id"]
-            item["resolution_tier"] = row.get("resolution_tier", "low_resolution")
-            item["group_plausibility_tier"] = row.get("group_plausibility_tier", "not_calibrated")
+        if group in groups:
+            groups[group]["member_region_ids"].append(row["region_id"])
+            groups[group]["n_returned_group_members"] += 1
+            groups[group]["manual_review_recommended"] = bool(
+                groups[group]["manual_review_recommended"]
+            ) or bool(row.get("manual_review_recommended", True))
+            continue
+        groups[group] = {
+            "resolution_group": group,
+            "best_region_id": row["region_id"],
+            "group_members": row.get("resolution_group_members", row["region_id"]),
+            "member_region_ids": [row["region_id"]],
+            "group_score": float(row["group_local_score"]),
+            "n_returned_group_members": 1,
+            "resolution_tier": row.get("resolution_tier", "low_resolution"),
+            "manual_review_recommended": bool(row.get("manual_review_recommended", True)),
+            "group_plausibility_tier": row.get("group_plausibility_tier", "not_calibrated"),
+        }
 
-    group_rows = []
-    for item in groups.values():
-        scores = item.pop("member_scores")
-        group_score = float(max(scores) + 0.10 * np.mean(scores))
-        item["group_score"] = group_score
-        item["mean_member_score"] = float(np.mean(scores))
-        item["n_returned_group_members"] = int(len(scores))
-        group_rows.append(item)
-    group_rows.sort(key=lambda row: float(row["group_score"]), reverse=True)
+    group_rows = list(groups.values())
     for rank, row in enumerate(group_rows, start=1):
         row["rank"] = int(rank)
     return group_rows
 
 
-def _apply_group_first_order(rows: list[dict[str, Any]], group_rows: list[dict[str, Any]], topk: int) -> list[dict[str, Any]]:
-    group_rank = {row["resolution_group"]: int(row["rank"]) for row in group_rows}
-    group_score = {row["resolution_group"]: float(row["group_score"]) for row in group_rows}
-    ordered = sorted(
-        rows,
-        key=lambda row: (group_rank.get(str(row.get("resolution_group")), 9999), -float(row["exact_local_score"])),
-    )
+def _rank_exact_regions(rows: list[dict[str, Any]], topk: int) -> list[dict[str, Any]]:
+    """Rank exact regions only by the locked Top50/Top100 fusion score."""
+    ordered = sorted(rows, key=lambda row: float(row["exact_local_score"]), reverse=True)
     final_scores = np.asarray([float(row["exact_local_score"]) for row in ordered], dtype=float)
     confidence = softmax_confidence(final_scores) if len(final_scores) else np.array([], dtype=float)
     for rank, row in enumerate(ordered[: max(1, int(topk))], start=1):
-        group = str(row.get("resolution_group"))
         row["rank"] = int(rank)
         row["score"] = float(row["exact_local_score"])
         row["confidence"] = float(confidence[rank - 1]) if rank - 1 < len(confidence) else 0.0
-        row["resolution_group_rank"] = int(group_rank.get(group, 9999))
-        row["resolution_group_score"] = float(group_score.get(group, float("nan")))
     return ordered[: max(1, int(topk))]
 
 
@@ -399,25 +437,41 @@ def trace_bo2023_secondary_regions(
             },
         }
 
-    candidate_matrix = matrix.loc[overlap_genes, candidate_regions].to_numpy(dtype=float)
-    vector = series.reindex(overlap_genes).fillna(0.0).to_numpy(dtype=float)
-    gene_order = _candidate_gene_order(candidate_matrix, max_genes=local_top_n_genes)
+    # The formal external validators reindex every query to the complete locked
+    # Bo2023 panel and encode absent genes as zero.  Preserve that behavior here;
+    # ``overlap_genes`` remains an input-coverage diagnostic only.
+    scoring_genes = matrix.index
+    candidate_matrix = matrix.loc[scoring_genes, candidate_regions].to_numpy(dtype=float)
+    vector = series.reindex(scoring_genes).fillna(0.0).to_numpy(dtype=float)
+    gene_order, gene_selection_source = _formal_beam_gene_order(
+        scoring_genes,
+        top_networks,
+        candidate_matrix,
+        max_genes=local_top_n_genes,
+    )
     rows50 = gene_order[: min(50, len(gene_order))]
     rows100 = gene_order[: min(100, len(gene_order))]
     scores50 = trace_corr(candidate_matrix[rows50, :], vector[rows50])
     scores100 = trace_corr(candidate_matrix[rows100, :], vector[rows100])
+    group_scores = trace_corr(candidate_matrix[gene_order, :], vector[gene_order])
     fused = float(top50_weight) * _zscore(scores50) + (1.0 - float(top50_weight)) * _zscore(scores100)
     model = load_region_resolution_model()
+    beam_key = "||".join(sorted(top_networks[:3]))
+    beam_annotations = _load_formal_beam_gene_panels().get(beam_key, {}).get("annotations", {})
     rows = []
     for idx in np.argsort(fused)[::-1].tolist():
-        region = candidate_regions[int(idx)]
-        entry = _resolution_entry(model, region, region_network)
+        region_key = candidate_regions[int(idx)]
+        network = region_network.get(region_key)
+        region = region_key.split("::", 1)[1] if "::" in region_key else region_key
+        entry = _resolution_entry(model, region_key, region_network, beam_annotations)
         group_members = [str(x) for x in entry.get("group_members", [region])]
         rows.append(
             {
                 "region_id": region,
-                "network_id": region_network.get(region),
+                "region_key": region_key,
+                "network_id": network,
                 "exact_local_score": float(fused[int(idx)]),
+                "group_local_score": float(group_scores[int(idx)]),
                 "top50_corr_component": float(scores50[int(idx)]),
                 "top100_corr_component": float(scores100[int(idx)]),
                 "resolution_tier": str(entry.get("resolution_tier", "low_resolution")),
@@ -429,8 +483,9 @@ def trace_bo2023_secondary_regions(
                 "manual_review_recommended": str(entry.get("resolution_tier", "low_resolution")) == "low_resolution",
             }
         )
-    group_rows = _rank_resolution_groups(rows)
-    rows = _apply_group_first_order(rows, group_rows, topk)
+    group_ranked_rows = sorted(rows, key=lambda row: float(row["group_local_score"]), reverse=True)
+    group_rows = _rank_resolution_groups(group_ranked_rows)
+    rows = _rank_exact_regions(rows, topk)
     top = rows[0] if rows else {}
     return {
         "results": rows,
@@ -450,6 +505,7 @@ def trace_bo2023_secondary_regions(
             "n_reference_genes": int(matrix.shape[0]),
             "n_overlap_genes": int(len(overlap_genes)),
             "n_local_candidate_genes": int(len(gene_order)),
+            "local_gene_selection_source": gene_selection_source,
             "n_scoring_genes_top50": int(len(rows50)),
             "n_scoring_genes_top100": int(len(rows100)),
             "top50_weight": float(top50_weight),
@@ -466,8 +522,8 @@ def trace_bo2023_secondary_regions(
                 "top1_group_members": top.get("resolution_group_members"),
                 "top1_group_plausibility_tier": top.get("group_plausibility_tier"),
                 "manual_review_recommended": bool(top.get("manual_review_recommended", False)),
-                "interpretation": "Resolution group ranking is an active stage before exact-region reranking.",
-                "group_ranking_method": "best_exact_local_score_plus_0p10_mean_returned_member_score",
+                "interpretation": "Resolution-group and exact-region rankings are independent locked endpoints.",
+                "group_ranking_method": "distinct_groups_from_local_top200_region_correlation",
                 "group_ranking": group_rows[:10],
             },
             "full_loso_validation": _validation_metrics(),

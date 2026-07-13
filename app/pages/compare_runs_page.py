@@ -110,7 +110,7 @@ def display_run_compare():
             tr("Run 对比矩阵", "Run Comparison Matrix"),
             tr("宽表结构便于直接比较每个脑区在不同 Run 中的数值。", "Wide-format view of brain-region metrics across selected runs."),
         )
-        st.dataframe(pivot, use_container_width=True)
+        st.dataframe(pivot, width="stretch")
     with col_plot:
         render_panel_header(
             tr("得分对比图", "Score Comparison Plot"),
@@ -127,4 +127,4 @@ def display_run_compare():
             color_discrete_sequence=["#2f6df6", "#74a1ff", "#7cd6c1", "#d9c4ff", "#f2b447"],
         )
         fig.update_layout(height=min(860, 38 * (plot_df["region_id"].nunique() + 5)), margin=dict(l=10, r=10, t=10, b=10))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")

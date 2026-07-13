@@ -44,8 +44,8 @@ from scripts.run_bo2023_leave_one_monkey_out_validation import build_region_refe
 DEFAULT_ZIP_DIR = ROOT / "data" / "ahba_human_rnaseq" / "raw_zips"
 DEFAULT_PROJECTOR = (
     ROOT
-    / "results"
-    / "bo2023_reference_projection_20260616_cleaned_symbols"
+    / "data"
+    / "models"
     / "bo2023_reference_projector_linear_full.npz"
 )
 DEFAULT_OUTDIR = (
@@ -423,8 +423,13 @@ def main() -> int:
             scores100 = correlation_scores(reference, exact_sample, rows100)
             fused = args.exact_fusion_weight * zscore(scores50) + (1.0 - args.exact_fusion_weight) * zscore(scores100)
             ranked_regions = [candidates[i] for i in np.argsort(fused)[::-1].tolist()]
-            ranked_groups = distinct_ranked_groups(ranked_regions, annotations)
-            group_hit1, group_hit3, _, allowed_groups = group_hits(ranked_regions, annotations, allowed_region_keys)
+            group_scores = correlation_scores(reference, exact_sample, local_rows)
+            ranked_group_regions = [candidates[i] for i in np.argsort(group_scores)[::-1].tolist()]
+            group_hit1, group_hit3, ranked_groups, allowed_groups = group_hits(
+                ranked_group_regions,
+                annotations,
+                allowed_region_keys,
+            )
             padded_regions = pad(ranked_regions, 3)
             padded_groups = pad(ranked_groups, 3)
             pred_annotation = annotations[padded_regions[0]]
