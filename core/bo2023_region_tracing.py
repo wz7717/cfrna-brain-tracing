@@ -191,13 +191,16 @@ def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame
 
 
 def _load_reference_matrix(db_path: str, atlas_id: int | None) -> tuple[pd.DataFrame, dict[str, str], str]:
-    matrix, region_network, source = _load_raw_logcpm_reference_matrix()
-    if not matrix.empty and region_network:
-        return matrix, region_network, source
+    # Production inference must use the same committed bytes locally and in
+    # Streamlit Cloud. Raw Bo2023 inputs are intentionally not part of the
+    # public checkout and remain a reproducibility/development fallback only.
     matrix, region_network, source = _load_packaged_region_reference_matrix()
     if not matrix.empty and region_network:
         return matrix, region_network, source
     matrix, region_network, source = _load_packaged_region_reference_matrix(LEGACY_PACKAGED_REGION_REFERENCE)
+    if not matrix.empty and region_network:
+        return matrix, region_network, source
+    matrix, region_network, source = _load_raw_logcpm_reference_matrix()
     if not matrix.empty and region_network:
         return matrix, region_network, source
     if atlas_id is None:

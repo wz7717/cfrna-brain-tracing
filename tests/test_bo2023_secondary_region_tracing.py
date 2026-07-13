@@ -94,6 +94,30 @@ def test_bo2023_secondary_region_tracing_rejects_missing_network_beam():
     assert out["meta"]["traceability"] == "insufficient"
 
 
+def test_production_reference_prefers_committed_package_over_local_raw_inputs(monkeypatch):
+    packaged = pd.DataFrame({"N1::R1": [1.0]}, index=["GENE1"])
+    network_map = {"N1::R1": "N1"}
+
+    monkeypatch.setattr(
+        bo2023_region_tracing,
+        "_load_packaged_region_reference_matrix",
+        lambda *args, **kwargs: (packaged, network_map, "packaged_region_logcpm_reference"),
+    )
+    monkeypatch.setattr(
+        bo2023_region_tracing,
+        "_load_raw_logcpm_reference_matrix",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            AssertionError("production inference must not prefer workstation-only raw inputs")
+        ),
+    )
+
+    matrix, mapping, source = bo2023_region_tracing._load_reference_matrix("unused.db", None)  # noqa: SLF001
+
+    pd.testing.assert_frame_equal(matrix, packaged)
+    assert mapping == network_map
+    assert source == "packaged_region_logcpm_reference"
+
+
 def test_formal_group_and_exact_rankings_are_independent():
     rows = [
         {
