@@ -1,4 +1,0 @@
-﻿Endpoint,Paired n (donors),"LOSO donor-macro, % (bootstrap 95% CI)","LOMO donor-macro, % (bootstrap 95% CI)","Cluster-robust Δ, pp (95% CI)",Cluster-robust p raw / BH
-Network Top3,819 (9),89.69 (86.58-92.41),88.51 (85.85-90.98),0.98 (0.17-1.78),0.0230 / 0.0688
-Resolution-group Top3,812 (9),68.63 (64.55-73.26),67.14 (62.22-72.05),3.33 (-0.09-6.74),0.0552 / 0.0828
-Exact-region Top3,812 (9),42.19 (37.21-47.55),39.11 (33.09-43.80),2.96 (-1.87-7.79),0.1959 / 0.1959

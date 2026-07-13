@@ -1,4 +1,0 @@
-﻿Endpoint,"Top1, % (95% CI)","Top3, % (95% CI)",Evaluated n,Mapping note
-"Network, n=223",73.99 (67.86-79.31),94.62 (90.83-96.90),223,Allowed sets; not unique truth
-"Resolution group, n=88",40.91 (31.23-51.35),62.50 (52.06-71.89),88,Exact-mapped; Network-qualified
-"Exact region, n=88",23.86 (16.17-33.74),46.59 (36.53-56.94),88,Exact-mapped; Network-qualified

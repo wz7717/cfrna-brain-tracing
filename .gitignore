@@ -64,6 +64,14 @@ submission_package_*/
 submission_update_*/
 *Submission_Package_*.zip
 
+# Local-only manuscripts, reports, and development launchers
+/manuscript/
+/docs/
+/*.docx
+/Bioinformatics_Application_Note*.md
+/reference_audit_report*.md
+/start_streamlit.bat
+
 # Generated manuscript render directories and local dependencies
 manuscript/node_modules/
 manuscript/rendered_*/
