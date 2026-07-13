@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import io
-
 import streamlit as st
 
-from app.components.layout import render_kpi_cards, render_panel_header, render_section_band
+from app.components.layout import render_kpi_cards, render_panel_header
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
 from app.shared import init_processor, render_page_hero
@@ -15,11 +13,11 @@ def display_sample_list():
     render_page_hero(
         tr(f"{database_label(db_mode)} - 样本管理", f"{database_label(db_mode)} - Sample Management"),
         tr(
-            "查看已上传的血浆 cfRNA 样本，检查队列级 QC 校准结果，并在同一数据库工作区内完成样本管理。",
-            "Review uploaded plasma cfRNA samples, inspect cohort-level QC calibration, and perform careful sample-level management without leaving the database workspace.",
+            "查看已上传的 cfRNA 样本登记信息，并执行样本元数据核对与安全删除。",
+            "Review registered cfRNA samples, inspect stored metadata and safely remove records when needed.",
         ),
         eyebrow=tr("样本", "Samples"),
-        pills=[tr("样本注册表", "Sample registry"), tr("队列 QC", "Cohort QC"), tr("删除保护", "Deletion safeguards")],
+        pills=[tr("样本登记表", "Sample registry"), tr("元数据核对", "Metadata review"), tr("删除保护", "Deletion safeguards")],
     )
     processor = init_processor()
     samples_df = processor.get_all_samples()
@@ -37,79 +35,22 @@ def display_sample_list():
     render_kpi_cards(
         [
             {"icon": "SMP", "label": tr("样本数", "Stored Samples"), "value": f"{len(samples_df):,}", "note": tr("当前 cfrna_samples 中的记录数", "Rows currently indexed in cfrna_samples")},
-            {"icon": "SUB", "label": tr("个体数", "Subjects"), "value": f"{samples_df['subject_id'].astype(str).nunique():,}", "note": tr("去重后的个体标识数", "Distinct subject identifiers")},
-            {"icon": "QC", "label": tr("QC 状态数", "QC States"), "value": f"{samples_df['qc_status'].astype(str).nunique():,}", "note": tr("当前存在的 QC 标签种类", "Distinct QC labels currently present")},
+            {"icon": "SUB", "label": tr("已登记个体 ID 数", "Registered Subject IDs"), "value": f"{samples_df['subject_id'].dropna().astype(str).str.strip().replace('', None).dropna().nunique():,}", "note": tr("数据库中已登记并去重的个体 ID", "Distinct non-empty subject IDs stored in the database")},
         ]
     )
 
     st.markdown(f'<div class="result-zone">{tr("结果区：当前数据库样本列表", "Result zone: current sample registry")}</div>', unsafe_allow_html=True)
     st.dataframe(
-        samples_df,
-        use_container_width=True,
+        samples_df[["sample_id", "subject_id", "species", "diagnosis", "collection_date"]],
+        width="stretch",
         column_config={
             "sample_id": st.column_config.TextColumn(tr("样本 ID", "Sample ID")),
             "subject_id": st.column_config.TextColumn(tr("个体 ID", "Subject ID")),
             "species": st.column_config.TextColumn(tr("物种", "Species")),
             "diagnosis": st.column_config.TextColumn(tr("诊断", "Diagnosis")),
             "collection_date": st.column_config.TextColumn(tr("采样日期", "Collection date")),
-            "qc_status": st.column_config.TextColumn(tr("QC 状态", "QC status")),
         },
     )
-
-    st.markdown(f'<div class="parameter-zone">{tr("参数区：基于当前数据库样本执行 cohort QC 校准", "Parameter zone: run cohort QC calibration on current database samples")}</div>', unsafe_allow_html=True)
-    st.caption(
-        tr(
-            "这个操作会基于当前数据库中的样本重新计算 RBC、免疫背景和脑信号风险，不修改数据库结构。",
-            "This recalculates RBC, immune and brain marker risks from the current in-database sample cohort. It does not modify the database schema.",
-        )
-    )
-    if st.button(tr("运行当前数据库样本的 cohort QC 校准", "Run cohort QC calibration for current database samples"), key="run_database_cohort_qc", use_container_width=True):
-        qc_df = processor.compute_database_cohort_qc()
-        if qc_df.empty:
-            st.info(tr("当前没有可用于 cohort QC 校准的表达矩阵。", "No expression matrices are currently available for cohort QC calibration."))
-        else:
-            render_section_band(
-                tr("队列 QC 结果", "Cohort QC Results"),
-                tr("这些风险标记是基于队列分布的，分位数极端的样本值得优先复核。", "Risk flags are distribution-aware; percentile extremes deserve closer review."),
-            )
-            risk_filter = st.checkbox(tr("只看 Moderate / High risk 样本", "Only show Moderate/High risk samples"), value=False, key="cohort_qc_highrisk_only")
-            qc_view = qc_df.copy()
-            if risk_filter:
-                qc_view = qc_view[qc_view["overall_risk"].isin(["Moderate risk", "High risk"])].copy()
-                if qc_view.empty:
-                    st.info(tr("当前队列 QC 结果中没有 Moderate / High risk 样本。", "No Moderate/High risk samples are present in the current cohort QC result."))
-
-            st.dataframe(
-                qc_view,
-                use_container_width=True,
-                hide_index=True,
-                column_config={
-                    "sample_id": st.column_config.TextColumn(tr("样本 ID", "Sample ID")),
-                    "subject_id": st.column_config.TextColumn(tr("个体 ID", "Subject ID")),
-                    "overall_risk": st.column_config.TextColumn(tr("总体风险", "Overall risk")),
-                    "rbc_score": st.column_config.NumberColumn(tr("RBC 评分", "RBC score"), format="%.3f"),
-                    "rbc_percentile": st.column_config.NumberColumn(tr("RBC 分位数", "RBC percentile"), format="%.1f"),
-                    "rbc_risk": st.column_config.TextColumn(tr("RBC 风险", "RBC risk")),
-                    "immune_score": st.column_config.NumberColumn(tr("免疫评分", "Immune score"), format="%.3f"),
-                    "immune_percentile": st.column_config.NumberColumn(tr("免疫分位数", "Immune percentile"), format="%.1f"),
-                    "immune_risk": st.column_config.TextColumn(tr("免疫风险", "Immune risk")),
-                    "brain_score": st.column_config.NumberColumn(tr("脑信号评分", "Brain score"), format="%.3f"),
-                    "brain_percentile": st.column_config.NumberColumn(tr("脑信号分位数", "Brain percentile"), format="%.1f"),
-                    "brain_risk": st.column_config.TextColumn(tr("脑信号风险", "Brain risk")),
-                    "hemolysis_mirna_risk": st.column_config.TextColumn(tr("miRNA 溶血风险", "miRNA hemolysis")),
-                    "interpretation": st.column_config.TextColumn(tr("解释", "Interpretation")),
-                },
-            )
-
-            buf = io.BytesIO()
-            qc_view.to_csv(buf, index=False, encoding="utf-8-sig")
-            buf.seek(0)
-            st.download_button(
-                tr("下载 cohort QC CSV", "Download cohort QC CSV"),
-                buf.getvalue(),
-                file_name="cohort_qc_calibration_results.csv",
-                mime="text/csv",
-            )
 
     st.markdown(f'<div class="action-zone">{tr("操作区：查看样本详情或执行安全删除", "Action zone: inspect a sample or perform safeguarded deletion")}</div>', unsafe_allow_html=True)
     selected_sample = st.selectbox(tr("选择样本", "Choose sample"), [""] + samples_df["sample_id"].astype(str).tolist())
@@ -119,7 +60,7 @@ def display_sample_list():
 
     col_view, col_delete = st.columns(2)
     with col_view:
-        if st.button(tr("查看样本元数据", "View sample metadata"), key="view_selected_sample", use_container_width=True):
+        if st.button(tr("查看样本元数据", "View sample metadata"), key="view_selected_sample", width="stretch"):
             info = processor.get_sample_info(selected_sample)
             render_panel_header(
                 tr("样本元数据", "Sample Metadata"),
@@ -132,7 +73,7 @@ def display_sample_list():
         st.session_state[confirm_key] = False
 
     with col_delete:
-        if st.button(tr("删除样本", "Delete sample"), key="delete_selected_sample", use_container_width=True):
+        if st.button(tr("删除样本", "Delete sample"), key="delete_selected_sample", width="stretch"):
             st.session_state[confirm_key] = True
 
     if st.session_state[confirm_key]:
@@ -157,11 +98,11 @@ def display_sample_list():
             st.caption(f"{tr('需要输入的确认字符串', 'Required confirmation string')}: {selected_sample}")
         col_yes, col_no = st.columns(2)
         with col_yes:
-            if st.button(tr("确认删除", "Confirm deletion"), key="confirm_delete_selected_sample", use_container_width=True, disabled=not delete_enabled):
+            if st.button(tr("确认删除", "Confirm deletion"), key="confirm_delete_selected_sample", width="stretch", disabled=not delete_enabled):
                 processor.delete_sample(selected_sample)
                 st.session_state[confirm_key] = False
                 st.success(tr("样本已删除。", "The sample has been deleted."))
                 st.rerun()
         with col_no:
-            if st.button(tr("取消", "Cancel"), key="cancel_delete_selected_sample", use_container_width=True):
+            if st.button(tr("取消", "Cancel"), key="cancel_delete_selected_sample", width="stretch"):
                 st.session_state[confirm_key] = False

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+import sqlite3
 import traceback
 
 import numpy as np
@@ -15,9 +16,8 @@ from app.components.result_cards import render_primary_metrics, render_run_meta
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
 from app.shared import DB_PATH, init_processor, is_public_demo_mode, render_page_hero
-from core.bo2023_region_tracing import trace_bo2023_secondary_regions
+from core.bo2023_region_tracing import packaged_formal_region_assets_available, trace_bo2023_secondary_regions
 from core.network_tracing import DEFAULT_BO2023_NETWORK_MODEL, trace_network_expression
-from core.region_resolution import annotate_region_candidates
 from data.dao import get_atlas_options, table_exists
 
 
@@ -92,7 +92,7 @@ def _render_network_primary(network_out: dict, show_validation_caption: bool = T
                     "confidence": tr("置信度", "Confidence"),
                 }
             ).head(5),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
     with right:
@@ -105,7 +105,7 @@ def _render_network_primary(network_out: dict, show_validation_caption: bool = T
             color_continuous_scale=["#dbeafe", "#1f7aff"],
         )
         figure.update_layout(yaxis={"categoryorder": "total ascending"}, coloraxis_showscale=False)
-        st.plotly_chart(figure, use_container_width=True)
+        st.plotly_chart(figure, width="stretch")
 
 
 def _render_public_demo_diagnostics(network_out: dict) -> None:
@@ -165,7 +165,7 @@ def _render_public_demo_diagnostics(network_out: dict) -> None:
 
 def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
     name = str(uploaded_file.name).lower()
-    if name.endswith((".xlsx", ".xls")):
+    if name.endswith(".xlsx"):
         df = pd.read_excel(uploaded_file)
     else:
         raw = uploaded_file.getvalue()
@@ -217,16 +217,20 @@ def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
     return out[["gene_symbol", "tpm_value"]], query_source
 
 
-def _select_locked_bo2023_atlas(db_mode: str) -> tuple[int, str]:
+def _select_locked_bo2023_atlas(db_mode: str) -> tuple[int | None, str]:
     atlas_opts = get_atlas_options(DB_PATH, species_mode=db_mode)
-    if not atlas_opts:
-        return 1, "Bo2023 locked reference"
     for atlas_id, label in atlas_opts:
         text = str(label).lower()
         if "bo2023" in text or "wanglab" in text or "vsd" in text:
             return int(atlas_id), str(label)
-    atlas_id, label = atlas_opts[0]
-    return int(atlas_id), str(label)
+    if packaged_formal_region_assets_available():
+        return None, tr("Bo2023 正式打包参考", "Bo2023 packaged formal reference")
+    raise RuntimeError(
+        tr(
+            "当前数据库未登记 Bo2023 图谱，且正式打包参考资源不完整，无法运行三层溯源。",
+            "No Bo2023 atlas is registered and the packaged formal reference assets are incomplete; three-tier tracing cannot run.",
+        )
+    )
 
 
 def _locked_route_expression(cfrna_df: pd.DataFrame) -> tuple[pd.DataFrame, str]:
@@ -276,22 +280,21 @@ def _render_resolution_group_top3(out: dict) -> None:
             "Resolution groups report the candidate scope that the Bo2023 training data can separate more reliably.",
         ),
     )
-    st.dataframe(pd.DataFrame(group_rows).head(3), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(group_rows).head(3), width="stretch", hide_index=True)
 
 
-def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int, topk: int = 30) -> tuple[dict, dict]:
-    network_out = trace_network_expression(expr)
+def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int | None, topk: int = 30) -> tuple[dict, dict]:
+    network_out = trace_network_expression(expr, enable_pairwise_rescue=False)
     if not network_out.get("results"):
         meta = network_out.get("meta", {})
         raise ValueError(
             f"Insufficient Network model-gene overlap: {meta.get('n_overlap_genes', 0)}/"
             f"{meta.get('n_model_genes', 0)}."
         )
-    out = trace_bo2023_secondary_regions(expr, network_out, DB_PATH, int(atlas_id), topk=max(int(topk), 3))
+    out = trace_bo2023_secondary_regions(expr, network_out, DB_PATH, atlas_id, topk=max(int(topk), 3))
     if not out.get("results"):
         meta = out.get("meta", {})
         raise ValueError(str(meta.get("error") or "Bo2023 three-tier route returned no region candidates."))
-    out = annotate_region_candidates(out, network_out)
     return network_out, out
 
 
@@ -301,7 +304,7 @@ def _render_locked_three_tier_results(sample_id: str, out: dict, network_out: di
     group_rows = out.get("meta", {}).get("region_resolution_annotation", {}).get("group_ranking", [])
     group_df = pd.DataFrame(group_rows).head(3)
 
-    st.success(tr("Bo2023 锁定三层路线已完成。", "Locked Bo2023 three-tier route completed."))
+    st.success(tr("三层溯源已完成。", "Three-tier tracing completed."))
     render_section_band(
         tr("Network Top3", "Network Top3"),
         tr("这是论文主路线的上层主结论。", "This is the primary upper-level conclusion in the manuscript route."),
@@ -309,7 +312,7 @@ def _render_locked_three_tier_results(sample_id: str, out: dict, network_out: di
     if network_df.empty:
         st.warning(tr("没有可展示的 Network 候选。", "No Network candidates are available."))
     else:
-        st.dataframe(network_df, use_container_width=True, hide_index=True)
+        st.dataframe(network_df, width="stretch", hide_index=True)
 
     _render_public_demo_diagnostics(network_out)
 
@@ -323,7 +326,7 @@ def _render_locked_three_tier_results(sample_id: str, out: dict, network_out: di
     if group_df.empty:
         st.info(tr("当前结果没有 resolution group ranking。", "No resolution group ranking is available for this result."))
     else:
-        st.dataframe(group_df, use_container_width=True, hide_index=True)
+        st.dataframe(group_df, width="stretch", hide_index=True)
 
     render_section_band(
         tr("Exact-region exploratory Top3", "Exact-Region Exploratory Top3"),
@@ -345,7 +348,7 @@ def _render_locked_three_tier_results(sample_id: str, out: dict, network_out: di
     if exact_df.empty:
         st.warning(tr("没有可展示的 exact-region 候选。", "No exact-region candidates are available."))
     else:
-        st.dataframe(exact_df, use_container_width=True, hide_index=True)
+        st.dataframe(exact_df, width="stretch", hide_index=True)
 
     export_df = pd.concat(
         [
@@ -437,95 +440,7 @@ def _render_network_description_table() -> None:
             "The public demo shows only these coarse anatomical-functional candidate sources, not the full Bo2023 expression matrix.",
         ),
     )
-    st.dataframe(pd.DataFrame(NETWORK_DESCRIPTIONS), use_container_width=True, hide_index=True)
-
-
-def _render_public_demo_tracing() -> None:
-    render_section_band(
-        tr("上传表达矩阵", "Upload Expression Matrix"),
-        tr(
-            "推荐上传 gene_symbol 加 raw counts 或 logCPM；系统会运行固定的 Network 级公开溯源流程。",
-            "Upload gene_symbol plus raw counts or logCPM; the demo runs a fixed Network-level tracing workflow.",
-        ),
-    )
-    st.info(
-        tr(
-            "公开 demo 输出是 Network 级候选排名，需结合覆盖度、entropy 和 score margin 判断可信度；没有解剖真值的 biofluid 输入不作为定位准确性验证。",
-            "The public demo returns Network-level candidate rankings. Interpret them with coverage, entropy and score margin; biofluid inputs without anatomical truth are not localization-accuracy validation.",
-        )
-    )
-    uploaded = st.file_uploader(
-        tr("上传表达矩阵 CSV/TSV/XLSX", "Upload expression matrix CSV/TSV/XLSX"),
-        type=["csv", "tsv", "txt", "xlsx", "xls"],
-        key="public_demo_expression_upload",
-    )
-    st.caption(
-        tr(
-            "至少包含 gene_symbol/gene 和一个表达列。推荐列名：raw_counts/count/read_count 或 logCPM。",
-            "Requires gene_symbol/gene plus one expression column. Recommended names: raw_counts/count/read_count or logCPM.",
-        )
-    )
-    with st.expander(tr("查看 10 个 Network 候选范围", "View the 10 Network candidate scopes"), expanded=False):
-        _render_network_description_table()
-    if uploaded is None:
-        return
-
-    try:
-        expr, query_source = _read_demo_expression(uploaded)
-    except Exception as exc:
-        st.error(f"{tr('无法读取输入文件', 'Could not read input file')}: {exc}")
-        return
-    if query_source in {"tpm_fallback", "logtpm_fallback"}:
-        st.warning(
-            tr(
-                f"当前输入被识别为 {query_source}。该路径用于兼容旧表格，不等同于当前验证路线中的 Bo2023 logCPM 输入；结果应谨慎解释。",
-                f"Input was detected as {query_source}. This is a legacy compatibility path and is not equivalent to the Bo2023 logCPM route used in current validation; interpret results cautiously.",
-            )
-        )
-
-    render_kpi_cards(
-        [
-            {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Network 溯源", "Used for Network tracing")},
-            {"icon": "SRC", "label": tr("Query 来源", "Query source"), "value": query_source, "note": tr("raw counts 会转为 logCPM", "raw counts are converted to logCPM")},
-            {"icon": "MODEL", "label": tr("模型", "Model"), "value": "SaleemNetworks", "note": tr("轻量公开模型", "Lightweight public model")},
-            {"icon": "SCOPE", "label": tr("输出范围", "Output scope"), "value": tr("Network 级", "Network-level"), "note": tr("候选排名", "Candidate ranking")},
-        ]
-    )
-    if st.button(tr("运行 Network 级溯源", "Run Network-level tracing"), type="primary", use_container_width=True):
-        try:
-            network_out = trace_network_expression(expr)
-            if not network_out.get("results"):
-                meta = network_out.get("meta", {})
-                st.warning(
-                    tr(
-                        f"模型基因重叠不足：{meta.get('n_overlap_genes', 0)}/{meta.get('n_model_genes', 0)}。",
-                        f"Insufficient model-gene overlap: {meta.get('n_overlap_genes', 0)}/{meta.get('n_model_genes', 0)}.",
-                    )
-                )
-                return
-            network_out.setdefault("meta", {})["query_source"] = query_source
-            network_out["meta"]["input_recommendation"] = (
-                "raw counts/logCPM preferred; TPM/logTPM fallback only; user-uploaded VSD is not required"
-            )
-            network_out["meta"].pop("model_metadata", None)
-            network_out["meta"].pop("pairwise_rescue_validation", None)
-            _render_network_primary(network_out, show_validation_caption=False)
-            _render_public_demo_diagnostics(network_out)
-            result_df = pd.DataFrame(network_out["results"])
-            st.download_button(
-                tr("下载结果 JSON", "Download results JSON"),
-                json.dumps(network_out, ensure_ascii=False, indent=2),
-                "public_demo_network_tracing.json",
-                "application/json",
-            )
-            st.download_button(
-                tr("下载结果 CSV", "Download results CSV"),
-                result_df.to_csv(index=False).encode("utf-8-sig"),
-                "public_demo_network_tracing.csv",
-                "text/csv",
-            )
-        except Exception as exc:
-            st.error(f"{tr('公开 Demo 分析失败', 'Public demo analysis failed')}: {exc}")
+    st.dataframe(pd.DataFrame(NETWORK_DESCRIPTIONS), width="stretch", hide_index=True)
 
 
 def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out: dict | None = None) -> None:
@@ -611,13 +526,13 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
             "resolution_group_members": tr("可分辨候选组", "Resolvable candidate group"),
             "manual_review_recommended": tr("人工复核", "Manual review"),
         }
-        st.dataframe(df_rank.rename(columns=rename).head(top_regions), use_container_width=True, hide_index=True)
+        st.dataframe(df_rank.rename(columns=rename).head(top_regions), width="stretch", hide_index=True)
     with col_plot:
         render_panel_header(
             tr("Region 二级候选图" if network_out else "脑区排名图", "Secondary Region Candidate Plot" if network_out else "Source Ranking Plot"),
             tr("用条形图快速比较前列脑区。", "Quick visual comparison of leading source regions."),
         )
-        st.plotly_chart(make_score_bar(df_rank.head(max(10, top_regions))), use_container_width=True)
+        st.plotly_chart(make_score_bar(df_rank.head(max(10, top_regions))), width="stretch")
 
     signature_cols = [c for c in ["marker_component", "support_component", "detect_component"] if c in df_rank.columns]
     if signature_cols:
@@ -640,7 +555,7 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
             color_discrete_sequence=px.colors.qualitative.Pastel,
         )
         fig_sig.update_layout(height=min(720, 34 * len(df_rank) + 120), yaxis={"categoryorder": "total ascending"})
-        st.plotly_chart(fig_sig, use_container_width=True)
+        st.plotly_chart(fig_sig, width="stretch")
 
     has_ci = {"ci_low", "ci_high", "fraction"}.issubset(df_rank.columns) and df_rank["ci_low"].notna().any()
     has_stab = "stability" in df_rank.columns and df_rank["stability"].notna().any()
@@ -659,12 +574,12 @@ def _render_v2_results(sample_id: str, out: dict, top_regions: int, network_out:
             viz_ci = df_rank.dropna(subset=["fraction"]).copy()
             viz_ci["err_plus"] = viz_ci["ci_high"] - viz_ci["fraction"]
             viz_ci["err_minus"] = viz_ci["fraction"] - viz_ci["ci_low"]
-            c1.plotly_chart(make_fraction_ci_bar(viz_ci), use_container_width=True)
+            c1.plotly_chart(make_fraction_ci_bar(viz_ci), width="stretch")
         else:
             c1.info(tr("当前方法或参数没有生成 fraction CI。", "This method or parameter set did not generate fraction CIs."))
         if has_stab:
             viz_st = df_rank.dropna(subset=["stability"]).copy()
-            c2.plotly_chart(make_stability_bar(viz_st), use_container_width=True)
+            c2.plotly_chart(make_stability_bar(viz_st), width="stretch")
         else:
             c2.info(tr("当前方法或参数没有生成稳定性指标。", "This method or parameter set did not generate stability metrics."))
 
@@ -729,7 +644,7 @@ def _render_legacy_results(sample_id: str, results: dict, top_regions: int) -> N
         ranking_df = pd.DataFrame(list(results["components"].items())[:top_regions], columns=[tr("脑区", "Region"), tr("贡献度", "Contribution")])
 
     if ranking_df is not None:
-        st.dataframe(ranking_df, use_container_width=True, hide_index=True)
+        st.dataframe(ranking_df, width="stretch", hide_index=True)
     else:
         st.info(tr("当前 legacy 结果没有可展示的脑区排名。", "No displayable region ranking is available in the legacy result."))
 
@@ -745,213 +660,20 @@ def _render_legacy_results(sample_id: str, results: dict, top_regions: int) -> N
         st.download_button(tr("下载 JSON", "Download JSON"), json.dumps(results, ensure_ascii=False, indent=2), f"tracing_results_{sample_id}.json", "application/json")
 
 
-def display_source_tracing() -> None:
-    db_mode = get_database_mode()
-    render_page_hero(
-        tr(f"{database_label(db_mode)} - 溯源分析工作台", f"{database_label(db_mode)} - Tracing Analysis Workspace"),
-        tr(
-            "在同一科研工作台中对已上传 cfRNA 样本执行脑区溯源、比较方法、检查稳健性并导出可汇报结果。",
-            "Run brain-region source tracing on uploaded cfRNA samples, compare methods, inspect robustness and export report-ready outputs from a single scientific analysis workspace.",
-        ),
-        eyebrow=tr("溯源", "Tracing"),
-        pills=[
-            tr("样本选择", "Sample selection"),
-            tr("图谱与 signature", "Atlas and signature"),
-            tr("模型参数", "Model parameters"),
-            tr("结果解释", "Result interpretation"),
-        ],
-    )
-    if is_public_demo_mode():
-        _render_public_demo_tracing()
-        return
-
-    processor = init_processor()
-    tracer = init_tracer()
-    samples_df = processor.get_all_samples()
-    if not samples_df.empty and "species" in samples_df.columns:
-        samples_df = samples_df[samples_df["species"].apply(lambda x: matches_species(x, db_mode))].copy()
-    if len(samples_df) == 0:
-        st.info(tr("当前云端数据库没有样本，已切换到轻量公开 Demo 模式。", "The current cloud database has no samples; switching to lightweight public demo mode."))
-        _render_public_demo_tracing()
-        return
-
-    st.markdown(f'<div class="action-zone">{tr("操作区：选择待分析样本", "Action zone: choose a sample for tracing")}</div>', unsafe_allow_html=True)
-    sample_id = st.selectbox(tr("选择样本", "Choose sample"), samples_df["sample_id"].astype(str).tolist(), index=0)
-    cfrna_df = processor.get_sample_expression(sample_id)
-    render_kpi_cards(
-        [
-            {"icon": "SMP", "label": tr("样本 ID", "Sample ID"), "value": sample_id, "note": tr("当前分析样本", "Current analysis sample")},
-            {"icon": "GENE", "label": tr("输入基因数", "Input Genes"), "value": f"{len(cfrna_df):,}", "note": tr("样本表达矩阵中的基因数", "Genes in the sample expression matrix")},
-            {"icon": "RUN", "label": tr("分析模式", "Analysis Mode"), "value": "v2 preferred", "note": tr("推荐优先使用 v2 集成路径", "v2 integrated path is recommended")},
-        ]
-    )
-
-    st.markdown(f'<div class="parameter-zone">{tr("参数区：参考图谱、signature 与模型参数", "Parameter zone: atlas, signature and model settings")}</div>', unsafe_allow_html=True)
-    atlas_opts = get_atlas_options(DB_PATH, species_mode=db_mode)
-    if not atlas_opts:
-        st.info(tr("当前数据库模式下没有可用 atlas。请先导入对应物种/数据库的参考图谱。", "No atlas is available in the current database mode. Import the matching reference atlas first."))
-        return
-    atlas_labels = [x[1] for x in atlas_opts]
-    atlas_ids = [x[0] for x in atlas_opts]
-    atlas_choice = st.selectbox(tr("Atlas 版本", "Atlas version"), atlas_labels, index=0)
-    atlas_id = atlas_ids[atlas_labels.index(atlas_choice)]
-    atlas_meta = get_atlas_metadata(DB_PATH, atlas_id)
-    is_vsd_atlas = _is_vsd_atlas(atlas_meta)
-    if is_vsd_atlas:
-        _render_vsd_mode_notice(atlas_meta)
-    sig_opts = get_sigset_options(DB_PATH, atlas_id)
-    sig_labels = [x[1] for x in sig_opts]
-    sig_ids = [x[0] for x in sig_opts]
-    sig_choice = st.selectbox(tr("Signature 集合", "Signature set"), sig_labels, index=0)
-    sigset_id = sig_ids[sig_labels.index(sig_choice)]
-    use_v2 = st.checkbox(tr("使用发布级 v2 引擎", "Use release-grade v2 engine"), value=True)
-    if is_vsd_atlas and not use_v2:
-        st.warning(
-            tr(
-                "VSD 图谱建议使用 v2 引擎。legacy 路径不会完整应用 VSD-compatible 权重和解释元数据。",
-                "VSD atlases should use the v2 engine. The legacy path does not fully apply VSD-compatible weights or interpretation metadata.",
-            )
-        )
-
-    with st.expander(tr("高级模型参数", "Advanced model parameters"), expanded=False):
-        p1, p2, p3, p4 = st.columns(4)
-        norm_options = ["zscore", "vsd", "log1p", "tpm"] if is_vsd_atlas else ["log1p", "tpm", "zscore"]
-        use_value = p1.selectbox(
-            tr("输入标准化", "Input normalization"),
-            norm_options,
-            index=0,
-            help=tr(
-                "VSD 图谱默认使用 z-score，以减少上传样本 TPM/count 与 VSD reference 之间的量纲差异。",
-                "VSD references default to z-score for TPM/count-derived uploads. Select vsd only when the uploaded sample is already on the same VSD-normalized scale as the atlas.",
-            )
-            if is_vsd_atlas
-            else None,
-        )
-        bootstrap_n = p2.slider(tr("Bootstrap 次数", "Bootstrap iterations"), 0, 300, 100, step=25)
-        bootstrap_gene_frac = p3.slider(tr("Bootstrap 基因抽样比例", "Bootstrap gene fraction"), 0.3, 1.0, 0.7, step=0.05)
-        l2 = p4.number_input("L2", min_value=0.0, value=1e-4, step=1e-4, format="%.5f")
-        topk = st.slider(tr("结果返回 TopK", "Return TopK"), 3, 30, 10)
-
-    render_section_band(
-        tr("方法选择", "Method Selection"),
-        tr("不同路径分别强调集成、相关性、去卷积或 marker 证据。", "Different paths emphasize integration, correlation, deconvolution or marker evidence."),
-    )
-    method_order = ["correlation", "ensemble", "nnls_simplex", "marker"] if is_vsd_atlas else ["ensemble", "correlation", "nnls_simplex", "marker"]
-    if is_vsd_atlas:
-        st.info(
-            tr(
-                "Bo2023 VSD 的正式输出采用两级口径：同尺度 VSD 输入配合相关性分析时，SaleemNetworks 为已验证的主结论，精确 Region 为二级候选。Marker/ensemble 仍仅作探索性对照。",
-                "Formal Bo2023 VSD output is two-level: for same-scale VSD input with correlation, SaleemNetworks is the validated primary conclusion and exact Regions are secondary candidates. Marker/ensemble remains exploratory.",
-            )
-        )
-    method_display = st.radio(
-        tr("选择溯源算法", "Choose tracing algorithm"),
-        [tr(*METHOD_LABELS[code]) for code in method_order],
-        horizontal=True,
-    )
-    method_map = {tr(*v): k for k, v in METHOD_LABELS.items()}
-    method_key = method_map[method_display]
-    if is_vsd_atlas and method_key == "nnls_simplex":
-        st.warning(
-            tr(
-                "当前 atlas 为 VSD reference。NNLS/simplex 结果只应解释为 VSD 表达空间拟合权重，不应解释为真实脑区贡献比例。建议优先使用多信号集成或相关性分析。",
-                "The current atlas is a VSD reference. NNLS/simplex results should be interpreted only as VSD-space fitting weights, not biological contribution fractions. Prefer ensemble or correlation for primary interpretation.",
-            )
-        )
-    c4, c5 = st.columns(2)
-    top_regions = c4.slider(tr("结果面板显示 Top N 脑区", "Top N regions shown in results"), 3, 20, 5)
-    use_markers = c5.checkbox(
-        tr("legacy 路径仅使用 marker genes", "Use marker genes only in legacy mode"),
-        value=False,
-        help=tr("仅对 legacy 路径生效。v2 推荐保持 signature 模式。", "Only affects the legacy path. v2 is best used with signature mode."),
-    )
-
-    st.markdown(f'<div class="action-zone">{tr("操作区：启动溯源分析", "Action zone: start tracing analysis")}</div>', unsafe_allow_html=True)
-    if st.button(tr("开始分析", "Start analysis"), type="primary", use_container_width=True):
-        with st.spinner(tr("正在进行脑区来源推断，请稍候...", "Running brain-region source tracing, please wait...")):
-            try:
-                if use_v2 and method_key != "marker":
-                    out = tracer.engine_v2.trace(
-                        sample_id=sample_id,
-                        method=canonical_method(method_key),
-                        sigset_id=sigset_id,
-                        atlas_id=int(atlas_id),
-                        use_value=use_value,
-                        bootstrap_n=int(bootstrap_n),
-                        bootstrap_gene_frac=float(bootstrap_gene_frac),
-                        l2=float(l2),
-                        topk=int(max(topk, top_regions)),
-                        vsd_compatible=bool(is_vsd_atlas),
-                    )
-                    network_out = None
-                    if is_vsd_atlas and _is_bo2023_atlas(atlas_meta) and method_key == "correlation":
-                        if use_value in {"vsd", "zscore"} and DEFAULT_BO2023_NETWORK_MODEL.exists():
-                            network_out = trace_network_expression(cfrna_df)
-                            if not network_out.get("results"):
-                                st.warning(
-                                    tr(
-                                        "当前样本覆盖的 Network 模型基因不足，不能输出经验证的 Network 主结论；下方仅展示 Region 二级候选。",
-                                        "The sample does not cover enough Network-model genes for a validated primary Network conclusion; only secondary Region candidates are shown below.",
-                                    )
-                                )
-                                network_out = None
-                        elif use_value not in {"vsd", "zscore"}:
-                            st.info(
-                                tr(
-                                    "Network 主结论仅对 Bo2023 VSD/z-score 输入启用；当前输入尺度未经过该路径验证，因此仅展示 Region 候选结果。",
-                                    "The primary Network conclusion is enabled only for Bo2023 VSD/z-score inputs. This input scale is not validated for that path, so only Region candidates are shown.",
-                                )
-                            )
-                    if network_out:
-                        secondary_out = trace_bo2023_secondary_regions(
-                            cfrna_df,
-                            network_out,
-                            DB_PATH,
-                            int(atlas_id),
-                            topk=max(int(top_regions), 30),
-                        )
-                        if secondary_out.get("results"):
-                            out = secondary_out
-                        else:
-                            st.warning(
-                                tr(
-                                    "Bo2023 专用 Region 二级候选评分未能生成结果，已回退到通用 correlation Region 排名。",
-                                    "The Bo2023-specific secondary Region scorer did not return results; falling back to the generic correlation Region ranking.",
-                                )
-                            )
-                        out = annotate_region_candidates(out, network_out)
-                    _render_v2_results(sample_id, out, top_regions, network_out=network_out)
-                else:
-                    if use_markers:
-                        markers = tracer.region_signatures[tracer.region_signatures["is_marker"] == 1]["gene_symbol"].unique()
-                        cfrna_df_use = cfrna_df[cfrna_df["gene_symbol"].isin(markers)].copy()
-                    else:
-                        cfrna_df_use = cfrna_df
-
-                    if method_key == "ensemble":
-                        results = tracer.integrated_tracing(cfrna_df_use)
-                    elif method_key == "correlation":
-                        results = tracer.correlation_based_tracing(cfrna_df_use, top_regions)
-                    elif method_key == "nnls_simplex":
-                        results = tracer.deconvolution_based_tracing(cfrna_df_use, method="NMF")
-                    else:
-                        results = tracer.marker_gene_based_tracing(cfrna_df_use)
-
-                    tracer.save_tracing_results(sample_id, results)
-                    _render_legacy_results(sample_id, results, top_regions)
-            except Exception as exc:
-                st.error(tr("分析失败：当前样本与参数组合未能完成溯源计算。", "Analysis failed: the current sample and parameter combination could not complete tracing."))
-                st.info(f"{tr('原始错误', 'Original error')}: {exc}")
-                with st.expander(tr("开发者调试信息", "Developer debug details"), expanded=False):
-                    st.code(traceback.format_exc(), language="python")
+def _get_all_samples_or_empty(processor) -> pd.DataFrame:
+    """Treat an unpopulated local SQLite file as an upload-only demo workspace."""
+    try:
+        return processor.get_all_samples()
+    except (sqlite3.Error, pd.errors.DatabaseError):
+        return pd.DataFrame()
 
 
 def _render_public_demo_tracing() -> None:
     render_section_band(
         tr("上传表达矩阵", "Upload Expression Matrix"),
         tr(
-            "上传 gene_symbol 加 raw counts 或 logCPM；系统只运行锁定的 Bo2023 三层溯源路线。",
-            "Upload gene_symbol plus raw counts or logCPM; the app only runs the locked Bo2023 three-tier tracing route.",
+            "上传 gene_symbol 加 raw counts 或 logCPM；系统运行三层溯源路线。",
+            "Upload gene_symbol plus raw counts or logCPM; the app runs the three-tier tracing route.",
         ),
     )
     st.info(
@@ -962,7 +684,7 @@ def _render_public_demo_tracing() -> None:
     )
     uploaded = st.file_uploader(
         tr("上传表达矩阵 CSV/TSV/XLSX", "Upload expression matrix CSV/TSV/XLSX"),
-        type=["csv", "tsv", "txt", "xlsx", "xls"],
+        type=["csv", "tsv", "txt", "xlsx"],
         key="public_demo_expression_upload_locked",
     )
     st.caption(
@@ -990,7 +712,11 @@ def _render_public_demo_tracing() -> None:
             )
         )
 
-    atlas_id, atlas_label = _select_locked_bo2023_atlas(get_database_mode())
+    try:
+        atlas_id, atlas_label = _select_locked_bo2023_atlas(get_database_mode())
+    except RuntimeError as exc:
+        st.error(str(exc))
+        return
     render_kpi_cards(
         [
             {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Bo2023 三层路线", "Used for the Bo2023 three-tier route")},
@@ -1000,7 +726,7 @@ def _render_public_demo_tracing() -> None:
         ]
     )
 
-    if st.button(tr("Run locked Bo2023 three-tier route", "Run locked Bo2023 three-tier route"), type="primary", use_container_width=True):
+    if st.button(tr("运行三层溯源", "Run three-tier tracing"), type="primary", width="stretch"):
         try:
             network_out, out = _run_locked_bo2023_route(expr, atlas_id, topk=30)
             network_out.setdefault("meta", {})["query_source"] = query_source
@@ -1009,21 +735,21 @@ def _render_public_demo_tracing() -> None:
             network_out["meta"].pop("pairwise_rescue_validation", None)
             _render_locked_three_tier_results("uploaded_expression", out, network_out)
         except Exception as exc:
-            st.error(f"{tr('Bo2023 三层路线运行失败', 'Locked Bo2023 route failed')}: {exc}")
+            st.error(f"{tr('三层溯源运行失败', 'Three-tier tracing failed')}: {exc}")
 
 
 def display_source_tracing() -> None:
     db_mode = get_database_mode()
     render_page_hero(
-        tr(f"{database_label(db_mode)} - Bo2023 三层溯源", f"{database_label(db_mode)} - Bo2023 Three-Tier Tracing"),
+        tr(f"{database_label(db_mode)} - 三层溯源", f"{database_label(db_mode)} - Three-Tier Tracing"),
         tr(
             "上传或选择 cfRNA 表达矩阵后，只运行论文主路线：Network Top3 -> resolution group Top3 -> exact-region exploratory Top3。",
             "Upload or select a cfRNA expression matrix and run only the manuscript route: Network Top3 -> resolution group Top3 -> exact-region exploratory Top3.",
         ),
-        eyebrow=tr("主路线", "Locked Route"),
+        eyebrow=tr("溯源分析", "Tracing Analysis"),
         pills=[
             "gene_symbol + raw_counts/logCPM",
-            "Bo2023 Network Top3",
+            "Network Top3",
             "resolution group Top3",
             "exact-region exploratory Top3",
         ],
@@ -1033,7 +759,7 @@ def display_source_tracing() -> None:
         return
 
     processor = init_processor()
-    samples_df = processor.get_all_samples()
+    samples_df = _get_all_samples_or_empty(processor)
     if not samples_df.empty and "species" in samples_df.columns:
         samples_df = samples_df[samples_df["species"].apply(lambda x: matches_species(x, db_mode))].copy()
     if len(samples_df) == 0:
@@ -1041,11 +767,15 @@ def display_source_tracing() -> None:
         _render_public_demo_tracing()
         return
 
-    st.markdown(f'<div class="action-zone">{tr("操作区：选择样本并运行锁定路线", "Action zone: choose a sample and run the locked route")}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="action-zone">{tr("操作区：选择样本并运行三层溯源", "Action zone: choose a sample and run three-tier tracing")}</div>', unsafe_allow_html=True)
     sample_id = st.selectbox(tr("选择样本", "Choose sample"), samples_df["sample_id"].astype(str).tolist(), index=0)
     cfrna_df = processor.get_sample_expression(sample_id)
     expr, query_source = _locked_route_expression(cfrna_df)
-    atlas_id, atlas_label = _select_locked_bo2023_atlas(db_mode)
+    try:
+        atlas_id, atlas_label = _select_locked_bo2023_atlas(db_mode)
+    except RuntimeError as exc:
+        st.error(str(exc))
+        return
     render_kpi_cards(
         [
             {"icon": "SMP", "label": tr("样本 ID", "Sample ID"), "value": sample_id, "note": tr("当前分析样本", "Current analysis sample")},
@@ -1057,14 +787,14 @@ def display_source_tracing() -> None:
     if query_source == "TPM_fallback":
         st.warning(tr("该样本未检出 read_count 或 logCPM/log_tpm，当前仅使用 TPM fallback；结果应降级解释。", "This sample has no read_count or logCPM/log_tpm, so TPM fallback is used and interpretation should be downgraded."))
 
-    if st.button(tr("Run locked Bo2023 three-tier route", "Run locked Bo2023 three-tier route"), type="primary", use_container_width=True):
-        with st.spinner(tr("正在运行 Bo2023 三层候选排名...", "Running Bo2023 three-tier candidate ranking...")):
+    if st.button(tr("运行三层溯源", "Run three-tier tracing"), type="primary", width="stretch"):
+        with st.spinner(tr("正在运行三层候选排名...", "Running three-tier candidate ranking...")):
             try:
                 network_out, out = _run_locked_bo2023_route(expr, atlas_id, topk=30)
                 network_out.setdefault("meta", {})["query_source"] = query_source
                 _render_locked_three_tier_results(sample_id, out, network_out)
             except Exception as exc:
-                st.error(tr("分析失败：锁定 Bo2023 主路线未能完成。", "Analysis failed: the locked Bo2023 manuscript route could not complete."))
+                st.error(tr("分析失败：三层溯源未能完成。", "Analysis failed: three-tier tracing could not complete."))
                 st.info(f"{tr('原始错误', 'Original error')}: {exc}")
                 with st.expander(tr("开发者调试信息", "Developer debug details"), expanded=False):
                     st.code(traceback.format_exc(), language="python")

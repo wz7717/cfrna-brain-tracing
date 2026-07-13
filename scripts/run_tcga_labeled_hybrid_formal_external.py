@@ -56,8 +56,8 @@ DEFAULT_LABELS = (
 )
 DEFAULT_PROJECTOR = (
     ROOT
-    / "results"
-    / "bo2023_reference_projection_20260616_cleaned_symbols"
+    / "data"
+    / "models"
     / "bo2023_reference_projector_linear_full.npz"
 )
 DEFAULT_OUTDIR = (

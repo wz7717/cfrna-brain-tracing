@@ -49,8 +49,20 @@ reports/
 benchmark_export/
 benchmark_bundle.zip
 run_export.zip
+output/
 tmp/
 .tmp_docx_render*/
+
+# Local app logs and office/review QA artifacts
+streamlit.*.log
+.lo_profile_*/
+figure1_extract/
+review_output_*/
+
+# Local submission assembly directories and archives
+submission_package_*/
+submission_update_*/
+*Submission_Package_*.zip
 
 # Generated manuscript render directories and local dependencies
 manuscript/node_modules/

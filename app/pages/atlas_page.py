@@ -486,7 +486,7 @@ def _render_marker_overlap(marker_df: pd.DataFrame, query_genes: tuple[str, ...]
         color_discrete_sequence=["#7aa2ff", "#1f9d75"],
     )
     fig.update_layout(height=360, margin=dict(l=10, r=10, t=60, b=10))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def _render_atlas_explorer(default_mode: str) -> None:
@@ -594,7 +594,7 @@ def _render_atlas_explorer(default_mode: str) -> None:
                     )
                 )
                 fig.update_layout(height=max(420, min(900, 24 * len(heat.index) + 120)), margin=dict(l=10, r=10, t=20, b=10))
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
         with chart_tabs[1]:
             if ranking_df.empty:
                 st.info(tr("当前筛选下没有脑区排名。", "No region ranking is available for the current filters."))
@@ -610,7 +610,7 @@ def _render_atlas_explorer(default_mode: str) -> None:
                     title=tr("脑区平均表达排名", "Region ranking by mean expression"),
                 )
                 fig.update_layout(height=520, margin=dict(l=10, r=10, t=60, b=10), coloraxis_colorbar=dict(title="genes"))
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
         with chart_tabs[2]:
             _render_marker_overlap(marker_df, query_genes)
 
@@ -623,15 +623,15 @@ def _render_atlas_explorer(default_mode: str) -> None:
         if matrix_df.empty:
             st.info(tr("没有可显示的基因表达明细。", "No gene-expression details are available."))
         else:
-            st.dataframe(matrix_df, use_container_width=True, hide_index=True)
+            st.dataframe(matrix_df, width="stretch", hide_index=True)
     with detail_tabs[1]:
         if marker_df.empty:
             st.info(tr("没有可显示的 marker 证据。", "No marker evidence is available."))
         else:
-            st.dataframe(marker_df, use_container_width=True, hide_index=True)
+            st.dataframe(marker_df, width="stretch", hide_index=True)
     with detail_tabs[2]:
         ref_df = pd.DataFrame([atlas_meta])
-        st.dataframe(ref_df, use_container_width=True, hide_index=True)
+        st.dataframe(ref_df, width="stretch", hide_index=True)
         notes = str(atlas_meta.get("notes") or "").strip()
         if notes:
             st.info(notes)
@@ -681,7 +681,7 @@ def _display_imported_bo2023_region_browser() -> None:
             | view["region_name"].astype(str).str.lower().str.contains(q)
             | view["parent_region_id"].astype(str).str.lower().str.contains(q)
         ]
-    st.dataframe(view, use_container_width=True, hide_index=True)
+    st.dataframe(view, width="stretch", hide_index=True)
     if not view.empty:
         fig = px.bar(
             view.sort_values("sample_count", ascending=False).head(40),
@@ -693,7 +693,7 @@ def _display_imported_bo2023_region_browser() -> None:
             color_discrete_sequence=px.colors.qualitative.Set3,
         )
         fig.update_layout(height=460, margin=dict(l=10, r=10, t=60, b=10))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 
 def _display_legacy_atlas() -> None:
@@ -713,7 +713,7 @@ def _display_legacy_atlas() -> None:
             {"icon": "REF", "label": tr("参考记录", "Reference Rows"), "value": f"{ref_rows:,}", "note": tr("参考表达记录数", "Reference expression records")},
         ]
     )
-    st.dataframe(regions_df, use_container_width=True, hide_index=True)
+    st.dataframe(regions_df, width="stretch", hide_index=True)
 
     render_panel_header(tr("Legacy 基因检索", "Legacy Gene Search"), tr("查看某个基因在 legacy atlas 各脑区中的分布。", "Inspect a gene across legacy atlas regions."))
     gene_input = st.text_input(tr("输入基因符号", "Enter gene symbol"), placeholder=tr("例如 GAD1, SLC17A7", "e.g. GAD1, SLC17A7"), key="legacy_gene_input")
@@ -730,10 +730,10 @@ def _display_legacy_atlas() -> None:
         if gene_df.empty:
             st.warning(tr(f"未找到基因 {gene_input} 的参考表达数据。", f"No reference-expression data was found for {gene_input}."))
         else:
-            st.dataframe(gene_df, use_container_width=True, hide_index=True)
+            st.dataframe(gene_df, width="stretch", hide_index=True)
             fig = px.bar(gene_df, x="region_id", y="avg_tpm", color="avg_tpm", title=tr(f"{gene_input} 在 legacy atlas 中的平均表达", f"Average expression of {gene_input} across the legacy atlas"), color_continuous_scale=["#eef4ff", "#8fb5ff", "#2f6df6"])
             fig.update_layout(height=420, margin=dict(l=10, r=10, t=60, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
 
 def _display_bo2023_expression_browser() -> None:
@@ -765,14 +765,14 @@ def _display_bo2023_expression_browser() -> None:
     with col1:
         fig = px.bar(top_expr, x="avg_tpm", y="region_id", color="expression_class", orientation="h", hover_data=["region_name"], title=f"{gene} region ranking", color_discrete_sequence=px.colors.qualitative.Set2)
         fig.update_layout(height=max(420, 24 * len(top_expr)), yaxis={"categoryorder": "total ascending"})
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     with col2:
         heat = expr.copy()
         heat["gene_symbol"] = gene.upper()
         fig2 = px.density_heatmap(heat, x="gene_symbol", y="region_id", z="avg_tpm", title=f"{gene} expression heatmap")
         fig2.update_layout(height=max(420, 16 * len(heat)), margin=dict(l=10, r=10, t=60, b=10))
-        st.plotly_chart(fig2, use_container_width=True)
-    st.dataframe(expr, use_container_width=True, hide_index=True)
+        st.plotly_chart(fig2, width="stretch")
+    st.dataframe(expr, width="stretch", hide_index=True)
 
     st.markdown(f"#### {tr('M1 vs S1 精细比较', 'M1 vs S1 fine comparison')}")
     gene_list = st.text_input(tr("M1 / S1 比较基因（逗号分隔）", "M1 / S1 comparison genes (comma-separated)"), value=gene, key="bo2023_m1s1_genes")
@@ -783,8 +783,8 @@ def _display_bo2023_expression_browser() -> None:
     else:
         fig3 = px.bar(m1s1, x="region_id", y="avg_tpm", color="gene_symbol", barmode="group", title=tr("M1 vs S1 表达比较", "M1 vs S1 expression comparison"))
         fig3.update_layout(height=420, margin=dict(l=10, r=10, t=60, b=10))
-        st.plotly_chart(fig3, use_container_width=True)
-        st.dataframe(m1s1, use_container_width=True, hide_index=True)
+        st.plotly_chart(fig3, width="stretch")
+        st.dataframe(m1s1, width="stretch", hide_index=True)
 
 
 def _display_human_atlas_browser() -> None:
@@ -827,14 +827,14 @@ def _display_human_atlas_browser() -> None:
     with col1:
         fig = px.bar(expr.head(20), x="avg_tpm", y="region_id", color="expression_class", orientation="h", title=tr(f"{gene} 脑区排名", f"{gene} region ranking"))
         fig.update_layout(height=max(420, 24 * min(20, len(expr))), yaxis={"categoryorder": "total ascending"})
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     with col2:
         heat = expr.copy()
         heat["gene_symbol"] = gene.upper()
         fig2 = px.density_heatmap(heat, x="gene_symbol", y="region_id", z="avg_tpm", title=tr(f"{gene} 表达热图", f"{gene} expression heatmap"))
         fig2.update_layout(height=max(420, 16 * len(heat)), margin=dict(l=10, r=10, t=60, b=10))
-        st.plotly_chart(fig2, use_container_width=True)
-    st.dataframe(expr, use_container_width=True, hide_index=True)
+        st.plotly_chart(fig2, width="stretch")
+    st.dataframe(expr, width="stretch", hide_index=True)
 
 
 def _display_bo2023_browser() -> None:
@@ -872,11 +872,11 @@ def _display_bo2023_browser() -> None:
             filtered = regions_df.copy()
             if selected_lobe != tr("全部", "All"):
                 filtered = filtered[filtered["lobe"] == selected_lobe]
-            st.dataframe(filtered, use_container_width=True, hide_index=True)
+            st.dataframe(filtered, width="stretch", hide_index=True)
             if not filtered.empty:
                 fig = px.bar(filtered.sort_values("total_sample_count", ascending=False), x="region", y="total_sample_count", color="lobe", hover_data=["full_name", "regional_map", "rin"], title=tr("脑区样本覆盖", "Regional sample coverage"), color_discrete_sequence=px.colors.qualitative.Set3)
                 fig.update_layout(height=460, margin=dict(l=10, r=10, t=60, b=10))
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
 
     with tab2:
         if not _show_missing_objects(["bo2023_region_qc_overview"], "QC & Coverage"):
@@ -886,11 +886,11 @@ def _display_bo2023_browser() -> None:
             qc_view = qc_df.copy()
             if qc_lobe != tr("全部", "All"):
                 qc_view = qc_view[qc_view["lobe"] == qc_lobe]
-            st.dataframe(qc_view, use_container_width=True, hide_index=True)
+            st.dataframe(qc_view, width="stretch", hide_index=True)
             metric_name = st.selectbox(tr("选择 QC 指标", "Choose QC metric"), ["rin", "uniquely_mapped_percent", "pct_pf_reads_aligned", "pct_mrna_bases", "pct_usable_bases", "pct_correct_strand_reads", "at_dropout", "gc_dropout"], key="bo2023_qc_metric")
             fig = px.box(qc_view, x="lobe", y=metric_name, color="neocortexregion", points="all", title=f"{metric_name} by lobe")
             fig.update_layout(height=460, margin=dict(l=10, r=10, t=60, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     with tab3:
         render_panel_header(tr("基因 / 模块检索", "Gene / Module Search"), tr("搜索 CT 基因、模块基因和 DEG 汇总。", "Search CT-linked genes, module genes and DEG summaries."))
@@ -900,16 +900,16 @@ def _display_bo2023_browser() -> None:
             with c1:
                 ct_hit = _search_ct_gene(gene_keyword)
                 st.markdown(f"#### {tr('CT 相关基因', 'CT-related genes')}")
-                st.dataframe(ct_hit, use_container_width=True, hide_index=True)
+                st.dataframe(ct_hit, width="stretch", hide_index=True)
                 if not ct_hit.empty:
                     long_ct = ct_hit.melt(id_vars=["gene_name"], value_vars=[c for c in ct_hit.columns if c.startswith("age")], var_name="age", value_name="score")
                     fig = px.line(long_ct, x="age", y="score", color="gene_name", markers=True, title=tr("年龄相关 CT 基因变化", "Age-dependent CT gene profile"))
                     fig.update_layout(height=380, margin=dict(l=10, r=10, t=60, b=10))
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width="stretch")
             with c2:
                 module_hit = _search_module_gene(gene_keyword)
                 st.markdown(f"#### {tr('模块 / WGCNA 命中', 'Module / WGCNA hits')}")
-                st.dataframe(module_hit, use_container_width=True, hide_index=True)
+                st.dataframe(module_hit, width="stretch", hide_index=True)
         else:
             st.info(tr("输入基因名后，可同时检索 CT 基因目录和 WGCNA 模块基因。", "Enter a gene name to search both the CT-gene catalog and WGCNA module genes."))
 
@@ -920,10 +920,10 @@ def _display_bo2023_browser() -> None:
             deg_type = st.selectbox(tr("DEG 类型", "DEG type"), sorted(deg_df["type"].dropna().unique().tolist()), key="bo2023_deg_type")
             top_n = st.slider(tr("显示 Top N 脑区", "Show Top N regions"), 10, 60, 20, step=5, key="bo2023_deg_n")
             deg_view = deg_df[deg_df["type"] == deg_type].sort_values("number", ascending=False).head(top_n)
-            st.dataframe(deg_view, use_container_width=True, hide_index=True)
+            st.dataframe(deg_view, width="stretch", hide_index=True)
             fig = px.bar(deg_view, x="region", y="number", color="lobe", title=f"{deg_type} DEG count by region", color_discrete_sequence=px.colors.qualitative.Pastel)
             fig.update_layout(height=420, margin=dict(l=10, r=10, t=60, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     with tab4:
         _display_bo2023_expression_browser()
@@ -937,7 +937,7 @@ def _display_bo2023_browser() -> None:
             selected_table = st.selectbox(tr("选择 bo2023_* 表或视图", "Choose bo2023_* table or view"), all_sources, key="bo2023_custom_table")
             preview_limit = st.slider(tr("预览行数", "Preview rows"), 20, 500, 100, 20, key="bo2023_preview_limit")
             preview_df = _load_custom_table_preview(selected_table, preview_limit)
-            st.dataframe(preview_df, use_container_width=True, hide_index=True)
+            st.dataframe(preview_df, width="stretch", hide_index=True)
             csv_bytes = preview_df.to_csv(index=False).encode("utf-8-sig")
             st.download_button(tr("下载当前预览 CSV", "Download current preview CSV"), csv_bytes, file_name=f"{selected_table}_preview.csv", mime="text/csv")
 
@@ -992,7 +992,7 @@ def _display_human_atlas_browser_v2() -> None:
             title=tr(f"{gene} 脑区排名", f"{gene} region ranking"),
         )
         fig.update_layout(height=max(420, 24 * min(20, len(expr))), yaxis={"categoryorder": "total ascending"})
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     with col2:
         heat = expr.copy()
         heat["gene_symbol"] = gene.upper()
@@ -1004,8 +1004,8 @@ def _display_human_atlas_browser_v2() -> None:
             title=tr(f"{gene} 表达热图", f"{gene} expression heatmap"),
         )
         fig2.update_layout(height=max(420, 16 * len(heat)), margin=dict(l=10, r=10, t=60, b=10))
-        st.plotly_chart(fig2, use_container_width=True)
-    st.dataframe(expr, use_container_width=True, hide_index=True)
+        st.plotly_chart(fig2, width="stretch")
+    st.dataframe(expr, width="stretch", hide_index=True)
 
 
 def display_atlas_browser() -> None:

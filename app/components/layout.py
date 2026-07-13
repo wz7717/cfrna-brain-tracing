@@ -25,7 +25,7 @@ def render_top_toolbar(current_page: str) -> None:
     st.markdown(
         f'<div class="top-toolbar">'
         f'<div class="top-toolbar-meta">'
-        f'<span>{escape(tr("cfRNA Brain Injury Source Tracing Database", "cfRNA Brain Injury Source Tracing Database"))}</span>'
+        f'<span>cfRNA-BrainTrace</span>'
         f'<span>|</span>'
         f'<span>{escape(current_page)}</span>'
         f'</div>'
