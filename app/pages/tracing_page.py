@@ -16,7 +16,7 @@ from app.components.result_cards import render_primary_metrics, render_run_meta
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
 from app.shared import DB_PATH, init_processor, is_public_demo_mode, render_page_hero
-from core.bo2023_region_tracing import trace_bo2023_secondary_regions
+from core.bo2023_region_tracing import packaged_formal_region_assets_available, trace_bo2023_secondary_regions
 from core.network_tracing import DEFAULT_BO2023_NETWORK_MODEL, trace_network_expression
 from data.dao import get_atlas_options, table_exists
 
@@ -217,23 +217,18 @@ def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
     return out[["gene_symbol", "tpm_value"]], query_source
 
 
-def _select_locked_bo2023_atlas(db_mode: str) -> tuple[int, str]:
+def _select_locked_bo2023_atlas(db_mode: str) -> tuple[int | None, str]:
     atlas_opts = get_atlas_options(DB_PATH, species_mode=db_mode)
-    if not atlas_opts:
-        raise RuntimeError(
-            tr(
-                "当前数据库没有可用的 Bo2023 参考图谱，无法运行三层溯源。",
-                "No Bo2023 reference atlas is available in the current database; three-tier tracing cannot run.",
-            )
-        )
     for atlas_id, label in atlas_opts:
         text = str(label).lower()
         if "bo2023" in text or "wanglab" in text or "vsd" in text:
             return int(atlas_id), str(label)
+    if packaged_formal_region_assets_available():
+        return None, tr("Bo2023 正式打包参考", "Bo2023 packaged formal reference")
     raise RuntimeError(
         tr(
-            "当前数据库的参考图谱列表中未找到 Bo2023 图谱，无法运行三层溯源。",
-            "No Bo2023 atlas was found among the current database references; three-tier tracing cannot run.",
+            "当前数据库未登记 Bo2023 图谱，且正式打包参考资源不完整，无法运行三层溯源。",
+            "No Bo2023 atlas is registered and the packaged formal reference assets are incomplete; three-tier tracing cannot run.",
         )
     )
 
@@ -288,7 +283,7 @@ def _render_resolution_group_top3(out: dict) -> None:
     st.dataframe(pd.DataFrame(group_rows).head(3), width="stretch", hide_index=True)
 
 
-def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int, topk: int = 30) -> tuple[dict, dict]:
+def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int | None, topk: int = 30) -> tuple[dict, dict]:
     network_out = trace_network_expression(expr, enable_pairwise_rescue=False)
     if not network_out.get("results"):
         meta = network_out.get("meta", {})
@@ -296,7 +291,7 @@ def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int, topk: int = 30) 
             f"Insufficient Network model-gene overlap: {meta.get('n_overlap_genes', 0)}/"
             f"{meta.get('n_model_genes', 0)}."
         )
-    out = trace_bo2023_secondary_regions(expr, network_out, DB_PATH, int(atlas_id), topk=max(int(topk), 3))
+    out = trace_bo2023_secondary_regions(expr, network_out, DB_PATH, atlas_id, topk=max(int(topk), 3))
     if not out.get("results"):
         meta = out.get("meta", {})
         raise ValueError(str(meta.get("error") or "Bo2023 three-tier route returned no region candidates."))

@@ -190,7 +190,7 @@ def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame
     return matrix, region_network, "db_reference_expression_avg_tpm_fallback"
 
 
-def _load_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame, dict[str, str], str]:
+def _load_reference_matrix(db_path: str, atlas_id: int | None) -> tuple[pd.DataFrame, dict[str, str], str]:
     matrix, region_network, source = _load_raw_logcpm_reference_matrix()
     if not matrix.empty and region_network:
         return matrix, region_network, source
@@ -200,6 +200,8 @@ def _load_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame, d
     matrix, region_network, source = _load_packaged_region_reference_matrix(LEGACY_PACKAGED_REGION_REFERENCE)
     if not matrix.empty and region_network:
         return matrix, region_network, source
+    if atlas_id is None:
+        return pd.DataFrame(), {}, "db_reference_requires_atlas_id"
     return _load_db_reference_matrix(db_path, atlas_id)
 
 
@@ -211,6 +213,12 @@ def _load_formal_beam_gene_panels(path: Path = DEFAULT_FORMAL_BEAM_GENE_PANELS) 
         return json.loads(path.read_text(encoding="utf-8")).get("beams", {})
     except Exception:
         return {}
+
+
+def packaged_formal_region_assets_available() -> bool:
+    """Return whether the database-independent formal region route is packaged."""
+    matrix, region_network, _ = _load_packaged_region_reference_matrix()
+    return bool(not matrix.empty and region_network and _load_formal_beam_gene_panels())
 
 
 def _formal_beam_gene_order(
@@ -370,7 +378,7 @@ def trace_bo2023_secondary_regions(
     expression: pd.DataFrame,
     network_output: dict[str, Any],
     db_path: str,
-    atlas_id: int,
+    atlas_id: int | None,
     topk: int = 30,
     top50_weight: float = DEFAULT_TOP50_WEIGHT,
     local_top_n_genes: int = DEFAULT_LOCAL_TOP_N_GENES,
