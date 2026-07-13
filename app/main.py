@@ -33,33 +33,48 @@ def resolve_page_func(func_path: str):
     return getattr(import_module(module_name), func_name)
 
 
+def _set_page(page_key: str) -> None:
+    if page_key in PAGES:
+        st.session_state["page"] = page_key
+
+
 def _render_sidebar() -> None:
     with st.sidebar:
         st.markdown("### cfRNA-BrainTrace")
         current_language = get_language_mode()
         lang_col_zh, lang_col_en = st.columns(2)
         with lang_col_zh:
-            if st.button("中文", key="language_zh", width="stretch", type="primary" if current_language == "zh" else "secondary"):
-                set_language_mode("zh")
-                st.rerun()
+            st.button(
+                "中文",
+                key="language_zh",
+                width="stretch",
+                type="primary" if current_language == "zh" else "secondary",
+                on_click=set_language_mode,
+                args=("zh",),
+            )
         with lang_col_en:
-            if st.button("English", key="language_en", width="stretch", type="primary" if current_language == "en" else "secondary"):
-                set_language_mode("en")
-                st.rerun()
+            st.button(
+                "English",
+                key="language_en",
+                width="stretch",
+                type="primary" if current_language == "en" else "secondary",
+                on_click=set_language_mode,
+                args=("en",),
+            )
 
         st.divider()
         st.caption(tr("工作流程", "Workflow"))
         current_page = st.session_state.get("page", "overview")
         for page_key in NAV_ORDER:
             meta = PAGES[page_key]
-            if st.button(
+            st.button(
                 tr(meta["zh"], meta["en"]),
                 key=f"nav_{page_key}",
                 width="stretch",
                 type="primary" if current_page == page_key else "secondary",
-            ):
-                st.session_state.page = page_key
-                st.rerun()
+                on_click=_set_page,
+                args=(page_key,),
+            )
 
         st.divider()
         st.caption("Network Top3 → resolution group Top3 → exact-region exploratory Top3")

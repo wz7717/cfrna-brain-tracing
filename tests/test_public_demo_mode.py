@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+import inspect
 import sys
 
 import pandas as pd
@@ -23,6 +24,22 @@ def test_main_exposes_tracing_and_sample_upload_with_lazy_imports(monkeypatch) -
     assert upload_func.__name__ == "display_data_upload"
     samples_func = main.resolve_page_func(main.PAGES["samples"]["func"])
     assert samples_func.__name__ == "display_sample_list"
+
+
+def test_sidebar_navigation_uses_a_single_widget_rerun(monkeypatch) -> None:
+    monkeypatch.setenv("CFRNA_PUBLIC_DEMO", "1")
+    main = importlib.import_module("app.main")
+
+    source = inspect.getsource(main._render_sidebar)
+    assert "st.rerun" not in source
+    assert "on_click=_set_page" in source
+
+    main.st.session_state.clear()
+    main._set_page("samples")
+    assert main.st.session_state["page"] == "samples"
+
+    main._set_page("unknown")
+    assert main.st.session_state["page"] == "samples"
 
 
 def test_public_demo_tracing_enters_demo_before_backend_init(monkeypatch) -> None:
