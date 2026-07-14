@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+import sqlite3
+
 import pandas as pd
 import pytest
 
@@ -94,7 +97,7 @@ def test_bo2023_secondary_region_tracing_rejects_missing_network_beam():
     assert out["meta"]["traceability"] == "insufficient"
 
 
-def test_production_reference_prefers_committed_package_over_local_raw_inputs(monkeypatch):
+def test_production_reference_rejects_malformed_package_without_silent_fallback(monkeypatch):
     packaged = pd.DataFrame({"N1::R1": [1.0]}, index=["GENE1"])
     network_map = {"N1::R1": "N1"}
 
@@ -113,9 +116,99 @@ def test_production_reference_prefers_committed_package_over_local_raw_inputs(mo
 
     matrix, mapping, source = bo2023_region_tracing._load_reference_matrix("unused.db", None)  # noqa: SLF001
 
-    pd.testing.assert_frame_equal(matrix, packaged)
-    assert mapping == network_map
-    assert source == "packaged_region_logcpm_reference"
+    assert matrix.empty
+    assert mapping == {}
+    assert source.startswith("canonical_formal_region_assets_invalid:")
+
+
+def test_committed_formal_assets_pass_all_canonical_invariants():
+    matrix, mapping, _ = bo2023_region_tracing._load_packaged_region_reference_matrix()  # noqa: SLF001
+    beams = bo2023_region_tracing._load_formal_beam_gene_panels()  # noqa: SLF001
+
+    bo2023_region_tracing._validate_formal_beam_gene_panels(beams, matrix, mapping)  # noqa: SLF001
+
+    assert matrix.shape[1] == 110
+    assert len(set(mapping.values())) == 10
+    assert len(beams) == 120
+    assert bo2023_region_tracing.packaged_formal_region_assets_available()
+
+
+def test_raw_metadata_loader_applies_canonical_parent_networks(monkeypatch, tmp_path):
+    source = pd.DataFrame(
+        {
+            "No.": ["a", "b", "c", "d"],
+            "Region": ["10m", "10m", "V2", "V2"],
+            "SaleemNetworks": [
+                "Lateral Prefrontal Cortex",
+                "Orbitomedial Prefrontal Cortex (OMPFC)",
+                "Parietal, and Parieto-occipital region",
+                "Occipital/Temporal",
+            ],
+        }
+    )
+    monkeypatch.setattr(pd, "read_excel", lambda *args, **kwargs: source.copy())
+
+    metadata = bo2023_region_tracing._read_bo2023_sample_metadata(tmp_path / "metadata.xlsx")  # noqa: SLF001
+
+    assert metadata.loc[metadata["region_id"].eq("10m"), "network_id"].unique().tolist() == [
+        "Orbitomedial Prefrontal Cortex (OMPFC)"
+    ]
+    assert metadata.loc[metadata["region_id"].eq("V2"), "network_id"].unique().tolist() == [
+        "Occipital/Temporal"
+    ]
+
+
+def test_db_fallback_qualifies_and_canonicalizes_region_identity(tmp_path):
+    db_path = tmp_path / "reference.db"
+    with sqlite3.connect(db_path) as conn:
+        conn.execute("CREATE TABLE reference_expression (atlas_id INTEGER, gene_symbol TEXT, region_id TEXT, avg_tpm REAL)")
+        conn.execute("CREATE TABLE macaque_brain_atlas (atlas_id INTEGER, region_id TEXT, coordinates TEXT)")
+        conn.execute("INSERT INTO reference_expression VALUES (1, 'GENE1', '10m', 1.0)")
+        conn.executemany(
+            "INSERT INTO macaque_brain_atlas VALUES (1, '10m', ?)",
+            [
+                (json.dumps({"saleem_network": "Lateral Prefrontal Cortex"}),),
+                (json.dumps({"saleem_network": "Orbitomedial Prefrontal Cortex (OMPFC)"}),),
+            ],
+        )
+
+    matrix, mapping, source = bo2023_region_tracing._load_db_reference_matrix(str(db_path), 1)  # noqa: SLF001
+
+    key = "Orbitomedial Prefrontal Cortex (OMPFC)::10m"
+    assert matrix.columns.tolist() == [key]
+    assert mapping == {key: "Orbitomedial Prefrontal Cortex (OMPFC)"}
+    assert source == "db_reference_expression_avg_tpm_fallback"
+
+
+def test_canonical_reference_guard_rejects_112_region_semantics():
+    networks = [f"N{i}" for i in range(10)]
+    regions = [f"{networks[i % 10]}::R{i}" for i in range(110)]
+    regions.extend(["N1::R0", "N2::R1"])
+    matrix = pd.DataFrame([range(112)], index=["GENE1"], columns=regions)
+    mapping = {region: region.split("::", 1)[0] for region in regions}
+
+    with pytest.raises(ValueError, match="expected 110 regions"):
+        bo2023_region_tracing._validate_canonical_region_reference(matrix, mapping)  # noqa: SLF001
+
+
+def test_canonical_reference_guard_rejects_cross_network_duplicate_display_region():
+    networks = [f"N{i}" for i in range(10)]
+    regions = [f"{networks[i % 10]}::R{i}" for i in range(108)]
+    regions.extend(["N0::DUP", "N1::DUP"])
+    matrix = pd.DataFrame([range(110)], index=["GENE1"], columns=regions)
+    mapping = {region: region.split("::", 1)[0] for region in regions}
+
+    with pytest.raises(ValueError, match="more than one Network"):
+        bo2023_region_tracing._validate_canonical_region_reference(matrix, mapping)  # noqa: SLF001
+
+
+def test_formal_beam_guard_rejects_incomplete_beam_set():
+    matrix, mapping, _ = bo2023_region_tracing._load_packaged_region_reference_matrix()  # noqa: SLF001
+    beams = dict(bo2023_region_tracing._load_formal_beam_gene_panels())  # noqa: SLF001
+    beams.pop(next(iter(beams)))
+
+    with pytest.raises(ValueError, match="all 120 canonical Network beams"):
+        bo2023_region_tracing._validate_formal_beam_gene_panels(beams, matrix, mapping)  # noqa: SLF001
 
 
 def test_formal_group_and_exact_rankings_are_independent():
