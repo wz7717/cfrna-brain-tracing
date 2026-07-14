@@ -17,6 +17,11 @@ from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
 from app.shared import DB_PATH, init_processor, is_public_demo_mode, render_page_hero
 from core.bo2023_region_tracing import packaged_formal_region_assets_available, trace_bo2023_secondary_regions
+from core.model_lock import (
+    LOCKED_PRODUCTION_PARAMETERS,
+    assert_locked_production_parameters,
+    verify_locked_model_bundle,
+)
 from core.network_tracing import DEFAULT_BO2023_NETWORK_MODEL, trace_network_expression
 from data.dao import get_atlas_options, table_exists
 
@@ -284,17 +289,41 @@ def _render_resolution_group_top3(out: dict) -> None:
 
 
 def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int | None, topk: int = 30) -> tuple[dict, dict]:
-    network_out = trace_network_expression(expr, enable_pairwise_rescue=False)
+    parameters = dict(LOCKED_PRODUCTION_PARAMETERS)
+    model_lock = verify_locked_model_bundle()
+    assert_locked_production_parameters(parameters)
+    network_out = trace_network_expression(
+        expr,
+        min_overlap_fraction=float(parameters["network_min_overlap_fraction"]),
+        project_to_vsd=bool(parameters["project_to_vsd"]),
+        enable_pairwise_rescue=bool(parameters["enable_pairwise_rescue"]),
+    )
     if not network_out.get("results"):
         meta = network_out.get("meta", {})
         raise ValueError(
             f"Insufficient Network model-gene overlap: {meta.get('n_overlap_genes', 0)}/"
             f"{meta.get('n_model_genes', 0)}."
         )
-    out = trace_bo2023_secondary_regions(expr, network_out, DB_PATH, atlas_id, topk=max(int(topk), 3))
+    network_out.setdefault("meta", {})["model_lock"] = {
+        "lock_id": model_lock["lock_id"],
+        "status": model_lock["status"],
+    }
+    out = trace_bo2023_secondary_regions(
+        expr,
+        network_out,
+        DB_PATH,
+        atlas_id,
+        topk=max(int(topk), int(parameters["network_top_k"])),
+        top50_weight=float(parameters["exact_top50_weight"]),
+        local_top_n_genes=int(parameters["region_local_top_n_genes"]),
+    )
     if not out.get("results"):
         meta = out.get("meta", {})
         raise ValueError(str(meta.get("error") or "Bo2023 three-tier route returned no region candidates."))
+    out.setdefault("meta", {})["model_lock"] = {
+        "lock_id": model_lock["lock_id"],
+        "status": model_lock["status"],
+    }
     return network_out, out
 
 

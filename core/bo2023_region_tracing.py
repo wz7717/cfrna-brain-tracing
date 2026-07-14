@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 
 from core.models import softmax_confidence, trace_corr
+from core.model_lock import ModelLockError, verify_locked_model_bundle
 from core.bo2023_metadata import (
     CANONICAL_REGION_NETWORKS,
     assert_unique_region_network_mapping,
@@ -344,6 +345,10 @@ def _load_reference_matrix(
     *,
     allow_development_fallback: bool = False,
 ) -> tuple[pd.DataFrame, dict[str, str], str]:
+    try:
+        verify_locked_model_bundle()
+    except ModelLockError as exc:
+        return pd.DataFrame(), {}, f"canonical_model_lock_failed: {exc}"
     # Production inference must use the same committed bytes locally and in
     # Streamlit Cloud. Raw Bo2023 inputs are intentionally not part of the
     # public checkout and remain a reproducibility/development fallback only.
@@ -404,6 +409,10 @@ def _load_formal_beam_gene_panels(path: Path = DEFAULT_FORMAL_BEAM_GENE_PANELS) 
 
 def packaged_formal_region_assets_available() -> bool:
     """Return whether the database-independent formal region route is packaged."""
+    try:
+        verify_locked_model_bundle()
+    except ModelLockError:
+        return False
     matrix, region_network, _ = _load_packaged_region_reference_matrix()
     try:
         _validate_formal_beam_gene_panels(

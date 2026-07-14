@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "lock_id": "canonical110-v0.1.8-20260714",
+  "status": "frozen",
+  "policy": "Production inference must fail closed if any locked artifact or parameter differs.",
+  "production_parameters": {
+    "route_name": "projected_vsd_network_top3_logcpm_resolution_local_exact",
+    "region_count": 110,
+    "network_count": 10,
+    "beam_count": 120,
+    "network_top_k": 3,
+    "network_gene_count": 200,
+    "network_min_overlap_fraction": 0.5,
+    "project_to_vsd": true,
+    "enable_pairwise_rescue": false,
+    "region_local_top_n_genes": 200,
+    "exact_top50_gene_count": 50,
+    "exact_top100_gene_count": 100,
+    "exact_top50_weight": 0.25,
+    "resolution_group_mean_weight": 0.1,
+    "allow_development_fallback": false
+  },
+  "artifacts": {
+    "data/models/bo2023_saleem_network_top200_model.npz": {
+      "size": 10203,
+      "sha256": "7644e7b673ea07a9eaf701d2061b1db28409421bc90fa5cbdb3cf57eb482d1b6"
+    },
+    "data/models/bo2023_saleem_network_top200_model.json": {
+      "size": 466,
+      "sha256": "207e4f7811e3c2498844a0a4cd3337c26ab3f3cef2ee1fdd4bec918fc03b667e"
+    },
+    "data/models/bo2023_saleem_network_top200_model_genes.csv": {
+      "size": 14417,
+      "sha256": "fcaf3a1927aa0e7b55513c9e3486333d67742e3ceaf0a7fb650a47b1dda15929"
+    },
+    "data/models/bo2023_saleem_network_pairwise_rescue_model.json": {
+      "size": 112133,
+      "sha256": "edf97d19ee42de7e3ffaff923a35fc4900f6f6ae2eca7eea1d0892b881cb569f"
+    },
+    "data/models/bo2023_reference_projector_linear_full.npz": {
+      "size": 697617,
+      "sha256": "0be4788b14a2f7f89c509a252e5038831aab74d2e4ecf0052cee50d02e87982f"
+    },
+    "data/models/bo2023_formal_region_logcpm_reference_matrix.npz": {
+      "size": 8453310,
+      "sha256": "a989aefc561d8b4b58b41433c58794a9215984a2f91bd77e302341791fb9cfc8"
+    },
+    "data/models/bo2023_formal_region_beam_gene_panels.json": {
+      "size": 3120775,
+      "sha256": "cd4c6a33d12e29712177af57c0f9c4eb2118a1bc67d87e4ef2de1a6d9441e941"
+    },
+    "data/models/bo2023_region_resolution_groups.json": {
+      "size": 57691,
+      "sha256": "66028cdc4652a914eee682fe167d040901825c02278f75dbae8e4ef6cb7470db"
+    }
+  }
+}
