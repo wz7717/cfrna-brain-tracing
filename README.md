@@ -146,6 +146,6 @@ provide stand-alone clinical localization from unlabeled biofluid RNA. The
 v0.1.8 release uses the audited canonical 110-region assets, enforces the exact
 110-region / 10-Network / 120-beam production contract, cleans the AHBA
 resolution-group detail export, and reports the formally rerun validation
-metrics. v0.1.8 supersedes v0.1.7; its Zenodo version DOI is assigned when the
-release archive is published. The persistent Zenodo concept DOI is
+metrics. v0.1.8 supersedes v0.1.7 and is archived at Zenodo with version DOI
+`https://doi.org/10.5281/zenodo.21353953`. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
