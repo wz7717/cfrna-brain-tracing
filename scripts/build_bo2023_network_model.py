@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.run_bo2023_loso_validation import read_vsd_matrix  # noqa: E402
+from core.bo2023_metadata import normalize_bo2023_network_labels  # noqa: E402
 from scripts.run_bo2023_network_correlation_validation import (  # noqa: E402
     build_group_reference,
     select_group_discriminative_genes,
@@ -47,7 +48,9 @@ def main() -> int:
     matrix = map_matrix_to_symbols(raw, args.gene_map)
     ann = pd.read_excel(args.sample_info, sheet_name=args.sample_sheet)
     ann["sample_id"] = ann["No."].astype(str).str.strip()
+    ann["region_id"] = ann["Region"].astype(str).str.strip()
     ann["endpoint_label"] = ann[args.endpoint].fillna("NA").astype(str).str.strip()
+    ann = normalize_bo2023_network_labels(ann, network_col="endpoint_label")
     ann = ann[ann["sample_id"].isin(set(matrix.columns))].copy()
     labels = ann.set_index("sample_id").reindex(matrix.columns)["endpoint_label"].to_numpy(dtype=str)
     groups = sorted(set(labels))
@@ -71,6 +74,7 @@ def main() -> int:
         "n_training_samples": int(matrix.shape[1]),
         "n_networks": int(len(groups)),
         "n_genes": int(len(selected)),
+        "label_normalization": "110 canonical Bo2023 region IDs; 10m -> OMPFC and V2 -> Occipital/Temporal",
         "method": "fold-validated discriminative-gene Pearson correlation",
         "input_requirement": "sample values must be on the same Bo2023 VSD-normalized scale",
     }

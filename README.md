@@ -98,17 +98,18 @@ full conversion to Bo2023 VSD.
 
 ## Validation summary
 
-Latest aligned locked route (rechecked 2026-07-13):
+Canonical 110 locked route (rechecked 2026-07-13):
 
-- Internal LOSO Network Top1/Top3: 58.24% (`477/819`) / 92.19% (`755/819`).
-- Internal LOMO Network Top1/Top3: 57.75% (`473/819`) / 91.21% (`747/819`).
-- Internal LOSO resolution-group Top1/Top3: 44.47% (`362/814`) / 72.36% (`589/814`).
-- Internal LOMO resolution-group Top1/Top3: 41.38% (`336/812`) / 69.09% (`561/812`).
-- Internal LOSO exact-region Top1/Top3: 22.48% (`183/814`) / 45.33% (`369/814`).
-- Internal LOMO exact-region Top1/Top3: 22.17% (`180/812`) / 42.36% (`344/812`).
+- The Bo2023 reference retains the paper's 110 post-QC anatomical region IDs. Each region has one canonical parent Network; the two discordant assay-level labels are normalized as `10m -> Orbitomedial Prefrontal Cortex (OMPFC)` and `V2 -> Occipital/Temporal` without modifying the source workbook.
+- Internal LOSO Network Top1/Top3: 58.97% (`483/819`) / 91.94% (`753/819`).
+- Internal LOMO Network Top1/Top3: 59.10% (`484/819`) / 91.58% (`750/819`).
+- Internal LOSO resolution-group Top1/Top3: 45.21% (`368/814`) / 72.48% (`590/814`).
+- Internal LOMO resolution-group Top1/Top3: 42.36% (`344/812`) / 70.07% (`569/812`).
+- Internal LOSO exact-region Top1/Top3: 22.36% (`182/814`) / 45.21% (`368/814`).
+- Internal LOMO exact-region Top1/Top3: 21.80% (`177/812`) / 42.61% (`346/812`).
 - AHBA technical-replicate-collapsed, network-qualified mapped-label Network Top1/Top3: 73.99% (`165/223`) / 94.62% (`211/223`).
-- AHBA technical-replicate-collapsed, network-qualified mapped-label resolution-group Top1/Top3: 40.91% (`36/88`) / 65.91% (`58/88`).
-- AHBA technical-replicate-collapsed, network-qualified mapped-label exact-region Top1/Top3: 23.86% (`21/88`) / 46.59% (`41/88`).
+- AHBA technical-replicate-collapsed, network-qualified mapped-label resolution-group Top1/Top3: 42.05% (`37/88`) / 68.18% (`60/88`).
+- AHBA technical-replicate-collapsed, network-qualified mapped-label exact-region Top1/Top3: 27.27% (`24/88`) / 45.45% (`40/88`).
 - TCGA/BraTS Network Top3: 40.63% (`26/64` evaluable cases).
 - TCGA/BraTS broad-anatomy Top3: 65.63% (`42/64` evaluable cases).
 - GSE189919 projector gene overlap: 15,622 / 21,668 (72.10%); projection feasibility / transfer stress test only, not localization accuracy.
@@ -119,17 +120,17 @@ baseline and tumour-adapted routes are not distributed in this release.
 The aligned endpoint definitions use projected VSD only for the Network Top3
 beam, an independent logCPM/Fisher-Top200 ranking for resolution groups, and an
 independent `0.25 x Top50 + 0.75 x Top100` logCPM fusion for exact regions.
-Resolution-group ordering does not rewrite the exact-region ranking. The
-previous AHBA resolution-group Top3 value was produced by deriving group order
-from the exact-region fusion and is superseded by the aligned independent-group
-result reported above.
+Resolution-group ordering does not rewrite the exact-region ranking. The static
+deployment hierarchy does not define validation groups: LOSO/LOMO groups are
+fold-local, and AHBA groups are constructed from the locked macaque training
+reference.
 
 Network metrics include all 819 samples. Region-level metrics are restricted
 to folds in which the held-out truth region remains represented in the
 training reference; five LOSO samples and seven LOMO samples are therefore
 excluded only from resolution-group and exact-region evaluation.
 
-The 92.19% LOSO Network Top3 value uses all 819 Network-evaluable samples as
+The 91.94% LOSO Network Top3 value uses all 819 Network-evaluable samples as
 the denominator. Region-level LOSO metrics use 814 reference-supported samples
 because five samples lacked a truth-region reference after fold construction.
 Region-level LOMO metrics use 812 reference-supported samples because seven

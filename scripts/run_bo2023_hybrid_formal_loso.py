@@ -24,6 +24,10 @@ from core.reference_projection import (  # noqa: E402
     read_gene_map,
     write_json,
 )
+from core.bo2023_metadata import (  # noqa: E402
+    assert_unique_region_network_mapping,
+    normalize_bo2023_network_labels,
+)
 from scripts.build_bo2023_reference_projector import DEFAULT_COUNTS, DEFAULT_MODEL_GENES, DEFAULT_SAMPLE_INFO, DEFAULT_VSD, read_locked_model_genes  # noqa: E402
 from scripts.run_bo2023_network_correlation_validation import select_group_discriminative_genes  # noqa: E402
 from scripts.run_bo2023_projected_vsd_exact_region import DEFAULT_CLEANED_GENE_MAP  # noqa: E402
@@ -47,6 +51,8 @@ def read_metadata(path: Path, sheet: str, region_col: str, network_col: str) -> 
     info["sample_id"] = info["No."].astype(str).str.strip()
     info["region_id"] = info[region_col].astype(str).str.strip()
     info["network_id"] = info[network_col].astype(str).str.strip()
+    info = normalize_bo2023_network_labels(info)
+    assert_unique_region_network_mapping(info)
     info = info.drop_duplicates("sample_id").set_index("sample_id")
     return info[info["region_id"].ne("") & info["network_id"].ne("")].copy()
 
@@ -334,6 +340,7 @@ def main() -> int:
     summary = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "validation_design": "three-tier LOSO; Network is evaluated for every supported Network label, while resolution-group and exact-region metrics require the truth region to remain represented in the training fold",
+        "region_ontology": "110 canonical Bo2023 region IDs with one parent Network per region",
         "evaluation_denominators": {
             "network_n": int(len(network_df)),
             "resolution_group_n": int(len(group_df)),

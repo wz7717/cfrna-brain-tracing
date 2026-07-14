@@ -24,6 +24,10 @@ from core.reference_projection import (  # noqa: E402
     read_gene_map,
     write_json,
 )
+from core.bo2023_metadata import (  # noqa: E402
+    assert_unique_region_network_mapping,
+    normalize_bo2023_network_labels,
+)
 from scripts.build_bo2023_reference_projector import DEFAULT_COUNTS, DEFAULT_SAMPLE_INFO, DEFAULT_VSD  # noqa: E402
 from scripts.run_bo2023_network_correlation_validation import select_group_discriminative_genes  # noqa: E402
 from scripts.run_bo2023_network_pairwise_correlation_validation import (  # noqa: E402
@@ -82,6 +86,8 @@ def read_metadata(
         info["region_id"] = info["region_id"].map(lambda value: label_map.get(value, value))
     info["endpoint_label"] = info[network_col].astype(str).str.strip()
     info["monkey_id"] = info[monkey_col].astype(str).str.strip()
+    info = normalize_bo2023_network_labels(info, network_col="endpoint_label")
+    assert_unique_region_network_mapping(info, network_col="endpoint_label")
     info = info.drop_duplicates("sample_id")
     return info[
         info["sample_id"].ne("")
@@ -435,6 +441,7 @@ def main() -> int:
     summary = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "validation_design": "formal three-tier leave-one-monkey-out; Network is evaluated for every supported Network label, while resolution-group and exact-region metrics require the truth region to remain represented in the training monkeys",
+        "region_ontology": "110 canonical Bo2023 region IDs with one parent Network per region",
         "evaluation_denominators": {
             "network_n": int(
                 len(

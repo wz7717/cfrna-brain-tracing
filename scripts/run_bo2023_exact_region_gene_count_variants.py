@@ -28,6 +28,7 @@ from scripts.run_bo2023_loso_validation import (  # noqa: E402
     read_vsd_matrix,
 )
 from scripts.run_bo2023_network_correlation_validation import select_group_discriminative_genes  # noqa: E402
+from core.bo2023_metadata import normalize_bo2023_network_labels  # noqa: E402
 from scripts.run_bo2023_resolution_tier_validation import DEFAULT_NETWORK_DETAIL  # noqa: E402
 from scripts.run_bo2023_v2_loso_validation import (  # noqa: E402
     DEFAULT_GENE_MAP,
@@ -188,7 +189,9 @@ def main() -> int:
     ann = read_annotations(args.sample_info, args.sample_sheet, args.region_col)
     network_ann = pd.read_excel(args.sample_info, sheet_name=args.sample_sheet, usecols=["No.", args.network_col])
     network_ann["sample_id"] = network_ann["No."].astype(str).str.strip()
+    network_ann["region_id"] = ann.set_index("sample_id").reindex(network_ann["sample_id"])["region_id"].to_numpy()
     network_ann["endpoint_label"] = network_ann[args.network_col].fillna("NA").astype(str).str.strip()
+    network_ann = normalize_bo2023_network_labels(network_ann, network_col="endpoint_label")
     ann = ann.merge(network_ann[["sample_id", "endpoint_label"]], on="sample_id", how="left")
     ann = ann[ann["sample_id"].isin(set(matrix.columns))].copy()
 

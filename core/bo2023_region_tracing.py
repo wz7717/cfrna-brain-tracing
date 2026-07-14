@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sqlite3
 from functools import lru_cache
+from itertools import combinations
 from pathlib import Path
 from typing import Any
 
@@ -10,6 +11,11 @@ import numpy as np
 import pandas as pd
 
 from core.models import softmax_confidence, trace_corr
+from core.bo2023_metadata import (
+    CANONICAL_REGION_NETWORKS,
+    assert_unique_region_network_mapping,
+    normalize_bo2023_network_labels,
+)
 from core.reference_projection import (
     compute_logcpm,
     map_index_to_symbols,
@@ -21,6 +27,9 @@ from core.region_resolution import load_region_resolution_model
 
 DEFAULT_TOP50_WEIGHT = 0.25
 DEFAULT_LOCAL_TOP_N_GENES = 200
+CANONICAL_REGION_COUNT = 110
+CANONICAL_NETWORK_COUNT = 10
+CANONICAL_BEAM_COUNT = 120
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BO2023_COUNTS = ROOT / "bo2023 data" / "mfas5_819samples_28415genes_featurecounts_counts.txt"
 DEFAULT_BO2023_SAMPLE_INFO = ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"
@@ -59,11 +68,137 @@ def _table_exists(conn: sqlite3.Connection, table: str) -> bool:
 
 def _read_bo2023_sample_metadata(path: Path) -> pd.DataFrame:
     info = pd.read_excel(path, sheet_name="mfas5_819samples_phenSet4", usecols=["No.", "Region", "SaleemNetworks"])
+    info = info.dropna(subset=["No.", "Region", "SaleemNetworks"]).copy()
     info["sample_id"] = info["No."].astype(str).str.strip()
     info["region_id"] = info["Region"].astype(str).str.strip()
     info["network_id"] = info["SaleemNetworks"].astype(str).str.strip()
+    info = info[
+        info["sample_id"].ne("") & info["region_id"].ne("") & info["network_id"].ne("")
+    ].copy()
+    info = normalize_bo2023_network_labels(info)
+    assert_unique_region_network_mapping(info)
     info = info.drop_duplicates("sample_id").set_index("sample_id")
     return info[info["region_id"].ne("") & info["network_id"].ne("")].copy()
+
+
+def _qualify_canonical_region_identity(
+    matrix: pd.DataFrame,
+    region_network: dict[str, str],
+) -> tuple[pd.DataFrame, dict[str, str]]:
+    """Return Network-qualified canonical keys without collapsing ambiguous columns."""
+    qualified: list[str] = []
+    normalized_mapping: dict[str, str] = {}
+    for raw_region in matrix.columns.astype(str):
+        if "::" in raw_region:
+            network, display_region = raw_region.split("::", 1)
+            network = network.strip()
+            display_region = display_region.strip()
+            mapped_network = str(region_network.get(raw_region, network)).strip()
+            if mapped_network != network:
+                raise ValueError(f"region key/network mismatch for {raw_region!r}")
+            canonical_network = CANONICAL_REGION_NETWORKS.get(display_region, network)
+            if canonical_network != network:
+                raise ValueError(f"non-canonical qualified region key: {raw_region!r}")
+        else:
+            display_region = raw_region.strip()
+            network = str(
+                CANONICAL_REGION_NETWORKS.get(display_region, region_network.get(raw_region, ""))
+            ).strip()
+        if not display_region or not network:
+            raise ValueError(f"missing canonical Network mapping for region {raw_region!r}")
+        region_key = f"{network}::{display_region}"
+        if region_key in normalized_mapping:
+            raise ValueError(f"duplicate canonical region key: {region_key!r}")
+        qualified.append(region_key)
+        normalized_mapping[region_key] = network
+
+    out = matrix.copy()
+    out.columns = qualified
+    return out, normalized_mapping
+
+
+def _validate_canonical_region_reference(
+    matrix: pd.DataFrame,
+    region_network: dict[str, str],
+) -> set[str]:
+    """Fail unless a reference is exactly the canonical 110-region ontology."""
+    if matrix.empty:
+        raise ValueError("reference matrix is empty")
+    if matrix.shape[1] != CANONICAL_REGION_COUNT:
+        raise ValueError(
+            f"expected {CANONICAL_REGION_COUNT} regions, found {matrix.shape[1]}"
+        )
+    regions = matrix.columns.astype(str).tolist()
+    if len(set(regions)) != CANONICAL_REGION_COUNT:
+        raise ValueError("reference contains duplicate region keys")
+    if set(region_network) != set(regions):
+        missing = sorted(set(regions) - set(region_network))
+        extra = sorted(set(region_network) - set(regions))
+        raise ValueError(f"region-network keys differ from matrix columns; missing={missing}, extra={extra}")
+
+    display_regions: list[str] = []
+    networks: set[str] = set()
+    for region_key in regions:
+        if region_key.count("::") != 1:
+            raise ValueError(f"region key is not Network-qualified: {region_key!r}")
+        network, display_region = region_key.split("::", 1)
+        if not network or not display_region:
+            raise ValueError(f"empty Network or region ID in {region_key!r}")
+        if str(region_network[region_key]).strip() != network:
+            raise ValueError(f"region key/network mismatch for {region_key!r}")
+        expected_network = CANONICAL_REGION_NETWORKS.get(display_region)
+        if expected_network is not None and network != expected_network:
+            raise ValueError(f"non-canonical parent Network for {display_region!r}")
+        display_regions.append(display_region)
+        networks.add(network)
+    if len(set(display_regions)) != CANONICAL_REGION_COUNT:
+        raise ValueError("an anatomical region appears under more than one Network")
+    if len(networks) != CANONICAL_NETWORK_COUNT:
+        raise ValueError(f"expected {CANONICAL_NETWORK_COUNT} Networks, found {len(networks)}")
+    if not np.isfinite(matrix.to_numpy(dtype=float)).all():
+        raise ValueError("reference matrix contains non-finite values")
+    return networks
+
+
+def _validate_formal_beam_gene_panels(
+    beams: dict[str, Any],
+    matrix: pd.DataFrame,
+    region_network: dict[str, str],
+) -> None:
+    """Fail unless all 120 canonical three-Network beams are complete and consistent."""
+    networks = _validate_canonical_region_reference(matrix, region_network)
+    expected_keys = {"||".join(parts) for parts in combinations(sorted(networks), 3)}
+    if len(beams) != CANONICAL_BEAM_COUNT or set(beams) != expected_keys:
+        raise ValueError(
+            f"expected all {CANONICAL_BEAM_COUNT} canonical Network beams, found {len(beams)}"
+        )
+    all_regions = set(matrix.columns.astype(str))
+    for beam_key in sorted(expected_keys):
+        panel = beams[beam_key]
+        beam_networks = [str(value) for value in panel.get("networks", [])]
+        if len(beam_networks) != 3 or len(set(beam_networks)) != 3:
+            raise ValueError(f"beam {beam_key!r} does not contain three unique Networks")
+        if "||".join(sorted(beam_networks)) != beam_key:
+            raise ValueError(f"beam key/network mismatch for {beam_key!r}")
+        candidates = [str(value) for value in panel.get("candidate_regions", [])]
+        expected_candidates = sorted(
+            region for region in all_regions if region_network[region] in set(beam_networks)
+        )
+        if len(candidates) != len(set(candidates)) or sorted(candidates) != expected_candidates:
+            raise ValueError(f"beam {beam_key!r} candidate regions are incomplete or inconsistent")
+        annotations = panel.get("annotations", {})
+        if set(annotations) != set(candidates):
+            raise ValueError(f"beam {beam_key!r} annotations do not match its candidates")
+        genes = [str(value).strip() for value in panel.get("genes", [])]
+        if not genes or len(genes) > DEFAULT_LOCAL_TOP_N_GENES or len(genes) != len(set(genes)):
+            raise ValueError(f"beam {beam_key!r} has an invalid formal gene panel")
+        for region in candidates:
+            annotation = annotations[region]
+            network, display_region = region.split("::", 1)
+            if str(annotation.get("network_id", "")) != network:
+                raise ValueError(f"beam {beam_key!r} annotation Network mismatch for {region!r}")
+            if str(annotation.get("region_id", "")) != display_region:
+                raise ValueError(f"beam {beam_key!r} annotation region mismatch for {region!r}")
 
 
 @lru_cache(maxsize=2)
@@ -100,6 +235,7 @@ def _load_raw_logcpm_reference_matrix(
     region_matrix.index = region_matrix.index.astype(str)
     region_matrix.columns = region_matrix.columns.astype(str)
     region_matrix = region_matrix.loc[region_matrix.abs().sum(axis=1) > 0].sort_index()
+    region_matrix, region_network = _qualify_canonical_region_identity(region_matrix, region_network)
     return region_matrix.astype("float32"), region_network, "raw_featurecounts_logcpm"
 
 
@@ -134,6 +270,10 @@ def _load_packaged_region_reference_matrix(
     matrix.index = matrix.index.astype(str)
     matrix.columns = matrix.columns.astype(str)
     matrix = matrix.loc[matrix.abs().sum(axis=1) > 0].sort_index()
+    try:
+        matrix, region_network = _qualify_canonical_region_identity(matrix, region_network)
+    except ValueError:
+        return pd.DataFrame(), {}, "packaged_region_reference_noncanonical"
     return matrix, region_network, "packaged_region_logcpm_reference"
 
 
@@ -177,7 +317,7 @@ def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame
     )
     matrix = matrix.loc[matrix.abs().sum(axis=1) > 0]
 
-    region_network: dict[str, str] = {}
+    metadata_rows: list[dict[str, str]] = []
     for row in atlas.itertuples(index=False):
         coordinates = {}
         try:
@@ -186,26 +326,70 @@ def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame
             coordinates = {}
         network = str(coordinates.get("saleem_network", "") or "").strip()
         if network:
-            region_network[str(row.region_id)] = network
+            metadata_rows.append({"region_id": str(row.region_id).strip(), "network_id": network})
+    if not metadata_rows:
+        return pd.DataFrame(), {}, "db_reference_missing_network_metadata"
+    metadata = normalize_bo2023_network_labels(pd.DataFrame(metadata_rows))
+    assert_unique_region_network_mapping(metadata)
+    region_network = (
+        metadata.drop_duplicates("region_id").set_index("region_id")["network_id"].astype(str).to_dict()
+    )
+    matrix, region_network = _qualify_canonical_region_identity(matrix, region_network)
     return matrix, region_network, "db_reference_expression_avg_tpm_fallback"
 
 
-def _load_reference_matrix(db_path: str, atlas_id: int | None) -> tuple[pd.DataFrame, dict[str, str], str]:
+def _load_reference_matrix(
+    db_path: str,
+    atlas_id: int | None,
+    *,
+    allow_development_fallback: bool = False,
+) -> tuple[pd.DataFrame, dict[str, str], str]:
     # Production inference must use the same committed bytes locally and in
     # Streamlit Cloud. Raw Bo2023 inputs are intentionally not part of the
     # public checkout and remain a reproducibility/development fallback only.
     matrix, region_network, source = _load_packaged_region_reference_matrix()
-    if not matrix.empty and region_network:
+    beams = _load_formal_beam_gene_panels()
+    try:
+        _validate_formal_beam_gene_panels(beams, matrix, region_network)
+    except ValueError as exc:
+        if not allow_development_fallback:
+            return pd.DataFrame(), {}, f"canonical_formal_region_assets_invalid: {exc}"
+    else:
         return matrix, region_network, source
+
+    # Legacy/raw/DB sources are reproducibility aids only.  Production callers
+    # must opt in explicitly, and every fallback must pass the same canonical
+    # 110-region and 120-beam invariants before it can be used.
     matrix, region_network, source = _load_packaged_region_reference_matrix(LEGACY_PACKAGED_REGION_REFERENCE)
     if not matrix.empty and region_network:
-        return matrix, region_network, source
-    matrix, region_network, source = _load_raw_logcpm_reference_matrix()
+        try:
+            _validate_formal_beam_gene_panels(beams, matrix, region_network)
+        except ValueError:
+            pass
+        else:
+            return matrix, region_network, source
+    try:
+        matrix, region_network, source = _load_raw_logcpm_reference_matrix()
+    except ValueError as exc:
+        matrix, region_network, source = pd.DataFrame(), {}, f"raw_reference_noncanonical: {exc}"
     if not matrix.empty and region_network:
-        return matrix, region_network, source
+        try:
+            _validate_formal_beam_gene_panels(beams, matrix, region_network)
+        except ValueError:
+            pass
+        else:
+            return matrix, region_network, source
     if atlas_id is None:
-        return pd.DataFrame(), {}, "db_reference_requires_atlas_id"
-    return _load_db_reference_matrix(db_path, atlas_id)
+        return pd.DataFrame(), {}, "canonical_development_reference_unavailable"
+    try:
+        matrix, region_network, source = _load_db_reference_matrix(db_path, atlas_id)
+    except (ValueError, sqlite3.Error) as exc:
+        return pd.DataFrame(), {}, f"canonical_development_reference_invalid: {exc}"
+    try:
+        _validate_formal_beam_gene_panels(beams, matrix, region_network)
+    except ValueError as exc:
+        return pd.DataFrame(), {}, f"canonical_development_reference_invalid: {exc}"
+    return matrix, region_network, source
 
 
 @lru_cache(maxsize=2)
@@ -221,7 +405,15 @@ def _load_formal_beam_gene_panels(path: Path = DEFAULT_FORMAL_BEAM_GENE_PANELS) 
 def packaged_formal_region_assets_available() -> bool:
     """Return whether the database-independent formal region route is packaged."""
     matrix, region_network, _ = _load_packaged_region_reference_matrix()
-    return bool(not matrix.empty and region_network and _load_formal_beam_gene_panels())
+    try:
+        _validate_formal_beam_gene_panels(
+            _load_formal_beam_gene_panels(),
+            matrix,
+            region_network,
+        )
+    except ValueError:
+        return False
+    return True
 
 
 def _formal_beam_gene_order(
@@ -413,7 +605,11 @@ def trace_bo2023_secondary_regions(
                 "endpoint": "Bo2023 exact Region",
                 "method": ROUTE_NAME,
                 "traceability": "insufficient",
-                "error": "missing Bo2023 logCPM reference matrix or region-network mapping",
+                "error": (
+                    "missing or non-canonical Bo2023 formal region assets: "
+                    f"{reference_source}"
+                ),
+                "reference_expression_source": reference_source,
             },
         }
 

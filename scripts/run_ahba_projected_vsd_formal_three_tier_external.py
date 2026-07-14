@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from core.bo2023_metadata import assert_unique_region_network_mapping  # noqa: E402
 from core.reference_projection import (  # noqa: E402
     apply_projector,
     compute_logcpm,
@@ -37,7 +38,11 @@ from scripts.run_bo2023_loso_validation import correlation_scores  # noqa: E402
 from scripts.run_bo2023_network_correlation_validation import select_group_discriminative_genes  # noqa: E402
 from scripts.run_bo2023_projected_vsd_exact_region import DEFAULT_CLEANED_GENE_MAP  # noqa: E402
 from scripts.run_bo2023_projected_vsd_formal_lomo import EXACT_ROUTE, GROUP_ROUTE  # noqa: E402
-from scripts.run_bo2023_resolution_tier_validation import build_resolution_groups, distinct_ranked_groups  # noqa: E402
+from scripts.run_bo2023_resolution_tier_validation import (  # noqa: E402
+    build_resolution_groups,
+    distinct_ranked_groups,
+    normalize_resolution_annotations,
+)
 from scripts.run_bo2023_leave_one_monkey_out_validation import build_region_reference, zscore  # noqa: E402
 
 
@@ -160,8 +165,9 @@ def group_hits(
     annotations: dict[str, dict[str, Any]],
     allowed_regions: list[str],
 ) -> tuple[bool | None, bool | None, list[str], list[str]]:
+    ranked_groups = distinct_ranked_groups(ranked_regions, annotations)
     if not allowed_regions:
-        return None, None, [], []
+        return None, None, ranked_groups, []
     allowed_groups = sorted(
         {
             str(annotations[region]["resolution_group"])
@@ -170,8 +176,7 @@ def group_hits(
         }
     )
     if not allowed_groups:
-        return False, False, [], []
-    ranked_groups = distinct_ranked_groups(ranked_regions, annotations)
+        return False, False, ranked_groups, []
     return (
         hit_any(ranked_groups[:1], allowed_groups),
         hit_any(ranked_groups[:3], allowed_groups),
@@ -319,6 +324,7 @@ def main() -> int:
     bo_counts = bo_counts.loc[:, samples]
     bo_vsd = bo_vsd.loc[:, samples]
     bo_logcpm = bo_logcpm.loc[:, samples]
+    assert_unique_region_network_mapping(bo_metadata)
     bo_metadata["region_key"] = bo_metadata["network_id"].astype(str) + "::" + bo_metadata["region_id"].astype(str)
 
     sample_pos = {sample: idx for idx, sample in enumerate(samples)}
@@ -410,6 +416,7 @@ def main() -> int:
                 args.merge_similarity_threshold,
                 args.max_group_size,
             )
+            annotations = normalize_resolution_annotations(annotations)
             if not audit.empty:
                 audit = audit.copy()
                 audit["route"] = route_name
@@ -433,6 +440,13 @@ def main() -> int:
             padded_regions = pad(ranked_regions, 3)
             padded_groups = pad(ranked_groups, 3)
             pred_annotation = annotations[padded_regions[0]]
+            group_truth_in_candidate_beam = bool(set(allowed_region_keys) & set(candidates))
+            if not allowed_region_keys:
+                group_evaluation_status = "not_exact_mapped"
+            elif group_truth_in_candidate_beam:
+                group_evaluation_status = "evaluated_in_candidate_beam"
+            else:
+                group_evaluation_status = "outside_candidate_beam"
             detail_rows.append(
                 {
                     "route": route_name,
@@ -450,6 +464,8 @@ def main() -> int:
                     "allowed_bo2023_regions": label_map["allowed_bo2023_regions"],
                     "allowed_bo2023_region_keys": " | ".join(allowed_region_keys),
                     "allowed_resolution_groups": " | ".join(allowed_groups),
+                    "group_truth_in_candidate_beam": group_truth_in_candidate_beam,
+                    "group_evaluation_status": group_evaluation_status,
                     "network_top1": network_top[0],
                     "network_top2": network_top[1] if len(network_top) > 1 else "",
                     "network_top3": network_top[2] if len(network_top) > 2 else "",
@@ -493,6 +509,7 @@ def main() -> int:
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "dataset": "AHBA human RNA-seq raw counts",
         "route": "Network Top3 beam -> resolution group -> local exact rerank",
+        "region_ontology": "110 canonical Network-qualified Bo2023 region keys",
         "technical_replicates": {
             "collapsed": bool(args.collapse_technical_replicates),
             "n_assay_rows_before": n_ahba_assay_rows_before,
