@@ -7,15 +7,18 @@ LANGUAGE_OPTIONS = {
     "zh": "中文",
     "en": "English",
 }
+DEFAULT_LANGUAGE = "en"
 
 
 def get_language_mode() -> str:
-    mode = st.session_state.get("ui_language_mode", "zh")
-    return mode if mode in LANGUAGE_OPTIONS else "zh"
+    mode = st.session_state.get("ui_language_mode", DEFAULT_LANGUAGE)
+    return mode if mode in LANGUAGE_OPTIONS else DEFAULT_LANGUAGE
 
 
 def set_language_mode(mode: str) -> None:
-    st.session_state["ui_language_mode"] = mode if mode in LANGUAGE_OPTIONS else "zh"
+    st.session_state["ui_language_mode"] = (
+        mode if mode in LANGUAGE_OPTIONS else DEFAULT_LANGUAGE
+    )
 
 
 def tr(zh: str, en: str) -> str:
@@ -24,4 +27,4 @@ def tr(zh: str, en: str) -> str:
         return zh
     if mode == "en":
         return en
-    return zh
+    return en
