@@ -138,11 +138,14 @@ samples lacked a truth-region reference after fold construction.
 
 ## Status
 
-This repository contains the v0.1.7 revised public submission release for the
+This repository contains the v0.1.8 revised public submission release for the
 Bioinformatics Application Note describing cfRNA-BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The
-v0.1.7 supersedes v0.1.6; its Zenodo version DOI is assigned when the release
-archive is published. The persistent Zenodo concept DOI is
+v0.1.8 release uses the audited canonical 110-region assets, enforces the exact
+110-region / 10-Network / 120-beam production contract, cleans the AHBA
+resolution-group detail export, and reports the formally rerun validation
+metrics. v0.1.8 supersedes v0.1.7; its Zenodo version DOI is assigned when the
+release archive is published. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
