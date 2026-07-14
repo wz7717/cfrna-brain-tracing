@@ -26,6 +26,7 @@ from core.reference_projection import (  # noqa: E402
     read_gene_map,
     write_json,
 )
+from core.bo2023_metadata import normalize_bo2023_network_labels  # noqa: E402
 from scripts.build_bo2023_reference_projector import DEFAULT_COUNTS, DEFAULT_SAMPLE_INFO, DEFAULT_VSD  # noqa: E402
 from scripts.run_ahba_human_rnaseq_external_validation import (  # noqa: E402
     hit_any,
@@ -82,7 +83,8 @@ def read_bo_metadata(path: Path, sheet: str, region_col: str, network_col: str) 
     info["sample_id"] = info["No."].astype(str).str.strip()
     info["region_id"] = info[region_col].astype(str).str.strip()
     info["network_id"] = info[network_col].astype(str).str.strip()
-    return info.drop_duplicates("sample_id")
+    info = info.drop_duplicates("sample_id")
+    return normalize_bo2023_network_labels(info)
 
 
 def build_centroids(matrix: pd.DataFrame, metadata: pd.DataFrame, label_col: str) -> pd.DataFrame:

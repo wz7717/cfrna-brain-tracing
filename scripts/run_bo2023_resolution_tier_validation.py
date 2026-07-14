@@ -34,6 +34,7 @@ from scripts.run_bo2023_v2_loso_validation import (  # noqa: E402
     DEFAULT_SAMPLE_INFO,
     map_matrix_to_symbols,
 )
+from core.bo2023_metadata import normalize_bo2023_network_labels  # noqa: E402
 
 
 DEFAULT_NETWORK_DETAIL = (
@@ -234,6 +235,35 @@ def build_resolution_groups(
         annotation["resolution_reasons"] = reasons
         annotation["resolution_tier"] = "low_resolution" if reasons else "high_resolution"
     return annotations, pd.DataFrame(audit_rows)
+
+
+def normalize_resolution_annotations(
+    annotations: dict[str, dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    """Return stable display labels for Network-qualified region annotations.
+
+    Group construction operates on candidate keys, which may be either plain
+    region IDs or ``Network::region`` keys.  Exported annotations must never
+    repeat the Network prefix inside group members.
+    """
+    normalized: dict[str, dict[str, Any]] = {}
+    for region_key, annotation in annotations.items():
+        item = dict(annotation)
+        network = str(item.get("network_id", "") or "").strip()
+        display_region = str(region_key).split("::", 1)[-1]
+        display_members = [
+            str(member).split("::", 1)[-1]
+            for member in item.get("group_members", [region_key])
+        ]
+        item["region_id"] = display_region
+        item["group_members"] = display_members
+        item["resolution_group"] = (
+            display_members[0]
+            if len(display_members) == 1
+            else f"{network}::{' + '.join(display_members)}"
+        )
+        normalized[str(region_key)] = item
+    return normalized
 
 
 def distinct_ranked_groups(ranked_regions: list[str], annotations: dict[str, dict[str, Any]]) -> list[str]:
@@ -489,6 +519,7 @@ def main() -> int:
     parser.add_argument("--merge-similarity-threshold", type=float, default=0.90)
     parser.add_argument("--max-group-size", type=int, default=4)
     parser.add_argument("--max-samples", type=int, default=None, help="Optional deterministic prefix for smoke tests only.")
+    parser.add_argument("--model-only", action="store_true", help="Rebuild only the full-reference annotation model.")
     parser.add_argument("--outdir", type=Path, default=DEFAULT_OUTDIR)
     parser.add_argument("--model-out", type=Path, default=DEFAULT_MODEL_OUT)
     args = parser.parse_args()
@@ -501,12 +532,22 @@ def main() -> int:
     network_ann["sample_id"] = network_ann["No."].astype(str).str.strip()
     network_ann["endpoint_label"] = network_ann[args.network_col].fillna("NA").astype(str).str.strip()
     ann = ann.merge(network_ann[["sample_id", "endpoint_label"]], on="sample_id", how="left")
+    ann = normalize_bo2023_network_labels(ann, region_col="region_id", network_col="endpoint_label")
     ann = ann[ann["sample_id"].isin(set(matrix.columns))].copy()
     values = matrix.to_numpy(dtype=np.float32)
     sample_ids = matrix.columns.astype(str).tolist()
     sample_pos = {sample_id: j for j, sample_id in enumerate(sample_ids)}
     reference_all, regions, _, region_indices = build_region_reference(values, sample_ids, ann)
     region_pos = {region: j for j, region in enumerate(regions)}
+    if args.model_only:
+        production_model = build_production_model(values, ann, region_indices, args.local_top_n_genes, args)
+        production_model["region_ontology"] = (
+            "110 canonical Bo2023 region IDs with one parent Network per region"
+        )
+        args.model_out.write_text(json.dumps(production_model, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(json.dumps(production_model["summary"], ensure_ascii=False, indent=2))
+        print(f"Production annotation model written to: {args.model_out}")
+        return 0
     network_detail = pd.read_csv(args.network_detail).set_index("sample_id")
 
     region_counts = ann.groupby("region_id")["sample_id"].size()

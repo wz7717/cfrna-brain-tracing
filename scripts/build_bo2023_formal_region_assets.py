@@ -15,11 +15,15 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from core.reference_projection import compute_logcpm, map_index_to_symbols, read_bo2023_gene_matrix, read_gene_map
+from core.bo2023_metadata import assert_unique_region_network_mapping
 from scripts.build_bo2023_reference_projector import DEFAULT_COUNTS, DEFAULT_SAMPLE_INFO, DEFAULT_VSD
 from scripts.run_ahba_projected_vsd_external_validation import read_bo_metadata
 from scripts.run_bo2023_network_correlation_validation import select_group_discriminative_genes
 from scripts.run_bo2023_projected_vsd_exact_region import DEFAULT_CLEANED_GENE_MAP
-from scripts.run_bo2023_resolution_tier_validation import build_resolution_groups
+from scripts.run_bo2023_resolution_tier_validation import (
+    build_resolution_groups,
+    normalize_resolution_annotations,
+)
 
 
 OUT_MATRIX = ROOT / "data/models/bo2023_formal_region_logcpm_reference_matrix.npz"
@@ -34,6 +38,7 @@ def main() -> int:
     metadata = read_bo_metadata(DEFAULT_SAMPLE_INFO, "mfas5_819samples_phenSet4", "Region", "SaleemNetworks")
     samples = [sample for sample in counts.columns.astype(str) if sample in set(metadata["sample_id"])]
     metadata = metadata[metadata["sample_id"].isin(samples)].copy()
+    assert_unique_region_network_mapping(metadata)
     metadata["region_key"] = metadata["network_id"].astype(str) + "::" + metadata["region_id"].astype(str)
     logcpm = compute_logcpm(counts.loc[genes, samples]).astype("float32")
     values = logcpm.to_numpy(dtype=np.float32)
@@ -77,16 +82,7 @@ def main() -> int:
             merge_similarity_threshold=0.90,
             max_group_size=8,
         )
-        for region_key, annotation in annotations.items():
-            network = region_network[region_key]
-            display_members = [str(member).split("::", 1)[-1] for member in annotation["group_members"]]
-            annotation["group_members"] = display_members
-            annotation["resolution_group"] = (
-                display_members[0]
-                if len(display_members) == 1
-                else f"{network}::{' + '.join(display_members)}"
-            )
-            annotation["region_id"] = region_key.split("::", 1)[-1]
+        annotations = normalize_resolution_annotations(annotations)
         key = "||".join(sorted(beam))
         panels[key] = {
             "networks": list(sorted(beam)),
@@ -98,6 +94,7 @@ def main() -> int:
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "route": "formal full-fit region assets",
         "region_identity": "network_id::region_id",
+        "region_ontology": "110 canonical Bo2023 region IDs with one parent Network per region",
         "gene_selection": "Top200 Fisher-like between-region/within-region score",
         "n_training_samples": len(samples),
         "n_genes": len(genes),
