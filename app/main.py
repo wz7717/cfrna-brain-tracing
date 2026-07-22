@@ -40,7 +40,7 @@ def _set_page(page_key: str) -> None:
 
 def _render_sidebar() -> None:
     with st.sidebar:
-        st.markdown("### cfRNA-BrainTrace")
+        st.markdown("### BrainTrace")
         current_language = get_language_mode()
         lang_col_zh, lang_col_en = st.columns(2)
         with lang_col_zh:
@@ -82,7 +82,7 @@ def _render_sidebar() -> None:
 
 def main() -> None:
     st.set_page_config(
-        page_title="cfRNA-BrainTrace",
+        page_title="BrainTrace",
         page_icon=":brain:",
         layout="wide",
         initial_sidebar_state="expanded",

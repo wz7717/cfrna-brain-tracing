@@ -13,8 +13,8 @@ from .models import apply_value_transform
 _ALLOWED_TABLES = frozenset({
     'reference_expression',
     'region_gene_signature',
-    'cfrna_expression',
-    'cfrna_samples',
+    'braintrace_expression',
+    'braintrace_samples',
     'macaque_brain_atlas',
     'atlas_versions',
     'signature_sets',
@@ -190,15 +190,15 @@ def load_sample_vector(
     conn = sqlite3.connect(db_path)
     try:
         col = 'tpm_value'
-        if use_value == 'zscore' and _col_exists(conn, 'cfrna_expression', 'zscore_tpm'):
+        if use_value == 'zscore' and _col_exists(conn, 'braintrace_expression', 'zscore_tpm'):
             col = 'zscore_tpm'
         elif use_value in ('log1p', 'zscore') and _col_exists(
-            conn, 'cfrna_expression', 'log_tpm'
+            conn, 'braintrace_expression', 'log_tpm'
         ):
             col = 'log_tpm'
 
         df = pd.read_sql_query(
-            f'SELECT gene_symbol, {col} AS value FROM cfrna_expression WHERE sample_id = ?',
+            f'SELECT gene_symbol, {col} AS value FROM braintrace_expression WHERE sample_id = ?',
             conn,
             params=[sample_id],
         )

@@ -4,8 +4,8 @@ import sqlite3
 
 # 允许执行 PRAGMA / ALTER TABLE 操作的表白名单
 _ALLOWED_TABLES = frozenset({
-    'cfrna_expression',
-    'cfrna_samples',
+    'braintrace_expression',
+    'braintrace_samples',
     'macaque_brain_atlas',
     'reference_expression',
     'region_gene_signature',
@@ -55,9 +55,9 @@ def _ensure_column(
 def run_migrations(db_path: str) -> None:
     conn = sqlite3.connect(db_path)
     try:
-        _ensure_column(conn, 'cfrna_expression', 'log_tpm', 'REAL')
-        _ensure_column(conn, 'cfrna_expression', 'gene_id_type', 'TEXT')
-        _ensure_column(conn, 'cfrna_expression', 'expression_unit', 'TEXT')
+        _ensure_column(conn, 'braintrace_expression', 'log_tpm', 'REAL')
+        _ensure_column(conn, 'braintrace_expression', 'gene_id_type', 'TEXT')
+        _ensure_column(conn, 'braintrace_expression', 'expression_unit', 'TEXT')
 
         for table in ('macaque_brain_atlas', 'reference_expression', 'region_gene_signature'):
             _ensure_column(conn, table, 'atlas_id', 'INTEGER DEFAULT 1')
@@ -77,7 +77,7 @@ def run_migrations(db_path: str) -> None:
             ('surgery_region', 'TEXT'),
             ('surgery_side', 'TEXT'),
         ]:
-            _ensure_column(conn, 'cfrna_samples', col, decl)
+            _ensure_column(conn, 'braintrace_samples', col, decl)
 
         if _table_exists(conn, 'reference_expression'):
             conn.execute(
@@ -102,10 +102,10 @@ def run_migrations(db_path: str) -> None:
                 "CREATE INDEX IF NOT EXISTS idx_signature_genes_sigset_region_gene "
                 "ON signature_genes(sigset_id, region_id, gene_symbol)"
             )
-        if _table_exists(conn, 'cfrna_expression'):
+        if _table_exists(conn, 'braintrace_expression'):
             conn.execute(
-                "CREATE INDEX IF NOT EXISTS idx_cfrna_sample_gene "
-                "ON cfrna_expression(sample_id, gene_symbol)"
+                "CREATE INDEX IF NOT EXISTS idx_braintrace_sample_gene "
+                "ON braintrace_expression(sample_id, gene_symbol)"
             )
         conn.commit()
     finally:

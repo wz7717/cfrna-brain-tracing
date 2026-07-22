@@ -26,7 +26,7 @@ class BenchmarkThresholds:
 THRESHOLDS = BenchmarkThresholds()
 
 METRIC_GUIDE = [
-    {"指标": "Top1 accuracy", "说明": "真实来源脑区排在第 1 位的比例。越高越好，最能代表模型的最终精确定位能力。"},
+    {"指标": "Top1 accuracy", "说明": "在所选有真值 benchmark 端点上，真实标签排在第 1 位的比例；仅反映该端点的候选排序命中，不应外推为无真值样本的定位准确性。"},
     {"指标": "Top3 accuracy", "说明": "真实来源脑区是否进入前 3 名候选。若明显高于 Top1，说明模型更擅长缩小候选范围。"},
     {"指标": "Rank", "说明": "真实脑区在候选列表中的排序位置。大量样本集中在 rank 1-3，通常说明模型具备实用筛查价值。"},
     {"指标": "Confusion matrix", "说明": "显示真实脑区与预测脑区之间的对应关系。对角线越集中，说明模型越稳定。"},
@@ -180,7 +180,7 @@ def build_benchmark_insights(suite: Dict[str, pd.DataFrame], meta: Optional[Dict
     elif top1_level == "mid":
         one_liner = "当前模型具备一定识别能力，但相邻或相似脑区之间仍存在稳定混淆。"
     else:
-        one_liner = "当前模型的精细脑区定位能力偏弱，建议优先检查 reference、signature 和样本 overlap。"
+        one_liner = "当前所选有真值 benchmark 端点的 Top1 候选命中率偏低，建议优先检查 reference、signature 和样本 overlap。"
 
     if similar_confusions:
         main_problem = f"主要误差集中在相邻或相似脑区之间，例如 {major_confusion_text}。"
@@ -232,7 +232,7 @@ def explanation_for(module: str, insights: Dict[str, Any]) -> Dict[str, str]:
         )
         return {
             "what": f"Top1 / Top{k} accuracy 衡量真实脑区是否排在第 1 位或前 {k} 位。",
-            "how": "先看 Top1 判断最终精细定位能力，再看 TopK 判断候选范围收缩能力。",
+            "how": "先看 Top1 判断所选有真值端点的首位候选命中率，再看 TopK 判断候选范围收缩能力。",
             "good": "Top1 >= 0.75 通常较好；如果 Top1 中等但 TopK 较高，说明模型具备较强候选筛查价值。",
             "interpretation": interpretation,
         }
@@ -303,7 +303,7 @@ def reviewer_summary(insights: Dict[str, Any]) -> Dict[str, str]:
     else:
         performance = (
             f"在当前参考图谱与参数设置下，模型的 Top1 accuracy 为 {_fmt(m.get('top1'))}，"
-            f"Top{k} accuracy 为 {_fmt(m.get('topk'))}，整体精细定位能力处于{_level_cn(levels.get('top1', 'unknown'))}水平。"
+            f"Top{k} accuracy 为 {_fmt(m.get('topk'))}，该有真值 benchmark 端点的 Top1 候选命中率处于{_level_cn(levels.get('top1', 'unknown'))}水平。"
         )
 
     if similar:

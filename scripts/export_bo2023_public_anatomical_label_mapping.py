@@ -11,7 +11,7 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DB = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 DEFAULT_RESOLUTION_MODEL = ROOT / "data" / "models" / "bo2023_region_resolution_groups.json"
 DEFAULT_OUT = ROOT / "docs" / "deliverables" / "bo2023_public_anatomical_label_mapping.csv"
 

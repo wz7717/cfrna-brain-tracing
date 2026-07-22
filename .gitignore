@@ -42,6 +42,7 @@ bo2023_bulk_atlas_buildkit/*
 !bo2023_bulk_atlas_buildkit/02_region_dictionary.csv
 vendor/
 tools/
+external_inputs/huang2025_pmc12041490/
 
 # Generated analyses and large local outputs
 results/

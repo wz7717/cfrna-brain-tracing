@@ -134,8 +134,8 @@ def get_system_metrics(db_path: str) -> dict:
     try:
         cur = conn.cursor()
         n_samples = 0
-        if table_exists(db_path, "cfrna_samples"):
-            cur.execute("SELECT COUNT(*) FROM cfrna_samples")
+        if table_exists(db_path, "braintrace_samples"):
+            cur.execute("SELECT COUNT(*) FROM braintrace_samples")
             n_samples = int(cur.fetchone()[0])
         n_legacy = n_v2 = 0
         if table_exists(db_path, "source_tracing_results"):

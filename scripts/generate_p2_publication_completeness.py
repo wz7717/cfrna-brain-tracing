@@ -224,10 +224,10 @@ def write_tool_comparison() -> None:
             "tool_or_family": "Allen/AHBA atlas query workflows",
             "primary_goal": "Map genes or samples to human brain atlas annotations",
             "truth_space": "Human anatomical labels",
-            "comparison_to_cfRNA_BrainTrace": "Atlas reference context; cfRNA-BrainTrace adds packaged hierarchical candidate ranking and validation boundary audits.",
+            "comparison_to_cfRNA_BrainTrace": "Atlas reference context; BrainTrace adds packaged hierarchical candidate ranking and validation boundary audits.",
         },
         {
-            "tool_or_family": "cfRNA-BrainTrace",
+            "tool_or_family": "BrainTrace",
             "primary_goal": "Hierarchical brain-origin candidate ranking and resolution-limit auditing",
             "truth_space": "Macaque atlas Network, resolution group, exploratory exact region",
             "comparison_to_cfRNA_BrainTrace": "Niche: explicit hierarchy, Top3 candidate beam, resolution-limit diagnostics, Streamlit and CLI from one scoring core.",
@@ -238,7 +238,7 @@ def write_tool_comparison() -> None:
 
 No strict like-for-like public tool was identified that performs the same three-level brain-region candidate-ranking task from RNA expression profiles. The closest methods are broad tissue-of-origin cfRNA models, cell-type deconvolution tools, tissue-enrichment workflows and atlas query pipelines.
 
-cfRNA-BrainTrace's niche is narrower and more explicit: it returns hierarchical brain-origin candidates, audits the resolution limit of each output, and exposes the same scoring core through a Streamlit app and CLI. The tool should therefore be positioned as a resolution-aware candidate-ranking and audit tool, not as a generic tissue deconvolution or deterministic localization model.
+BrainTrace's niche is narrower and more explicit: it returns hierarchical brain-origin candidates, audits the resolution limit of each output, and exposes the same scoring core through a Streamlit app and CLI. The tool should therefore be positioned as a resolution-aware candidate-ranking and audit tool, not as a generic tissue deconvolution or deterministic localization model.
 """
     (TOOL_DIR / "TOOL_COMPARISON_SUMMARY.md").write_text(text, encoding="utf-8")
 

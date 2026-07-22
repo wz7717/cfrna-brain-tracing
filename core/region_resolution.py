@@ -6,6 +6,8 @@ from pathlib import Path
 from typing import Any
 import math
 
+from core.model_lock import verify_locked_model_bundle
+
 
 DEFAULT_BO2023_REGION_RESOLUTION_MODEL = (
     Path(__file__).resolve().parents[1] / "data" / "models" / "bo2023_region_resolution_groups.json"
@@ -15,6 +17,8 @@ DEFAULT_BO2023_REGION_RESOLUTION_MODEL = (
 def load_region_resolution_model(
     model_path: Path = DEFAULT_BO2023_REGION_RESOLUTION_MODEL,
 ) -> dict[str, Any]:
+    if model_path.resolve() == DEFAULT_BO2023_REGION_RESOLUTION_MODEL.resolve():
+        verify_locked_model_bundle()
     if not model_path.exists():
         return {}
     return json.loads(model_path.read_text(encoding="utf-8"))

@@ -71,7 +71,7 @@ def _build_workbench_search(query: str, db_mode: str) -> dict[str, pd.DataFrame]
     samples = _safe_query(
         """
         SELECT sample_id, subject_id, species, diagnosis, sample_type, qc_status, collection_date
-        FROM cfrna_samples
+        FROM braintrace_samples
         WHERE sample_id LIKE ?
            OR COALESCE(subject_id, '') LIKE ?
            OR COALESCE(diagnosis, '') LIKE ?
@@ -261,7 +261,7 @@ def _render_workbench_results(results: dict[str, pd.DataFrame], query: str) -> N
                     str(row.get("sample_id", "NA")),
                     tr("样本", "Sample"),
                     [
-                        f"{tr('来源', 'Source')}: cfrna_samples",
+                        f"{tr('来源', 'Source')}: braintrace_samples",
                         f"{tr('物种', 'Species')}: {row.get('species', 'NA')}",
                         f"QC: {row.get('qc_status', 'Unknown') or 'Unknown'}",
                         f"{tr('更新时间', 'Updated')}: {str(row.get('collection_date', ''))[:10] or 'NA'}",
@@ -390,7 +390,7 @@ def _build_dashboard_stats(db_mode: str) -> dict:
         with sqlite3.connect(DB_PATH) as conn:
             cur = conn.cursor()
             stats["reference_samples"] = int(
-                pd.read_sql_query("SELECT species FROM cfrna_samples", conn)["species"].apply(lambda x: matches_species(x, db_mode)).sum()
+                pd.read_sql_query("SELECT species FROM braintrace_samples", conn)["species"].apply(lambda x: matches_species(x, db_mode)).sum()
             ) if True else 0
             atlas_ids = _atlas_ids_for_mode(conn, db_mode)
             if atlas_ids:
@@ -423,7 +423,7 @@ def _build_dashboard_stats(db_mode: str) -> dict:
             legacy_runs = int(cur.execute("SELECT COUNT(*) FROM source_tracing_results").fetchone()[0]) if db_mode == "rhesus" else 0
             stats["sequencing_runs"] = legacy_runs + v2_runs
             stats["uploaded_samples"] = stats["reference_samples"]
-            species_df = pd.read_sql_query("SELECT DISTINCT species FROM cfrna_samples WHERE species IS NOT NULL AND species != ''", conn)
+            species_df = pd.read_sql_query("SELECT DISTINCT species FROM braintrace_samples WHERE species IS NOT NULL AND species != ''", conn)
             species_df = species_df[species_df["species"].apply(lambda x: matches_species(x, db_mode))]
             stats["species"] = int(len(species_df))
     except Exception:
@@ -496,7 +496,7 @@ def _qc_distribution_df() -> pd.DataFrame:
     df = _safe_query(
         """
         SELECT COALESCE(qc_status, 'Unknown') AS qc_status, COUNT(*) AS n
-        FROM cfrna_samples
+        FROM braintrace_samples
         GROUP BY COALESCE(qc_status, 'Unknown')
         """
     )
@@ -566,15 +566,15 @@ def _overview_copy(db_mode: str) -> dict:
         }
     return {
         "subtitle": tr(
-            "用于血浆 cfRNA 溯源、脑区去卷积、Benchmark 评估与猕猴多组学图谱整合的综合平台。",
-            "A comprehensive platform for plasma cfRNA tracing, brain-region deconvolution, benchmark evaluation, and macaque multi-omics atlas integration.",
+            "基于组织转录组参考的分层脑来源候选排序平台，用于 Benchmark 评估、迁移验证与猕猴多组学图谱整合；cfRNA 应用需单独验证。",
+            "A tissue-trained platform for hierarchical brain-origin candidate ranking, benchmark evaluation, transfer validation, and macaque multi-omics atlas integration; cfRNA use requires separate validation.",
         ),
         "glass_note": tr(
             "这个首页是整个平台的科研入口：先看整体状态，再进入数据提交、图谱浏览、溯源分析、Run 对比和论文级 Benchmark 解释。",
             "This dashboard acts as the scientific front door of the platform: overview first, then data submission, atlas browsing, tracing analysis, run comparison and publication-grade Benchmark interpretation.",
         ),
         "species_icon": "NHP",
-        "sample_note": tr("当前猕猴血浆cfRNA损伤溯源数据库中的入库样本", "Uploaded samples in macaque plasma cfRNA tracing mode"),
+        "sample_note": tr("当前猕猴组织训练候选排序与迁移验证工作区中的入库样本", "Uploaded samples in the macaque tissue-trained candidate-ranking and transfer-validation workspace"),
     }
 
 

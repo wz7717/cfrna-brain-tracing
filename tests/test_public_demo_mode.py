@@ -8,7 +8,7 @@ import pandas as pd
 
 
 def test_main_exposes_tracing_and_sample_upload_with_lazy_imports(monkeypatch) -> None:
-    monkeypatch.setenv("CFRNA_PUBLIC_DEMO", "1")
+    monkeypatch.setenv("BRAINTRACE_PUBLIC_DEMO", "1")
     sys.modules.pop("app.main", None)
     sys.modules.pop("app.pages.tracing_page", None)
 
@@ -27,7 +27,7 @@ def test_main_exposes_tracing_and_sample_upload_with_lazy_imports(monkeypatch) -
 
 
 def test_sidebar_navigation_uses_a_single_widget_rerun(monkeypatch) -> None:
-    monkeypatch.setenv("CFRNA_PUBLIC_DEMO", "1")
+    monkeypatch.setenv("BRAINTRACE_PUBLIC_DEMO", "1")
     main = importlib.import_module("app.main")
 
     source = inspect.getsource(main._render_sidebar)
@@ -43,7 +43,7 @@ def test_sidebar_navigation_uses_a_single_widget_rerun(monkeypatch) -> None:
 
 
 def test_public_demo_tracing_enters_demo_before_backend_init(monkeypatch) -> None:
-    monkeypatch.setenv("CFRNA_PUBLIC_DEMO", "1")
+    monkeypatch.setenv("BRAINTRACE_PUBLIC_DEMO", "1")
     tracing_page = importlib.import_module("app.pages.tracing_page")
     called = {"demo": False}
 
@@ -67,6 +67,6 @@ def test_missing_sample_table_falls_back_to_empty_sample_list() -> None:
     class EmptyDatabase:
         @staticmethod
         def get_all_samples():
-            raise pd.errors.DatabaseError("no such table: cfrna_samples")
+            raise pd.errors.DatabaseError("no such table: braintrace_samples")
 
     assert tracing_page._get_all_samples_or_empty(EmptyDatabase()).empty

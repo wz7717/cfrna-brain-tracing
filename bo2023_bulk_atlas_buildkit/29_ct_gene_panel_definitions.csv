@@ -1,0 +1,31 @@
+Gene Panel,GO Terms in Gene Panels
+Spine,dendritic spine GO:0043197 – CC
+,dendritic spine development GO:0060996 – BP
+,dendritic spine organization GO:0097061 – BP
+,dendritic spine maintenance GO:0097062 – BP
+,dendritic spine membrane GO:0032591 – CC
+Dendrite,dendritic tree GO:0097447 – CC
+,dendrite development GO:0016358 – BP
+,dendritic transport GO:0098935 - BP
+,dendrite membrane GO:0032590 – CC
+,dendrite extension GO:0097484 – BP
+Myelin,myelination GO:0042552 - BP
+,myelin sheath GO:0043209 – CC
+,[myelin basic protein]-arginine N-methyltransferase activity GO:0016277 – MF
+Neuron projection,neuron projection GO:0043005 – CC
+,neuron projection branch point GO:0061845 – CC
+,neuron projection extension GO:1990138 – BP
+,neuron projection regeneration GO:0031102 – BP
+,neuron projection arborization GO:0140058 – BP
+,neuron projection morphogenesis GO:0048812 – BP
+,neuron projection membrane GO:0032589 – CC
+,neuron projection terminus GO:0044306 – CC
+,neuron projection maintenance GO:1990535 – BP
+,neuron projection cytoplasm GO:0120111 – CC
+,neuron projection guidance GO:0097485 – BP 
+,neuron projection development GO:0031175 – BP 
+,neuron projection fasciculation GO:0106030 – BP
+,neuron projection organization GO:0106027 – BP 
+,neuron projection retraction GO:0106028 – BP 
+,
+CC: Cellular Component; BP: Biological Process; MF: Molecular Function.,

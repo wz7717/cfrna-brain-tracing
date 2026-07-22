@@ -1,0 +1,46 @@
+# BrainTrace — Pinned Reproducibility Environment
+# Generated 2026-07-20 from the validated computation environment
+# Install: pip install -r requirements_reproducible.txt
+
+# Core numerics
+numpy==1.26.4
+scipy==1.13.1
+pandas==2.2.3
+
+# Machine learning & statistics
+scikit-learn==1.5.2
+joblib==1.5.3
+threadpoolctl==3.6.0
+
+# File format & data I/O
+openpyxl==3.1.5          # .xlsx/.xlsm reader (pandas Excel backend)
+xlrd==2.0.1              # legacy .xls reader
+python-docx==1.2.0       # .docx generation
+defusedxml==0.7.1        # secure XML parsing
+lxml==6.1.1              # XML processing
+
+# Visualization
+matplotlib==3.10.7
+
+# Neuroimaging (BraTS NIfTI)
+nibabel==5.3.2
+
+# PDF generation (validation reports)
+reportlab==4.3.3.2
+
+# Web application
+streamlit==1.55.0
+
+# YAML config
+PyYAML==6.0.2
+
+# Testing
+pytest==8.3.5
+
+# Utilities
+python-dateutil==2.9.0.post0
+six==1.17.0
+typing_extensions==4.16.0
+
+# Python version note
+# This environment was validated on Python 3.11.9

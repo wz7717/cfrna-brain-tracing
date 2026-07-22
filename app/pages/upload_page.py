@@ -186,6 +186,12 @@ def display_data_upload():
         eyebrow=tr("提交", "Submission"),
         pills=pills,
     )
+    st.warning(
+        tr(
+            "持久化提示：“保存样本到 SQLite”会将表达矩阵和元数据持久写入应用数据库。不要上传可识别个人身份或敏感的信息。如需移除，请在“样本管理”中删除对应样本及关联记录。直接 Tracing 上传不会通过此提交表单持久化。",
+            "Persistence notice: Save sample to SQLite stores the expression matrix and metadata in the application database. Do not upload identifiable or sensitive information. To remove stored data, delete the sample and its linked records in Sample Management. A direct Tracing upload is not persisted through this submission form.",
+        )
+    )
     processor = init_processor()
 
     st.markdown(f'<div class="action-zone">{tr("操作区：上传样本表达矩阵并生成提交预览", "Action zone: upload an expression matrix and generate a submission preview")}</div>', unsafe_allow_html=True)
@@ -276,7 +282,7 @@ def display_data_upload():
             st.error(tr("当前矩阵尚未通过校验。", "The current matrix has not passed validation yet."))
             return
         try:
-            processed_df = processor.preprocess_expression_data(df)
+            processed_df = processor.preprocess_expression_data(df, min_tpm=0.0)
             metadata = dict(embedded_meta)
             metadata.update(
                 {

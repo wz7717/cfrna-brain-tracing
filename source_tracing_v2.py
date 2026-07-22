@@ -321,12 +321,12 @@ class SourceTracingEngineV2:
         conn = self._connect()
         try:
             cols = ['gene_symbol']
-            available = {r[1] for r in conn.execute('PRAGMA table_info(cfrna_expression)').fetchall()}
+            available = {r[1] for r in conn.execute('PRAGMA table_info(braintrace_expression)').fetchall()}
             for col in ['tpm_value', 'log_tpm', 'zscore_tpm', 'read_count', 'detected', 'gene_id_type']:
                 if col in available:
                     cols.append(col)
             df = pd.read_sql_query(
-                f"SELECT {', '.join(cols)} FROM cfrna_expression WHERE sample_id = ?",
+                f"SELECT {', '.join(cols)} FROM braintrace_expression WHERE sample_id = ?",
                 conn,
                 params=[sample_id],
             )

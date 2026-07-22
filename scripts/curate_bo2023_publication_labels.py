@@ -12,7 +12,7 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DB = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 DEFAULT_OUTDIR = ROOT / "reports"
 DEFAULT_ORTHOLOGY = ROOT / "data" / "orthology" / "ensembl_mfascicularis_hsapiens_homology.tsv"
 

@@ -84,7 +84,7 @@ def export_run_bundle(db_path: str, run_id: str, out_zip_path: Optional[str] = N
             meta["params"] = meta.get("params_json")
         meta["method_label"] = method_label(meta.get("method"))
         summary = build_run_summary(db_path, run_id)
-        tmpdir = tempfile.mkdtemp(prefix="cfrna_tracing_")
+        tmpdir = tempfile.mkdtemp(prefix="braintrace_tracing_")
         results_tsv = os.path.join(tmpdir, "results.tsv")
         meta_json = os.path.join(tmpdir, "meta.json")
         summary_json = os.path.join(tmpdir, "summary.json")

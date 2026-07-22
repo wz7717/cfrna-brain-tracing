@@ -24,7 +24,7 @@ DEFAULT_DATA_DIR = ROOT / "data" / "ivy_gap_anatomic_rnaseq"
 DEFAULT_MATRIX = DEFAULT_DATA_DIR / "ivy_gap_anatomic_structure_tpm_gene_symbol_matrix.tsv"
 DEFAULT_METADATA = DEFAULT_DATA_DIR / "ivy_gap_anatomic_structure_sample_metadata_122.csv"
 DEFAULT_OUTDIR = ROOT / "results" / "ivy_gap_anatomic_rnaseq_tracing_20260603"
-DEFAULT_DB = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 
 
 def expression_frame(matrix: pd.DataFrame, sample_id: str) -> pd.DataFrame:

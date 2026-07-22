@@ -19,7 +19,7 @@ from signature_builder import build_signature_set  # noqa: E402
 
 
 DEFAULT_DATA_DIR = ROOT / "bo2023 data"
-DEFAULT_DB = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 DEFAULT_MATRIX = DEFAULT_DATA_DIR / "mfas5_819samples_23605genes_vsd4_rmbatch.xls"
 DEFAULT_COUNTS = DEFAULT_DATA_DIR / "mfas5_819samples_28415genes_featurecounts_counts.txt"
 DEFAULT_SAMPLE_INFO = DEFAULT_DATA_DIR / "Information of sequenced samples_update_full878_filter819.xlsx"

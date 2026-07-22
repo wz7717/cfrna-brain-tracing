@@ -11,7 +11,7 @@ def _create_database(path: str) -> None:
     with sqlite3.connect(path) as conn:
         conn.executescript(
             """
-            CREATE TABLE cfrna_samples (
+            CREATE TABLE braintrace_samples (
                 sample_id TEXT PRIMARY KEY,
                 subject_id TEXT,
                 species TEXT,
@@ -21,20 +21,20 @@ def _create_database(path: str) -> None:
                 gene_id_type TEXT,
                 brain_traceability TEXT
             );
-            CREATE TABLE cfrna_expression (
+            CREATE TABLE braintrace_expression (
                 sample_id TEXT,
                 gene_symbol TEXT NOT NULL,
                 tpm_value REAL,
                 read_count REAL,
                 detected INTEGER,
                 expression_unit TEXT,
-                FOREIGN KEY (sample_id) REFERENCES cfrna_samples(sample_id)
+                FOREIGN KEY (sample_id) REFERENCES braintrace_samples(sample_id)
             );
             CREATE TABLE sample_qc (sample_id TEXT);
             """
         )
         conn.execute(
-            "INSERT INTO cfrna_samples VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO braintrace_samples VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             ("S1", "P1", "Macaca mulatta", "", "", None, None, None),
         )
 
@@ -77,7 +77,7 @@ def test_save_expression_can_skip_legacy_qc_without_affecting_storage(tmp_path) 
     assert len(processor.get_sample_expression("S1")) == 2
     with sqlite3.connect(db_path) as conn:
         assert conn.execute("SELECT count(*) FROM sample_qc").fetchone()[0] == 0
-        assert conn.execute("SELECT qc_status FROM cfrna_samples WHERE sample_id='S1'").fetchone()[0] is None
+        assert conn.execute("SELECT qc_status FROM braintrace_samples WHERE sample_id='S1'").fetchone()[0] is None
 
 
 def test_atomic_sample_save_commits_metadata_and_expression_together(tmp_path) -> None:
@@ -98,8 +98,8 @@ def test_atomic_sample_save_commits_metadata_and_expression_together(tmp_path) -
     )
 
     with sqlite3.connect(db_path) as conn:
-        assert conn.execute("SELECT subject_id FROM cfrna_samples WHERE sample_id='S2'").fetchone()[0] == "P2"
-        assert conn.execute("SELECT count(*) FROM cfrna_expression WHERE sample_id='S2'").fetchone()[0] == 2
+        assert conn.execute("SELECT subject_id FROM braintrace_samples WHERE sample_id='S2'").fetchone()[0] == "P2"
+        assert conn.execute("SELECT count(*) FROM braintrace_expression WHERE sample_id='S2'").fetchone()[0] == 2
 
 
 def test_atomic_sample_save_rolls_back_metadata_when_expression_insert_fails(tmp_path) -> None:
@@ -125,8 +125,8 @@ def test_atomic_sample_save_rolls_back_metadata_when_expression_insert_fails(tmp
         raise AssertionError("Expected the expression insert to fail")
 
     with sqlite3.connect(db_path) as conn:
-        assert conn.execute("SELECT count(*) FROM cfrna_samples WHERE sample_id='S2'").fetchone()[0] == 0
-        assert conn.execute("SELECT count(*) FROM cfrna_expression WHERE sample_id='S2'").fetchone()[0] == 0
+        assert conn.execute("SELECT count(*) FROM braintrace_samples WHERE sample_id='S2'").fetchone()[0] == 0
+        assert conn.execute("SELECT count(*) FROM braintrace_expression WHERE sample_id='S2'").fetchone()[0] == 0
 
 
 def test_metadata_upsert_does_not_delete_existing_expression(tmp_path) -> None:

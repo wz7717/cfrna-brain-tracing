@@ -23,7 +23,7 @@ DEFAULT_MATRIX = ROOT / "data" / "tcga_brain_tumor_expression" / "tcga_gbm_lgg_p
 DEFAULT_MANIFEST = ROOT / "data" / "tcga_brain_tumor_expression" / "tcga_gbm_lgg_gdc_star_counts_manifest.csv"
 DEFAULT_LABELS = ROOT / "data" / "tcia_tcga_glioma_mri" / "tcia_tcga_glioma_mri_derived_labels.csv"
 DEFAULT_OUTDIR = ROOT / "results" / "tcga_gbm_lgg_sample_mri_label_tracing_20260605"
-DEFAULT_DB = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 
 
 NETWORK_TO_BROAD = {

@@ -20,7 +20,7 @@ from core.network_tracing import trace_network_expression  # noqa: E402
 
 DEFAULT_MATRIX = ROOT / "data" / "tcga_brain_tumor_expression" / "tcga_gbm_lgg_primary_tumor_project_mean_tpm.tsv"
 DEFAULT_OUTDIR = ROOT / "results" / "tcga_gbm_lgg_project_centroid_tracing_20260602"
-DEFAULT_DB = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 
 
 def expression_frame(matrix: pd.DataFrame, sample_id: str) -> pd.DataFrame:

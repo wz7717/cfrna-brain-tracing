@@ -24,7 +24,7 @@ from core.network_tracing import trace_network_expression  # noqa: E402
 
 DATA_DIR = ROOT / "data" / "external_validation" / "GSE189919"
 DEFAULT_OUTDIR = ROOT / "results" / "gse189919_latest_main_route_20260708"
-DEFAULT_DB_PATH = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB_PATH = ROOT / "braintrace_source_tracing.db"
 
 
 def sample_key(value: str) -> str:
@@ -136,6 +136,34 @@ def sample_frame_from_counts(counts: pd.DataFrame, sample_id: str) -> pd.DataFra
     )
 
 
+def run_frozen_sample(
+    expression: pd.DataFrame,
+    *,
+    min_network_overlap: float,
+    db_path: Path,
+    atlas_id: int,
+    topk_regions: int,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Run one GSE189919 sample through the frozen no-pairwise route."""
+    network_out = trace_network_expression(
+        expression,
+        min_overlap_fraction=min_network_overlap,
+        project_to_vsd=True,
+        enable_pairwise_rescue=False,
+    )
+    rescue = network_out.get("meta", {}).get("pairwise_rescue", {})
+    if rescue.get("enabled") or rescue.get("switched"):
+        raise AssertionError(f"pairwise rescue must remain disabled for the frozen route: {rescue}")
+    region_out = trace_bo2023_secondary_regions(
+        expression,
+        network_out,
+        str(db_path),
+        int(atlas_id),
+        topk=int(topk_regions),
+    )
+    return network_out, region_out
+
+
 def top_networks(network_out: dict[str, Any], k: int = 3) -> str:
     return " | ".join(str(row.get("network_id", "")) for row in network_out.get("results", [])[:k])
 
@@ -162,17 +190,12 @@ def run(args: argparse.Namespace) -> int:
     for i, meta_row in enumerate(metadata.itertuples(index=False), start=1):
         sample_id = str(meta_row.sample_id)
         expression = sample_frame_from_counts(counts, sample_id)
-        network_out = trace_network_expression(
+        network_out, region_out = run_frozen_sample(
             expression,
-            min_overlap_fraction=args.min_network_overlap,
-            project_to_vsd=True,
-        )
-        region_out = trace_bo2023_secondary_regions(
-            expression,
-            network_out,
-            str(args.db_path),
-            int(args.atlas_id),
-            topk=int(args.topk_regions),
+            min_network_overlap=float(args.min_network_overlap),
+            db_path=args.db_path,
+            atlas_id=int(args.atlas_id),
+            topk_regions=int(args.topk_regions),
         )
 
         network_meta = network_out.get("meta", {})
@@ -301,11 +324,15 @@ def run(args: argparse.Namespace) -> int:
         "atlas_id": int(args.atlas_id),
         "samples": int(len(sample_df)),
         "groups": sample_df["group"].value_counts().to_dict(),
+        "enable_pairwise_rescue": False,
+        "pairwise_rescue_switches": int(sample_df["network_pairwise_switched"].sum()),
         "interpretation_boundary": (
             "GSE189919 CSF RNA-seq has no patient-level anatomical or MRI localization truth in this repository; "
             "results are transfer/projection stress-test outputs, not localization accuracy."
         ),
     }
+    if manifest["pairwise_rescue_switches"] != 0:
+        raise AssertionError("pairwise rescue switched during the frozen GSE189919 route")
     report_file_names = sorted(
         {
             *(path.name for path in outdir.iterdir() if path.is_file()),

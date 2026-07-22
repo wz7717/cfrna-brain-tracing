@@ -8,8 +8,8 @@ from typing import Dict, Iterable, List
 
 
 REQUIRED_TABLES = [
-    "cfrna_samples",
-    "cfrna_expression",
+    "braintrace_samples",
+    "braintrace_expression",
     "macaque_brain_atlas",
     "reference_expression",
     "source_tracing_results",

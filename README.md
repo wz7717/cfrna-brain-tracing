@@ -1,6 +1,6 @@
-# cfRNA-BrainTrace
+# BrainTrace
 
-cfRNA-BrainTrace is a Python and Streamlit application for hierarchical
+BrainTrace is a Python and Streamlit application for hierarchical
 brain-origin candidate inference from RNA expression profiles using a primate
 transcriptomic reference.
 
@@ -102,7 +102,7 @@ Canonical 110 locked route (rechecked 2026-07-13):
 
 - The Bo2023 reference retains the paper's 110 post-QC anatomical region IDs. Each region has one canonical parent Network; the two discordant assay-level labels are normalized as `10m -> Orbitomedial Prefrontal Cortex (OMPFC)` and `V2 -> Occipital/Temporal` without modifying the source workbook.
 - Internal LOSO Network Top1/Top3: 58.97% (`483/819`) / 91.94% (`753/819`).
-- Internal LOMO Network Top1/Top3: 59.10% (`484/819`) / 91.58% (`750/819`).
+- Internal LOMO Network Top1/Top3 on the frozen no-pairwise route: 55.56% (`455/819`) / 91.58% (`750/819`). The former 59.10% (`484/819`) Top1 value used pairwise rescue and is deprecated for the locked production route.
 - Internal LOSO resolution-group Top1/Top3: 45.21% (`368/814`) / 72.48% (`590/814`).
 - Internal LOMO resolution-group Top1/Top3: 42.36% (`344/812`) / 70.07% (`569/812`).
 - Internal LOSO exact-region Top1/Top3: 22.36% (`182/814`) / 45.21% (`368/814`).
@@ -139,7 +139,7 @@ samples lacked a truth-region reference after fold construction.
 ## Status
 
 This repository contains the v0.1.8 revised public submission release for the
-Bioinformatics Application Note describing cfRNA-BrainTrace. The software is
+Bioinformatics Application Note describing BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The

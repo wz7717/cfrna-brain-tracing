@@ -1,0 +1,11 @@
+suggested_table,source_files,key_fields,purpose
+regions,02_region_dictionary.csv + 33_region_annotation_joined.csv,"region_id/abbr, full_name, lobe, regional_map, neocortex_flag",脑区字典主表
+region_sample_qc,01_region_level_meta.csv + 34_region_qc_summary.csv,"region_id, rin, reads, mapping metrics, strand metrics, dropout",脑区级平均质控表
+region_sample_presence,32_region_sample_presence_matrix.csv,"region_id, monkey_id columns, total_sample_count",每个脑区在各猴中的取样情况
+expressed_genes_catalog,04_expressed_genes_neocortex_plus_subcortical.csv / 05_expressed_genes_neocortex_only.csv,"gene_id, gene_name, gene_type",表达基因目录
+region_deg_stats,06_region_deg_summary.csv,"region_id, gene_type, deg_number, lobe, percentage",各脑区DEG规模概览
+wgcna_gene_modules,07_wgcna_cortical_expressed_genes_and_modules.csv,"gene_id, gene_name, gene_type, module20, module4",模块映射
+module_pathway_enrichment,08_m1_m4_kegg_enrichment.csv,"module, term_id, term_name, p, intersection",模块功能注释
+module_neurotransmitter,09_neurotransmitter_marker_genes.csv + 10_m1_m4_neurotransmitter_enrichment.csv,"neurotransmitter, class, gene_id, enrichment stats",神经递质相关注释
+module_celltype_enrichment,12-18 *.csv,"module, celltype, OR, FDR, significant",模块-细胞类型注释层
+ct_related_gene_panels,19-31 *.csv,age/PLS/CT相关基因及富集,皮层厚度相关的功能与细胞层

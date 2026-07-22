@@ -1,0 +1,36 @@
+source,signature,n_genes
+Hendrikse et al. Nature 2022,Early_GN,50
+Hendrikse et al. Nature 2022,Early_UBC,50
+Hendrikse et al. Nature 2022,GCP,50
+Hendrikse et al. Nature 2022,Group3_alpha,1756
+Hendrikse et al. Nature 2022,Group3_beta,1151
+Hendrikse et al. Nature 2022,Group3_gamma,1816
+Hendrikse et al. Nature 2022,Group4_alpha,692
+Hendrikse et al. Nature 2022,Group4_beta,1397
+Hendrikse et al. Nature 2022,Group4_gamma,841
+Hendrikse et al. Nature 2022,Late_GN,50
+Hendrikse et al. Nature 2022,Late_UBC,50
+Hendrikse et al. Nature 2022,RL-SVZ,50
+Hendrikse et al. Nature 2022,RL-VZ,50
+Hovestadt et al. Nature 2019,Group3/4-A,100
+Hovestadt et al. Nature 2019,Group3/4-B,100
+Hovestadt et al. Nature 2019,Group3/4-C,100
+Hovestadt et al. Nature 2019,Neuron-like_Group 3/4,39
+Hovestadt et al. Nature 2019,Neuron-like_SHH,53
+Hovestadt et al. Nature 2019,Neuron-like_WNT,34
+Hovestadt et al. Nature 2019,Neuron-like_shared,134
+Hovestadt et al. Nature 2019,SHH-A,100
+Hovestadt et al. Nature 2019,SHH-B,100
+Hovestadt et al. Nature 2019,SHH-C,100
+Hovestadt et al. Nature 2019,WNT-A,100
+Hovestadt et al. Nature 2019,WNT-B,100
+Hovestadt et al. Nature 2019,WNT-C,100
+Hovestadt et al. Nature 2019,WNT-D,100
+Smith et al. Nature 2022,EGL,150
+Smith et al. Nature 2022,PCL,150
+Smith et al. Nature 2022,Photoreceptor_gene_set:Gene set: Descartes Photoreceptor cells,168
+Smith et al. Nature 2022,Photoreceptor_gene_set:Gene set: RLsvz-Photoreceptor cells,28
+Smith et al. Nature 2022,RL_svz,135
+Smith et al. Nature 2022,RL_vz,150
+Smith et al. Nature 2022,UBC_gene_set:Gene set: Descartes Unipolar Brush Cells,97
+Smith et al. Nature 2022,UBC_gene_set:Gene set: RLsvz-Unipolar brush cells,14
