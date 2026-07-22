@@ -3,3 +3,10 @@
 *.jpg binary
 *.jpeg binary
 *.npz binary
+
+# Preserve teacher-approved locked model artifacts byte-for-byte on every OS.
+data/models/bo2023_saleem_network_top200_model.json binary
+data/models/bo2023_saleem_network_top200_model_genes.csv binary
+data/models/bo2023_saleem_network_pairwise_rescue_model.json binary
+data/models/bo2023_formal_region_beam_gene_panels.json binary
+data/models/bo2023_region_resolution_groups.json binary
