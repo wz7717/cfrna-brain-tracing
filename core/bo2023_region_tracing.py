@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 
 from core.models import softmax_confidence, trace_corr
+from core.model_lock import ModelLockError, verify_locked_model_bundle
 from core.bo2023_metadata import (
     CANONICAL_REGION_NETWORKS,
     assert_unique_region_network_mapping,
@@ -27,6 +28,11 @@ from core.region_resolution import load_region_resolution_model
 
 DEFAULT_TOP50_WEIGHT = 0.25
 DEFAULT_LOCAL_TOP_N_GENES = 200
+NETWORK_TOP_K = 3
+EXACT_TOP50_GENE_COUNT = 50
+EXACT_TOP100_GENE_COUNT = 100
+MIN_REGION_GENE_OVERLAP = 20
+ALLOW_DEVELOPMENT_FALLBACK = False
 CANONICAL_REGION_COUNT = 110
 CANONICAL_NETWORK_COUNT = 10
 CANONICAL_BEAM_COUNT = 120
@@ -342,8 +348,12 @@ def _load_reference_matrix(
     db_path: str,
     atlas_id: int | None,
     *,
-    allow_development_fallback: bool = False,
+    allow_development_fallback: bool = ALLOW_DEVELOPMENT_FALLBACK,
 ) -> tuple[pd.DataFrame, dict[str, str], str]:
+    try:
+        verify_locked_model_bundle()
+    except ModelLockError as exc:
+        return pd.DataFrame(), {}, f"canonical_model_lock_failed: {exc}"
     # Production inference must use the same committed bytes locally and in
     # Streamlit Cloud. Raw Bo2023 inputs are intentionally not part of the
     # public checkout and remain a reproducibility/development fallback only.
@@ -404,6 +414,10 @@ def _load_formal_beam_gene_panels(path: Path = DEFAULT_FORMAL_BEAM_GENE_PANELS) 
 
 def packaged_formal_region_assets_available() -> bool:
     """Return whether the database-independent formal region route is packaged."""
+    try:
+        verify_locked_model_bundle()
+    except ModelLockError:
+        return False
     matrix, region_network, _ = _load_packaged_region_reference_matrix()
     try:
         _validate_formal_beam_gene_panels(
@@ -575,8 +589,12 @@ def trace_bo2023_secondary_regions(
     db_path: str,
     atlas_id: int | None,
     topk: int = 30,
+    network_top_k: int = NETWORK_TOP_K,
     top50_weight: float = DEFAULT_TOP50_WEIGHT,
+    exact_top50_gene_count: int = EXACT_TOP50_GENE_COUNT,
+    exact_top100_gene_count: int = EXACT_TOP100_GENE_COUNT,
     local_top_n_genes: int = DEFAULT_LOCAL_TOP_N_GENES,
+    min_region_gene_overlap: int = MIN_REGION_GENE_OVERLAP,
 ) -> dict[str, Any]:
     """Formal three-tier Bo2023 route.
 
@@ -585,7 +603,11 @@ def trace_bo2023_secondary_regions(
     exact-region rerank inside the ordered groups.
     """
     network_rows = network_output.get("results", [])
-    top_networks = [str(row.get("network_id", "")) for row in network_rows[:3] if str(row.get("network_id", "")).strip()]
+    top_networks = [
+        str(row.get("network_id", ""))
+        for row in network_rows[: int(network_top_k)]
+        if str(row.get("network_id", "")).strip()
+    ]
     if not top_networks:
         return {
             "results": [],
@@ -631,7 +653,7 @@ def trace_bo2023_secondary_regions(
 
     series, query_scale = _sample_logcpm_series(expression)
     overlap_genes = matrix.index.intersection(series.index)
-    if len(overlap_genes) < 20:
+    if len(overlap_genes) < int(min_region_gene_overlap):
         return {
             "results": [],
             "meta": {
@@ -640,6 +662,7 @@ def trace_bo2023_secondary_regions(
                 "traceability": "insufficient",
                 "error": "insufficient Bo2023 Region gene overlap",
                 "n_overlap_genes": int(len(overlap_genes)),
+                "min_required_region_overlap_genes": int(min_region_gene_overlap),
                 "network_beam": top_networks,
             },
         }
@@ -656,14 +679,14 @@ def trace_bo2023_secondary_regions(
         candidate_matrix,
         max_genes=local_top_n_genes,
     )
-    rows50 = gene_order[: min(50, len(gene_order))]
-    rows100 = gene_order[: min(100, len(gene_order))]
+    rows50 = gene_order[: min(int(exact_top50_gene_count), len(gene_order))]
+    rows100 = gene_order[: min(int(exact_top100_gene_count), len(gene_order))]
     scores50 = trace_corr(candidate_matrix[rows50, :], vector[rows50])
     scores100 = trace_corr(candidate_matrix[rows100, :], vector[rows100])
     group_scores = trace_corr(candidate_matrix[gene_order, :], vector[gene_order])
     fused = float(top50_weight) * _zscore(scores50) + (1.0 - float(top50_weight)) * _zscore(scores100)
     model = load_region_resolution_model()
-    beam_key = "||".join(sorted(top_networks[:3]))
+    beam_key = "||".join(sorted(top_networks[: int(network_top_k)]))
     beam_annotations = _load_formal_beam_gene_panels().get(beam_key, {}).get("annotations", {})
     rows = []
     for idx in np.argsort(fused)[::-1].tolist():
@@ -705,6 +728,7 @@ def trace_bo2023_secondary_regions(
                 "logcpm_local_exact_rerank",
             ],
             "network_beam": top_networks,
+            "network_top_k": int(network_top_k),
             "n_candidate_regions": int(len(candidate_regions)),
             "candidate_region_source": "SaleemNetworks Top3 beam",
             "reference_expression_source": reference_source,
@@ -715,6 +739,9 @@ def trace_bo2023_secondary_regions(
             "local_gene_selection_source": gene_selection_source,
             "n_scoring_genes_top50": int(len(rows50)),
             "n_scoring_genes_top100": int(len(rows100)),
+            "exact_top50_gene_count": int(exact_top50_gene_count),
+            "exact_top100_gene_count": int(exact_top100_gene_count),
+            "min_required_region_overlap_genes": int(min_region_gene_overlap),
             "top50_weight": float(top50_weight),
             "traceability": "high",
             "result_interpretation": (

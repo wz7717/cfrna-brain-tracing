@@ -16,7 +16,7 @@ if str(ROOT) not in sys.path:
 from signature_builder import build_signature_set
 
 
-DB_PATH = ROOT / "cfrna_source_tracing.db"
+DB_PATH = ROOT / "braintrace_source_tracing.db"
 PROCESSED = ROOT / "data" / "processed_reference" / "v1"
 
 

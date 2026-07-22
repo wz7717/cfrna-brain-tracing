@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sqlite3
 
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -240,3 +241,59 @@ def test_formal_group_and_exact_rankings_are_independent():
     assert [row["region_id"] for row in exact] == ["R1", "R2"]
     assert [row["resolution_group"] for row in groups] == ["G2", "G1"]
     assert groups[0]["group_score"] == 0.9
+
+
+def test_formal_route_reports_and_executes_locked_panel_sizes(monkeypatch):
+    genes = pd.Index([f"G{i}" for i in range(200)])
+    matrix = pd.DataFrame(
+        {
+            "N1::R1": np.linspace(0.0, 1.0, 200),
+            "N2::R2": np.linspace(1.0, 0.0, 200),
+        },
+        index=genes,
+    )
+    mapping = {"N1::R1": "N1", "N2::R2": "N2"}
+    monkeypatch.setattr(
+        bo2023_region_tracing,
+        "_load_reference_matrix",
+        lambda *args, **kwargs: (matrix, mapping, "controlled_reference"),
+    )
+    monkeypatch.setattr(
+        bo2023_region_tracing,
+        "_formal_beam_gene_order",
+        lambda *args, **kwargs: (np.arange(200, dtype=int), "controlled_top200"),
+    )
+    monkeypatch.setattr(bo2023_region_tracing, "load_region_resolution_model", lambda: {})
+    monkeypatch.setattr(bo2023_region_tracing, "_load_formal_beam_gene_panels", lambda: {})
+    expression = pd.DataFrame({"gene_symbol": genes, "log_tpm": np.linspace(0.0, 1.0, 200)})
+    network_output = {"results": [{"network_id": "N1"}, {"network_id": "N2"}, {"network_id": "N3"}]}
+
+    out = trace_bo2023_secondary_regions(expression, network_output, "unused.db", None)
+
+    assert out["meta"]["network_top_k"] == bo2023_region_tracing.NETWORK_TOP_K == 3
+    assert out["meta"]["n_local_candidate_genes"] == bo2023_region_tracing.DEFAULT_LOCAL_TOP_N_GENES == 200
+    assert out["meta"]["n_scoring_genes_top50"] == bo2023_region_tracing.EXACT_TOP50_GENE_COUNT == 50
+    assert out["meta"]["n_scoring_genes_top100"] == bo2023_region_tracing.EXACT_TOP100_GENE_COUNT == 100
+    assert out["meta"]["min_required_region_overlap_genes"] == bo2023_region_tracing.MIN_REGION_GENE_OVERLAP == 20
+
+
+def test_formal_route_uses_locked_minimum_region_overlap(monkeypatch):
+    genes = pd.Index([f"G{i}" for i in range(200)])
+    matrix = pd.DataFrame(
+        {"N1::R1": np.arange(200), "N2::R2": np.arange(200)[::-1]},
+        index=genes,
+    )
+    mapping = {"N1::R1": "N1", "N2::R2": "N2"}
+    monkeypatch.setattr(
+        bo2023_region_tracing,
+        "_load_reference_matrix",
+        lambda *args, **kwargs: (matrix, mapping, "controlled_reference"),
+    )
+    expression = pd.DataFrame({"gene_symbol": genes[:19], "log_tpm": np.arange(19)})
+    network_output = {"results": [{"network_id": "N1"}, {"network_id": "N2"}, {"network_id": "N3"}]}
+
+    out = trace_bo2023_secondary_regions(expression, network_output, "unused.db", None)
+
+    assert out["results"] == []
+    assert out["meta"]["n_overlap_genes"] == 19
+    assert out["meta"]["min_required_region_overlap_genes"] == 20

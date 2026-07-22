@@ -14,7 +14,7 @@ from data.migrations import run_migrations
 class CSFRNASourceDatabase:
     """血浆cfRNA溯源数据库"""
 
-    def __init__(self, db_path: str = "cfrna_source_tracing.db"):
+    def __init__(self, db_path: str = "braintrace_source_tracing.db"):
         self.db_path = db_path
         self.conn = None
 
@@ -67,7 +67,7 @@ class CSFRNASourceDatabase:
 
         # 3. 血浆cfRNA样本表
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS cfrna_samples (
+            CREATE TABLE IF NOT EXISTS braintrace_samples (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 sample_id TEXT NOT NULL UNIQUE,
                 subject_id TEXT,
@@ -92,14 +92,14 @@ class CSFRNASourceDatabase:
 
         # 4. cfRNA基因表达表
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS cfrna_expression (
+            CREATE TABLE IF NOT EXISTS braintrace_expression (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 sample_id TEXT NOT NULL,
                 gene_symbol TEXT NOT NULL,
                 tpm_value REAL,
                 read_count INTEGER,
                 detected INTEGER,
-                FOREIGN KEY (sample_id) REFERENCES cfrna_samples(sample_id)
+                FOREIGN KEY (sample_id) REFERENCES braintrace_samples(sample_id)
             )
         """)
 
@@ -116,7 +116,7 @@ class CSFRNASourceDatabase:
                 marker_genes_used TEXT,
                 cross_validation_score REAL,
                 results_json TEXT,
-                FOREIGN KEY (sample_id) REFERENCES cfrna_samples(sample_id)
+                FOREIGN KEY (sample_id) REFERENCES braintrace_samples(sample_id)
             )
         """)
 
@@ -246,8 +246,8 @@ class CSFRNASourceDatabase:
         # 创建索引
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_ref_exp_gene ON reference_expression(gene_symbol)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_ref_exp_region ON reference_expression(region_id)")
-        cursor.execute("CREATE INDEX IF NOT EXISTS idx_cfrna_sample ON cfrna_expression(sample_id)")
-        cursor.execute("CREATE INDEX IF NOT EXISTS idx_cfrna_gene ON cfrna_expression(gene_symbol)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_cfrna_sample ON braintrace_expression(sample_id)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_cfrna_gene ON braintrace_expression(gene_symbol)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_region_sig_region ON region_gene_signature(region_id)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_region_sig_gene ON region_gene_signature(gene_symbol)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_tracing_sample ON source_tracing_results(sample_id)")
@@ -270,13 +270,13 @@ class CSFRNASourceDatabase:
         """Perform lightweight, backward-compatible ALTER TABLE updates."""
         cursor = self.conn.cursor()
 
-        # Add optional normalized columns to cfrna_expression if missing
-        cursor.execute("PRAGMA table_info(cfrna_expression)")
+        # Add optional normalized columns to braintrace_expression if missing
+        cursor.execute("PRAGMA table_info(braintrace_expression)")
         cols = {row[1] for row in cursor.fetchall()}
         if 'log_tpm' not in cols:
-            cursor.execute("ALTER TABLE cfrna_expression ADD COLUMN log_tpm REAL")
+            cursor.execute("ALTER TABLE braintrace_expression ADD COLUMN log_tpm REAL")
         if 'zscore_tpm' not in cols:
-            cursor.execute("ALTER TABLE cfrna_expression ADD COLUMN zscore_tpm REAL")
+            cursor.execute("ALTER TABLE braintrace_expression ADD COLUMN zscore_tpm REAL")
 
         # Do not auto-seed the removed legacy 8-region rhesus atlas.
         # The current rhesus reference is Bo2023_WangLab_VSD_region.
@@ -654,7 +654,7 @@ if __name__ == "__main__":
     cursor = db.conn.cursor()
 
     tables = ['macaque_brain_atlas', 'reference_expression',
-              'cfrna_samples', 'region_gene_signature']
+              'braintrace_samples', 'region_gene_signature']
 
     for table in tables:
         cursor.execute(f"SELECT COUNT(*) FROM {table}")

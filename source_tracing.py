@@ -25,7 +25,7 @@ from source_tracing_v2 import SourceTracingEngineV2
 class CSFRNASourceTracer:
     """血浆cfRNA溯源分析器（兼容包装器）"""
 
-    def __init__(self, db_path: str = "cfrna_source_tracing.db"):
+    def __init__(self, db_path: str = "braintrace_source_tracing.db"):
         self.db_path = db_path
         self.reference_expression: Optional[pd.DataFrame] = None
         self.region_signatures: Optional[pd.DataFrame] = None

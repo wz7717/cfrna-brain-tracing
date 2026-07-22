@@ -1,0 +1,211 @@
+{
+  "source_file": "D:\\Download\\cfrna-brain-tracing-streamlit-cloud-ready\\data\\external_signatures\\mb_literature\\mb_literature_signature_gene_sets.csv",
+  "output_file": "D:\\Download\\cfrna-brain-tracing-streamlit-cloud-ready\\data\\signatures\\mb_cell_state_signatures.csv",
+  "signature_counts": {
+    "GNP_like": 193,
+    "Group4": 330,
+    "MYC_Group3": 330,
+    "UBC_like": 159,
+    "neuronal_like": 236,
+    "progenitor_like": 334
+  },
+  "selection": [
+    {
+      "target_signature": "GNP_like",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "GCP",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 50
+    },
+    {
+      "target_signature": "GNP_like",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Early_GN",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 50
+    },
+    {
+      "target_signature": "GNP_like",
+      "source": "Smith et al. Nature 2022",
+      "source_signature": "EGL",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "UBC_like",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Early_UBC",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 50
+    },
+    {
+      "target_signature": "UBC_like",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Late_UBC",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 50
+    },
+    {
+      "target_signature": "UBC_like",
+      "source": "Smith et al. Nature 2022",
+      "source_signature": "UBC_gene_set:Gene set: Descartes Unipolar Brush Cells",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 97
+    },
+    {
+      "target_signature": "UBC_like",
+      "source": "Smith et al. Nature 2022",
+      "source_signature": "UBC_gene_set:Gene set: RLsvz-Unipolar brush cells",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 14
+    },
+    {
+      "target_signature": "progenitor_like",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "RL-VZ",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 50
+    },
+    {
+      "target_signature": "progenitor_like",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "RL-SVZ",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 50
+    },
+    {
+      "target_signature": "progenitor_like",
+      "source": "Smith et al. Nature 2022",
+      "source_signature": "RL_vz",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "progenitor_like",
+      "source": "Smith et al. Nature 2022",
+      "source_signature": "RL_svz",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "progenitor_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "Group3/4-A",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    },
+    {
+      "target_signature": "progenitor_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "WNT-A",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    },
+    {
+      "target_signature": "progenitor_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "SHH-A",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    },
+    {
+      "target_signature": "neuronal_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "Neuron-like_shared",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "neuronal_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "Neuron-like_Group 3/4",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 39
+    },
+    {
+      "target_signature": "neuronal_like",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Late_GN",
+      "top_n_requested": 50,
+      "n_genes_used_before_dedup": 50
+    },
+    {
+      "target_signature": "neuronal_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "Group3/4-C",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    },
+    {
+      "target_signature": "neuronal_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "WNT-C",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    },
+    {
+      "target_signature": "neuronal_like",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "SHH-C",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    },
+    {
+      "target_signature": "MYC_Group3",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Group3_alpha",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "MYC_Group3",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Group3_beta",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "MYC_Group3",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Group3_gamma",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "MYC_Group3",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "Group3/4-A",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    },
+    {
+      "target_signature": "Group4",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Group4_alpha",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "Group4",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Group4_beta",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "Group4",
+      "source": "Hendrikse et al. Nature 2022",
+      "source_signature": "Group4_gamma",
+      "top_n_requested": 100,
+      "n_genes_used_before_dedup": 100
+    },
+    {
+      "target_signature": "Group4",
+      "source": "Hovestadt et al. Nature 2019",
+      "source_signature": "Group3/4-C",
+      "top_n_requested": 30,
+      "n_genes_used_before_dedup": 30
+    }
+  ],
+  "note": "Large subtype DEG lists were truncated to top-ranked genes to reduce dilution in sample-level module scoring. This file is for exploratory CSF RNA program scoring."
+}

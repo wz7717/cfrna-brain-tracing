@@ -1,0 +1,250 @@
+[
+  {
+    "source_workbook": "Supplementary Data 1 Information of sequenced samples.xlsx",
+    "source_sheet": "Sample819_regionlevel_meta",
+    "output_file": "01_region_level_meta.csv",
+    "rows": 110,
+    "cols": 58,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 1 Information of sequenced samples.xlsx",
+    "source_sheet": "Abbreviations for brain region",
+    "output_file": "02_region_dictionary.csv",
+    "rows": 108,
+    "cols": 5,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 1 Information of sequenced samples.xlsx",
+    "source_sheet": "Monkey_info",
+    "output_file": "03_monkey_info.csv",
+    "rows": 10,
+    "cols": 4,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 2 Expressed genes aligned to mfas5.xlsx",
+    "source_sheet": "NCX_subcortical_23605expgenes",
+    "output_file": "04_expressed_genes_neocortex_plus_subcortical.csv",
+    "rows": 23605,
+    "cols": 4,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 2 Expressed genes aligned to mfas5.xlsx",
+    "source_sheet": "NCX_23613expgenes",
+    "output_file": "05_expressed_genes_neocortex_only.csv",
+    "rows": 23613,
+    "cols": 4,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 2 Expressed genes aligned to mfas5.xlsx",
+    "source_sheet": "mfas5_regionList102_DEG",
+    "output_file": "06_region_deg_summary.csv",
+    "rows": 408,
+    "cols": 5,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 3 Cortical expressed gene list used in WGCNA.xlsx",
+    "source_sheet": "Sheet1",
+    "output_file": "07_wgcna_cortical_expressed_genes_and_modules.csv",
+    "rows": 19971,
+    "cols": 5,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 4 KEGG pathway enrichment for M1-M4.xlsx",
+    "source_sheet": "Sheet1",
+    "output_file": "08_m1_m4_kegg_enrichment.csv",
+    "rows": 27,
+    "cols": 9,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 5 Neurotransmitter enrichment in M1-M4.xlsx",
+    "source_sheet": "Neurotransmitter marker genes",
+    "output_file": "09_neurotransmitter_marker_genes.csv",
+    "rows": 194,
+    "cols": 6,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 5 Neurotransmitter enrichment in M1-M4.xlsx",
+    "source_sheet": "Enrichment in M1-M4 ",
+    "output_file": "10_m1_m4_neurotransmitter_enrichment.csv",
+    "rows": 9,
+    "cols": 18,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 7 Information of module view for M1-M4.xlsx",
+    "source_sheet": "Sheet1",
+    "output_file": "11_module_view_gene_annotations.csv",
+    "rows": 1013,
+    "cols": 8,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 8 Cell type enrichment in 20 modules and M1-M4.xlsx",
+    "source_sheet": "CelltypeHighExpGene",
+    "output_file": "12_celltype_high_expression_markers.csv",
+    "rows": 2364,
+    "cols": 3,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 8 Cell type enrichment in 20 modules and M1-M4.xlsx",
+    "source_sheet": "CynoMac_V1_major_celltype",
+    "output_file": "13_v1_major_celltype_enrichment.csv",
+    "rows": 120,
+    "cols": 20,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 8 Cell type enrichment in 20 modules and M1-M4.xlsx",
+    "source_sheet": "CynoMac_CTX_Han et al. major",
+    "output_file": "14_ctx_han_major_celltype_enrichment.csv",
+    "rows": 120,
+    "cols": 21,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 8 Cell type enrichment in 20 modules and M1-M4.xlsx",
+    "source_sheet": "RheMac_dlPFC_Ma et.al. major_ce",
+    "output_file": "15_dlpfc_major_celltype_enrichment.csv",
+    "rows": 140,
+    "cols": 21,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 8 Cell type enrichment in 20 modules and M1-M4.xlsx",
+    "source_sheet": "CynoMac_V1_cell_subtype",
+    "output_file": "16_v1_cell_subtype_enrichment.csv",
+    "rows": 440,
+    "cols": 9,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 8 Cell type enrichment in 20 modules and M1-M4.xlsx",
+    "source_sheet": "CynoMac_CTX_Han et al. cell_sub",
+    "output_file": "17_ctx_han_cell_subtype_enrichment.csv",
+    "rows": 220,
+    "cols": 9,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 8 Cell type enrichment in 20 modules and M1-M4.xlsx",
+    "source_sheet": "RheMac_dlPFC_Ma et.al. cell_sub",
+    "output_file": "18_dlpfc_cell_subtype_enrichment.csv",
+    "rows": 580,
+    "cols": 8,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 9 Explained variances of PLS1 in age 2 to age 8.xlsx",
+    "source_sheet": "Sheet1",
+    "output_file": "19_pls1_explained_variance_by_age.csv",
+    "rows": 7,
+    "cols": 4,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 10 Significant CT-correlated gene list (1,284) across age 2 to age 8.xlsx",
+    "source_sheet": "ageCT_exp_1284SigGenes_Cor_P",
+    "output_file": "20_ct_significant_correlated_genes_1284.csv",
+    "rows": 1285,
+    "cols": 18,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 11 1,005 CT-related gene list.xlsx",
+    "source_sheet": "Sheet1",
+    "output_file": "21_ct_related_genes_1005.csv",
+    "rows": 1005,
+    "cols": 10,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 12 Overlap of 1,005 CT-related genes with available CT-related genes in humans.xlsx",
+    "source_sheet": "Whitaker et.al_complete",
+    "output_file": "22_ct_related_gene_overlap_with_human.csv",
+    "rows": 1642,
+    "cols": 4,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 12 Overlap of 1,005 CT-related genes with available CT-related genes in humans.xlsx",
+    "source_sheet": "Fisher_statistics",
+    "output_file": "23_ct_related_gene_overlap_statistics.csv",
+    "rows": 1,
+    "cols": 2,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 13 Cell type enrichment in CT-related genes.xlsx",
+    "source_sheet": "Fig6 single-nucleusV1 ",
+    "output_file": "24_ct_genes_v1_celltype_enrichment.csv",
+    "rows": 42,
+    "cols": 23,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 13 Cell type enrichment in CT-related genes.xlsx",
+    "source_sheet": "macaque_Han et al.",
+    "output_file": "25_ct_genes_ctx_han_celltype_enrichment.csv",
+    "rows": 23,
+    "cols": 12,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 13 Cell type enrichment in CT-related genes.xlsx",
+    "source_sheet": "macaque_dlPFC_Ma,et al.",
+    "output_file": "26_ct_genes_dlpfc_celltype_enrichment.csv",
+    "rows": 23,
+    "cols": 30,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 14 Biological processes and KEGG pathways enrichment for CT-related genes.xlsx",
+    "source_sheet": "Enriched Go term",
+    "output_file": "27_ct_genes_go_enrichment.csv",
+    "rows": 231,
+    "cols": 8,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 14 Biological processes and KEGG pathways enrichment for CT-related genes.xlsx",
+    "source_sheet": "Annotation for 1005 genes",
+    "output_file": "28_ct_genes_annotations.csv",
+    "rows": 1021,
+    "cols": 29,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 15 Overlap of CT-related genes and 4 gene panels.xlsx",
+    "source_sheet": "Gene panel definition",
+    "output_file": "29_ct_gene_panel_definitions.csv",
+    "rows": 30,
+    "cols": 2,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 15 Overlap of CT-related genes and 4 gene panels.xlsx",
+    "source_sheet": "Individual gene",
+    "output_file": "30_ct_gene_panel_individual_genes.csv",
+    "rows": 1012,
+    "cols": 18,
+    "notes": ""
+  },
+  {
+    "source_workbook": "Supplementary Data 15 Overlap of CT-related genes and 4 gene panels.xlsx",
+    "source_sheet": "Panel Overlap",
+    "output_file": "31_ct_gene_panel_overlap.csv",
+    "rows": 19,
+    "cols": 6,
+    "notes": ""
+  }
+]

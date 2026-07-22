@@ -31,6 +31,7 @@ from core.bo2023_metadata import (  # noqa: E402
 from scripts.build_bo2023_reference_projector import DEFAULT_COUNTS, DEFAULT_SAMPLE_INFO, DEFAULT_VSD  # noqa: E402
 from scripts.run_bo2023_network_correlation_validation import select_group_discriminative_genes  # noqa: E402
 from scripts.run_bo2023_network_pairwise_correlation_validation import (  # noqa: E402
+    BASELINE_ROUTE,
     PAIR_TOP3_ROUTE,
     build_pair_models,
     derive_training_confusion_pairs,
@@ -140,6 +141,11 @@ def main() -> int:
     parser.add_argument("--max-pairs-per-truth", type=int, default=2)
     parser.add_argument("--min-pair-errors", type=int, default=3)
     parser.add_argument("--pair-min-margin", type=float, default=0.002)
+    parser.add_argument(
+        "--enable-pairwise-rescue",
+        action="store_true",
+        help="Legacy sensitivity route only; disabled for the frozen production-route rerun.",
+    )
     parser.add_argument("--exact-fusion-weight", type=float, default=0.25)
     parser.add_argument("--local-top-n-genes", type=int, default=200)
     parser.add_argument("--min-resolution-samples", type=int, default=8)
@@ -266,25 +272,29 @@ def main() -> int:
             network_reference, network_training = build_label_reference(network_values, network_labels, groups, train_indices)
             gene_pool, _ = select_group_discriminative_genes(network_values, groups, network_training, args.gene_pool_size)
             global_genes = gene_pool[: args.global_top_n_genes]
-            pairs, _ = derive_training_confusion_pairs(
-                network_values,
-                network_labels,
-                groups,
-                network_training,
-                network_reference,
-                global_genes,
-                args.max_pairs_per_truth,
-                args.min_pair_errors,
-            )
-            pair_models, _ = build_pair_models(
-                network_values,
-                network_training,
-                network_reference,
-                pairs,
-                groups,
-                gene_pool,
-                args.pair_top_n_genes,
-            )
+            pair_models = {}
+            network_route = BASELINE_ROUTE
+            if args.enable_pairwise_rescue:
+                pairs, _ = derive_training_confusion_pairs(
+                    network_values,
+                    network_labels,
+                    groups,
+                    network_training,
+                    network_reference,
+                    global_genes,
+                    args.max_pairs_per_truth,
+                    args.min_pair_errors,
+                )
+                pair_models, _ = build_pair_models(
+                    network_values,
+                    network_training,
+                    network_reference,
+                    pairs,
+                    groups,
+                    gene_pool,
+                    args.pair_top_n_genes,
+                )
+                network_route = PAIR_TOP3_ROUTE
 
             fold_exact = 0
             fold_group = 0
@@ -296,7 +306,7 @@ def main() -> int:
                 exact_sample_vec = exact_test_values[:, local_pos]
                 scores = correlation_scores(network_reference, network_sample_vec, global_genes)
                 pair_detail, pair_prob = evaluate_pairwise_rescue(
-                    PAIR_TOP3_ROUTE,
+                    network_route,
                     sample_id,
                     truth_network,
                     network_sample_vec,
@@ -467,7 +477,10 @@ def main() -> int:
             "region_unsupported_n": int(len(unsupported_rows)),
             "region_unsupported_reason": "truth region absent from all training monkeys",
         },
-        "network_implementation": "fold-local projected-VSD Network scoring with fold-local discriminative genes and pairwise Top1 rescue constrained to the original Network Top3 set",
+        "network_implementation": (
+            "fold-local projected-VSD Network scoring with fold-local discriminative genes; "
+            f"pairwise Top1 rescue enabled={bool(args.enable_pairwise_rescue)}"
+        ),
         "region_implementation": "logCPM-compatible local resolution-group and exact-region reranking within the projected-VSD Network Top3 beam",
         "routes": {
             "network": network_summary.to_dict(orient="records"),
@@ -479,6 +492,7 @@ def main() -> int:
             "gene_pool_size": args.gene_pool_size,
             "pair_top_n_genes": args.pair_top_n_genes,
             "pair_min_margin": args.pair_min_margin,
+            "enable_pairwise_rescue": bool(args.enable_pairwise_rescue),
             "exact_route": EXACT_ROUTE,
             "resolution_group_route": GROUP_ROUTE,
         },

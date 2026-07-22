@@ -19,6 +19,12 @@ def display_sample_list():
         eyebrow=tr("样本", "Samples"),
         pills=[tr("样本登记表", "Sample registry"), tr("元数据核对", "Metadata review"), tr("删除保护", "Deletion safeguards")],
     )
+    st.warning(
+        tr(
+            "持久化与隐私提示：本页显示的样本表达矩阵和元数据已持久存入应用数据库。不应上传可识别个人身份或敏感的信息。使用下方的“删除样本”可移除该样本及其表达和分析记录。",
+            "Persistence and privacy notice: Samples shown here have their expression matrices and metadata stored in the application database. Do not upload identifiable or sensitive information. Use Delete sample below to remove a sample and its linked expression and analysis records.",
+        )
+    )
     processor = init_processor()
     samples_df = processor.get_all_samples()
     if not samples_df.empty and "species" in samples_df.columns:
@@ -34,7 +40,7 @@ def display_sample_list():
 
     render_kpi_cards(
         [
-            {"icon": "SMP", "label": tr("样本数", "Stored Samples"), "value": f"{len(samples_df):,}", "note": tr("当前 cfrna_samples 中的记录数", "Rows currently indexed in cfrna_samples")},
+            {"icon": "SMP", "label": tr("样本数", "Stored Samples"), "value": f"{len(samples_df):,}", "note": tr("当前 braintrace_samples 中的记录数", "Rows currently indexed in braintrace_samples")},
             {"icon": "SUB", "label": tr("已登记个体 ID 数", "Registered Subject IDs"), "value": f"{samples_df['subject_id'].dropna().astype(str).str.strip().replace('', None).dropna().nunique():,}", "note": tr("数据库中已登记并去重的个体 ID", "Distinct non-empty subject IDs stored in the database")},
         ]
     )

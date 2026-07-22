@@ -10,7 +10,9 @@ simulation of sparse-expression stress rather than real cfRNA validation.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import shutil
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -43,7 +45,28 @@ from scripts.run_bo2023_projected_vsd_exact_region import DEFAULT_CLEANED_GENE_M
 from scripts.run_bo2023_resolution_tier_validation import build_resolution_groups, score_route
 
 
-DEFAULT_OUTDIR = ROOT / "reports" / "p0_4_sparse_domain_shift_20260711"
+DEFAULT_OUTDIR = ROOT / "reports" / "p0_8_sparse_domain_shift_20260716"
+BOOTSTRAP_SEED = 20260716
+EXPECTED_INPUT_SHA256 = {
+    "counts": "1FB3A512DA11AB0C327C07C114DA3B9C38CAB0A504682F2C7C036EEDB3C7561A",
+    "vsd": "286AEAB66B21B7FA012FAC8CEAA24497894327E0736F9F6B200334C57089A1B3",
+    "sample_info": "9A2FE2BEC1475F6AD613883D0FF5925B1E6BA36E800CAA922C35D4F8AE7D3645",
+    "gene_map": "24E0545A478ED2643322F994627A0D1C8BFAC3061F6A755EAE49080B2B92A78A",
+    "locked_model_genes": "FCAF3A1927AA0E7B55513C9E3486333D67742E3CEAF0A7FB650A47B1DDA15929",
+}
+EXPECTED_BASELINE = {
+    "network_hit1": (483, 819),
+    "network_hit3": (753, 819),
+    "group_hit1": (368, 814),
+    "group_hit3": (590, 814),
+    "exact_hit1": (182, 814),
+    "exact_hit3": (368, 814),
+}
+METRICS = (
+    "network_hit1", "network_hit3", "group_hit1", "group_hit3", "exact_hit1", "exact_hit3",
+    "gene_coverage_fraction", "network_marker_coverage", "local_marker_coverage", "network_entropy",
+    "network_margin", "low_confidence_warning",
+)
 SCENARIOS = (
     ("baseline", 1.00, 1.00),
     ("mild", 0.50, 0.80),
@@ -114,45 +137,138 @@ def normalized_entropy(scores: np.ndarray) -> float:
     return float(-(p * np.log(np.maximum(p, 1e-12))).sum() / np.log(len(p)))
 
 
-def donor_bootstrap(values: pd.DataFrame, metric: str, rng: np.random.Generator, n_bootstrap: int) -> tuple[float, float]:
-    donor_values = [group[metric].to_numpy(dtype=float) for _, group in values.groupby("monkey_id", sort=True)]
-    draws = np.empty(n_bootstrap, dtype=float)
-    for i in range(n_bootstrap):
-        idx = rng.integers(0, len(donor_values), size=len(donor_values))
-        draws[i] = np.concatenate([donor_values[j] for j in idx]).mean()
-    return float(np.quantile(draws, 0.025)), float(np.quantile(draws, 0.975))
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest().upper()
 
 
-def scenario_summary(detail: pd.DataFrame, n_bootstrap: int, seed: int) -> pd.DataFrame:
-    rows = []
-    for scenario, frame in detail.groupby("scenario", sort=False):
-        rng = np.random.default_rng(seed + list(detail["scenario"].drop_duplicates()).index(scenario))
-        row: dict[str, Any] = {
-            "scenario": scenario,
-            "depth_fraction": float(frame["depth_fraction"].iloc[0]),
-            "target_gene_retention": float(frame["target_gene_retention"].iloc[0]),
-            "n_rows": int(len(frame)),
-            "n_samples": int(frame["sample_id"].nunique()),
-            "n_donors": int(frame["monkey_id"].nunique()),
-        }
-        for metric in (
-            "network_hit1", "network_hit3", "group_hit3", "exact_hit3", "gene_coverage_fraction",
-            "network_marker_coverage", "local_marker_coverage", "network_entropy", "network_margin",
-            "low_confidence_warning",
-        ):
-            valid = frame[["monkey_id", metric]].dropna(subset=[metric]).copy()
-            row[f"{metric}_n"] = int(len(valid))
-            row[metric] = float(valid[metric].mean())
-            low, high = donor_bootstrap(valid, metric, rng, n_bootstrap)
-            row[f"{metric}_donor_bootstrap_ci_low"] = low
-            row[f"{metric}_donor_bootstrap_ci_high"] = high
-        rows.append(row)
+def validate_input_contract(paths: dict[str, Path]) -> dict[str, dict[str, Any]]:
+    audit: dict[str, dict[str, Any]] = {}
+    for name, expected in EXPECTED_INPUT_SHA256.items():
+        path = paths[name].resolve()
+        observed = sha256_file(path)
+        audit[name] = {"path": str(path), "sha256": observed, "expected_sha256": expected, "matched": observed == expected}
+    failures = [name for name, row in audit.items() if not row["matched"]]
+    if failures:
+        raise RuntimeError(f"Frozen-input SHA-256 contract failed: {', '.join(failures)}")
+    return audit
+
+
+def read_detail_csv(path: Path) -> pd.DataFrame:
+    """Read persisted detail without splitting numeric-looking donor IDs by chunk dtype."""
+    return pd.read_csv(path, dtype={"monkey_id": "string"}, low_memory=False)
+
+
+def repeat_summary(detail: pd.DataFrame) -> pd.DataFrame:
+    rows: list[dict[str, Any]] = []
+    for (scenario, repeat), frame in detail.groupby(["scenario", "replicate"], sort=False):
+        for metric in METRICS:
+            valid = frame[["monkey_id", metric]].dropna(subset=[metric])
+            if valid.empty:
+                continue
+            donor_means = valid.groupby("monkey_id", sort=True)[metric].mean()
+            common = {
+                "scenario": scenario,
+                "replicate": int(repeat),
+                "depth_fraction": float(frame["depth_fraction"].iloc[0]),
+                "target_gene_retention": float(frame["target_gene_retention"].iloc[0]),
+                "metric": metric,
+                "n_rows": int(len(valid)),
+                "n_samples": int(frame.loc[valid.index, "sample_id"].nunique()),
+                "n_donors": int(len(donor_means)),
+            }
+            rows.append({**common, "estimator": "sample_weighted", "value": float(valid[metric].mean())})
+            rows.append({**common, "estimator": "donor_macro", "value": float(donor_means.mean())})
     return pd.DataFrame(rows)
 
 
+def _cluster_bootstrap_draws(frame: pd.DataFrame, metric: str, n_bootstrap: int, seed: int) -> dict[str, np.ndarray]:
+    """Resample donors inside each repeat, then average estimates across repeats."""
+    repeat_draws: dict[str, list[np.ndarray]] = {"sample_weighted": [], "donor_macro": []}
+    for repeat, repeat_frame in frame.groupby("replicate", sort=True):
+        valid = repeat_frame[["monkey_id", metric]].dropna(subset=[metric])
+        donor = valid.groupby("monkey_id", sort=True)[metric].agg(["sum", "count", "mean"])
+        if donor.empty:
+            continue
+        rng = np.random.default_rng(np.random.SeedSequence([seed, int(repeat)]))
+        indices = rng.integers(0, len(donor), size=(n_bootstrap, len(donor)))
+        sums, counts, means = donor["sum"].to_numpy(), donor["count"].to_numpy(), donor["mean"].to_numpy()
+        repeat_draws["sample_weighted"].append(sums[indices].sum(axis=1) / counts[indices].sum(axis=1))
+        repeat_draws["donor_macro"].append(means[indices].mean(axis=1))
+    if not repeat_draws["sample_weighted"]:
+        return {}
+    return {name: np.vstack(draws).mean(axis=0) for name, draws in repeat_draws.items()}
+
+
+def across_repeat_summary(detail: pd.DataFrame, repeats: pd.DataFrame, n_bootstrap: int, seed: int) -> pd.DataFrame:
+    rows: list[dict[str, Any]] = []
+    scenario_order = list(detail["scenario"].drop_duplicates())
+    for scenario_i, scenario in enumerate(scenario_order):
+        scenario_detail = detail[detail["scenario"] == scenario]
+        for metric_i, metric in enumerate(METRICS):
+            metric_repeats = repeats[(repeats["scenario"] == scenario) & (repeats["metric"] == metric)]
+            if metric_repeats.empty:
+                continue
+            draws = _cluster_bootstrap_draws(
+                scenario_detail, metric, n_bootstrap, seed + scenario_i * 1000 + metric_i * 10,
+            )
+            for estimator, estimator_frame in metric_repeats.groupby("estimator", sort=False):
+                values = estimator_frame.sort_values("replicate")["value"].to_numpy(dtype=float)
+                bootstrap = draws[estimator]
+                rows.append({
+                    "scenario": scenario,
+                    "depth_fraction": float(scenario_detail["depth_fraction"].iloc[0]),
+                    "target_gene_retention": float(scenario_detail["target_gene_retention"].iloc[0]),
+                    "metric": metric,
+                    "estimator": estimator,
+                    "n_repeats": int(len(values)),
+                    "n_donors": int(scenario_detail["monkey_id"].nunique()),
+                    "mean": float(values.mean()),
+                    "sd": float(values.std(ddof=0)),
+                    "min": float(values.min()),
+                    "max": float(values.max()),
+                    "mc_q025": float(np.quantile(values, 0.025)),
+                    "mc_q975": float(np.quantile(values, 0.975)),
+                    "donor_bootstrap_ci_low": float(np.quantile(bootstrap, 0.025)),
+                    "donor_bootstrap_ci_high": float(np.quantile(bootstrap, 0.975)),
+                })
+    return pd.DataFrame(rows)
+
+
+def validate_baseline(detail: pd.DataFrame, ontology: dict[str, int], full_run: bool) -> dict[str, Any]:
+    baseline = detail[detail["scenario"] == "baseline"]
+    observed = {
+        metric: (int(baseline[metric].sum()), int(baseline[metric].notna().sum()))
+        for metric in EXPECTED_BASELINE
+    }
+    contract = {
+        "expected": {key: list(value) for key, value in EXPECTED_BASELINE.items()},
+        "observed": {key: list(value) for key, value in observed.items()},
+        "n_donors": int(baseline["monkey_id"].nunique()),
+        "ontology": ontology,
+        "enable_pairwise_rescue": False,
+        "full_run": bool(full_run),
+    }
+    if not full_run:
+        raise RuntimeError("Canonical baseline gate requires all 819 samples; --max-samples is not permitted for evidence output")
+    failures = [key for key in EXPECTED_BASELINE if observed[key] != EXPECTED_BASELINE[key]]
+    if contract["n_donors"] != 9:
+        failures.append("n_donors")
+    if ontology != {"regions": 110, "networks": 10, "total_labels": 120}:
+        failures.append("ontology")
+    if failures:
+        raise RuntimeError(f"Canonical baseline gate failed: {', '.join(failures)}")
+    contract["passed"] = True
+    return contract
+
+
 def plot_summary(summary: pd.DataFrame, outdir: Path) -> None:
-    x = np.arange(len(summary))
-    labels = summary["scenario"].tolist()
+    selected = summary[(summary["estimator"] == "donor_macro") & summary["metric"].isin(("network_hit3", "group_hit3", "exact_hit3", "network_marker_coverage"))]
+    labels = list(selected["scenario"].drop_duplicates())
+    x = np.arange(len(labels))
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), constrained_layout=True)
     for metric, label, ax in (
         ("network_hit3", "Network Top3 accuracy", axes[0, 0]),
@@ -160,9 +276,10 @@ def plot_summary(summary: pd.DataFrame, outdir: Path) -> None:
         ("exact_hit3", "Exact-region Top3 accuracy", axes[1, 0]),
         ("network_marker_coverage", "Detected Network-marker coverage", axes[1, 1]),
     ):
-        y = summary[metric].to_numpy()
-        lo = y - summary[f"{metric}_donor_bootstrap_ci_low"].to_numpy()
-        hi = summary[f"{metric}_donor_bootstrap_ci_high"].to_numpy() - y
+        frame = selected[selected["metric"] == metric].set_index("scenario").loc[labels]
+        y = frame["mean"].to_numpy()
+        lo = y - frame["donor_bootstrap_ci_low"].to_numpy()
+        hi = frame["donor_bootstrap_ci_high"].to_numpy() - y
         ax.errorbar(x, y, yerr=np.vstack([lo, hi]), marker="o", capsize=4, color="#2d6ca2")
         ax.set_title(label)
         ax.set_ylim(0, 1.05)
@@ -182,23 +299,39 @@ def main() -> int:
     parser.add_argument("--sample-sheet", default="mfas5_819samples_phenSet4")
     parser.add_argument("--gene-map", type=Path, default=DEFAULT_CLEANED_GENE_MAP)
     parser.add_argument("--locked-model-genes", type=Path, default=DEFAULT_MODEL_GENES)
-    parser.add_argument("--replicates", type=int, default=3)
-    parser.add_argument("--max-samples", type=int, default=0, help="Smoke-test limiter; 0 analyses all samples.")
+    parser.add_argument("--replicates", type=int, default=30)
+    parser.add_argument("--max-samples", type=int, default=0, help="Development-only limiter; cannot pass the evidence gate.")
     parser.add_argument("--seed", type=int, default=20260711)
-    parser.add_argument("--n-bootstrap", type=int, default=2000)
+    parser.add_argument("--bootstrap-seed", type=int, default=BOOTSTRAP_SEED)
+    parser.add_argument("--n-bootstrap", type=int, default=50000)
     parser.add_argument("--outdir", type=Path, default=DEFAULT_OUTDIR)
     parser.add_argument("--summarize-only", action="store_true", help="Regenerate summary/plot from an existing detail CSV.")
     args = parser.parse_args()
-    args.outdir.mkdir(parents=True, exist_ok=True)
-
     if args.summarize_only:
         detail_path = args.outdir / "p0_4_sparse_sensitivity_sample_detail.csv"
-        detail = pd.read_csv(detail_path)
-        summary = scenario_summary(detail, args.n_bootstrap, args.seed)
-        summary.to_csv(args.outdir / "p0_4_sparse_sensitivity_summary.csv", index=False)
+        detail = read_detail_csv(detail_path)
+        repeats = repeat_summary(detail)
+        summary = across_repeat_summary(detail, repeats, args.n_bootstrap, args.bootstrap_seed)
+        repeats.to_csv(args.outdir / "p0_8_sparse_sensitivity_per_repeat.csv", index=False)
+        summary.to_csv(args.outdir / "p0_8_sparse_sensitivity_across_repeats.csv", index=False)
         plot_summary(summary, args.outdir)
         print(summary.to_string(index=False))
         return 0
+
+    if args.outdir.exists():
+        raise FileExistsError(f"Refusing to overwrite existing evidence directory: {args.outdir}")
+    if args.replicates < 1:
+        raise ValueError("--replicates must be at least 1")
+    if args.n_bootstrap < 1:
+        raise ValueError("--n-bootstrap must be at least 1")
+    input_audit = validate_input_contract({
+        "counts": args.counts,
+        "vsd": args.vsd,
+        "sample_info": args.sample_info,
+        "gene_map": args.gene_map,
+        "locked_model_genes": args.locked_model_genes,
+    })
+    args.outdir.mkdir(parents=True)
 
     gene_map = read_gene_map(args.gene_map)
     counts, _ = map_index_to_symbols(read_bo2023_gene_matrix(args.counts, dtype="float32"), gene_map)
@@ -216,6 +349,11 @@ def main() -> int:
     network_labels = metadata.loc[samples, "network_id"].astype(str).to_numpy()
     networks = sorted(set(network_labels))
     all_regions = sorted(set(region_labels))
+    ontology = {
+        "regions": len(all_regions),
+        "networks": len(networks),
+        "total_labels": len(all_regions) + len(networks),
+    }
     gene_to_idx = {g: i for i, g in enumerate(genes)}
     locked_genes = [g for g in read_locked_model_genes(args.locked_model_genes) if g in gene_to_idx]
     locked_rows = np.asarray([gene_to_idx[g] for g in locked_genes], dtype=int)
@@ -239,7 +377,8 @@ def main() -> int:
         for scenario_i, (scenario, depth_fraction, gene_retention) in enumerate(SCENARIOS):
             repeats = 1 if scenario == "baseline" else args.replicates
             for repeat in range(repeats):
-                rng = np.random.default_rng(args.seed + sample_idx * 1000 + scenario_i * 100 + repeat)
+                rng_seed = args.seed + sample_idx * 1000 + scenario_i * 100 + repeat
+                rng = np.random.default_rng(rng_seed)
                 perturbed_counts = perturb_counts(count_values[:, sample_idx], depth_fraction, gene_retention, rng)
                 total = int(perturbed_counts.sum())
                 query_logcpm = np.log1p(perturbed_counts / total * 1_000_000.0) if total else np.zeros(len(genes), dtype=float)
@@ -255,6 +394,7 @@ def main() -> int:
                     "depth_fraction": depth_fraction,
                     "target_gene_retention": gene_retention,
                     "replicate": repeat,
+                    "rng_seed": rng_seed,
                     "truth_network": truth_network,
                     "truth_region": truth_region,
                     "gene_coverage_fraction": float((perturbed_counts > 0).sum() / max(original_detected, 1)),
@@ -264,7 +404,9 @@ def main() -> int:
                     "network_hit1": int(network_top[0] == truth_network),
                     "network_hit3": int(truth_network in network_top),
                     "group_hit3": np.nan,
+                    "group_hit1": np.nan,
                     "exact_hit3": np.nan,
+                    "exact_hit1": np.nan,
                     "local_marker_coverage": np.nan,
                     "region_evaluable": bool(region_evaluable),
                 }
@@ -293,28 +435,45 @@ def main() -> int:
                         ranked_group = [candidates[i] for i in np.argsort(group_scores)[::-1]]
                         group = score_route(GROUP_ROUTE, sample_id, truth_region, truth_network, network_top, ranked_group, annotations, len(all_regions))
                         row["group_hit3"] = int(group["group_hit3"])
+                        row["group_hit1"] = int(group["group_hit1"])
                         row["exact_hit3"] = int(exact["hit3"])
+                        row["exact_hit1"] = int(exact["hit1"])
                         row["local_marker_coverage"] = float((perturbed_counts[local_rows] > 0).mean()) if len(local_rows) else np.nan
                 records.append(row)
         if (sample_idx + 1) % 100 == 0:
             print(f"processed {sample_idx + 1}/{len(samples)} samples", flush=True)
 
     detail = pd.DataFrame(records)
-    summary = scenario_summary(detail, args.n_bootstrap, args.seed)
+    baseline_contract = validate_baseline(detail, ontology, max_samples == len(samples))
+    repeats = repeat_summary(detail)
+    summary = across_repeat_summary(detail, repeats, args.n_bootstrap, args.bootstrap_seed)
     detail.to_csv(args.outdir / "p0_4_sparse_sensitivity_sample_detail.csv", index=False)
-    summary.to_csv(args.outdir / "p0_4_sparse_sensitivity_summary.csv", index=False)
+    repeats.to_csv(args.outdir / "p0_8_sparse_sensitivity_per_repeat.csv", index=False)
+    summary.to_csv(args.outdir / "p0_8_sparse_sensitivity_across_repeats.csv", index=False)
     plot_summary(summary, args.outdir)
     methods = {
         "design": "strict LOSO held-out query perturbation; reference and all fold-local feature/group construction remain unperturbed and locked",
         "simulation": "abundance-weighted retention of detected genes followed by binomial read-depth thinning",
         "scenarios": [{"name": n, "depth_fraction": d, "target_gene_retention": r} for n, d, r in SCENARIOS],
         "replicates_per_nonbaseline_scenario": args.replicates,
-        "seed": args.seed,
-        "donor_inference": f"{args.n_bootstrap} donor bootstrap replicates; nine monkeys are resampled as clusters",
+        "perturbation_seed": args.seed,
+        "perturbation_seed_formula": "seed + sample_idx * 1000 + scenario_idx * 100 + repeat; saved as rng_seed on every detail row",
+        "bootstrap_seed": args.bootstrap_seed,
+        "donor_inference": f"{args.n_bootstrap} vectorized donor bootstrap draws; donors are resampled independently within repeat and estimates are then averaged across repeats",
+        "estimators": ["sample_weighted", "donor_macro"],
+        "monte_carlo_summary": ["mean", "population SD", "min", "max", "2.5th percentile", "97.5th percentile"],
+        "frozen_route": {"canonical_regions": 110, "canonical_networks": 10, "total_labels": 120, "enable_pairwise_rescue": False},
         "warning_rule": "predefined low-confidence warning if detected Network-marker coverage <0.50; score margin and entropy are reported as continuous diagnostics because this locked route has no externally calibrated absolute margin threshold",
         "interpretation_limit": "This is simulated sparse-expression sensitivity analysis, not clinical cfRNA localization validation.",
     }
     (args.outdir / "P0_4_METHODS.json").write_text(json.dumps(methods, indent=2), encoding="utf-8")
+    (args.outdir / "input_audit.json").write_text(json.dumps(input_audit, indent=2), encoding="utf-8")
+    (args.outdir / "baseline_gate.json").write_text(json.dumps(baseline_contract, indent=2), encoding="utf-8")
+    shutil.copy2(__file__, args.outdir / "executed_run_p0_4_sparse_domain_shift_sensitivity.py")
+    output_files = sorted(path for path in args.outdir.iterdir() if path.is_file() and path.name != "SHA256SUMS.txt")
+    (args.outdir / "SHA256SUMS.txt").write_text(
+        "".join(f"{sha256_file(path)}  {path.name}\n" for path in output_files), encoding="utf-8",
+    )
     print(summary.to_string(index=False))
     return 0
 

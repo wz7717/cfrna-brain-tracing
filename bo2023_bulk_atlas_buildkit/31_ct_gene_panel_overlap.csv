@@ -1,0 +1,20 @@
+Gene Panel,Gene Panel Size,PLS1 Size,Intersection,OR,p (FDR-corrected)
+Spine,255,1005,33,3.42,1.37e-08
+Dendrite,743,1005,78,2.78,1.88e-13
+Myelin,157,1005,30,5.44,4e-12
+Neuron projection,1928,1005,178,2.57,1.42e-23
+,,,,,
+,,,,,
+,,,,,
+Gene Panel,Gene Panel Size,PLS1 Pos Size,Intersection,OR,p (FDR-corrected)
+Spine,255,532,27,5.36,3.1e-11
+Dendrite,743,532,65,4.6,5.76e-21
+Myelin,157,532,2,0.56,0.59
+Neuron projection,1928,532,128,3.75,1.3e-29
+,,,,,
+,,,,,
+Gene Panel,Gene Panel Size,PLS1 Neg Size,Intersection,OR,p (FDR-corrected)
+Spine,255,473,6,1.18,0.65
+Dendrite,743,473,13,0.87,0.79
+Myelin,157,473,28,11.22,9.08e-19
+Neuron projection,1928,473,50,1.34,0.06

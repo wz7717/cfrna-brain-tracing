@@ -51,7 +51,7 @@ def _count_table_rows(table_name: str) -> int:
 
 
 def _count_default_labeled_samples(limit: int | None = None) -> int:
-    if not table_exists(DB_PATH, "cfrna_samples"):
+    if not table_exists(DB_PATH, "braintrace_samples"):
         return 0
     try:
         from benchmark.label_utils import default_label_extractor
@@ -59,7 +59,7 @@ def _count_default_labeled_samples(limit: int | None = None) -> int:
         return 0
     conn = sqlite3.connect(DB_PATH)
     try:
-        df = pd.read_sql_query("SELECT metadata FROM cfrna_samples", conn)
+        df = pd.read_sql_query("SELECT metadata FROM braintrace_samples", conn)
     finally:
         conn.close()
     n = 0
@@ -374,7 +374,7 @@ def display_benchmark_page() -> None:
 
     render_kpi_cards(
         [
-            {"icon": "T1", "label": "Top1 accuracy", "value": "NA" if summary["top1"] is None else f"{summary['top1']:.3f}", "note": tr("最终脑区定位能力", "Final fine-grained localization ability")},
+            {"icon": "T1", "label": "Top1 accuracy", "value": "NA" if summary["top1"] is None else f"{summary['top1']:.3f}", "note": tr("所选有真值端点的 Top1 命中率", "Top1 hit rate at the selected labeled endpoint")},
             {"icon": f"T{meta.get('k', 3)}", "label": f"Top{meta.get('k', 3)} accuracy", "value": "NA" if summary["topk"] is None else f"{summary['topk']:.3f}", "note": tr("候选范围缩小能力", "Candidate-range narrowing ability")},
             {"icon": "AUC", "label": "Macro AUC", "value": "NA" if summary["auc"] is None else f"{summary['auc']:.3f}", "note": tr("整体区分能力", "Overall discrimination ability")},
             {"icon": "STA", "label": tr("平均稳定性", "Mean stability"), "value": "NA" if summary["stability"] is None else f"{summary['stability']:.3f}", "note": tr("Bootstrap 重复性", "Bootstrap repeatability")},

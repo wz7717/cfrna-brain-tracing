@@ -22,18 +22,18 @@ def _config(name: str) -> str | None:
 
 
 def is_configured() -> bool:
-    return bool(_config("CFRNA_API_URL"))
+    return bool(_config("BRAINTRACE_API_URL"))
 
 
 def _url(path: str, params: dict | None = None) -> str:
-    base = (_config("CFRNA_API_URL") or "").rstrip("/")
+    base = (_config("BRAINTRACE_API_URL") or "").rstrip("/")
     query = urllib.parse.urlencode(params or {}, doseq=True)
     return f"{base}{path}" + (f"?{query}" if query else "")
 
 
 def _get_json(path: str, params: dict | None = None) -> dict:
     headers = {"Accept": "application/json"}
-    api_key = _config("CFRNA_API_KEY")
+    api_key = _config("BRAINTRACE_API_KEY")
     if api_key:
         headers["X-API-Key"] = api_key
     req = urllib.request.Request(_url(path, params), headers=headers, method="GET")

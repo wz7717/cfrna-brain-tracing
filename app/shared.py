@@ -17,7 +17,7 @@ from data.bo2023_buildkit import import_buildkit_dir
 from data.system_check import run_system_check
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DB_PATH = str(Path(os.environ.get("CFRNA_DB_PATH", PROJECT_ROOT / "cfrna_source_tracing.db")).resolve())
+DB_PATH = str(Path(os.environ.get("BRAINTRACE_DB_PATH", PROJECT_ROOT / "braintrace_source_tracing.db")).resolve())
 CSS_PATH = PROJECT_ROOT / "app" / "styles" / "main.css"
 GLOBAL_STYLE = """
 <style>
@@ -103,7 +103,7 @@ html, body, [data-testid="stAppViewContainer"] {
 
 
 def is_public_demo_mode() -> bool:
-    return os.environ.get("CFRNA_PUBLIC_DEMO", "").strip().lower() in {"1", "true", "yes", "on"}
+    return os.environ.get("BRAINTRACE_PUBLIC_DEMO", "").strip().lower() in {"1", "true", "yes", "on"}
 
 
 def inject_global_style() -> None:
@@ -276,6 +276,6 @@ def init_processor() -> DataProcessor:
 
 def get_database_stats(conn: sqlite3.Connection) -> Dict:
     stats = {}; cursor = conn.cursor();
-    for table in ['macaque_brain_atlas', 'reference_expression', 'cfrna_samples', 'cfrna_expression', 'source_tracing_results', 'region_gene_signature']:
+    for table in ['macaque_brain_atlas', 'reference_expression', 'braintrace_samples', 'braintrace_expression', 'source_tracing_results', 'region_gene_signature']:
         cursor.execute(f"SELECT COUNT(*) FROM {table}"); stats[table] = cursor.fetchone()[0]
     return stats

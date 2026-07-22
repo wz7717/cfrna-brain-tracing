@@ -25,7 +25,7 @@ DEFAULT_ZIP_DIR = DEFAULT_DATA_DIR / "raw_zips"
 DEFAULT_MAPPING_OUT = ROOT / "docs" / "deliverables" / "public_dataset_anatomical_label_mapping.csv"
 DEFAULT_BO2023_MAPPING = ROOT / "docs" / "deliverables" / "bo2023_public_anatomical_label_mapping.csv"
 DEFAULT_OUTDIR = ROOT / "results" / "ahba_human_rnaseq_external_validation_20260603"
-DEFAULT_DB = ROOT / "cfrna_source_tracing.db"
+DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 
 
 AHBA_MAIN_STRUCTURE_MAPPING = {

@@ -10,7 +10,7 @@ from app.i18n import tr
 
 
 def render_top_toolbar(current_page: str) -> None:
-    is_public = os.environ.get("CFRNA_PUBLIC_DEMO", "").strip().lower() in {"1", "true", "yes", "on"}
+    is_public = os.environ.get("BRAINTRACE_PUBLIC_DEMO", "").strip().lower() in {"1", "true", "yes", "on"}
     status_html = (
         f'<div class="top-toolbar-links">'
         f'<span class="top-toolbar-chip">Public demo</span>'
@@ -25,7 +25,7 @@ def render_top_toolbar(current_page: str) -> None:
     st.markdown(
         f'<div class="top-toolbar">'
         f'<div class="top-toolbar-meta">'
-        f'<span>cfRNA-BrainTrace</span>'
+        f'<span>BrainTrace</span>'
         f'<span>|</span>'
         f'<span>{escape(current_page)}</span>'
         f'</div>'

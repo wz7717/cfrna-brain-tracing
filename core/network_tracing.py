@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from core.models import softmax_confidence, trace_corr
+from core.model_lock import verify_locked_model_bundle
 from core.reference_projection import apply_projector, load_projector_npz
 
 
@@ -35,6 +36,8 @@ DEFAULT_BO2023_REFERENCE_PROJECTOR = (
 
 @lru_cache(maxsize=4)
 def load_network_model(model_path: Path = DEFAULT_BO2023_NETWORK_MODEL) -> dict[str, Any]:
+    if model_path.resolve() == DEFAULT_BO2023_NETWORK_MODEL.resolve():
+        verify_locked_model_bundle()
     with np.load(model_path, allow_pickle=False) as data:
         return {
             "genes": data["genes"].astype(str),

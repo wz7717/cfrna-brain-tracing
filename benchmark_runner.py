@@ -36,7 +36,7 @@ def _attach_json_safe_summary(df: pd.DataFrame, summary: Dict[str, Any]) -> None
 
 
 def _load_labeled_samples(conn, label_extractor, limit=None, allow_mixed=False):
-    samples = pd.read_sql_query("SELECT * FROM cfrna_samples", conn)
+    samples = pd.read_sql_query("SELECT * FROM braintrace_samples", conn)
     labeled = []
     for _, r in samples.iterrows():
         label = _safe_soft_label(label_extractor(r.to_dict()))

@@ -50,7 +50,7 @@ class DataProcessor:
         "brain_traceability": ["brain_traceability"],
     }
 
-    def __init__(self, db_path: str = "cfrna_source_tracing.db"):
+    def __init__(self, db_path: str = "braintrace_source_tracing.db"):
         self.db_path = db_path
 
     def _get_conn(self):
@@ -103,10 +103,14 @@ class DataProcessor:
             "count": "read_count",
             "readcount": "read_count",
         }
-        for old, new in mapping.items():
-            if old in df.columns and new not in df.columns:
-                df = df.rename(columns={old: new})
-        return df
+        normalized_targets = set(df.columns)
+        renames = {}
+        for column in df.columns:
+            normalized = mapping.get(str(column).strip().lower())
+            if normalized and column != normalized and normalized not in normalized_targets:
+                renames[column] = normalized
+                normalized_targets.add(normalized)
+        return df.rename(columns=renames)
 
     def extract_embedded_metadata(self, df: pd.DataFrame) -> Dict[str, Any]:
         df = self._normalize_columns(df.copy())
@@ -228,7 +232,7 @@ class DataProcessor:
     def save_sample_metadata(self, metadata: Dict) -> str:
         with self._get_conn() as conn:
             cursor = conn.cursor()
-            cursor.execute("PRAGMA table_info(cfrna_samples)")
+            cursor.execute("PRAGMA table_info(braintrace_samples)")
             cols = {row[1] for row in cursor.fetchall()}
             payload = self._sample_metadata_payload(metadata, cols)
             self._upsert_sample_metadata(cursor, payload)
@@ -279,7 +283,7 @@ class DataProcessor:
         update_columns = [column for column in columns if column != "sample_id"]
         update_sql = ", ".join(f"{column}=excluded.{column}" for column in update_columns)
         sql = (
-            f"INSERT INTO cfrna_samples ({', '.join(columns)}) "
+            f"INSERT INTO braintrace_samples ({', '.join(columns)}) "
             f"VALUES ({', '.join(['?'] * len(columns))}) "
             f"ON CONFLICT(sample_id) DO UPDATE SET {update_sql}"
         )
@@ -301,8 +305,8 @@ class DataProcessor:
         conn = self._get_conn()
         try:
             conn.execute("BEGIN IMMEDIATE")
-            sample_columns = {row[1] for row in conn.execute("PRAGMA table_info(cfrna_samples)").fetchall()}
-            expression_columns = {row[1] for row in conn.execute("PRAGMA table_info(cfrna_expression)").fetchall()}
+            sample_columns = {row[1] for row in conn.execute("PRAGMA table_info(braintrace_samples)").fetchall()}
+            expression_columns = {row[1] for row in conn.execute("PRAGMA table_info(braintrace_expression)").fetchall()}
 
             payload = self._sample_metadata_payload(metadata, sample_columns)
             self._upsert_sample_metadata(conn, payload)
@@ -312,10 +316,10 @@ class DataProcessor:
                 if optional in expression_columns and optional in expression.columns:
                     columns_to_save.append(optional)
 
-            conn.execute("DELETE FROM cfrna_expression WHERE sample_id = ?", (sample_id,))
+            conn.execute("DELETE FROM braintrace_expression WHERE sample_id = ?", (sample_id,))
             placeholders = ", ".join(["?"] * len(columns_to_save))
             insert_sql = (
-                f"INSERT INTO cfrna_expression ({', '.join(columns_to_save)}) "
+                f"INSERT INTO braintrace_expression ({', '.join(columns_to_save)}) "
                 f"VALUES ({placeholders})"
             )
 
@@ -342,7 +346,7 @@ class DataProcessor:
         df["sample_id"] = sample_id
         with self._get_conn() as conn:
             cur = conn.cursor()
-            cur.execute("PRAGMA table_info(cfrna_expression)")
+            cur.execute("PRAGMA table_info(braintrace_expression)")
             cols = {row[1] for row in cur.fetchall()}
 
         columns_to_save = ["sample_id", "gene_symbol", "tpm_value", "detected"]
@@ -351,8 +355,8 @@ class DataProcessor:
                 columns_to_save.append(opt)
 
         with self._get_conn() as conn:
-            conn.execute("DELETE FROM cfrna_expression WHERE sample_id = ?", (sample_id,))
-            df[columns_to_save].to_sql("cfrna_expression", conn, if_exists="append", index=False)
+            conn.execute("DELETE FROM braintrace_expression WHERE sample_id = ?", (sample_id,))
+            df[columns_to_save].to_sql("braintrace_expression", conn, if_exists="append", index=False)
             conn.commit()
 
         # Legacy marker-panel QC remains available to existing callers, but can be
@@ -367,7 +371,7 @@ class DataProcessor:
             with self._get_conn() as conn2:
                 gid = str(df["gene_id_type"].iloc[0]) if "gene_id_type" in df.columns and len(df) else None
                 conn2.execute(
-                    "UPDATE cfrna_samples SET qc_status = ?, gene_id_type = COALESCE(gene_id_type, ?), brain_traceability = COALESCE(brain_traceability, ?) WHERE sample_id = ?",
+                    "UPDATE braintrace_samples SET qc_status = ?, gene_id_type = COALESCE(gene_id_type, ?), brain_traceability = COALESCE(brain_traceability, ?) WHERE sample_id = ?",
                     (grade, gid, grade, sample_id),
                 )
                 conn2.commit()
@@ -377,21 +381,21 @@ class DataProcessor:
     def get_sample_expression(self, sample_id: str) -> pd.DataFrame:
         with self._get_conn() as conn:
             cursor = conn.cursor()
-            cursor.execute("PRAGMA table_info(cfrna_expression)")
+            cursor.execute("PRAGMA table_info(braintrace_expression)")
             available_cols = {row[1] for row in cursor.fetchall()}
             select_cols = ["gene_symbol", "tpm_value", "detected"]
             for optional_col in ["read_count", "log_tpm", "zscore_tpm", "expression_unit"]:
                 if optional_col in available_cols:
                     select_cols.append(optional_col)
             return pd.read_sql_query(
-                f"SELECT {', '.join(select_cols)} FROM cfrna_expression WHERE sample_id = ?",
+                f"SELECT {', '.join(select_cols)} FROM braintrace_expression WHERE sample_id = ?",
                 conn,
                 params=[sample_id],
             )
 
     def get_sample_info(self, sample_id: str) -> Dict:
         with self._get_conn() as conn:
-            df = pd.read_sql_query("SELECT * FROM cfrna_samples WHERE sample_id = ?", conn, params=[sample_id])
+            df = pd.read_sql_query("SELECT * FROM braintrace_samples WHERE sample_id = ?", conn, params=[sample_id])
         if len(df) == 0:
             return None
         info = df.iloc[0].to_dict()
@@ -407,12 +411,12 @@ class DataProcessor:
         try:
             columns = ["sample_id", "subject_id", "species", "diagnosis", "collection_date", "qc_status"]
             has_samples_table = conn.execute(
-                "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'cfrna_samples'"
+                "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'braintrace_samples'"
             ).fetchone()
             if not has_samples_table:
                 return pd.DataFrame(columns=columns)
             return pd.read_sql_query(
-                f"SELECT {', '.join(columns)} FROM cfrna_samples ORDER BY collection_date DESC",
+                f"SELECT {', '.join(columns)} FROM braintrace_samples ORDER BY collection_date DESC",
                 conn,
             )
         finally:
@@ -462,7 +466,7 @@ class DataProcessor:
     def delete_sample(self, sample_id: str):
         with self._get_conn() as conn:
             cursor = conn.cursor()
-            cursor.execute("DELETE FROM cfrna_expression WHERE sample_id = ?", [sample_id])
+            cursor.execute("DELETE FROM braintrace_expression WHERE sample_id = ?", [sample_id])
             cursor.execute("DELETE FROM source_tracing_results WHERE sample_id = ?", [sample_id])
             tables = {r[0] for r in cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()}
             if "analysis_runs" in tables:
@@ -472,7 +476,7 @@ class DataProcessor:
                 cursor.execute("DELETE FROM analysis_runs WHERE sample_id = ?", [sample_id])
             if "sample_qc" in tables:
                 cursor.execute("DELETE FROM sample_qc WHERE sample_id = ?", [sample_id])
-            cursor.execute("DELETE FROM cfrna_samples WHERE sample_id = ?", [sample_id])
+            cursor.execute("DELETE FROM braintrace_samples WHERE sample_id = ?", [sample_id])
             conn.commit()
 
     def generate_qc_report(self, sample_id: str) -> Dict:

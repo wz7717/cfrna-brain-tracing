@@ -13,7 +13,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 V1 = ROOT / "data" / "processed_reference" / "v1"
 REF = ROOT / "data" / "reference_atlases"
-DB = V1 / "cfrna_brain_tracing_reference_v1.sqlite"
+DB = V1 / "braintrace_reference_v1.sqlite"
 
 
 def clean_col(name: object) -> str:
