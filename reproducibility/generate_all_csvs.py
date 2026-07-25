@@ -2,7 +2,7 @@
 """
 BrainTrace — Manuscript CSV Regeneration Script
 ================================================
-Regenerates all 9 supplementary CSV files from documented raw counts
+Regenerates all 10 manuscript-linked CSV files from documented raw counts
 using transparent statistical formulas.
 
 DESIGN PRINCIPLES:
@@ -42,6 +42,7 @@ import csv
 import json
 import math
 import os
+import random
 import sys
 from pathlib import Path
 from typing import Any
@@ -70,20 +71,20 @@ RAW_COUNTS_INTERNAL = {
     # LOSO: Leave-One-Sample-Out (n=819 for Network, n=814 for Exact)
     "LOSO_Network_Top1": {"correct": 483, "n": 819},
     "LOSO_Network_Top3": {"correct": 753, "n": 819},
-    "LOSO_Exact_Top1":   {"correct": 368, "n": 814},   # 2 samples lack supported exact truth
+    "LOSO_Exact_Top1":   {"correct": 182, "n": 814},
     "LOSO_Exact_Top3":   {"correct": 368, "n": 814},
     # LOMO: Leave-One-Macaque-Out (n=819 for Network, n=812 for Exact)
     "LOMO_Network_Top1": {"correct": 455, "n": 819},
     "LOMO_Network_Top3": {"correct": 750, "n": 819},
-    "LOMO_Exact_Top1":   {"correct": 179, "n": 812},   # 7 samples lack supported exact truth
+    "LOMO_Exact_Top1":   {"correct": 177, "n": 812},
     "LOMO_Exact_Top3":   {"correct": 346, "n": 812},
 }
 
 # Resolution-group counts (from same validation runs)
 RAW_COUNTS_RESOLUTION = {
     "LOSO_ResGroup_Top1": {"correct": 368, "n": 814},
-    "LOSO_ResGroup_Top3": {"correct": 586, "n": 814},
-    "LOMO_ResGroup_Top1": {"correct": 358, "n": 812},
+    "LOSO_ResGroup_Top3": {"correct": 590, "n": 814},
+    "LOMO_ResGroup_Top1": {"correct": 344, "n": 812},
     "LOMO_ResGroup_Top3": {"correct": 569, "n": 812},
 }
 
@@ -180,6 +181,44 @@ RAW_COUNTS_LAMBDA = {
     "0.75": {"n_samples": 814, "n_monkeys": 9, "exact_hit1": 0.2211, "exact_hit3": 0.4521},
 }
 
+# Reported donor-cluster bootstrap and donor-macro intervals from
+# Supplementary Table S16 (50,000 resamples; seed 20260716).
+REPORTED_TABLE_S16 = {
+    "LOSO Network Top1": (0.5472, 0.6120, 0.5882, 0.5298, 0.6410, 9),
+    "LOSO Network Top3": (0.8897, 0.9325, 0.8940, 0.8633, 0.9214, 9),
+    "LOSO Group Top1":   (0.3592, 0.5044, 0.4204, 0.3396, 0.4930, 9),
+    "LOSO Group Top3":   (0.6516, 0.7676, 0.6864, 0.6450, 0.7330, 9),
+    "LOSO Exact Top1":   (0.1628, 0.2603, 0.2220, 0.1689, 0.2771, 9),
+    "LOSO Exact Top3":   (0.3698, 0.5010, 0.4211, 0.3711, 0.4749, 9),
+    "LOMO Network Top1": (0.5010, 0.5907, 0.5516, 0.4700, 0.6225, 9),
+    "LOMO Network Top3": (0.8886, 0.9276, 0.8924, 0.8621, 0.9190, 9),
+    "LOMO Group Top1":   (0.3347, 0.4723, 0.3913, 0.3345, 0.4439, 9),
+    "LOMO Group Top3":   (0.6193, 0.7475, 0.6755, 0.6226, 0.7276, 9),
+    "LOMO Exact Top1":   (0.1827, 0.2396, 0.2144, 0.1756, 0.2534, 9),
+    "LOMO Exact Top3":   (0.3681, 0.4631, 0.4032, 0.3550, 0.4436, 9),
+}
+
+# Exact-region per-donor counts used in Supplementary Table S14. Donor labels
+# and denominators are preserved so the repeated-measures Friedman tests can be
+# recomputed rather than copied as manuscript-only summary values.
+RAW_COUNTS_LAMBDA_DONOR = {
+    "0.25": [
+        ("2", 16, 2, 5), ("34", 218, 61, 117), ("67", 11, 4, 6),
+        ("79", 16, 5, 6), ("92", 113, 22, 39), ("qbt", 78, 8, 31),
+        ("xq", 222, 56, 110), ("xz", 98, 15, 37), ("zs", 42, 9, 17),
+    ],
+    "0.50": [
+        ("2", 16, 2, 5), ("34", 218, 61, 123), ("67", 11, 4, 5),
+        ("79", 16, 5, 6), ("92", 113, 22, 41), ("qbt", 78, 8, 29),
+        ("xq", 222, 55, 109), ("xz", 98, 15, 39), ("zs", 42, 9, 17),
+    ],
+    "0.75": [
+        ("2", 16, 2, 4), ("34", 218, 61, 118), ("67", 11, 3, 5),
+        ("79", 16, 5, 6), ("92", 113, 22, 42), ("qbt", 78, 8, 27),
+        ("xq", 222, 55, 108), ("xz", 98, 15, 41), ("zs", 42, 9, 17),
+    ],
+}
+
 # --- Source: generate_p2_publication_completeness.py ---
 # ML baseline LOMO Top1 results (n=819)
 RAW_COUNTS_ML_BASELINES = {
@@ -216,27 +255,18 @@ MACRO_F1_DATA_FILE = "macro_f1_class_data.json"  # Generated from confusion matr
 
 # --- AHBA trace (documented attrition, not computed) ---
 AHBA_TRACE_STEPS = [
-    {"step": "1", "description": "Initial AHBA samples from 2 whole-brain donors (4 of 6 AHBA donors excluded for incomplete coverage)",
-     "count_in": 231, "count_out": 231, "excluded": 0,
-     "reason": "2 donors with whole-brain structural sampling retained"},
-    {"step": "2", "description": "Collapse technical replicates (sibling samples by donor + tissue ID)",
-     "count_in": 231, "count_out": 231, "excluded": 0,
-     "reason": "Raw-count summation before logCPM; 231 already independent tissues post-collapse"},
-    {"step": "3", "description": "Map AHBA structure names to Bo2023 region ontology",
+    {"step": "1", "description": "Original assay-level AHBA rows from the two retained whole-brain donors",
+     "count_in": 242, "count_out": 242, "excluded": 0,
+     "reason": "Four of six donors excluded for incomplete whole-brain coverage"},
+    {"step": "2", "description": "Collapse technical replicates by donor and tissue identifier",
+     "count_in": 242, "count_out": 231, "excluded": 11,
+     "reason": "Raw counts summed before logCPM, yielding independent tissue samples"},
+    {"step": "3", "description": "Network-qualified mapped-label subset",
      "count_in": 231, "count_out": 223, "excluded": 8,
-     "reason": "8 samples without valid Network mapping excluded"},
-    {"step": "4", "description": "Filter to supported exact-region labels (exclude cerebellum, white matter, etc.)",
-     "count_in": 223, "count_out": 200, "excluded": 23,
-     "reason": "Non-cortical, cerebellum, white matter and unannotated structures excluded"},
-    {"step": "5", "description": "Apply marker-coverage filter (200-gene Network panel overlap >= threshold)",
-     "count_in": 200, "count_out": 120, "excluded": 80,
-     "reason": "Samples failing marker-coverage threshold excluded"},
-    {"step": "6", "description": "Filter to single-label subsets for resolution-group and exact-region",
-     "count_in": 120, "count_out": 100, "excluded": 20,
-     "reason": "Multi-label samples excluded for single-label evaluation"},
-    {"step": "7", "description": "Final evaluable subset for exact-region mapped-label validation",
-     "count_in": 100, "count_out": 88, "excluded": 12,
-     "reason": "8 were subcortical (cortical association-area bias); 4 lacked matched region labels"},
+     "reason": "Eight samples lacked a valid Network mapping"},
+    {"step": "4", "description": "Resolution-group and exact-region evaluable subset",
+     "count_in": 223, "count_out": 88, "excluded": 135,
+     "reason": "Restricted to reference-supported mapped labels for fine-tier evaluation"},
 ]
 
 
@@ -383,10 +413,14 @@ def generate_triple_ci(output_dir: Path) -> str:
     metrics = [
         ("LOSO Network Top1", RAW_COUNTS_INTERNAL["LOSO_Network_Top1"]),
         ("LOSO Network Top3", RAW_COUNTS_INTERNAL["LOSO_Network_Top3"]),
-        ("LOMO Network Top1", RAW_COUNTS_INTERNAL["LOMO_Network_Top1"]),
-        ("LOMO Network Top3", RAW_COUNTS_INTERNAL["LOMO_Network_Top3"]),
+        ("LOSO Group Top1",   RAW_COUNTS_RESOLUTION["LOSO_ResGroup_Top1"]),
+        ("LOSO Group Top3",   RAW_COUNTS_RESOLUTION["LOSO_ResGroup_Top3"]),
         ("LOSO Exact Top1",   RAW_COUNTS_INTERNAL["LOSO_Exact_Top1"]),
         ("LOSO Exact Top3",   RAW_COUNTS_INTERNAL["LOSO_Exact_Top3"]),
+        ("LOMO Network Top1", RAW_COUNTS_INTERNAL["LOMO_Network_Top1"]),
+        ("LOMO Network Top3", RAW_COUNTS_INTERNAL["LOMO_Network_Top3"]),
+        ("LOMO Group Top1",   RAW_COUNTS_RESOLUTION["LOMO_ResGroup_Top1"]),
+        ("LOMO Group Top3",   RAW_COUNTS_RESOLUTION["LOMO_ResGroup_Top3"]),
         ("LOMO Exact Top1",   RAW_COUNTS_INTERNAL["LOMO_Exact_Top1"]),
         ("LOMO Exact Top3",   RAW_COUNTS_INTERNAL["LOMO_Exact_Top3"]),
     ]
@@ -396,18 +430,59 @@ def generate_triple_ci(output_dir: Path) -> str:
         p, w_lo, w_hi = wilson_ci(correct, n)
         cp_lo, cp_hi = clopper_pearson_ci(correct, n)
         ac_lo, ac_hi = agresti_coull_ci(correct, n)
+        cluster_lo, cluster_hi, macro, macro_lo, macro_hi, n_donors = REPORTED_TABLE_S16[metric]
         rows.append({
             "metric": metric, "n": n, "correct": correct,
             "accuracy": f"{p:.6f}",
             "wilson_lo": f"{w_lo:.6f}", "wilson_hi": f"{w_hi:.6f}",
             "cp_lo": f"{cp_lo:.6f}", "cp_hi": f"{cp_hi:.6f}",
             "ac_lo": f"{ac_lo:.6f}", "ac_hi": f"{ac_hi:.6f}",
+            "reported_cluster_bootstrap_lo": f"{cluster_lo:.6f}",
+            "reported_cluster_bootstrap_hi": f"{cluster_hi:.6f}",
+            "donor_macro": f"{macro:.6f}",
+            "reported_donor_macro_bootstrap_lo": f"{macro_lo:.6f}",
+            "reported_donor_macro_bootstrap_hi": f"{macro_hi:.6f}",
+            "n_donors": n_donors,
         })
 
     filename = "v4_p0_9_triple_ci.csv"
     _write_csv(output_dir / filename, rows,
                ["metric", "n", "correct", "accuracy",
-                "wilson_lo", "wilson_hi", "cp_lo", "cp_hi", "ac_lo", "ac_hi"])
+                "wilson_lo", "wilson_hi", "cp_lo", "cp_hi", "ac_lo", "ac_hi",
+                "reported_cluster_bootstrap_lo", "reported_cluster_bootstrap_hi",
+                "donor_macro", "reported_donor_macro_bootstrap_lo",
+                "reported_donor_macro_bootstrap_hi", "n_donors"])
+    return filename
+
+
+def generate_figure1_validation_summary(output_dir: Path) -> str:
+    """Generate the compact validation summary used by Figure 1/Table S8."""
+    source_rows = [
+        ("LOSO", "Network", RAW_COUNTS_INTERNAL["LOSO_Network_Top1"], RAW_COUNTS_INTERNAL["LOSO_Network_Top3"]),
+        ("LOSO", "Resolution group", RAW_COUNTS_RESOLUTION["LOSO_ResGroup_Top1"], RAW_COUNTS_RESOLUTION["LOSO_ResGroup_Top3"]),
+        ("LOSO", "Exact region", RAW_COUNTS_INTERNAL["LOSO_Exact_Top1"], RAW_COUNTS_INTERNAL["LOSO_Exact_Top3"]),
+        ("LOMO", "Network", RAW_COUNTS_INTERNAL["LOMO_Network_Top1"], RAW_COUNTS_INTERNAL["LOMO_Network_Top3"]),
+        ("LOMO", "Resolution group", RAW_COUNTS_RESOLUTION["LOMO_ResGroup_Top1"], RAW_COUNTS_RESOLUTION["LOMO_ResGroup_Top3"]),
+        ("LOMO", "Exact region", RAW_COUNTS_INTERNAL["LOMO_Exact_Top1"], RAW_COUNTS_INTERNAL["LOMO_Exact_Top3"]),
+        ("AHBA", "Network", RAW_COUNTS_AHBA["AHBA_Network_Top1"], RAW_COUNTS_AHBA["AHBA_Network_Top3"]),
+        ("AHBA", "Resolution group", RAW_COUNTS_AHBA["AHBA_ResGroup_Top1"], RAW_COUNTS_AHBA["AHBA_ResGroup_Top3"]),
+        ("AHBA", "Exact region", RAW_COUNTS_AHBA["AHBA_Exact_Top1"], RAW_COUNTS_AHBA["AHBA_Exact_Top3"]),
+        ("TCGA/BraTS edema strict", "Network", {"correct": 10, "n": 64}, {"correct": 20, "n": 64}),
+        ("TCGA/BraTS edema strict", "Broad anatomy", {"correct": 8, "n": 64}, {"correct": 51, "n": 64}),
+    ]
+    rows = [{
+        "validation": validation,
+        "tier": tier,
+        "n": top1["n"],
+        "top1_correct": top1["correct"],
+        "top1": f"{top1['correct'] / top1['n']:.6f}",
+        "top3_correct": top3["correct"],
+        "top3": f"{top3['correct'] / top3['n']:.6f}",
+    } for validation, tier, top1, top3 in source_rows]
+    filename = "Figure1_validation_summary.csv"
+    _write_csv(output_dir / filename, rows,
+               ["validation", "tier", "n", "top1_correct", "top1",
+                "top3_correct", "top3"])
     return filename
 
 
@@ -416,7 +491,9 @@ def generate_subcortical_subsampling(output_dir: Path) -> str:
 
     Source script: analyze_subcortical_ppv_subsampling.py
     Raw counts: RAW_COUNTS_SUBCORTICAL (42/54 recall, 42/42 PPV)
-    Method: Bootstrap subsampling at 9 fractions × 2000 reps
+    Method: Bootstrap subsampling with replacement at 10 sizes × 2000 reps.
+    The historical implementation used random.Random(20260717) sequentially
+    across sizes; preserving that engine and order reproduces the manuscript.
     """
     full_recall = RAW_COUNTS_SUBCORTICAL["full_recall"]
     full_recall_n = RAW_COUNTS_SUBCORTICAL["full_recall_n"]
@@ -425,16 +502,15 @@ def generate_subcortical_subsampling(output_dir: Path) -> str:
     # Subsample sizes (fractions of 54 recall samples)
     fractions = [0.15, 0.24, 0.33, 0.41, 0.50, 0.59, 0.67, 0.76, 0.85, 1.00]
     rows = []
+    rng = random.Random(20260717)
+    population = [1] * full_recall + [0] * (full_recall_n - full_recall)
     for frac in fractions:
         subsample_size = max(1, int(round(full_recall_n * frac)))
-        # Bootstrap CI for recall at this subsample size
         if HAS_SCIPY:
-            rng = np.random.default_rng(20260717)
-            recall_samples = []
-            for _ in range(2000):
-                # Resample from the 54 true subcortical samples
-                hits = rng.hypergeometric(full_recall_n, full_recall, subsample_size)
-                recall_samples.append(hits / subsample_size if subsample_size > 0 else 0)
+            recall_samples = [
+                sum(rng.choices(population, k=subsample_size)) / subsample_size
+                for _ in range(2000)
+            ]
             mean_recall = float(np.mean(recall_samples))
             ci_lo = float(np.percentile(recall_samples, 2.5))
             ci_hi = float(np.percentile(recall_samples, 97.5))
@@ -450,12 +526,16 @@ def generate_subcortical_subsampling(output_dir: Path) -> str:
             "recall_ci_lo": f"{ci_lo:.4f}",
             "recall_ci_hi": f"{ci_hi:.4f}",
             "mean_ppv": "1.0",  # PPV is always 1.0 (42/42) regardless of subsample
+            "n_resamples": 2000,
+            "seed": 20260717,
+            "method": "Python random.choices bootstrap with replacement; sequential RNG across sizes",
         })
 
     filename = "v4_p0_4_subcortical_subsampling.csv"
     _write_csv(output_dir / filename, rows,
                ["subsample_size", "fraction_of_full", "mean_recall",
-                "recall_ci_lo", "recall_ci_hi", "mean_ppv"])
+                "recall_ci_lo", "recall_ci_hi", "mean_ppv",
+                "n_resamples", "seed", "method"])
     return filename
 
 
@@ -504,57 +584,51 @@ def generate_lambda_friedman(output_dir: Path) -> str:
     Formulas: Friedman chi-squared test
     """
     rows = []
-    for lam_str, data in RAW_COUNTS_LAMBDA.items():
+    for lam_str, donor_rows in RAW_COUNTS_LAMBDA_DONOR.items():
+        for donor, n, hit1, hit3 in donor_rows:
+            rows.append({
+                "row_type": "donor",
+                "lambda": lam_str,
+                "donor": donor,
+                "n_samples": n,
+                "hit1_hits": hit1,
+                "hit1_rate": f"{hit1 / n:.10f}",
+                "hit3_hits": hit3,
+                "hit3_rate": f"{hit3 / n:.10f}",
+                "statistic": "",
+                "df": "",
+                "p_value": "",
+            })
+
+    hit1_groups = [
+        [hit1 / n for _, n, hit1, _ in RAW_COUNTS_LAMBDA_DONOR[lam]]
+        for lam in ("0.25", "0.50", "0.75")
+    ]
+    hit3_groups = [
+        [hit3 / n for _, n, _, hit3 in RAW_COUNTS_LAMBDA_DONOR[lam]]
+        for lam in ("0.25", "0.50", "0.75")
+    ]
+    for endpoint, groups in (("hit1", hit1_groups), ("hit3", hit3_groups)):
+        chi2, pval = friedman_test(*groups)
         rows.append({
-            "lambda": lam_str,
-            "n_samples": data["n_samples"],
-            "n_monkeys": f"{data['n_monkeys']:.1f}",
-            "exact_hit1": f"{data['exact_hit1']:.4f}",
-            "exact_hit3": f"{data['exact_hit3']:.4f}",
+            "row_type": "friedman_test",
+            "lambda": "",
+            "donor": endpoint,
+            "n_samples": "",
+            "hit1_hits": "",
+            "hit1_rate": "",
+            "hit3_hits": "",
+            "hit3_rate": "",
+            "statistic": f"{chi2:.10f}",
+            "df": 2,
+            "p_value": f"{pval:.10f}",
         })
-
-    # Add Friedman test summary rows
-    # hit3 across 3 lambdas (per-donor values from validation script)
-    # These are the 9-donor per-donor hit3 rates used in the Friedman test
-    hit3_025 = [0.44, 0.50, 0.40, 0.47, 0.43, 0.49, 0.41, 0.48, 0.45]  # donor-level hit3 at lambda=0.25
-    hit3_050 = [0.45, 0.51, 0.41, 0.48, 0.44, 0.50, 0.42, 0.49, 0.46]  # lambda=0.50
-    hit3_075 = [0.44, 0.50, 0.40, 0.47, 0.43, 0.49, 0.41, 0.48, 0.45]  # lambda=0.75
-
-    chi2, pval = friedman_test(hit3_025, hit3_050, hit3_075)
-    rows.append({
-        "lambda": "Friedman_test",
-        "n_samples": "",
-        "n_monkeys": "9",
-        "exact_hit1": f"chi2={chi2:.4f}",
-        "exact_hit3": f"p={pval:.6f}",
-    })
-
-    # hit1 Friedman test
-    hit1_025 = [0.22, 0.25, 0.20, 0.23, 0.21, 0.24, 0.20, 0.23, 0.22]
-    hit1_050 = [0.22, 0.25, 0.20, 0.23, 0.21, 0.24, 0.20, 0.23, 0.22]
-    hit1_075 = [0.22, 0.25, 0.20, 0.23, 0.21, 0.24, 0.20, 0.23, 0.22]
-    chi2_h1, pval_h1 = friedman_test(hit1_025, hit1_050, hit1_075)
-    rows.append({
-        "lambda": "Friedman_test_hit1",
-        "n_samples": "",
-        "n_monkeys": "9",
-        "exact_hit1": f"chi2={chi2_h1:.4f}",
-        "exact_hit3": f"p={pval_h1:.6f}",
-    })
-
-    # Lambda 0.0 and 1.0 for 5-point grid
-    rows.append({
-        "lambda": "0.00", "n_samples": 814, "n_monkeys": "9.0",
-        "exact_hit1": "0.2200", "exact_hit3": "0.4400",
-    })
-    rows.append({
-        "lambda": "1.00", "n_samples": 814, "n_monkeys": "9.0",
-        "exact_hit1": "0.2200", "exact_hit3": "0.4500",
-    })
 
     filename = "v4_p0_10_lambda_friedman.csv"
     _write_csv(output_dir / filename, rows,
-               ["lambda", "n_samples", "n_monkeys", "exact_hit1", "exact_hit3"])
+               ["row_type", "lambda", "donor", "n_samples",
+                "hit1_hits", "hit1_rate", "hit3_hits", "hit3_rate",
+                "statistic", "df", "p_value"])
     return filename
 
 
@@ -723,19 +797,22 @@ def generate_macro_f1(output_dir: Path) -> str:
     produced by run_bo2023_loso_validation.py and run_bo2023_lomo_validation.py.
     """
     # Try to load from JSON data file (embedded from confusion matrices)
-    data_file = output_dir / MACRO_F1_DATA_FILE
+    data_file = Path(__file__).resolve().parent / MACRO_F1_DATA_FILE
     if data_file.exists():
         with open(data_file) as f:
             saved = json.load(f)
-        class_data = saved["data"]
-        comments = saved["comments"]
+        class_data = [row for row in saved["data"] if row["endpoint"] != "SUMMARY"]
+        comments = [
+            {"endpoint": "# Evaluable exact-region classes with nonzero support: LOSO=105; LOMO=104",
+             "class": "", "n": "", "precision": "", "recall": "", "f1": ""},
+            {"endpoint": "# Network macro/weighted use 10 classes (all evaluable in both LOSO and LOMO)",
+             "class": "", "n": "", "precision": "", "recall": "", "f1": ""},
+        ]
     else:
         # If no data file, generate from RAW_COUNTS (summary only)
         class_data = []
         comments = [
-            {"endpoint": "# Macro F1 denominator: LOSO Exact = 110 total regions - 2 non-evaluable = 108",
-             "class": "", "n": "", "precision": "", "recall": "", "f1": ""},
-            {"endpoint": "# Macro F1 denominator: LOMO Exact = 110 total regions - 1 non-evaluable = 109",
+            {"endpoint": "# Evaluable exact-region classes with nonzero support: LOSO=105; LOMO=104",
              "class": "", "n": "", "precision": "", "recall": "", "f1": ""},
             {"endpoint": "# Network macro/weighted use 10 classes (all evaluable in both LOSO and LOMO)",
              "class": "", "n": "", "precision": "", "recall": "", "f1": ""},
@@ -764,7 +841,7 @@ def generate_macro_f1(output_dir: Path) -> str:
                 "precision": "", "recall": "",
                 "f1": f"{macro_f1:.4f}",
             })
-            if n_values:
+            if n_values and ep.endswith("_Network"):
                 total_n = sum(n_values)
                 weighted_f1 = sum(n * f for n, f in zip(n_values, f1_values)) / total_n
                 summary_rows.append({
@@ -790,6 +867,7 @@ def generate_macro_f1(output_dir: Path) -> str:
 
 def _write_csv(filepath: Path, rows: list[dict], fieldnames: list[str]) -> None:
     """Write rows to CSV with consistent formatting."""
+    filepath.parent.mkdir(parents=True, exist_ok=True)
     with open(filepath, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -819,10 +897,10 @@ def verify_csv(filepath: Path) -> bool:
 # ============================================================================
 
 GENERATORS = {
+    "figure1_summary":     generate_figure1_validation_summary,
     "triple_ci":          generate_triple_ci,
     "subcortical":        generate_subcortical_subsampling,
     "ahba_trace":         generate_ahba_trace,
-    "ahba_trace_aligned": generate_ahba_trace_aligned,
     "lambda_friedman":    generate_lambda_friedman,
     "lambda_sensitivity": generate_lambda_sensitivity,
     "ml_baselines":       generate_ml_baselines,
@@ -832,10 +910,10 @@ GENERATORS = {
 }
 
 CSV_FILES = {
+    "figure1_summary":     "Figure1_validation_summary.csv",
     "triple_ci":          "v4_p0_9_triple_ci.csv",
     "subcortical":        "v4_p0_4_subcortical_subsampling.csv",
     "ahba_trace":         "v4_p0_5_ahba_trace.csv",
-    "ahba_trace_aligned": "v4_p0_5_ahba_trace_manuscript_aligned.csv",
     "lambda_friedman":    "v4_p0_10_lambda_friedman.csv",
     "lambda_sensitivity": "v4_p0_10_lambda_sensitivity.csv",
     "ml_baselines":       "v4_p0_11_ml_baselines.csv",

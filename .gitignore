@@ -46,7 +46,9 @@ external_inputs/huang2025_pmc12041490/
 
 # Generated analyses and large local outputs
 results/
-reports/
+reports/*
+!reports/supplementary_csvs_v0.1.9_regenerated/
+!reports/supplementary_csvs_v0.1.9_regenerated/**
 benchmark_export/
 benchmark_bundle.zip
 run_export.zip
