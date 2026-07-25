@@ -1,0 +1,5 @@
+step,description,count_in,count_out,excluded,reason
+1,Original assay-level AHBA rows from the two retained whole-brain donors,242,242,0,Four of six donors excluded for incomplete whole-brain coverage
+2,Collapse technical replicates by donor and tissue identifier,242,231,11,"Raw counts summed before logCPM, yielding independent tissue samples"
+3,Network-qualified mapped-label subset,231,223,8,Eight samples lacked a valid Network mapping
+4,Resolution-group and exact-region evaluable subset,223,88,135,Restricted to reference-supported mapped labels for fine-tier evaluation

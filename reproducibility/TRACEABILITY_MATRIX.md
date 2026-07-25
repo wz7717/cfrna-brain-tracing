@@ -24,7 +24,7 @@ Each trace entry has:
 | T002 | §4 Validation ¶1 | LOSO Network Top3 = 91.94% (753/819) | `v4_p0_9_triple_ci.csv` | Row "LOSO Network Top3" | 753/819 = 0.9194 | LOSO validation: 753 correct out of 819 | ✓ |
 | T003 | §4 Validation ¶1 | LOMO Network Top1 = 55.56% (455/819) | `v4_p0_9_triple_ci.csv` | Row "LOMO Network Top1" | 455/819 = 0.5556 | LOMO validation: 455 correct out of 819 | ✓ |
 | T004 | §4 Validation ¶1 | LOMO Network Top3 = 91.58% (750/819) | `v4_p0_9_triple_ci.csv` | Row "LOMO Network Top3" | 750/819 = 0.9158 | LOMO validation: 750 correct out of 819 | ✓ |
-| T005 | §4 Validation ¶1 | Resolution-group Top3 LOSO = 72.48% | `v4_p0_9_triple_ci.csv` | (derived from RAW_COUNTS_RESOLUTION) | 586/814 = 0.7248 | LOSO ResGroup: 586 correct out of 814 | ✓ |
+| T005 | §4 Validation ¶1 | Resolution-group Top3 LOSO = 72.48% | `v4_p0_9_triple_ci.csv` | Row "LOSO Group Top3" | 590/814 = 0.7248 | LOSO ResGroup: 590 correct out of 814 | ✓ |
 | T006 | §4 Validation ¶1 | Resolution-group Top3 LOMO = 70.07% | `v4_p0_9_triple_ci.csv` | (derived from RAW_COUNTS_RESOLUTION) | 569/812 = 0.7007 | LOMO ResGroup: 569 correct out of 812 | ✓ |
 | T007 | §4 Validation ¶1 | Exact-region Top3 LOSO = 45.21% | `v4_p0_9_triple_ci.csv` | Row "LOSO Exact Top3" | 368/814 = 0.4521 | LOSO Exact: 368 correct out of 814 | ✓ |
 | T008 | §4 Validation ¶1 | Exact-region Top3 LOMO = 42.61% | `v4_p0_9_triple_ci.csv` | Row "LOMO Exact Top3" | 346/812 = 0.4261 | LOMO Exact: 346 correct out of 812 | ✓ |
@@ -61,10 +61,10 @@ Each trace entry has:
 | T018 | §4 Validation ¶2 | AHBA Network Top1/Top3 = 73.99%/94.62% (165/211 of 223) | (archived AHBA results) | — | 165/223=0.7399, 211/223=0.9462 | AHBA mapped-label: 165/211 correct out of 223 | ✓ |
 | T019 | §4 Validation ¶2 | AHBA ResGroup Top1/Top3 = 42.05%/68.18% (37/60 of 88) | (archived AHBA results) | — | 37/88=0.4205, 60/88=0.6818 | AHBA mapped-label: 37/60 correct out of 88 | ✓ |
 | T020 | §4 Validation ¶2 | AHBA Exact Top1/Top3 = 27.27%/45.45% (24/40 of 88) | (archived AHBA results) | — | 24/88=0.2727, 40/88=0.4545 | AHBA mapped-label: 24/40 correct out of 88 | ✓ |
-| T021 | §4 Validation ¶2 | 231 independent tissue samples | `v4_p0_5_ahba_trace.csv` | Step 1, count_out=231 | 6 donors → 4 excluded → 2 retained → 231 post-collapse | AHBA raw sample count | ✓ |
+| T021 | §4 Validation ¶2 | 231 independent tissue samples | `v4_p0_5_ahba_trace.csv` | Step 2, count_out=231 | 242 assay rows → 231 after technical-replicate collapse | AHBA validation trace | ✓ |
 | T022 | §4 Validation ¶2 | n=223 (Network-qualified) | `v4_p0_5_ahba_trace.csv` | Step 3, count_out=223 | 231 - 8 (no valid Network mapping) = 223 | AHBA attrition step 3 | ✓ |
-| T023 | §4 Validation ¶2 | 74.9% multi-label rate | (archived AHBA results) | — | 166/223 = 0.7444 (approx 74.9%) | AHBA multi-Network samples / total | ✓ |
-| T024 | §4 Validation ¶2 | 12 samples excluded (8 subcortical) | `v4_p0_5_ahba_trace.csv` | Step 7, excluded=12, reason | 100 → 88, 8 subcortical + 4 unmatched | AHBA attrition step 7 | ✓ |
+| T023 | Archived AHBA audit | 74.44% multi-label rate | (archived AHBA results) | — | 166/223 = 0.7444 | AHBA multi-Network samples / total | ✓ |
+| T024 | §4 Validation ¶2 | 88 samples evaluable for fine-tier mapped-label validation | `v4_p0_5_ahba_trace.csv` | Step 4, count_out=88 | Endpoint-qualified subset | AHBA validation summary | ✓ |
 
 ---
 

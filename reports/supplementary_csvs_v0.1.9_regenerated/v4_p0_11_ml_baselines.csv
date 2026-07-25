@@ -1,0 +1,5 @@
+method,top1,top1_lo,top1_hi,n
+"Formal Route (projected VSD + logCPM), LOMO only",0.5556,0.5213,0.5892,819
+"Formal Route (projected VSD + logCPM), LOSO+LOMO pooled",0.5885,0.5645,0.6121,1638
+"5-NN cosine (k=5), LOMO only",0.4371,0.4035,0.4713,819
+"Nearest Centroid, LOMO only",0.1929,0.1674,0.2214,819

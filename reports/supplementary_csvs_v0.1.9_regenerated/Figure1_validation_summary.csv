@@ -1,0 +1,12 @@
+validation,tier,n,top1_correct,top1,top3_correct,top3
+LOSO,Network,819,483,0.589744,753,0.919414
+LOSO,Resolution group,814,368,0.452088,590,0.724816
+LOSO,Exact region,814,182,0.223587,368,0.452088
+LOMO,Network,819,455,0.555556,750,0.915751
+LOMO,Resolution group,812,344,0.423645,569,0.700739
+LOMO,Exact region,812,177,0.217980,346,0.426108
+AHBA,Network,223,165,0.739910,211,0.946188
+AHBA,Resolution group,88,37,0.420455,60,0.681818
+AHBA,Exact region,88,24,0.272727,40,0.454545
+TCGA/BraTS edema strict,Network,64,10,0.156250,20,0.312500
+TCGA/BraTS edema strict,Broad anatomy,64,8,0.125000,51,0.796875

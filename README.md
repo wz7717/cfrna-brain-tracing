@@ -110,8 +110,8 @@ Canonical 110 locked route (rechecked 2026-07-13):
 - AHBA technical-replicate-collapsed, network-qualified mapped-label Network Top1/Top3: 73.99% (`165/223`) / 94.62% (`211/223`).
 - AHBA technical-replicate-collapsed, network-qualified mapped-label resolution-group Top1/Top3: 42.05% (`37/88`) / 68.18% (`60/88`).
 - AHBA technical-replicate-collapsed, network-qualified mapped-label exact-region Top1/Top3: 27.27% (`24/88`) / 45.45% (`40/88`).
-- TCGA/BraTS Network Top3: 40.63% (`26/64` evaluable cases).
-- TCGA/BraTS broad-anatomy Top3: 65.63% (`42/64` evaluable cases).
+- TCGA/BraTS edema-based strict Network Top1/Top3: 15.62% (`10/64`) / 31.25% (`20/64` evaluable cases).
+- TCGA/BraTS edema-based strict broad-anatomy Top1/Top3: 12.50% (`8/64`) / 79.69% (`51/64` evaluable cases).
 - GSE189919 projector gene overlap: 15,622 / 21,668 (72.10%); projection feasibility / transfer stress test only, not localization accuracy.
 
 The repository exposes only the locked three-tier submission route. Historical
@@ -136,16 +136,39 @@ because five samples lacked a truth-region reference after fold construction.
 Region-level LOMO metrics use 812 reference-supported samples because seven
 samples lacked a truth-region reference after fold construction.
 
+## Supplementary data (v0.1.9)
+
+The manuscript-linked CSV archive is in
+[`reports/supplementary_csvs_v0.1.9_regenerated/`](reports/supplementary_csvs_v0.1.9_regenerated/).
+It includes the eight filenames listed in the Supplementary Data File Index,
+plus the Figure 1/Table S8 compact validation summary and the archived Random
+Forest comparator:
+
+- [`v4_p0_9_triple_ci.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_9_triple_ci.csv) — Table S3/S16 counts, three binomial CIs, and reported donor-cluster bootstrap intervals.
+- [`v4_p0_4_subcortical_subsampling.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_4_subcortical_subsampling.csv) — subcortical recall/PPV resampling stability.
+- [`v4_p0_11_ml_baselines.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_11_ml_baselines.csv) — formal-route and ML baseline comparison.
+- [`v4_p0_13_macro_f1.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_13_macro_f1.csv) — class-level and macro/weighted F1 data.
+- [`v4_p0_10_lambda_friedman.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_10_lambda_friedman.csv) and [`v4_p0_10_lambda_sensitivity.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_10_lambda_sensitivity.csv) — per-donor Friedman inputs and aggregate lambda sensitivity.
+- [`v4_p0_5_ahba_trace.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_5_ahba_trace.csv) — verified AHBA assay-row, replicate-collapse, and endpoint denominators.
+- [`v4_p0_12_tcga_brats_ci_summary.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_12_tcga_brats_ci_summary.csv) — TCGA/BraTS counts, CIs, and binomial-test summaries.
+- [`Figure1_validation_summary.csv`](reports/supplementary_csvs_v0.1.9_regenerated/Figure1_validation_summary.csv) and [`v4_p0_11_rf_comparator.csv`](reports/supplementary_csvs_v0.1.9_regenerated/v4_p0_11_rf_comparator.csv) — compact figure/table summary and RF comparator.
+
+All files are regenerated deterministically by
+[`reproducibility/generate_all_csvs.py`](reproducibility/generate_all_csvs.py).
+Downloaded patient-level or third-party expression matrices remain excluded.
+
 ## Status
 
-This repository contains the v0.1.8 revised public submission release for the
+This repository contains the v0.1.9 revised public submission release for the
 Bioinformatics Application Note describing BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The
-v0.1.8 release uses the audited canonical 110-region assets, enforces the exact
+v0.1.9 release uses the audited canonical 110-region assets, enforces the exact
 110-region / 10-Network / 120-beam production contract, cleans the AHBA
 resolution-group detail export, and reports the formally rerun validation
-metrics. v0.1.8 supersedes v0.1.7 and is archived at Zenodo with version DOI
-`https://doi.org/10.5281/zenodo.21353953`. The persistent Zenodo concept DOI is
-`https://doi.org/10.5281/zenodo.20773674`.
+metrics. The [v0.1.9 GitHub release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.9)
+supersedes v0.1.8 and is archived at Zenodo with version DOI
+[`10.5281/zenodo.21534931`](https://doi.org/10.5281/zenodo.21534931). The
+persistent Zenodo concept DOI is
+[`10.5281/zenodo.20773674`](https://doi.org/10.5281/zenodo.20773674).
