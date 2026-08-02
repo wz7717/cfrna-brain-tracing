@@ -180,16 +180,17 @@ samples lacked a truth-region reference after fold construction.
 
 ## Status
 
-This repository contains the v0.1.10 revised public submission release for the
+This repository contains the v0.1.11 public release for the
 Bioinformatics Application Note describing BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The
-v0.1.10 release uses the audited canonical 110-region assets, enforces the exact
+v0.1.11 release uses the audited canonical 110-region assets, enforces the exact
 110-region / 10-Network / 120-beam production contract, cleans the AHBA
 resolution-group detail export, and reports the formally rerun validation
-metrics. v0.1.10 supersedes v0.1.9 and includes the fourth-round reviewer
-analyses, synchronized reproducibility metadata, and automated CI checks. It is
+metrics. v0.1.11 supersedes v0.1.10 and includes the public Saleem crosswalk,
+independent enrichment results, S18-S19 reproduction materials, synchronized
+provenance metadata, and automated CI checks. It is
 archived at Zenodo with version DOI
-`https://doi.org/10.5281/zenodo.21756113`. The persistent Zenodo concept DOI is
+`https://doi.org/10.5281/zenodo.21759823`. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.

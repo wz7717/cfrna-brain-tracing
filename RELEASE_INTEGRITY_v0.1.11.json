@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "release": "v0.1.11",
+  "version_doi": "10.5281/zenodo.21759823",
+  "concept_doi": "10.5281/zenodo.20773674",
+  "repository": "https://github.com/wz7717/cfrna-brain-tracing",
+  "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.11",
+  "public_release_files": [
+    {
+      "path": "reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv",
+      "bytes": 7661,
+      "sha256": "820a2cd34fa77a2026b6ab3d38a5b2d1000249916dddd3e83419c9a69418e0da"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/independent_enrichment_manifest.json",
+      "bytes": 59232,
+      "sha256": "26b2612c7bc52250395fa7a2feaa71a0cfbd7e4f634f99ba46140ca038c71f60"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/gprofiler_model_background.csv",
+      "bytes": 611904,
+      "sha256": "e6c3f2e5632376a0ba8e5b18a44ec4df9e7a4b28011e598c2bb8785d2818e739"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/gprofiler_annotated_background.csv",
+      "bytes": 551538,
+      "sha256": "b9a2fdd49ceac481a222d8597f42fef568c9d95c0cbdcf10099ac392c6272b04"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/independent_celltype_enrichment.csv",
+      "bytes": 2101,
+      "sha256": "2e75f4f0bd949a8d373009f52a8c5beb8c217bfd87cc4b8bd54727e085697dca"
+    },
+    {
+      "path": "reproducibility/s18_s19/run_s18_s19_sensitivity.py",
+      "bytes": 26238,
+      "sha256": "ed73089be82dbe4acb4edd7b08c6296eee15fbfadac3f4093d4c3c6c46f2d08c"
+    },
+    {
+      "path": "reproducibility/s18_s19/sensitivity_analysis_results.json",
+      "bytes": 6795,
+      "sha256": "17a7e3cf64c5ee5531e3883fd39e675a3793cb909cabf34125941e459d14fbcc"
+    },
+    {
+      "path": "reproducibility/s18_s19/input_manifest.json",
+      "bytes": 3514,
+      "sha256": "c85f5eb303e6e64549d8dc9729f1db38f5f7695d6f4e5a5ed1afda62256a6ab8"
+    },
+    {
+      "path": "reproducibility/TRACEABILITY_MATRIX.md",
+      "bytes": 20336,
+      "sha256": "174821a614c0566acd01e8f7702605c7ffe99cd14f2af9132924a69b1aba792f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9042,
+      "sha256": "5df8476b0b61f66b77cf838e80517b0a95f7e8391852fba81557633d6d81fed1"
+    },
+    {
+      "path": "DATA_PROVENANCE.md",
+      "bytes": 6803,
+      "sha256": "92dc6234eb64ae7ff2d83da3242d3b409cfade917e2eb1a620296df71653742e"
+    },
+    {
+      "path": "reproducibility/DATA_PROVENANCE.md",
+      "bytes": 11230,
+      "sha256": "8316844d41f54f3ba3c846ba716e4239b7a96c46acda63ffb5ddcc9d32b32a8c"
+    }
+  ],
+  "local_submission_artifacts": [
+    {
+      "filename": "BrainTrace_Main_Manuscript_v5_round4_v0.1.11_final.docx",
+      "bytes": 797207,
+      "sha256": "dc994a8e86f525d97568a35061abb0c0e576de5325ccfdeab662389f2f5e8461",
+      "distribution": "local submission artifact; not included in the public software archive"
+    },
+    {
+      "filename": "BrainTrace_Supplementary_File_v5_round4_v0.1.11_final.docx",
+      "bytes": 1536068,
+      "sha256": "012eadda6093f7172dfe26ad36070d620c9ff94bf3a2482966d61bc886cb644d",
+      "distribution": "local submission artifact; not included in the public software archive"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Independent frozen-panel enrichment package
 
-This directory contains the post-review annotation analyses for the exact locked
+This directory contains independent annotation analyses for the exact locked
 200-gene Network panel. The files are derived results; the publisher-hosted
 Chiou 2023 and Siletti 2023 source workbooks are not redistributed.
 
@@ -21,7 +21,7 @@ Chiou 2023 and Siletti 2023 source workbooks are not redistributed.
 
 The public runner is `scripts/run_independent_panel_enrichment.py`. Re-querying
 g:Profiler may change database-version-dependent results; the archived result
-files and manifest are the frozen submission evidence.
+files and manifest are the fixed v0.1.11 results.
 
 These analyses characterize annotation bias only. They do not establish cell
 of origin, cell abundance, mechanism, causality, or predictive validity.

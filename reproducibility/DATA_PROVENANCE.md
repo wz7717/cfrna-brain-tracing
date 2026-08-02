@@ -199,6 +199,6 @@ The complete Python environment is pinned in `requirements_reproducible.txt`:
 | GSE189919 CSF cfRNA | NCBI GEO | GSE189919 | Public |
 | Huang2025 cfRNA | npj Precis. Oncol. | Supplementary Data 1 | Public |
 | BrainTrace code | GitHub | https://github.com/wz7717/cfrna-brain-tracing | Public (MIT) |
-| BrainTrace archive | Zenodo | 10.5281/zenodo.21353953 | Public |
+| BrainTrace archive | Zenodo | 10.5281/zenodo.21759823 (v0.1.11); 10.5281/zenodo.20773674 (concept) | Public |
 
 > **FAIR compliance**: All datasets are Findable (accession numbers), Accessible (public repositories), Interoperable (standard formats: TSV, XLS, NIfTI), and Reusable (documented provenance + pinned environment + seed registry).

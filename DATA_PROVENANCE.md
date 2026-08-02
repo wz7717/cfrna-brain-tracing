@@ -1,8 +1,8 @@
-# Data Provenance — BrainTrace v0.1.10
+# Data Provenance — BrainTrace v0.1.11
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool
-(v0.1.10, version DOI: [10.5281/zenodo.21756113](https://doi.org/10.5281/zenodo.21756113); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)).
+(v0.1.11, version DOI: [10.5281/zenodo.21759823](https://doi.org/10.5281/zenodo.21759823); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)).
 All datasets are publicly available under the cited accessions and licensing
 terms. No patient-level clinical identifiers are redistributed.
 
@@ -38,7 +38,7 @@ terms. No patient-level clinical identifiers are redistributed.
 - **Huang2025**: Supplementary material distributed with the published article
   (PMC12041490); no additional access restrictions.
 - **GO/KEGG/g:Profiler**: Database content is versioned and may change. The
-  submission calculation package records g:Profiler version
+  public `reproducibility/independent_enrichment/` package records g:Profiler version
   `e114_eg62_p19_27110d83`, query date 2026-07-31, requested sources, mapped
   identifiers, background, and response metadata.
 - **Chiou2023/Siletti2023**: BrainTrace redistributes derived marker-family
@@ -71,11 +71,10 @@ The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
 original repositories to reproduce the exact numerical results. The software
-version v0.1.10 is permanently archived at Zenodo under version DOI
-10.5281/zenodo.21756113. The concept DOI resolves to the latest Zenodo version.
-Post-archive metadata corrections and newly public reproducibility assets are
-part of a later repository state unless a new immutable release archive
-explicitly includes them.
+version v0.1.11 is permanently archived at Zenodo under version DOI
+10.5281/zenodo.21759823. The concept DOI resolves to the latest Zenodo
+version. The tagged GitHub tree and the Zenodo source archive contain the same
+public reproducibility assets described in this manifest.
 
 ## SHA-256 Integrity
 
