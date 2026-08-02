@@ -47,7 +47,7 @@ repro = [
     "defusedxml==0.7.1",
     "lxml==6.1.1",
     "nibabel==5.3.2",
-    "reportlab==4.3.3.2",
+    "reportlab==4.4.3",
     "pyxlsb==1.0.10",
 ]
 dev = [
