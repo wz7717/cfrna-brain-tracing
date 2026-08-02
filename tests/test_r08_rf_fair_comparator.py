@@ -15,6 +15,11 @@ SCRIPT = (
     / "r08_rf_fair_comparator_20260717"
     / "run_rf_fair_comparator.py"
 )
+if not SCRIPT.is_file():
+    pytest.skip(
+        "archived RF-comparator harness is not included in the public release",
+        allow_module_level=True,
+    )
 SPEC = importlib.util.spec_from_file_location("r08_rf_fair_comparator", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
