@@ -37,19 +37,43 @@ validation.
 - Validation and export scripts: `scripts/`
 - Tests: `tests/`
 
-## Installation
+## Installation and entry points
+
+Choose one of the following workflows. The application environment is the
+smallest supported installation for interactive inference; it is not the full
+manuscript-reproduction environment.
+
+### Run the application
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
+# Windows PowerShell: .venv\Scripts\Activate.ps1
+# macOS/Linux: source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m streamlit run streamlit_app.py
 ```
 
-## Run the application
+### Fully reproduce the paper
+
+Obtain the external source datasets and place them at the paths documented in
+[`DATA_PROVENANCE.md`](DATA_PROVENANCE.md) and `SHA256SUMS.txt`. Then run the
+checksum gate followed by the complete build, validation and CSV-generation
+pipeline:
 
 ```bash
-streamlit run streamlit_app.py
+python -m venv .venv-repro
+# Windows PowerShell: .venv-repro\Scripts\Activate.ps1
+# macOS/Linux: source .venv-repro/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements_reproducible.txt
+python reproduce_all.py --verify-only
+python reproduce_all.py --output-dir reproducibility_audit
 ```
+
+`requirements-repro.txt` adds testing extras to the complete reproducibility
+environment; it is intended for CI/development checks rather than as the main
+installation entry point.
 
 ## Input format
 
@@ -95,6 +119,24 @@ Users must obtain source datasets from their original repositories under the
 applicable access and licensing conditions. External TPM-like inputs are used
 in a cross-scale correlation stress test; `log1p(TPM)` is not described as a
 full conversion to Bo2023 VSD.
+
+Public derived reproducibility assets include:
+
+- `reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv`, the complete
+  110-region locked-Network/Saleem-style crosswalk;
+- `reproducibility/independent_enrichment/`, containing the frozen GO:BP,
+  KEGG and broad cell-type enrichment outputs, protocol and hash manifest;
+- `reproducibility/s18_s19/`, containing the portable S18-S19 runner, frozen
+  output and portable input manifest.
+
+Run the S18-S19 analysis from the repository root with:
+
+```bash
+python reproducibility/s18_s19/run_s18_s19_sensitivity.py
+```
+
+Publisher-hosted source workbooks and raw expression matrices remain excluded;
+the public enrichment directory contains only derived marker sets and results.
 
 ## Validation summary
 
@@ -147,5 +189,7 @@ v0.1.10 release uses the audited canonical 110-region assets, enforces the exact
 110-region / 10-Network / 120-beam production contract, cleans the AHBA
 resolution-group detail export, and reports the formally rerun validation
 metrics. v0.1.10 supersedes v0.1.9 and includes the fourth-round reviewer
-analyses, synchronized reproducibility metadata, and automated CI checks. The
-persistent Zenodo concept DOI is `https://doi.org/10.5281/zenodo.20773674`.
+analyses, synchronized reproducibility metadata, and automated CI checks. It is
+archived at Zenodo with version DOI
+`https://doi.org/10.5281/zenodo.21756113`. The persistent Zenodo concept DOI is
+`https://doi.org/10.5281/zenodo.20773674`.

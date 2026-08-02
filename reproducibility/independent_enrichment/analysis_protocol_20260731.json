@@ -1,0 +1,45 @@
+{
+  "status": "frozen before the new independent-reference results were computed",
+  "date": "2026-07-31",
+  "panel": "code/data/models/bo2023_saleem_network_top200_model_genes.csv; exactly 200 locked Network genes",
+  "primary_background": "21668 genes stored in code/reproducibility/p0_bio3_projector/bo2023_reference_projector_linear_full.npz",
+  "go_kegg": {
+    "service": "g:Profiler API",
+    "organism": "hsapiens",
+    "sources": ["GO:BP", "KEGG"],
+    "primary_domain_scope": "custom",
+    "primary_background": "21668 model-space genes",
+    "sensitivity_domain_scope": "annotated",
+    "multiple_testing": "g:Profiler FDR separately by source",
+    "threshold": 0.05,
+    "go_redundancy_summary": "cluster significant GO:BP terms by Jaccard >=0.5 over query intersections; retain the lowest-FDR term per component"
+  },
+  "cell_type_primary_reference": {
+    "study": "Chiou et al. 2023, A single-cell multi-omic atlas spanning the adult rhesus macaque brain",
+    "doi": "10.1126/sciadv.adh1914",
+    "species": "Macaca mulatta",
+    "source": "published Supplementary Tables S3 and S7",
+    "marker_rule": "union of class top-10 and subtype top-5 logistic-regression markers, then intersect with the 21668-gene background",
+    "families": [
+      "Excitatory neuron",
+      "Inhibitory neuron",
+      "Astrocyte",
+      "Oligodendrocyte",
+      "OPC",
+      "Microglia",
+      "Vascular"
+    ],
+    "test": "one-sided hypergeometric over-representation",
+    "multiple_testing": "BH across the seven prespecified families"
+  },
+  "cell_type_human_sensitivity_reference": {
+    "study": "Siletti et al. 2023, Transcriptomic diversity of cell types across the adult human brain",
+    "doi": "10.1126/science.add7046",
+    "species": "Homo sapiens",
+    "source": "official adult-human-brain cluster_annotation.xlsx",
+    "marker_rule": "union of the published top-10 enriched genes across clusters assigned to each prespecified broad family, then intersect with the 21668-gene background",
+    "test": "one-sided hypergeometric over-representation",
+    "multiple_testing": "BH across the same seven families"
+  },
+  "interpretation": "pre-submission independent confirmatory analysis; annotation bias only, not cell of origin, mechanism, causality, or predictive validation"
+}

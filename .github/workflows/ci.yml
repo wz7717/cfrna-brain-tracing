@@ -34,5 +34,11 @@ jobs:
       - name: Validate tracked CSV assets
         run: python scripts/validate_csv_assets.py
 
+      - name: Reproduce S18-S19 sensitivity outputs
+        run: >-
+          python reproducibility/s18_s19/run_s18_s19_sensitivity.py
+          --output "$RUNNER_TEMP/s18_s19_results.json"
+          --manifest "$RUNNER_TEMP/s18_s19_input_manifest.json"
+
       - name: Verify frozen model artifact hashes
         run: python scripts/verify_locked_artifacts.py

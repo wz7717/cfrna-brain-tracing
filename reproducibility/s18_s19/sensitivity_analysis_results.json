@@ -1,0 +1,250 @@
+{
+  "P1_8_network_panel_size": {
+    "data_source": "bo2023_formal_region_logcpm_reference_matrix.npz",
+    "method": "Region-to-Network centroid cosine similarity",
+    "n_regions": 110,
+    "n_networks": 10,
+    "n_total_genes": 21668,
+    "panel_sizes": [
+      {
+        "n_genes": 20,
+        "top1_hits": 81,
+        "top1_rate": 0.7364,
+        "top3_hits": 103,
+        "top3_rate": 0.9364
+      },
+      {
+        "n_genes": 50,
+        "top1_hits": 93,
+        "top1_rate": 0.8455,
+        "top3_hits": 109,
+        "top3_rate": 0.9909
+      },
+      {
+        "n_genes": 100,
+        "top1_hits": 88,
+        "top1_rate": 0.8,
+        "top3_hits": 108,
+        "top3_rate": 0.9818
+      },
+      {
+        "n_genes": 200,
+        "top1_hits": 87,
+        "top1_rate": 0.7909,
+        "top3_hits": 106,
+        "top3_rate": 0.9636
+      },
+      {
+        "n_genes": 300,
+        "top1_hits": 87,
+        "top1_rate": 0.7909,
+        "top3_hits": 106,
+        "top3_rate": 0.9636
+      },
+      {
+        "n_genes": 500,
+        "top1_hits": 89,
+        "top1_rate": 0.8091,
+        "top3_hits": 106,
+        "top3_rate": 0.9636
+      },
+      {
+        "n_genes": 1000,
+        "top1_hits": 86,
+        "top1_rate": 0.7818,
+        "top3_hits": 106,
+        "top3_rate": 0.9636
+      },
+      {
+        "n_genes": 2000,
+        "top1_hits": 82,
+        "top1_rate": 0.7455,
+        "top3_hits": 106,
+        "top3_rate": 0.9636
+      },
+      {
+        "n_genes": 5000,
+        "top1_hits": 79,
+        "top1_rate": 0.7182,
+        "top3_hits": 99,
+        "top3_rate": 0.9
+      },
+      {
+        "n_genes": 21668,
+        "top1_hits": 71,
+        "top1_rate": 0.6455,
+        "top3_hits": 100,
+        "top3_rate": 0.9091
+      }
+    ],
+    "top200_overlap_with_precomputed": "94/200 (47.0%)"
+  },
+  "P1_6_threshold_sensitivity": {
+    "variants": [
+      {
+        "label": "Default (conf=0.20, max_size=4)",
+        "n_groups": 23,
+        "n_multi_member": 23,
+        "n_regions_in_groups": 61,
+        "max_group_size": 4,
+        "min_confusion_rate": 0.2,
+        "merge_similarity_threshold": 0.9,
+        "min_pair_errors": 2
+      },
+      {
+        "label": "max8 (conf=0.20, max_size=8)",
+        "n_groups": 22,
+        "n_multi_member": 22,
+        "n_regions_in_groups": 63,
+        "max_group_size": 8,
+        "min_confusion_rate": 0.2,
+        "merge_similarity_threshold": 0.9,
+        "min_pair_errors": 2
+      },
+      {
+        "label": "conf0p15 (conf=0.15, max_size=8)",
+        "n_groups": 18,
+        "n_multi_member": 18,
+        "n_regions_in_groups": 80,
+        "max_group_size": 8,
+        "min_confusion_rate": 0.15,
+        "merge_similarity_threshold": 0.9,
+        "min_pair_errors": 2
+      },
+      {
+        "label": "corr0p85 (conf=0.20, merge_corr=0.85, max_size=8)",
+        "n_groups": 22,
+        "n_multi_member": 22,
+        "n_regions_in_groups": 63,
+        "max_group_size": 8,
+        "min_confusion_rate": 0.2,
+        "merge_similarity_threshold": 0.85,
+        "min_pair_errors": 2
+      },
+      {
+        "label": "corr0p85+conf0p15 (conf=0.15, merge_corr=0.85, max_size=8)",
+        "n_groups": 18,
+        "n_multi_member": 18,
+        "n_regions_in_groups": 80,
+        "max_group_size": 8,
+        "min_confusion_rate": 0.15,
+        "merge_similarity_threshold": 0.85,
+        "min_pair_errors": 2
+      },
+      {
+        "label": "err1+corr0p85+conf0p15 (err=1, conf=0.15, merge_corr=0.85, max_size=8)",
+        "n_groups": 18,
+        "n_multi_member": 18,
+        "n_regions_in_groups": 81,
+        "max_group_size": 8,
+        "min_confusion_rate": 0.15,
+        "merge_similarity_threshold": 0.85,
+        "min_pair_errors": 1
+      }
+    ],
+    "validation_conf0p15_max8": {
+      "exact_top1": "173/814",
+      "exact_top1_rate": 0.21253071253071254,
+      "group_top1": "355/814",
+      "group_top1_rate": 0.43611793611793614
+    }
+  },
+  "P1_5_exact_region_panel_size": {
+    "data_source": "bo2023_exact_region_validation_summary.json",
+    "n_test_samples": 814,
+    "results": [
+      {
+        "gene_count": 50,
+        "top1_hits": 179,
+        "top1_rate": 0.2199,
+        "top3_hits": 348,
+        "top3_rate": 0.4275,
+        "median_rank": 5.0
+      },
+      {
+        "gene_count": 100,
+        "top1_hits": 175,
+        "top1_rate": 0.215,
+        "top3_hits": 353,
+        "top3_rate": 0.4337,
+        "median_rank": 5.0
+      },
+      {
+        "gene_count": 200,
+        "top1_hits": 173,
+        "top1_rate": 0.2125,
+        "top3_hits": 339,
+        "top3_rate": 0.4165,
+        "median_rank": 5.0
+      },
+      {
+        "gene_count": 300,
+        "top1_hits": 171,
+        "top1_rate": 0.2101,
+        "top3_hits": 344,
+        "top3_rate": 0.4226,
+        "median_rank": 5.0
+      },
+      {
+        "gene_count": 500,
+        "top1_hits": 173,
+        "top1_rate": 0.2125,
+        "top3_hits": 346,
+        "top3_rate": 0.4251,
+        "median_rank": 5.0
+      },
+      {
+        "gene_count": 1000,
+        "top1_hits": 173,
+        "top1_rate": 0.2125,
+        "top3_hits": 336,
+        "top3_rate": 0.4128,
+        "median_rank": 5.0
+      }
+    ],
+    "best_fusion_top1": 0.22235872235872237
+  },
+  "lambda_sensitivity": {
+    "results": [
+      {
+        "lambda": 0.25,
+        "n_samples": 0,
+        "n_monkeys": 0,
+        "exact_hit1_rate": 0.2236,
+        "exact_hit3_rate": 0.4521
+      },
+      {
+        "lambda": 0.5,
+        "n_samples": 0,
+        "n_monkeys": 0,
+        "exact_hit1_rate": 0.2224,
+        "exact_hit3_rate": 0.4595
+      },
+      {
+        "lambda": 0.75,
+        "n_samples": 0,
+        "n_monkeys": 0,
+        "exact_hit1_rate": 0.2211,
+        "exact_hit3_rate": 0.4521
+      }
+    ],
+    "friedman": {
+      "chi2": 0.5385,
+      "p_value": 0.764
+    },
+    "hit1_delta": 0.0025,
+    "hit3_delta": 0.0074
+  },
+  "P1_5_ahba_mapping": {
+    "ahba_trace": {
+      "step": "description",
+      "1": "Initial AHBA samples from 2 whole-brain donors (4 of 6 AHBA donors excluded for incomplete coverage)",
+      "2": "Collapse technical replicates (sibling samples by donor + tissue ID)",
+      "3": "Map AHBA structure names to Bo2023 region ontology",
+      "4": "Filter to supported exact-region labels (exclude cerebellum, white matter, etc.)",
+      "5": "Apply marker-coverage filter (200-gene Network panel overlap >= threshold)",
+      "6": "Filter to single-label subsets for resolution-group and exact-region",
+      "7": "Final evaluable subset for exact-region mapped-label validation"
+    }
+  }
+}

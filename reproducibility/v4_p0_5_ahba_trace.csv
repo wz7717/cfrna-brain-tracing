@@ -1,0 +1,8 @@
+step,description,count_in,count_out,excluded,reason
+1,Initial AHBA samples from 2 whole-brain donors (4 of 6 AHBA donors excluded for incomplete coverage),231,231,0,2 donors with whole-brain structural sampling retained
+2,Collapse technical replicates (sibling samples by donor + tissue ID),231,231,0,Raw-count summation before logCPM; 231 already independent tissues post-collapse
+3,Map AHBA structure names to Bo2023 region ontology,231,223,8,8 samples without valid Network mapping excluded
+4,"Filter to supported exact-region labels (exclude cerebellum, white matter, etc.)",223,200,23,"Non-cortical, cerebellum, white matter and unannotated structures excluded"
+5,Apply marker-coverage filter (200-gene Network panel overlap >= threshold),200,120,80,Samples failing marker-coverage threshold excluded
+6,Filter to single-label subsets for resolution-group and exact-region,120,100,20,Multi-label samples excluded for single-label evaluation
+7,Final evaluable subset for exact-region mapped-label validation,100,88,12,8 were subcortical (cortical association-area bias); 4 lacked matched region labels
