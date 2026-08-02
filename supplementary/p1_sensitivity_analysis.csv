@@ -1,0 +1,26 @@
+analysis,parameter,value,top1_hits,total,top1_rate,top3_hits,top3_rate,delta_vs_baseline
+network_panel_size,n_genes,20,81,110,0.7364,103,0.9364,0.0
+network_panel_size,n_genes,50,93,110,0.8455,109,0.9909,0.1091
+network_panel_size,n_genes,100,88,110,0.8,108,0.9818,0.0636
+network_panel_size,n_genes,200,87,110,0.7909,106,0.9636,0.0545
+network_panel_size,n_genes,300,87,110,0.7909,106,0.9636,0.0545
+network_panel_size,n_genes,500,89,110,0.8091,106,0.9636,0.0727
+network_panel_size,n_genes,1000,86,110,0.7818,106,0.9636,0.0454
+network_panel_size,n_genes,2000,82,110,0.7455,106,0.9636,0.0091
+network_panel_size,n_genes,5000,79,110,0.7182,99,0.9,-0.0182
+network_panel_size,n_genes,21668,71,110,0.6455,100,0.9091,-0.0909
+exact_region_local_genes,gene_count,50,179,814,0.2199,348,0.4275,0.0
+exact_region_local_genes,gene_count,100,175,814,0.215,353,0.4337,-0.0049
+exact_region_local_genes,gene_count,200,173,814,0.2125,339,0.4165,-0.0074
+exact_region_local_genes,gene_count,300,171,814,0.2101,344,0.4226,-0.0098
+exact_region_local_genes,gene_count,500,173,814,0.2125,346,0.4251,-0.0074
+exact_region_local_genes,gene_count,1000,173,814,0.2125,336,0.4128,-0.0074
+lambda_fusion_weight,lambda,0.25,0,0,0.2236,0,0.4521,0.0
+lambda_fusion_weight,lambda,0.5,0,0,0.2224,0,0.4595,-0.0012
+lambda_fusion_weight,lambda,0.75,0,0,0.2211,0,0.4521,-0.0025
+resolution_group_threshold,"Default (conf=0.20, max_size=4)",,23,61,,23,,0
+resolution_group_threshold,"max8 (conf=0.20, max_size=8)",,22,63,,22,,2
+resolution_group_threshold,"conf0p15 (conf=0.15, max_size=8)",,18,80,,18,,19
+resolution_group_threshold,"corr0p85 (conf=0.20, merge_corr=0.85, max_size=8)",,22,63,,22,,2
+resolution_group_threshold,"corr0p85+conf0p15 (conf=0.15, merge_corr=0.85, max_size=8)",,18,80,,18,,19
+resolution_group_threshold,"err1+corr0p85+conf0p15 (err=1, conf=0.15, merge_corr=0.85, max_size=8)",,18,81,,18,,20

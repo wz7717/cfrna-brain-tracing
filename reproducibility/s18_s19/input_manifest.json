@@ -1,0 +1,73 @@
+{
+  "base": ".",
+  "lambda_base": ".",
+  "policy": "Distinct routes and analysis units are retained; outputs must not overwrite one another.",
+  "route_boundaries": {
+    "network_panel_size": "110-region centroid development classifier; panels reranked per size; not the 819-sample formal route",
+    "resolution_group_threshold": "precomputed group-structure variants; only conf0p15/max8 has the referenced validation summary",
+    "exact_region_local_genes": "strict LOSO n=814 with Network beam fixed; local exact-region gene window varied",
+    "lambda_fusion_weight": "formal strict LOSO n=814; corrected donor-level Friedman file required"
+  },
+  "inputs": {
+    "region_centroid_reference": {
+      "path": "data/models/bo2023_formal_region_logcpm_reference_matrix.npz",
+      "sha256": "a989aefc561d8b4b58b41433c58794a9215984a2f91bd77e302341791fb9cfc8",
+      "bytes": 8453310
+    },
+    "formal_top200_reference": {
+      "path": "data/models/bo2023_saleem_network_top200_model_genes.csv",
+      "sha256": "fcaf3a1927aa0e7b55513c9e3486333d67742e3ceaf0a7fb650a47b1dda15929",
+      "bytes": 14417
+    },
+    "group_default": {
+      "path": "data/models/bo2023_region_resolution_groups.json",
+      "sha256": "66028cdc4652a914eee682fe167d040901825c02278f75dbae8e4ef6cb7470db",
+      "bytes": 57691
+    },
+    "group_max8": {
+      "path": "data/models/_smoke_bo2023_region_resolution_groups_max8.json",
+      "sha256": "b4a9a229b26084f0e118c00cea8e5121e0f6bc61e17f833bace9bb0e6622d104",
+      "bytes": 58858
+    },
+    "group_conf0p15": {
+      "path": "data/models/bo2023_region_resolution_groups_same_network_adaptive_max8_conf0p15_candidate.json",
+      "sha256": "7fdab99b6d007c81b077ddf8506ed24af708e85c34201ba10480acd23b2628cd",
+      "bytes": 64545
+    },
+    "group_corr0p85": {
+      "path": "data/models/bo2023_region_resolution_groups_same_network_adaptive_max8_corr0p85_candidate.json",
+      "sha256": "c05caa07ba6d195ba43c2bdf7206b38d10bf3c9546b9c52f30dfa18d2b709398",
+      "bytes": 58859
+    },
+    "group_corr0p85_conf0p15": {
+      "path": "data/models/bo2023_region_resolution_groups_same_network_adaptive_max8_corr0p85_conf0p15_candidate.json",
+      "sha256": "576cc167de21fe1a86833ef4b1a0394c6a1bac31dcf2ddfee223dcfd61272c35",
+      "bytes": 64546
+    },
+    "group_err1_corr0p85_conf0p15": {
+      "path": "data/models/bo2023_region_resolution_groups_same_network_adaptive_max8_err1_corr0p85_conf0p15_candidate.json",
+      "sha256": "9e52a6417b9e7928026a04408f62ec87627e3aabc81474f6c158e76a73c01194",
+      "bytes": 64765
+    },
+    "group_conf0p15_validation": {
+      "path": "data/models/bo2023_region_resolution_adaptive_max8_validation_summary.json",
+      "sha256": "d1a04d5b4875e593ce50cd1e8f85be6bf1e542a30ec020aebac237c03a20a252",
+      "bytes": 2499
+    },
+    "exact_local_gene_variants": {
+      "path": "data/models/bo2023_exact_region_validation_summary.json",
+      "sha256": "b7e01a020c62a362bc851dec160ec8874d2a9280acbfb6249562b91e39403817",
+      "bytes": 6359
+    },
+    "lambda_point_estimates": {
+      "path": "reproducibility/v4_p0_10_lambda_sensitivity.csv",
+      "sha256": "35f79325303abe0dbbf1ebc50f3ce348909d894abbe92686b843aa28919ba2f1",
+      "bytes": 200
+    },
+    "lambda_donor_friedman_corrected": {
+      "path": "reproducibility/v4_p0_10_lambda_friedman.csv",
+      "sha256": "41202414bd61f0e19536c80b6d32d7886f7c71d8d7a8f49883411d72adb4fc02",
+      "bytes": 277
+    }
+  }
+}

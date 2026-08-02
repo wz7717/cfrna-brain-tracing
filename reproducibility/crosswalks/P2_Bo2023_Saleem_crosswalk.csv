@@ -1,0 +1,111 @@
+bo2023_region_id,locked_network,saleem_style_full_name,dictionary_lobe,broad_regional_map
+31,Cingulate gyrus,,,
+23a,Cingulate gyrus,,,
+23b,Cingulate gyrus,"posterior cingulate cortex,area 23b",Cingulate,CCp
+23c,Cingulate gyrus,"posterior cingulate cortex,area 23c",Cingulate,CCp
+24a,Cingulate gyrus,"anterior cingulate cortex,area 24a",Cingulate,CCa
+24a',Cingulate gyrus,"anterior cingulate cortex,area 24a'",Cingulate,CCa
+24b,Cingulate gyrus,"anterior cingulate cortex,area 24b",Cingulate,CCa
+24b',Cingulate gyrus,"anterior cingulate cortex,area 24b'",Cingulate,CCa
+24c,Cingulate gyrus,"anterior cingulate cortex,area 24c",Cingulate,CCa
+24c',Cingulate gyrus,"anterior cingulate cortex,area 24c'",Cingulate,CCa
+F1,Frontal (agranular frontal motor areas),"agranular frontal area F1,M1 (Primary motor cortex)",Frontal,M1
+F2,Frontal (agranular frontal motor areas),"agranular frontal area F2,PMdc (dorsal premotor cortex, caudal)",Frontal,PMCdl
+F3,Frontal (agranular frontal motor areas),"agranular frontal area F3,SMA (supplementary motor area)",Frontal,PMCm
+F4,Frontal (agranular frontal motor areas),"agranular frontal area F4,PMv (ventral premotor cortex)",Frontal,PMCvl
+F5,Frontal (agranular frontal motor areas),"agranular frontal area F5,PMv (ventral premotor cortex)",Frontal,PMCvl
+F6,Frontal (agranular frontal motor areas),"agranular frontal area F6,PreSMA (presupplementary motor area)",Frontal,PFCdm
+F7,Frontal (agranular frontal motor areas),"agranular frontal area F7,PMdr (dorsal premotor cortex, rostral)",Frontal,PMCdl
+HC,Hippocampal formation,hippocampus,Subcortical,HC
+44,Lateral Prefrontal Cortex,,,
+45,Lateral Prefrontal Cortex,,,
+10o,Lateral Prefrontal Cortex,"frontal polar anterior part,area 10o",Frontal,PFCpol
+12l,Lateral Prefrontal Cortex,"lateral prefrontal cortex,area 12l,lateral part",Frontal,PFCvl
+12r,Lateral Prefrontal Cortex,"lateral prefrontal cortex,area 12r,rostal part?",Frontal,PFCol
+46d,Lateral Prefrontal Cortex,"area 46, dorsal subdivision",Frontal,PFCdl
+46v,Lateral Prefrontal Cortex,"area 46, ventral subdivision",Frontal,PFCvl
+8A,Lateral Prefrontal Cortex,area 8A[8Ad+8Av],Frontal,FEF
+8Bd,Lateral Prefrontal Cortex,"area 8B,dorsal subdivision",Frontal,PFCdl
+8Bm,Lateral Prefrontal Cortex,"area 8B,medial subdivision",Frontal,PFCdm
+8Bs,Lateral Prefrontal Cortex,area 8B in the arcuate sulcus(“s” stands for sulcus),Frontal,FEF
+9d,Lateral Prefrontal Cortex,"area 9, dorsal subdivision",Frontal,PFCdl
+9m,Lateral Prefrontal Cortex,"area 9, medial subdivision",Frontal,PFCdm
+FST,Occipital/Temporal,floor of superior temporal area,Temporal ,TCs
+MST,Occipital/Temporal,medial superior temporal area,Temporal ,VACd
+MT,Occipital/Temporal,,,
+V1,Occipital/Temporal,"visual area 1, primary visual cortex",Occipital,V1
+V2,Occipital/Temporal,visual area 2,Occipital,V2
+V3d,Occipital/Temporal,"visual area 3, dorsal part",Occipital,VACd
+V3v,Occipital/Temporal,"visual area 3, ventral part",Occipital,VACv
+V4,Occipital/Temporal,"visual area 4,dorsal part",Occipital,VACd
+V4v,Occipital/Temporal,"visual area 4,ventral part",Occipital,TCv
+G,Operculum/Insula,gustatory cortex,Insula,G
+Ia,Operculum/Insula,agranular insula,Insula,Ia
+Ial,Operculum/Insula,lateral agranular insula area,Insula,Ia
+Iapl,Operculum/Insula,posterolateral agranular insula area,Insula,Ia
+Iapm,Operculum/Insula,posteromedial agranular insula area,Insula,Ia
+Id,Operculum/Insula,dysgranular insula,Insula,Ip
+Ig,Operculum/Insula,granular insula,Insula,Ip
+Pi,Operculum/Insula,parainsular area,Insula,Ia
+PrCo,Operculum/Insula,,,
+Ri,Operculum/Insula,retroinsula,Insula,Ip
+SII,Operculum/Insula,secondary somatosensory area (S2),Parietal,S2
+25,Orbitomedial Prefrontal Cortex (OMPFC),,,
+32,Orbitomedial Prefrontal Cortex (OMPFC),,,
+10m,Orbitomedial Prefrontal Cortex (OMPFC),"frontal polar,area 10m[10mc+10mr]",Frontal,PFCm
+11l,Orbitomedial Prefrontal Cortex (OMPFC),"obrital prefrontal area,area 11l",Frontal,PFCoi
+11m,Orbitomedial Prefrontal Cortex (OMPFC),"orbital prefrontal area,area 11m",Frontal,PFCom
+12m,Orbitomedial Prefrontal Cortex (OMPFC),"lateral prefrontal cortex,area 12m,medial part",Frontal,PFCol
+12o,Orbitomedial Prefrontal Cortex (OMPFC),"lateral prefrontal cortex,area 12o,orbital part",Frontal,PFCol
+13a,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal cortex,area 13a",Frontal,PFCom
+13b,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal cortex,area 13b",Frontal,PFCom
+13l,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal cortex,area 13l",Frontal,PFCol
+13m,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal cortex,area 13m",Frontal,PFCom
+14c,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal area,14c",Frontal,PFCom
+14r,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal area,14r",Frontal,PFCom
+5,"Parietal, and Parieto-occipital region",,,
+44563,"Parietal, and Parieto-occipital region",,,
+3a/b,"Parietal, and Parieto-occipital region",somatosensory areas 3a and 3b,Parietal,S1
+7a,"Parietal, and Parieto-occipital region",visual area 7a,Parietal,PCi
+7b,"Parietal, and Parieto-occipital region",visual area 7b,Parietal,PCi
+7m,"Parietal, and Parieto-occipital region",area 7m in the medial parietal cortex,Parietal,PCm
+7op,"Parietal, and Parieto-occipital region",area 7op (parietal operculum),Parietal,S2
+LIPd,"Parietal, and Parieto-occipital region","lateral intraparietal area, dorsal subdivision",Parietal,PCip
+LIPv,"Parietal, and Parieto-occipital region","lateral intraparietal area, ventral subdivision",Parietal,PCip
+VIP,"Parietal, and Parieto-occipital region",ventral intraparietal area,Parietal,PCip
+GPeGPi,Subcortical,,,
+NARegion,Subcortical,,,
+PL,Subcortical,,,
+Pir,Subcortical,piriform cortex,Subcortical,
+amy,Subcortical,,,
+cd,Subcortical,,,
+cla,Subcortical,,,
+pu,Subcortical,,,
+thalamus,Subcortical,,,
+36c,Temporal,"area 36 of the perirhinal cortex, caudal subregion",Temporal ,PHC
+AI,Temporal,,,
+AL,Temporal,"anterior lateral, belt region of the auditory cortex",Temporal ,TCs
+CL,Temporal,"caudal lateral, belt region of the auditory cortex",Temporal ,TCs
+CM,Temporal,"caudomedial, belt region of the auditory cortex",Temporal ,TCs
+IPa,Temporal,"area Ipa,sts fundus",Temporal ,TCc
+ML,Temporal,"middle lateral, belt region of the auditory cortex",Temporal ,TCs
+PGa,Temporal,"area Pga,dorsal bank/fundus junction of the STS",Temporal ,TCc
+R,Temporal,"rostral, core region of the auditory cortex",Temporal ,A1
+RM,Temporal,"rostromedial, belt region of the auditory cortex",Temporal ,TCs
+RT,Temporal,"rostrotemporal, core region of the auditory cortex",Temporal ,A1
+RTL,Temporal,"lateral rostrotemporal, belt region of the auditory cortex",Temporal ,TCs
+RTM,Temporal,"medial rostrotemporal, belt region of the auditory cortex",Temporal ,TCs
+STG,Temporal,superior temporal gyrus,Temporal ,TCs
+TAa,Temporal,"area TAa,sts dorsal bank",Temporal ,TCs
+TEO,Temporal,area TEO,Temporal ,TCc
+TEa,Temporal,"area TEa,sts ventral bank",Temporal ,TCc
+TEad,Temporal,dorsal subregion of anterior TE,Temporal ,TCi
+TEav,Temporal,ventral subregion of anterior TE,Temporal ,TCi
+TEm,Temporal,"area TEm,sts ventral bank ",Temporal ,TCc
+TEpd,Temporal,dorsal subregion of posterior TE,Temporal ,TCi
+TEpv,Temporal,ventral subregion of posterior TE,Temporal ,TCi
+TF,Temporal,area TF of the parahippocampal cortex,Temporal ,PHC
+TFO,Temporal,area TFO of the parahippocampal cortex,Temporal ,PHC
+TG,Temporal,temporal pole,Temporal ,TCpol
+TPO,Temporal,"area TPO,sts dorsal bank",Temporal ,TCc
+Tpt,Temporal,temporo-parietal area,Temporal ,TCs

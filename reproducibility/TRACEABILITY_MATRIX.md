@@ -1,6 +1,6 @@
-# BrainTrace — Calculation Traceability Matrix
+# BrainTrace v0.1.10 — Calculation Traceability Matrix
 
-> **Principle**: Every number in the manuscript is traceable through a four-layer chain: Manuscript text → CSV file → Computation formula → Raw data source.
+> **Scope**: This matrix traces the principal quantitative claims in the v0.1.10 manuscript package. A row is marked verified only when the cited result file and calculation agree. Files labelled “submission calculation package” are not claimed to be present in the public v0.1.10 repository.
 
 ## How to Read This Matrix
 
@@ -24,7 +24,7 @@ Each trace entry has:
 | T002 | §4 Validation ¶1 | LOSO Network Top3 = 91.94% (753/819) | `v4_p0_9_triple_ci.csv` | Row "LOSO Network Top3" | 753/819 = 0.9194 | LOSO validation: 753 correct out of 819 | ✓ |
 | T003 | §4 Validation ¶1 | LOMO Network Top1 = 55.56% (455/819) | `v4_p0_9_triple_ci.csv` | Row "LOMO Network Top1" | 455/819 = 0.5556 | LOMO validation: 455 correct out of 819 | ✓ |
 | T004 | §4 Validation ¶1 | LOMO Network Top3 = 91.58% (750/819) | `v4_p0_9_triple_ci.csv` | Row "LOMO Network Top3" | 750/819 = 0.9158 | LOMO validation: 750 correct out of 819 | ✓ |
-| T005 | §4 Validation ¶1 | Resolution-group Top3 LOSO = 72.48% | `v4_p0_9_triple_ci.csv` | (derived from RAW_COUNTS_RESOLUTION) | 586/814 = 0.7248 | LOSO ResGroup: 586 correct out of 814 | ✓ |
+| T005 | §4 Validation ¶1 | Resolution-group Top3 LOSO = 72.48% | `v4_p0_9_triple_ci.csv` | (derived from RAW_COUNTS_RESOLUTION) | 590/814 = 0.7248 | LOSO ResGroup: 590 correct out of 814 | ✓ |
 | T006 | §4 Validation ¶1 | Resolution-group Top3 LOMO = 70.07% | `v4_p0_9_triple_ci.csv` | (derived from RAW_COUNTS_RESOLUTION) | 569/812 = 0.7007 | LOMO ResGroup: 569 correct out of 812 | ✓ |
 | T007 | §4 Validation ¶1 | Exact-region Top3 LOSO = 45.21% | `v4_p0_9_triple_ci.csv` | Row "LOSO Exact Top3" | 368/814 = 0.4521 | LOSO Exact: 368 correct out of 814 | ✓ |
 | T008 | §4 Validation ¶1 | Exact-region Top3 LOMO = 42.61% | `v4_p0_9_triple_ci.csv` | Row "LOMO Exact Top3" | 346/812 = 0.4261 | LOMO Exact: 346 correct out of 812 | ✓ |
@@ -38,7 +38,7 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|-------------|---------|---------------|---|
-| T012 | §4 Validation ¶1 | RF comparator: Network Top1/Top3 = 59.95%/91.09% | `v4_p0_11_rf_comparator.csv` | Rows "Network Top1/Top3" | 491/819=0.5995, 746/819=0.9109 | RF LOMO: 491/746 correct out of 819 | ✓ |
+| T012 | §4 Validation ¶1 | Historical fold-local k=500 RF comparator: Network Top1/Top3 = 59.95%/91.09% | `v4_p0_11_rf_comparator.csv` | Rows "Network Top1/Top3" | 491/819=0.5995, 746/819=0.9109 | Historical RF LOMO: 491/746 correct out of 819; not the frozen 200-gene comparator | ✓ |
 | T013 | §4 Validation ¶1 | 5-NN cosine Top1 = 43.71% | `v4_p0_11_ml_baselines.csv` | Row "5-NN cosine" | 358/819=0.4371 | 5-NN LOMO: 358 correct out of 819 | ✓ |
 | T014 | §4 Validation ¶1 | Nearest Centroid Top1 = 19.29% | `v4_p0_11_ml_baselines.csv` | Row "Nearest Centroid" | 158/819=0.1929 | NC LOMO: 158 correct out of 819 | ✓ |
 | T015 | §4 Validation ¶1 | Formal route Top1 = 55.56% (n=819) | `v4_p0_11_ml_baselines.csv` | Row "Formal Route LOMO" | 455/819=0.5556 | LOMO: 455 correct out of 819 | ✓ |
@@ -63,7 +63,7 @@ Each trace entry has:
 | T020 | §4 Validation ¶2 | AHBA Exact Top1/Top3 = 27.27%/45.45% (24/40 of 88) | (archived AHBA results) | — | 24/88=0.2727, 40/88=0.4545 | AHBA mapped-label: 24/40 correct out of 88 | ✓ |
 | T021 | §4 Validation ¶2 | 231 independent tissue samples | `v4_p0_5_ahba_trace.csv` | Step 1, count_out=231 | 6 donors → 4 excluded → 2 retained → 231 post-collapse | AHBA raw sample count | ✓ |
 | T022 | §4 Validation ¶2 | n=223 (Network-qualified) | `v4_p0_5_ahba_trace.csv` | Step 3, count_out=223 | 231 - 8 (no valid Network mapping) = 223 | AHBA attrition step 3 | ✓ |
-| T023 | §4 Validation ¶2 | 74.9% multi-label rate | (archived AHBA results) | — | 166/223 = 0.7444 (approx 74.9%) | AHBA multi-Network samples / total | ✓ |
+| T023 | §4 Validation ¶2 | 74.9% multi-label rate | (archived AHBA results) | — | 167/223 = 0.7489 | AHBA multi-Network samples / total | ✓ |
 | T024 | §4 Validation ¶2 | 12 samples excluded (8 subcortical) | `v4_p0_5_ahba_trace.csv` | Step 7, excluded=12, reason | 100 → 88, 8 subcortical + 4 unmatched | AHBA attrition step 7 | ✓ |
 
 ---
@@ -72,7 +72,7 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|-------------|---------|---------------|---|
-| T025 | §4 Validation ¶2 | 64 evaluable glioma patients | `v4_p0_12_tcga_brats_ci_summary.csv` | edema rows, n_patients=64 | 65 total - 1 cerebellar out-of-scope = 64 | TCGA/BraTS patient count | ✓ |
+| T025 | §4 Validation ¶2 | 64 evaluable glioma patients (edema region type, prespecified) | `v4_p0_12_tcga_brats_ci_summary.csv` | edema rows, n_patients=64 | 65 total - 1 cerebellar out-of-scope = 64; edema chosen as primary (broadest tumour influence); center/core/whole_tumor as sensitivity | TCGA/BraTS patient count | ✓ |
 | T026 | §4 Validation ¶2 | Network Top3 = 31.25% | `v4_p0_12_tcga_brats_ci_summary.csv` | edema/network/top3/strict | 20/64 = 0.3125 | TCGA/BraTS: 20 correct out of 64 | ✓ |
 | T027 | §4 Validation ¶2 | Broad Top3 = 79.69% | `v4_p0_12_tcga_brats_ci_summary.csv` | edema/broad/top3/strict | 51/64 = 0.7969 | TCGA/BraTS: 51 correct out of 64 | ✓ |
 | T028 | §4 Validation ¶2 | p=0.4602 (not significant vs 30%) | `v4_p0_12_tcga_brats_ci_summary.csv` | manuscript_summary row | binomtest(20, 64, 0.30, "greater").pvalue | 20/64 vs null_p=0.30 (Top3/10 uniform) | ✓ |
@@ -124,7 +124,7 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|-------------|---------|---------------|---|
-| T042 | §4 Validation ¶2 | GSE189919: 51 samples, 72.10% gene overlap | (archived benchmark) | — | Overlapping genes / Network panel genes | GSE189919 gene symbols vs Bo2023 200-gene panel | ✓ |
+| T042 | §4 Validation ¶2 | GSE189919: 51 samples, 72.10% model-space gene overlap | (archived benchmark) | — | 15,622/21,668 = 0.7210 | GSE189919 gene symbols vs frozen Bo2023 projector gene space | ✓ |
 | T043 | §4 Validation ¶2 | Huang2025: 159 CSF/plasma profiles | (archived domain audit) | — | Direct count from Huang2025 Supplementary Data 1 | Huang2025 cfRNA expression matrix | ✓ |
 
 ---
@@ -156,6 +156,18 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 
 ---
 
+## 13. Frozen 200-gene Comparator, Truth Normalization, and Post-review Analyses
+
+| ID | Manuscript Location | Manuscript Value | Source CSV / Manifest | CSV Location | Formula | Raw Data Input | ✓? |
+|----|-------------------|-----------------|-----------------------|-------------|---------|---------------|---|
+| T048 | Supp S20 (manuscript value pending synchronization) | Frozen 200-gene RF LOMO Top1/Top3 = 47.50%/83.03% (389/680 of 819) | `manuscript/calculations/p2/P2_RF200_lomo_detail.csv` (submission calculation package) | `hit1`, `hit3`, all 819 rows | Σhit1/819 = 389/819; Σhit3/819 = 680/819 | Exact frozen 200-gene Network panel, leave-one-macaque-out predictions | ✓ |
+| T049 | Supp S20 / truth-normalization note | Two prespecified frozen-truth corrections | Same CSV as T048 plus frozen mapping audit | Samples `19R470` and `xz-L-10m-10o_BRRL200004691-1A` | Apply mapping before scoring: Parietal → Occipital/Temporal; Lateral Prefrontal Cortex → OMPFC | Raw metadata, anatomical label crosswalk, and frozen scoring truth | ✓ |
+| T050 | Supp 3′-bias sensitivity | 185 evaluable genes; Spearman ρ=0.646, p=2.95×10⁻²³; median detected 151/185 | `reproducibility/p0_bio2_3prime_bias/panel_length_detection.csv` and archived summary | Per-gene detection/length rows | Spearman correlation and per-sample median; terminal-window simulations at 500/1,000/2,000 nt yield medians 74/106/136 | Observed gene detection plus transcript-coordinate proxy simulation; not molecule-level 3′-end sequencing simulation | ✓ |
+| T051 | Supp independent panel annotation | 179/200 mapped; significant GO:BP/KEGG terms = 446/11 (primary) and 410/8 (annotated-domain sensitivity) | `reproducibility/independent_enrichment/independent_enrichment_manifest.json` | `gprofiler_*_significant` and g:Profiler metadata | g:Profiler FDR <0.05 separately by source | Frozen 200-gene panel, 21,668-gene model-space background, g:Profiler e114_eg62_p19_27110d83 (2026-07-31) | ✓ |
+| T052 | Supp independent cell-type annotation | Rhesus excitatory/inhibitory enrichment q=2.67×10⁻⁷/4.20×10⁻⁴; human sensitivity q=0.0477/5.89×10⁻⁵ | `reproducibility/independent_enrichment/independent_celltype_enrichment.csv` and manifest | Chiou2023 and Siletti2023 rows | One-sided hypergeometric test; BH correction across seven prespecified families | Chiou 2023 rhesus markers (primary) and Siletti 2023 human markers (sensitivity), intersected with 21,668-gene background | ✓ |
+
+---
+
 ## Verification Summary
 
 | Category | Trace IDs | Verified | Coverage |
@@ -171,6 +183,7 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 | Sparse-query sensitivity | T039–T041 | 3/3 | 100% |
 | GSE189919 & Huang2025 | T042–T043 | 2/2 | 100% |
 | Macro F1 summary | T044–T047 | 4/4 | 100% |
-| **Total** | **T001–T047** | **47/47** | **100%** |
+| Frozen comparator, truth normalization & post-review analyses | T048–T052 | 5/5 | 100% |
+| **Total** | **T001–T052** | **52/52** | **100%** |
 
-> **Every number in the manuscript is traceable to a CSV file, a computation formula, and a raw data source.**
+> **Status note:** the source files support T048 as 389/819 and 680/819. Any manuscript text still reporting 393/819 and 679/819 must be corrected before submission. T051-T052 are now backed by public derived-result files; publisher-hosted source workbooks remain external.
