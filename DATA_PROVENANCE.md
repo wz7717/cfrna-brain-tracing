@@ -1,8 +1,9 @@
-# Data Provenance — BrainTrace v0.1.9
+# Data Provenance — BrainTrace v0.1.10
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool
-(v0.1.9, Zenodo DOI: [10.5281/zenodo.21534931](https://doi.org/10.5281/zenodo.21534931)).
+(v0.1.10; persistent Zenodo concept DOI:
+[10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)).
 All datasets are publicly available under the cited accessions and licensing
 terms. No patient-level clinical identifiers are redistributed.
 
@@ -41,7 +42,7 @@ The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
 original repositories to reproduce the exact numerical results. The software
-version v0.1.9 is permanently archived at Zenodo with the DOI above.
+version v0.1.10 is archived as a distinct version under the Zenodo concept DOI above.
 
 ## SHA-256 Integrity
 

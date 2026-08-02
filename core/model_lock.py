@@ -9,7 +9,7 @@ from typing import Any, Mapping
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_LOCK_PATH = ROOT / "data" / "models" / "canonical110_model_lock.json"
-EXPECTED_MODEL_LOCK_ID = "canonical110-v0.1.9-20260727"
+EXPECTED_MODEL_LOCK_ID = "canonical110-v0.1.10-20260802"
 
 LOCKED_PRODUCTION_PARAMETERS: Mapping[str, Any] = MappingProxyType(
     {
