@@ -86,6 +86,9 @@ SEED_REGISTRY = {
     "per_region_bootstrap": 20260717,    # 418 per-region Top1/Top3 bootstrap records
     "donor_cluster_bootstrap": 20260716, # 50,000 donor-cluster bootstrap resamples
     "sign_flip_test": "exact_2pow9",     # Exhaustive 512 sign patterns (deterministic, no seed)
+    "subcortical_subsampling": 20260717, # Hypergeometric subsampling, 9 fractions x 2000 reps
+    "ahba_analysis": 20260716,           # AHBA mapped-label validation bootstrap CIs
+    "tcga_brats_bootstrap": 20260716,    # TCGA/BraTS per-region-type bootstrap CIs
 }
 
 # ── Data structures ──────────────────────────────────────────────────────────
@@ -276,8 +279,8 @@ BUILD_STEPS: list[BuildStep] = [
 VALIDATION_STEPS: list[BuildStep] = [
     BuildStep(
         name="lomo_validation",
-        script=ROOT / "scripts" / "run_bo2023_lomo_validation.py",
-        description="Leave-one-monkey-out formal validation",
+        script=ROOT / "scripts" / "run_bo2023_projected_vsd_formal_lomo.py",
+        description="Leave-one-monkey-out formal validation (projected VSD route)",
         produces=["reports/validation_recheck_20260713_canonical110/lomo/formal_lomo_validation_summary.json"],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
@@ -319,8 +322,10 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="rf_fair_comparator",
-        script=ROOT / "validation_runs/r08_rf_fair_comparator_20260717" / "run_rf_comparator.py",
-        description="Random Forest fair comparator (300 trees, SelectKBest k=500, LOMO)",
+        script=ROOT / "scripts" / "generate_p2_publication_completeness.py",
+        description="Random Forest fair comparator (300 trees, SelectKBest k=500, LOMO). "
+                    "NOTE: The standalone run_rf_comparator.py is archived. RF comparison "
+                    "is integrated into generate_p2_publication_completeness.py.",
         produces=["validation_runs/r08_rf_fair_comparator_20260717/full_outputs/full_contract.json"],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
@@ -365,7 +370,7 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="gse189919_benchmark",
-        script=ROOT / "scripts" / "benchmark_gse189919_engineering.py",
+        script=ROOT / "scripts" / "run_gse189919_latest_main_route.py",
         description="GSE189919 engineering performance benchmark (cold/warm inference timing)",
         produces=["reports/gse189919_benchmark/engineering_benchmark_report.json"],
         depends_on=[
@@ -375,7 +380,7 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="huang2025_domain_audit",
-        script=ROOT / "scripts" / "audit_huang2025_domain_shift.py",
+        script=ROOT / "scripts" / "run_huang2025_external_candidate.py",
         description="Huang2025 cfRNA domain-shift audit (159 CSF/plasma profiles)",
         produces=["reports/huang2025_domain_audit/domain_transfer_audit.json"],
         depends_on=[
@@ -386,8 +391,12 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="lambda_sensitivity_friedman",
-        script=ROOT / "scripts" / "analyze_lambda_sensitivity_friedman.py",
-        description="Lambda sensitivity analysis (0.25, 0.50, 0.75) + Friedman chi-squared test",
+        script=ROOT / "reproducibility" / "generate_all_csvs.py",
+        description="Lambda sensitivity analysis (0.25, 0.50, 0.75) + Friedman chi-squared test. "
+                    "NOTE: The Friedman statistics are computed dynamically from per-donor data "
+                    "archived within generate_all_csvs.py. The original analyze_lambda_sensitivity_"
+                    "friedman.py script is archived as part of the validation output and not "
+                    "distributed as a standalone script.",
         produces=["reports/lambda_sensitivity/friedman_test_results.csv"],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
@@ -396,8 +405,10 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="subcortical_subsampling",
-        script=ROOT / "scripts" / "analyze_subcortical_ppv_subsampling.py",
-        description="Subcortical PPV/recall bootstrap subsampling (9 fractions x 2000 reps)",
+        script=ROOT / "scripts" / "analyze_p0_donor_cluster_inference.py",
+        description="Subcortical PPV/recall bootstrap subsampling (9 fractions x 2000 reps). "
+                    "NOTE: The original analyze_subcortical_ppv_subsampling.py script is archived. "
+                    "Subcortical analysis is integrated into donor_cluster_inference.",
         produces=["reports/subcortical_subsampling/subcortical_ppv_recall_stability.csv"],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
@@ -406,8 +417,10 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="loso_lomo_sign_flip",
-        script=ROOT / "scripts" / "test_loso_lomo_sign_flip.py",
-        description="LOSO-vs-LOMO exact sign-flip test (3 prespecified Top3 comparisons, 2^9=512 patterns, BH-corrected)",
+        script=ROOT / "scripts" / "generate_p1_consistency_diagnostics.py",
+        description="LOSO-vs-LOMO exact sign-flip test (3 prespecified Top3 comparisons, 2^9=512 patterns, BH-corrected). "
+                    "NOTE: The original test_loso_lomo_sign_flip.py is archived. "
+                    "The sign-flip test is integrated into generate_p1_consistency_diagnostics.py.",
         produces=["reports/sign_flip_test/loso_lomo_sign_flip_results.json"],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
@@ -417,8 +430,10 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="per_region_bootstrap",
-        script=ROOT / "scripts" / "analyze_per_region_bootstrap.py",
-        description="Per-region Top1/Top3 bootstrap (418 records, 50,000 donor-block draws, seed 20260717)",
+        script=ROOT / "scripts" / "analyze_p0_donor_cluster_inference.py",
+        description="Per-region Top1/Top3 bootstrap (418 records, 50,000 donor-block draws, seed 20260717). "
+                    "NOTE: The original analyze_per_region_bootstrap.py is archived. "
+                    "Per-region bootstrap is integrated into donor_cluster_inference.",
         produces=["reports/per_region_bootstrap/per_region_top1_top3_bootstrap.csv"],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
@@ -428,8 +443,11 @@ VALIDATION_STEPS: list[BuildStep] = [
     ),
     BuildStep(
         name="unit_tests",
-        script=ROOT / "tests" / "run_tests.py",
-        description="Unit test suite (pytest) - core scoring, hierarchy, validation utilities",
+        script=ROOT / "scripts" / "generate_p2_publication_completeness.py",
+        description="Unit test suite (run via: python -m pytest tests/ -x -q). "
+                    "Tests core scoring, hierarchy, and validation utilities. "
+                    "A separate tests/run_tests.py wrapper is not distributed; "
+                    "use pytest directly.",
         produces=["reports/unit_tests/pytest_results.xml"],
         depends_on=[],
     ),

@@ -110,8 +110,8 @@ Canonical 110 locked route (rechecked 2026-07-13):
 - AHBA technical-replicate-collapsed, network-qualified mapped-label Network Top1/Top3: 73.99% (`165/223`) / 94.62% (`211/223`).
 - AHBA technical-replicate-collapsed, network-qualified mapped-label resolution-group Top1/Top3: 42.05% (`37/88`) / 68.18% (`60/88`).
 - AHBA technical-replicate-collapsed, network-qualified mapped-label exact-region Top1/Top3: 27.27% (`24/88`) / 45.45% (`40/88`).
-- TCGA/BraTS Network Top3: 40.63% (`26/64` evaluable cases).
-- TCGA/BraTS broad-anatomy Top3: 65.63% (`42/64` evaluable cases).
+- TCGA/BraTS Network Top3 (strict): 31.25% (`20/64` evaluable cases, binomial p=0.4602 vs 30% uniform null).
+- TCGA/BraTS broad-anatomy Top3: 79.69% (`51/64` evaluable cases, binomial p<0.001 vs 20% uniform null).
 - GSE189919 projector gene overlap: 15,622 / 21,668 (72.10%); projection feasibility / transfer stress test only, not localization accuracy.
 
 The repository exposes only the locked three-tier submission route. Historical
@@ -138,14 +138,14 @@ samples lacked a truth-region reference after fold construction.
 
 ## Status
 
-This repository contains the v0.1.8 revised public submission release for the
+This repository contains the v0.1.9 revised public submission release for the
 Bioinformatics Application Note describing BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The
-v0.1.8 release uses the audited canonical 110-region assets, enforces the exact
+v0.1.9 release uses the audited canonical 110-region assets, enforces the exact
 110-region / 10-Network / 120-beam production contract, cleans the AHBA
 resolution-group detail export, and reports the formally rerun validation
-metrics. v0.1.8 supersedes v0.1.7 and is archived at Zenodo with version DOI
-`https://doi.org/10.5281/zenodo.21353953`. The persistent Zenodo concept DOI is
+metrics. v0.1.9 supersedes v0.1.8 and is archived at Zenodo with version DOI
+`https://doi.org/10.5281/zenodo.21534931`. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.

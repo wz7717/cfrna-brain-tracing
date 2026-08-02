@@ -1,6 +1,6 @@
--r requirements.txt
-pytest==9.1.1
+-r requirements_reproducible.txt
+pytest==8.3.5
 python-docx==1.2.0
 nibabel==5.3.2
-reportlab==4.4.3
+reportlab==4.3.3.2
 pyxlsb==1.0.10

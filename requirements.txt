@@ -1,8 +1,24 @@
+# BrainTrace — Core Application Dependencies
+# ===========================================
+# This file contains the MINIMAL dependencies needed to run the Streamlit
+# application and core inference engine. Pinned versions match the validated
+# computation environment (Python 3.11.9).
+#
+# For FULL REPRODUCTION of all manuscript results (including CSV generation,
+# external validation, and report building), use requirements_reproducible.txt.
+#
+# Dependency hierarchy:
+#   requirements.txt          → Core app (Streamlit + inference)
+#   requirements_reproducible.txt → Full reproduction (24 packages)
+#   requirements-repro.txt    → Testing extras (-r requirements_reproducible.txt + test tools)
+#   environment.yml           → Conda mirror of requirements_reproducible.txt
+# ===========================================
+
 streamlit==1.55.0
-pandas==2.3.3
-numpy==2.4.2
+pandas==2.2.3
+numpy==1.26.4
 plotly==6.5.2
-scikit-learn==1.8.0
-scipy==1.17.1
+scikit-learn==1.5.2
+scipy==1.13.1
 openpyxl==3.1.5
-matplotlib==3.10.8
+matplotlib==3.10.7

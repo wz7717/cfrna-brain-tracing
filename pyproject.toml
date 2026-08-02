@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "braintrace"
+version = "0.1.9"
+description = "Hierarchical brain-origin candidate ranking from RNA expression profiles using a primate transcriptomic reference"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Zhen Wang", email = "zhen.wang@cibr.ac.cn"},
+    {name = "Zheng Wang", email = "zheng.wang@pku.edu.cn"},
+    {name = "Li Zhang", email = "knightz@pumc.edu.cn"},
+    {name = "Xilin Gu"},
+    {name = "Baozhou Xing"},
+    {name = "Wenjun Tu", email = "tuwenjun@irm-cams.ac.cn"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "numpy==1.26.4",
+    "scipy==1.13.1",
+    "pandas==2.2.3",
+    "scikit-learn==1.5.2",
+    "joblib==1.5.3",
+    "openpyxl==3.1.5",
+    "matplotlib==3.10.7",
+    "streamlit==1.55.0",
+    "plotly==6.5.2",
+    "PyYAML==6.0.2",
+]
+
+[project.optional-dependencies]
+repro = [
+    "xlrd==2.0.1",
+    "python-docx==1.2.0",
+    "defusedxml==0.7.1",
+    "lxml==6.1.1",
+    "nibabel==5.3.2",
+    "reportlab==4.3.3.2",
+    "pyxlsb==1.0.10",
+]
+dev = [
+    "pytest==8.3.5",
+    "threadpoolctl==3.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/wz7717/cfrna-brain-tracing"
+Repository = "https://github.com/wz7717/cfrna-brain-tracing"
+Zenodo = "https://doi.org/10.5281/zenodo.21534931"
+
+[project.scripts]
+braintrace = "streamlit_app:main"
+
+[tool.setuptools.packages.find]
+include = ["core*", "benchmark*", "data*", "reporting*", "scripts*", "reproducibility*"]
+
+[tool.setuptools.package-data]
+data = ["models/*.npz", "models/*.json", "models/*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]

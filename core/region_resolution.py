@@ -34,10 +34,31 @@ def annotate_region_candidates(
     rows = annotated.get("results", [])
     network_rows = network_output.get("results", [])
     model = load_region_resolution_model(model_path)
-    if not rows or not network_rows or not model:
+    if not rows or not network_rows:
         return annotated
 
     primary_network = str(network_rows[0].get("network_id", ""))
+    if primary_network == "Hippocampal formation":
+        for row in rows:
+            row["single_region_network"] = True
+            row["tier_degeneracy"] = "group=exact"
+            row["resolution_warning"] = (
+                "single-region Network: resolution-group and exact-region outputs are identical"
+            )
+        metadata = annotated.setdefault("meta", {})
+        metadata["single_region_network"] = {
+            "enabled": True,
+            "network_id": primary_network,
+            "annotation": "single-region Network",
+            "tier_degeneracy": "group=exact",
+            "interpretation": (
+                "Resolution-group and exact-region ranks are structurally identical and "
+                "must not be treated as independent localization evidence."
+            ),
+        }
+    if not model:
+        return annotated
+
     entries = model.get("entries", {})
     for row in rows:
         region_id = str(row.get("region_id", ""))

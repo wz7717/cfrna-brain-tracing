@@ -1,0 +1,91 @@
+{
+  "seed_registry": {
+    "donor_cluster_inference": {
+      "seed": 20260716,
+      "description": "50,000 donor-cluster bootstrap resamples for CI computation",
+      "used_in": ["triple_ci.csv", "donor_cluster_inference", "donor_bootstrap"]
+    },
+    "donor_cluster_bootstrap": {
+      "seed": 20260716,
+      "description": "50,000 donor-cluster bootstrap (alias for donor_cluster_inference)",
+      "used_in": ["Table S16"]
+    },
+    "per_region_bootstrap": {
+      "seed": 20260717,
+      "description": "50,000 donor-block bootstrap for 418 per-region Top1/Top3 estimates",
+      "used_in": ["S13 per-region table"]
+    },
+    "sparse_simulation_base": {
+      "seed": 20260711,
+      "description": "Base seed for 30-repeat sparse-input sensitivity analysis; 99,099 archival seeds generated as base + index",
+      "total_archived_seeds": 99099,
+      "used_in": ["Table S15", "sparse sensitivity analysis"]
+    },
+    "subcortical_subsampling": {
+      "seed": 20260717,
+      "description": "Hypergeometric subsampling across 9 sample-size fractions, 2,000 reps each",
+      "used_in": ["subcortical_subsampling.csv", "Table S11"]
+    },
+    "ahba_analysis": {
+      "seed": 20260716,
+      "description": "AHBA mapped-label validation bootstrap CIs",
+      "used_in": ["Table S6"]
+    },
+    "tcga_brats_bootstrap": {
+      "seed": 20260716,
+      "description": "TCGA/BraTS bootstrap CIs for per-region-type results",
+      "used_in": ["tcga_brats_ci_summary.csv"]
+    },
+    "rf_fair_comparator": {
+      "seed": 20260717,
+      "description": "Random Forest fair comparator (300 trees, SelectKBest k=500, LOMO)",
+      "used_in": ["rf_comparator.csv"]
+    },
+    "p0_hard_evidence": {
+      "seed": 20260629,
+      "description": "P0 hard-evidence generation seed (archived)",
+      "used_in": ["generate_p0_hard_evidence.py"]
+    },
+    "p0_weighted_random": {
+      "seed": 20260629,
+      "description": "P0 weighted random seed (archived)",
+      "used_in": ["generate_p0_hard_evidence.py"]
+    },
+    "p2_publication_completeness": {
+      "seed": 20260629,
+      "description": "Publication completeness package seed",
+      "used_in": ["generate_p2_publication_completeness.py"]
+    },
+    "benchmark_stratified_kfold": {
+      "seed": 42,
+      "description": "Stratified k-fold benchmark seed",
+      "used_in": ["benchmark_runner.py"]
+    },
+    "bootstrap_default": {
+      "seed": 13,
+      "description": "Core/params.py default bootstrap random_state",
+      "used_in": ["core/params.py"]
+    },
+    "legacy_marker_validation": {
+      "seed": 20260528,
+      "description": "Legacy marker validation seed (archived)",
+      "used_in": []
+    },
+    "discriminative_correlation": {
+      "seed": 20260530,
+      "description": "Discriminative correlation validation seed (archived)",
+      "used_in": []
+    },
+    "sign_flip_test": {
+      "seed": "exact_2pow9",
+      "description": "Exhaustive 512 sign patterns for LOSO-vs-LOMO paired comparison (deterministic, no random seed needed)",
+      "used_in": ["Table S17", "sign_flip_test"]
+    }
+  },
+  "python_version": "3.11.9",
+  "streamlit_version": "1.55.0",
+  "numpy_version": "1.26.4",
+  "scipy_version": "1.13.1",
+  "pandas_version": "2.2.3",
+  "scikit_learn_version": "1.5.2"
+}

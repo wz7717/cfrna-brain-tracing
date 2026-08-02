@@ -1,6 +1,6 @@
 # Canonical 110 production model lock
 
-The production model is frozen under lock ID `canonical110-v0.1.8-20260714`.
+The production model is frozen under lock ID `canonical110-v0.1.9-20260727`.
 No model artifact, learned value, gene panel, projector coefficient, reference
 matrix, resolution-group definition, scoring weight, threshold, candidate-beam
 contract, or production-route switch may change in place.

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "lock_id": "canonical110-v0.1.8-20260714",
+  "lock_id": "canonical110-v0.1.9-20260727",
   "status": "frozen",
   "policy": "Production inference must fail closed if any locked artifact or parameter differs.",
   "production_parameters": {
