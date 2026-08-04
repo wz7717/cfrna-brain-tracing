@@ -25,6 +25,8 @@ dependencies:
   - pip:
             # Web application + visualization
       # (pip install: keeps the Streamlit Cloud conda solve small & fast)
+      - streamlit==1.55.0
+      - matplotlib==3.10.7
       - plotly==6.5.2
       # File processing (pip-only packages)
       - python-docx==1.2.0
