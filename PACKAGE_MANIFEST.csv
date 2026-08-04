@@ -137,7 +137,7 @@ data/signatures/mb_cell_state_signatures.provenance.json,6547
 data/system_check.py,5889
 data_processor.py,24649
 database_init.py,27271
-environment.yml,887
+environment.yml,940
 generate_reproducibility_report.py,21470
 pyproject.toml,2107
 pytest.ini,69
