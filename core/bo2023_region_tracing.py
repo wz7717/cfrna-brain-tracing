@@ -15,6 +15,7 @@ from core.model_lock import ModelLockError, verify_locked_model_bundle
 from core.bo2023_metadata import (
     CANONICAL_REGION_NETWORKS,
     assert_unique_region_network_mapping,
+    normalize_bo2023_region_labels,
     normalize_bo2023_network_labels,
 )
 from core.reference_projection import (
@@ -81,6 +82,10 @@ def _read_bo2023_sample_metadata(path: Path) -> pd.DataFrame:
     info = info[
         info["sample_id"].ne("") & info["region_id"].ne("") & info["network_id"].ne("")
     ].copy()
+    # Keep direct tracing on the same canonical region layer as formal
+    # validation: source artifacts AI and 44563 must not reach the DB lookup
+    # or appear as separate region candidates.
+    info = normalize_bo2023_region_labels(info, columns=["region_id"])
     info = normalize_bo2023_network_labels(info)
     assert_unique_region_network_mapping(info)
     info = info.drop_duplicates("sample_id").set_index("sample_id")
@@ -314,6 +319,7 @@ def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame
         return pd.DataFrame(), {}, "db_reference_empty"
     ref = ref.dropna(subset=["gene_symbol", "region_id", "avg_tpm"]).copy()
     ref["gene_symbol"] = ref["gene_symbol"].astype(str)
+    ref = normalize_bo2023_region_labels(ref, columns=["region_id"])
     ref["region_id"] = ref["region_id"].astype(str)
     ref["avg_tpm"] = pd.to_numeric(ref["avg_tpm"], errors="coerce").fillna(0.0)
     matrix = (
@@ -335,7 +341,9 @@ def _load_db_reference_matrix(db_path: str, atlas_id: int) -> tuple[pd.DataFrame
             metadata_rows.append({"region_id": str(row.region_id).strip(), "network_id": network})
     if not metadata_rows:
         return pd.DataFrame(), {}, "db_reference_missing_network_metadata"
-    metadata = normalize_bo2023_network_labels(pd.DataFrame(metadata_rows))
+    metadata = pd.DataFrame(metadata_rows)
+    metadata = normalize_bo2023_region_labels(metadata, columns=["region_id"])
+    metadata = normalize_bo2023_network_labels(metadata)
     assert_unique_region_network_mapping(metadata)
     region_network = (
         metadata.drop_duplicates("region_id").set_index("region_id")["network_id"].astype(str).to_dict()

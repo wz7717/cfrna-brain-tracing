@@ -334,13 +334,30 @@ VALIDATION_STEPS: list[BuildStep] = [
         seed="rf_fair_comparator",
     ),
     BuildStep(
+        name="tcga_brats_tracing",
+        script=ROOT / "scripts" / "score_tcga_gbm_lgg_sample_tracing_with_mri_labels.py",
+        description="Current TCGA/BraTS RNA-seq tracing endpoint used by the MRI truth evaluator",
+        produces=[
+            "results/tcga_brats_current/tracing/tcga_gbm_lgg_sample_network_tracing.csv",
+            "results/tcga_brats_current/tracing/tcga_gbm_lgg_sample_region_tracing.csv",
+            "results/tcga_brats_current/tracing/tcga_gbm_lgg_sample_mri_label_tracing_summary.csv",
+        ],
+        depends_on=[
+            "braintrace_source_tracing.db",
+            "data/tcga_brain_tumor_expression/tcga_gbm_lgg_primary_tumor_tpm_unstranded_sample_mean.tsv",
+            "data/tcga_brain_tumor_expression/tcga_gbm_lgg_gdc_star_counts_manifest.csv",
+            "data/tcia_tcga_glioma_mri/tcia_tcga_glioma_mri_derived_labels.csv",
+        ],
+    ),
+    BuildStep(
         name="tcga_brats_evaluation",
         script=ROOT / "scripts" / "evaluate_brats_tcga_lgg_65_mri_truth.py",
-        description="TCGA/BraTS 65-patient MRI truth evaluation",
-        produces=["results/archived_tcga_brats/brats_tcga_lgg_65_mri_truth_evaluation_20260609/brats_tcga_lgg_65_mri_truth_and_predictions.csv"],
+        description="Current TCGA/BraTS 65-patient MRI truth evaluation",
+        produces=["results/tcga_brats_current/mri_truth/brats_tcga_lgg_65_mri_truth_and_predictions.csv"],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
             "data/models/bo2023_formal_region_logcpm_reference_matrix.npz",
+            "results/tcga_brats_current/tracing/tcga_gbm_lgg_sample_network_tracing.csv",
             "data/brats_tcga_lgg_training_65/",
         ],
     ),

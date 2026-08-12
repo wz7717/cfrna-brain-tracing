@@ -29,6 +29,11 @@ def macro_metrics(path: Path) -> pd.DataFrame:
                 "n_classes": int(len(part)),
                 "n_samples": int(round(support)),
                 "macro_f1": float(part["f1"].mean()),
+                # Descriptive spread of the same evaluable class-level F1
+                # values used for macro-F1.  Use sample SD (ddof=1) and make
+                # the denominator explicit in the manuscript rather than
+                # presenting a second, incompatible uncertainty quantity.
+                "sd_class_f1": float(part["f1"].std(ddof=1)),
                 "median_class_f1": float(part["f1"].median()),
                 "weighted_f1": float(np.average(part["f1"], weights=part["n"])),
                 "micro_f1": float(tp / support),

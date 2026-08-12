@@ -1,0 +1,901 @@
+donor,truth,predicted,count
+2,Cingulate gyrus,Cingulate gyrus,0
+2,Cingulate gyrus,Frontal (agranular frontal motor areas),0
+2,Cingulate gyrus,Hippocampal formation,0
+2,Cingulate gyrus,Lateral Prefrontal Cortex,0
+2,Cingulate gyrus,Occipital/Temporal,0
+2,Cingulate gyrus,Operculum/Insula,0
+2,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Cingulate gyrus,"Parietal, and Parieto-occipital region",0
+2,Cingulate gyrus,Subcortical,0
+2,Cingulate gyrus,Temporal,0
+2,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+2,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),1
+2,Frontal (agranular frontal motor areas),Hippocampal formation,0
+2,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,0
+2,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+2,Frontal (agranular frontal motor areas),Operculum/Insula,0
+2,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",1
+2,Frontal (agranular frontal motor areas),Subcortical,0
+2,Frontal (agranular frontal motor areas),Temporal,0
+2,Hippocampal formation,Cingulate gyrus,0
+2,Hippocampal formation,Frontal (agranular frontal motor areas),0
+2,Hippocampal formation,Hippocampal formation,0
+2,Hippocampal formation,Lateral Prefrontal Cortex,0
+2,Hippocampal formation,Occipital/Temporal,0
+2,Hippocampal formation,Operculum/Insula,0
+2,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+2,Hippocampal formation,Subcortical,0
+2,Hippocampal formation,Temporal,0
+2,Lateral Prefrontal Cortex,Cingulate gyrus,0
+2,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),0
+2,Lateral Prefrontal Cortex,Hippocampal formation,0
+2,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,0
+2,Lateral Prefrontal Cortex,Occipital/Temporal,0
+2,Lateral Prefrontal Cortex,Operculum/Insula,0
+2,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",0
+2,Lateral Prefrontal Cortex,Subcortical,0
+2,Lateral Prefrontal Cortex,Temporal,0
+2,Occipital/Temporal,Cingulate gyrus,0
+2,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+2,Occipital/Temporal,Hippocampal formation,0
+2,Occipital/Temporal,Lateral Prefrontal Cortex,0
+2,Occipital/Temporal,Occipital/Temporal,2
+2,Occipital/Temporal,Operculum/Insula,0
+2,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Occipital/Temporal,"Parietal, and Parieto-occipital region",0
+2,Occipital/Temporal,Subcortical,0
+2,Occipital/Temporal,Temporal,0
+2,Operculum/Insula,Cingulate gyrus,0
+2,Operculum/Insula,Frontal (agranular frontal motor areas),0
+2,Operculum/Insula,Hippocampal formation,0
+2,Operculum/Insula,Lateral Prefrontal Cortex,0
+2,Operculum/Insula,Occipital/Temporal,0
+2,Operculum/Insula,Operculum/Insula,0
+2,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Operculum/Insula,"Parietal, and Parieto-occipital region",0
+2,Operculum/Insula,Subcortical,0
+2,Operculum/Insula,Temporal,1
+2,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+2,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,4
+2,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+2,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),1
+2,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+2,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,0
+2,"Parietal, and Parieto-occipital region",Occipital/Temporal,3
+2,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+2,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),0
+2,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",0
+2,"Parietal, and Parieto-occipital region",Subcortical,0
+2,"Parietal, and Parieto-occipital region",Temporal,0
+2,Subcortical,Cingulate gyrus,0
+2,Subcortical,Frontal (agranular frontal motor areas),0
+2,Subcortical,Hippocampal formation,0
+2,Subcortical,Lateral Prefrontal Cortex,0
+2,Subcortical,Occipital/Temporal,0
+2,Subcortical,Operculum/Insula,0
+2,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Subcortical,"Parietal, and Parieto-occipital region",0
+2,Subcortical,Subcortical,3
+2,Subcortical,Temporal,0
+2,Temporal,Cingulate gyrus,0
+2,Temporal,Frontal (agranular frontal motor areas),0
+2,Temporal,Hippocampal formation,0
+2,Temporal,Lateral Prefrontal Cortex,0
+2,Temporal,Occipital/Temporal,0
+2,Temporal,Operculum/Insula,0
+2,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+2,Temporal,"Parietal, and Parieto-occipital region",0
+2,Temporal,Subcortical,0
+2,Temporal,Temporal,1
+34,Cingulate gyrus,Cingulate gyrus,2
+34,Cingulate gyrus,Frontal (agranular frontal motor areas),0
+34,Cingulate gyrus,Hippocampal formation,0
+34,Cingulate gyrus,Lateral Prefrontal Cortex,4
+34,Cingulate gyrus,Occipital/Temporal,0
+34,Cingulate gyrus,Operculum/Insula,2
+34,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),1
+34,Cingulate gyrus,"Parietal, and Parieto-occipital region",0
+34,Cingulate gyrus,Subcortical,0
+34,Cingulate gyrus,Temporal,1
+34,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),14
+34,Frontal (agranular frontal motor areas),Hippocampal formation,0
+34,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,2
+34,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+34,Frontal (agranular frontal motor areas),Operculum/Insula,0
+34,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),1
+34,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",0
+34,Frontal (agranular frontal motor areas),Subcortical,0
+34,Frontal (agranular frontal motor areas),Temporal,1
+34,Hippocampal formation,Cingulate gyrus,0
+34,Hippocampal formation,Frontal (agranular frontal motor areas),0
+34,Hippocampal formation,Hippocampal formation,1
+34,Hippocampal formation,Lateral Prefrontal Cortex,0
+34,Hippocampal formation,Occipital/Temporal,0
+34,Hippocampal formation,Operculum/Insula,0
+34,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+34,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+34,Hippocampal formation,Subcortical,2
+34,Hippocampal formation,Temporal,0
+34,Lateral Prefrontal Cortex,Cingulate gyrus,0
+34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),9
+34,Lateral Prefrontal Cortex,Hippocampal formation,0
+34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,7
+34,Lateral Prefrontal Cortex,Occipital/Temporal,0
+34,Lateral Prefrontal Cortex,Operculum/Insula,1
+34,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),4
+34,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",1
+34,Lateral Prefrontal Cortex,Subcortical,0
+34,Lateral Prefrontal Cortex,Temporal,11
+34,Occipital/Temporal,Cingulate gyrus,0
+34,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+34,Occipital/Temporal,Hippocampal formation,0
+34,Occipital/Temporal,Lateral Prefrontal Cortex,0
+34,Occipital/Temporal,Occipital/Temporal,10
+34,Occipital/Temporal,Operculum/Insula,0
+34,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+34,Occipital/Temporal,"Parietal, and Parieto-occipital region",0
+34,Occipital/Temporal,Subcortical,1
+34,Occipital/Temporal,Temporal,10
+34,Operculum/Insula,Cingulate gyrus,0
+34,Operculum/Insula,Frontal (agranular frontal motor areas),0
+34,Operculum/Insula,Hippocampal formation,0
+34,Operculum/Insula,Lateral Prefrontal Cortex,1
+34,Operculum/Insula,Occipital/Temporal,0
+34,Operculum/Insula,Operculum/Insula,3
+34,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),5
+34,Operculum/Insula,"Parietal, and Parieto-occipital region",0
+34,Operculum/Insula,Subcortical,0
+34,Operculum/Insula,Temporal,5
+34,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+34,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+34,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+34,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,4
+34,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+34,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,4
+34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),8
+34,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+34,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,1
+34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,10
+34,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+34,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),1
+34,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+34,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,3
+34,"Parietal, and Parieto-occipital region",Occipital/Temporal,2
+34,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+34,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),2
+34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",8
+34,"Parietal, and Parieto-occipital region",Subcortical,0
+34,"Parietal, and Parieto-occipital region",Temporal,10
+34,Subcortical,Cingulate gyrus,0
+34,Subcortical,Frontal (agranular frontal motor areas),0
+34,Subcortical,Hippocampal formation,0
+34,Subcortical,Lateral Prefrontal Cortex,0
+34,Subcortical,Occipital/Temporal,0
+34,Subcortical,Operculum/Insula,1
+34,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+34,Subcortical,"Parietal, and Parieto-occipital region",0
+34,Subcortical,Subcortical,12
+34,Subcortical,Temporal,0
+34,Temporal,Cingulate gyrus,0
+34,Temporal,Frontal (agranular frontal motor areas),1
+34,Temporal,Hippocampal formation,0
+34,Temporal,Lateral Prefrontal Cortex,1
+34,Temporal,Occipital/Temporal,2
+34,Temporal,Operculum/Insula,7
+34,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),1
+34,Temporal,"Parietal, and Parieto-occipital region",1
+34,Temporal,Subcortical,2
+34,Temporal,Temporal,39
+67,Cingulate gyrus,Cingulate gyrus,0
+67,Cingulate gyrus,Frontal (agranular frontal motor areas),0
+67,Cingulate gyrus,Hippocampal formation,0
+67,Cingulate gyrus,Lateral Prefrontal Cortex,0
+67,Cingulate gyrus,Occipital/Temporal,0
+67,Cingulate gyrus,Operculum/Insula,0
+67,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),1
+67,Cingulate gyrus,"Parietal, and Parieto-occipital region",0
+67,Cingulate gyrus,Subcortical,0
+67,Cingulate gyrus,Temporal,0
+67,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+67,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),4
+67,Frontal (agranular frontal motor areas),Hippocampal formation,0
+67,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,0
+67,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+67,Frontal (agranular frontal motor areas),Operculum/Insula,0
+67,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),0
+67,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",1
+67,Frontal (agranular frontal motor areas),Subcortical,0
+67,Frontal (agranular frontal motor areas),Temporal,0
+67,Hippocampal formation,Cingulate gyrus,0
+67,Hippocampal formation,Frontal (agranular frontal motor areas),0
+67,Hippocampal formation,Hippocampal formation,0
+67,Hippocampal formation,Lateral Prefrontal Cortex,0
+67,Hippocampal formation,Occipital/Temporal,0
+67,Hippocampal formation,Operculum/Insula,0
+67,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+67,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+67,Hippocampal formation,Subcortical,0
+67,Hippocampal formation,Temporal,0
+67,Lateral Prefrontal Cortex,Cingulate gyrus,0
+67,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),0
+67,Lateral Prefrontal Cortex,Hippocampal formation,0
+67,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,0
+67,Lateral Prefrontal Cortex,Occipital/Temporal,0
+67,Lateral Prefrontal Cortex,Operculum/Insula,0
+67,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),0
+67,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",0
+67,Lateral Prefrontal Cortex,Subcortical,0
+67,Lateral Prefrontal Cortex,Temporal,0
+67,Occipital/Temporal,Cingulate gyrus,0
+67,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+67,Occipital/Temporal,Hippocampal formation,0
+67,Occipital/Temporal,Lateral Prefrontal Cortex,0
+67,Occipital/Temporal,Occipital/Temporal,1
+67,Occipital/Temporal,Operculum/Insula,0
+67,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+67,Occipital/Temporal,"Parietal, and Parieto-occipital region",0
+67,Occipital/Temporal,Subcortical,0
+67,Occipital/Temporal,Temporal,0
+67,Operculum/Insula,Cingulate gyrus,0
+67,Operculum/Insula,Frontal (agranular frontal motor areas),0
+67,Operculum/Insula,Hippocampal formation,0
+67,Operculum/Insula,Lateral Prefrontal Cortex,0
+67,Operculum/Insula,Occipital/Temporal,0
+67,Operculum/Insula,Operculum/Insula,0
+67,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),0
+67,Operculum/Insula,"Parietal, and Parieto-occipital region",0
+67,Operculum/Insula,Subcortical,0
+67,Operculum/Insula,Temporal,1
+67,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),2
+67,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+67,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,0
+67,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+67,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),0
+67,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+67,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,0
+67,"Parietal, and Parieto-occipital region",Occipital/Temporal,0
+67,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+67,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),0
+67,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",0
+67,"Parietal, and Parieto-occipital region",Subcortical,0
+67,"Parietal, and Parieto-occipital region",Temporal,0
+67,Subcortical,Cingulate gyrus,0
+67,Subcortical,Frontal (agranular frontal motor areas),0
+67,Subcortical,Hippocampal formation,0
+67,Subcortical,Lateral Prefrontal Cortex,0
+67,Subcortical,Occipital/Temporal,0
+67,Subcortical,Operculum/Insula,0
+67,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+67,Subcortical,"Parietal, and Parieto-occipital region",0
+67,Subcortical,Subcortical,1
+67,Subcortical,Temporal,0
+67,Temporal,Cingulate gyrus,0
+67,Temporal,Frontal (agranular frontal motor areas),0
+67,Temporal,Hippocampal formation,0
+67,Temporal,Lateral Prefrontal Cortex,0
+67,Temporal,Occipital/Temporal,0
+67,Temporal,Operculum/Insula,0
+67,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+67,Temporal,"Parietal, and Parieto-occipital region",0
+67,Temporal,Subcortical,0
+67,Temporal,Temporal,0
+79,Cingulate gyrus,Cingulate gyrus,0
+79,Cingulate gyrus,Frontal (agranular frontal motor areas),0
+79,Cingulate gyrus,Hippocampal formation,0
+79,Cingulate gyrus,Lateral Prefrontal Cortex,2
+79,Cingulate gyrus,Occipital/Temporal,0
+79,Cingulate gyrus,Operculum/Insula,0
+79,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Cingulate gyrus,"Parietal, and Parieto-occipital region",2
+79,Cingulate gyrus,Subcortical,0
+79,Cingulate gyrus,Temporal,0
+79,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+79,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),0
+79,Frontal (agranular frontal motor areas),Hippocampal formation,0
+79,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,0
+79,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+79,Frontal (agranular frontal motor areas),Operculum/Insula,0
+79,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",0
+79,Frontal (agranular frontal motor areas),Subcortical,0
+79,Frontal (agranular frontal motor areas),Temporal,0
+79,Hippocampal formation,Cingulate gyrus,0
+79,Hippocampal formation,Frontal (agranular frontal motor areas),0
+79,Hippocampal formation,Hippocampal formation,0
+79,Hippocampal formation,Lateral Prefrontal Cortex,0
+79,Hippocampal formation,Occipital/Temporal,0
+79,Hippocampal formation,Operculum/Insula,0
+79,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+79,Hippocampal formation,Subcortical,0
+79,Hippocampal formation,Temporal,0
+79,Lateral Prefrontal Cortex,Cingulate gyrus,0
+79,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),0
+79,Lateral Prefrontal Cortex,Hippocampal formation,0
+79,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,0
+79,Lateral Prefrontal Cortex,Occipital/Temporal,0
+79,Lateral Prefrontal Cortex,Operculum/Insula,0
+79,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",0
+79,Lateral Prefrontal Cortex,Subcortical,0
+79,Lateral Prefrontal Cortex,Temporal,0
+79,Occipital/Temporal,Cingulate gyrus,0
+79,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+79,Occipital/Temporal,Hippocampal formation,0
+79,Occipital/Temporal,Lateral Prefrontal Cortex,0
+79,Occipital/Temporal,Occipital/Temporal,3
+79,Occipital/Temporal,Operculum/Insula,0
+79,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Occipital/Temporal,"Parietal, and Parieto-occipital region",0
+79,Occipital/Temporal,Subcortical,0
+79,Occipital/Temporal,Temporal,0
+79,Operculum/Insula,Cingulate gyrus,0
+79,Operculum/Insula,Frontal (agranular frontal motor areas),0
+79,Operculum/Insula,Hippocampal formation,0
+79,Operculum/Insula,Lateral Prefrontal Cortex,0
+79,Operculum/Insula,Occipital/Temporal,0
+79,Operculum/Insula,Operculum/Insula,1
+79,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Operculum/Insula,"Parietal, and Parieto-occipital region",0
+79,Operculum/Insula,Subcortical,0
+79,Operculum/Insula,Temporal,0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,1
+79,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+79,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,1
+79,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+79,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),0
+79,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+79,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,0
+79,"Parietal, and Parieto-occipital region",Occipital/Temporal,0
+79,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+79,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),0
+79,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",0
+79,"Parietal, and Parieto-occipital region",Subcortical,0
+79,"Parietal, and Parieto-occipital region",Temporal,0
+79,Subcortical,Cingulate gyrus,0
+79,Subcortical,Frontal (agranular frontal motor areas),0
+79,Subcortical,Hippocampal formation,1
+79,Subcortical,Lateral Prefrontal Cortex,0
+79,Subcortical,Occipital/Temporal,0
+79,Subcortical,Operculum/Insula,0
+79,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Subcortical,"Parietal, and Parieto-occipital region",0
+79,Subcortical,Subcortical,4
+79,Subcortical,Temporal,0
+79,Temporal,Cingulate gyrus,0
+79,Temporal,Frontal (agranular frontal motor areas),0
+79,Temporal,Hippocampal formation,0
+79,Temporal,Lateral Prefrontal Cortex,0
+79,Temporal,Occipital/Temporal,0
+79,Temporal,Operculum/Insula,0
+79,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+79,Temporal,"Parietal, and Parieto-occipital region",2
+79,Temporal,Subcortical,0
+79,Temporal,Temporal,0
+92,Cingulate gyrus,Cingulate gyrus,1
+92,Cingulate gyrus,Frontal (agranular frontal motor areas),0
+92,Cingulate gyrus,Hippocampal formation,0
+92,Cingulate gyrus,Lateral Prefrontal Cortex,0
+92,Cingulate gyrus,Occipital/Temporal,0
+92,Cingulate gyrus,Operculum/Insula,0
+92,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),1
+92,Cingulate gyrus,"Parietal, and Parieto-occipital region",0
+92,Cingulate gyrus,Subcortical,0
+92,Cingulate gyrus,Temporal,0
+92,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+92,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),2
+92,Frontal (agranular frontal motor areas),Hippocampal formation,0
+92,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,0
+92,Frontal (agranular frontal motor areas),Occipital/Temporal,1
+92,Frontal (agranular frontal motor areas),Operculum/Insula,0
+92,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),2
+92,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",0
+92,Frontal (agranular frontal motor areas),Subcortical,1
+92,Frontal (agranular frontal motor areas),Temporal,1
+92,Hippocampal formation,Cingulate gyrus,0
+92,Hippocampal formation,Frontal (agranular frontal motor areas),0
+92,Hippocampal formation,Hippocampal formation,0
+92,Hippocampal formation,Lateral Prefrontal Cortex,0
+92,Hippocampal formation,Occipital/Temporal,0
+92,Hippocampal formation,Operculum/Insula,0
+92,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+92,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+92,Hippocampal formation,Subcortical,1
+92,Hippocampal formation,Temporal,0
+92,Lateral Prefrontal Cortex,Cingulate gyrus,0
+92,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),4
+92,Lateral Prefrontal Cortex,Hippocampal formation,0
+92,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,4
+92,Lateral Prefrontal Cortex,Occipital/Temporal,0
+92,Lateral Prefrontal Cortex,Operculum/Insula,0
+92,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),2
+92,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",1
+92,Lateral Prefrontal Cortex,Subcortical,0
+92,Lateral Prefrontal Cortex,Temporal,1
+92,Occipital/Temporal,Cingulate gyrus,0
+92,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+92,Occipital/Temporal,Hippocampal formation,0
+92,Occipital/Temporal,Lateral Prefrontal Cortex,1
+92,Occipital/Temporal,Occipital/Temporal,5
+92,Occipital/Temporal,Operculum/Insula,0
+92,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+92,Occipital/Temporal,"Parietal, and Parieto-occipital region",1
+92,Occipital/Temporal,Subcortical,0
+92,Occipital/Temporal,Temporal,3
+92,Operculum/Insula,Cingulate gyrus,0
+92,Operculum/Insula,Frontal (agranular frontal motor areas),0
+92,Operculum/Insula,Hippocampal formation,0
+92,Operculum/Insula,Lateral Prefrontal Cortex,1
+92,Operculum/Insula,Occipital/Temporal,0
+92,Operculum/Insula,Operculum/Insula,1
+92,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),2
+92,Operculum/Insula,"Parietal, and Parieto-occipital region",1
+92,Operculum/Insula,Subcortical,0
+92,Operculum/Insula,Temporal,2
+92,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,1
+92,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+92,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+92,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,2
+92,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,8
+92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),9
+92,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+92,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+92,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,2
+92,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+92,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),0
+92,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+92,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,3
+92,"Parietal, and Parieto-occipital region",Occipital/Temporal,0
+92,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+92,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),0
+92,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",6
+92,"Parietal, and Parieto-occipital region",Subcortical,0
+92,"Parietal, and Parieto-occipital region",Temporal,5
+92,Subcortical,Cingulate gyrus,0
+92,Subcortical,Frontal (agranular frontal motor areas),0
+92,Subcortical,Hippocampal formation,0
+92,Subcortical,Lateral Prefrontal Cortex,0
+92,Subcortical,Occipital/Temporal,0
+92,Subcortical,Operculum/Insula,0
+92,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+92,Subcortical,"Parietal, and Parieto-occipital region",0
+92,Subcortical,Subcortical,8
+92,Subcortical,Temporal,0
+92,Temporal,Cingulate gyrus,0
+92,Temporal,Frontal (agranular frontal motor areas),0
+92,Temporal,Hippocampal formation,0
+92,Temporal,Lateral Prefrontal Cortex,1
+92,Temporal,Occipital/Temporal,2
+92,Temporal,Operculum/Insula,2
+92,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),3
+92,Temporal,"Parietal, and Parieto-occipital region",0
+92,Temporal,Subcortical,1
+92,Temporal,Temporal,22
+qbt,Cingulate gyrus,Cingulate gyrus,0
+qbt,Cingulate gyrus,Frontal (agranular frontal motor areas),0
+qbt,Cingulate gyrus,Hippocampal formation,0
+qbt,Cingulate gyrus,Lateral Prefrontal Cortex,1
+qbt,Cingulate gyrus,Occipital/Temporal,0
+qbt,Cingulate gyrus,Operculum/Insula,0
+qbt,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),1
+qbt,Cingulate gyrus,"Parietal, and Parieto-occipital region",0
+qbt,Cingulate gyrus,Subcortical,0
+qbt,Cingulate gyrus,Temporal,0
+qbt,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+qbt,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),6
+qbt,Frontal (agranular frontal motor areas),Hippocampal formation,0
+qbt,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,1
+qbt,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+qbt,Frontal (agranular frontal motor areas),Operculum/Insula,0
+qbt,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",0
+qbt,Frontal (agranular frontal motor areas),Subcortical,0
+qbt,Frontal (agranular frontal motor areas),Temporal,1
+qbt,Hippocampal formation,Cingulate gyrus,0
+qbt,Hippocampal formation,Frontal (agranular frontal motor areas),0
+qbt,Hippocampal formation,Hippocampal formation,0
+qbt,Hippocampal formation,Lateral Prefrontal Cortex,0
+qbt,Hippocampal formation,Occipital/Temporal,0
+qbt,Hippocampal formation,Operculum/Insula,0
+qbt,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+qbt,Hippocampal formation,Subcortical,0
+qbt,Hippocampal formation,Temporal,0
+qbt,Lateral Prefrontal Cortex,Cingulate gyrus,0
+qbt,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),0
+qbt,Lateral Prefrontal Cortex,Hippocampal formation,0
+qbt,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,5
+qbt,Lateral Prefrontal Cortex,Occipital/Temporal,0
+qbt,Lateral Prefrontal Cortex,Operculum/Insula,0
+qbt,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",0
+qbt,Lateral Prefrontal Cortex,Subcortical,0
+qbt,Lateral Prefrontal Cortex,Temporal,7
+qbt,Occipital/Temporal,Cingulate gyrus,0
+qbt,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+qbt,Occipital/Temporal,Hippocampal formation,0
+qbt,Occipital/Temporal,Lateral Prefrontal Cortex,0
+qbt,Occipital/Temporal,Occipital/Temporal,0
+qbt,Occipital/Temporal,Operculum/Insula,0
+qbt,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,Occipital/Temporal,"Parietal, and Parieto-occipital region",1
+qbt,Occipital/Temporal,Subcortical,0
+qbt,Occipital/Temporal,Temporal,8
+qbt,Operculum/Insula,Cingulate gyrus,0
+qbt,Operculum/Insula,Frontal (agranular frontal motor areas),0
+qbt,Operculum/Insula,Hippocampal formation,0
+qbt,Operculum/Insula,Lateral Prefrontal Cortex,0
+qbt,Operculum/Insula,Occipital/Temporal,0
+qbt,Operculum/Insula,Operculum/Insula,2
+qbt,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,Operculum/Insula,"Parietal, and Parieto-occipital region",0
+qbt,Operculum/Insula,Subcortical,0
+qbt,Operculum/Insula,Temporal,10
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),1
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,9
+qbt,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+qbt,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),0
+qbt,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+qbt,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,3
+qbt,"Parietal, and Parieto-occipital region",Occipital/Temporal,0
+qbt,"Parietal, and Parieto-occipital region",Operculum/Insula,1
+qbt,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",1
+qbt,"Parietal, and Parieto-occipital region",Subcortical,0
+qbt,"Parietal, and Parieto-occipital region",Temporal,8
+qbt,Subcortical,Cingulate gyrus,0
+qbt,Subcortical,Frontal (agranular frontal motor areas),0
+qbt,Subcortical,Hippocampal formation,0
+qbt,Subcortical,Lateral Prefrontal Cortex,0
+qbt,Subcortical,Occipital/Temporal,0
+qbt,Subcortical,Operculum/Insula,0
+qbt,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,Subcortical,"Parietal, and Parieto-occipital region",0
+qbt,Subcortical,Subcortical,0
+qbt,Subcortical,Temporal,0
+qbt,Temporal,Cingulate gyrus,0
+qbt,Temporal,Frontal (agranular frontal motor areas),0
+qbt,Temporal,Hippocampal formation,0
+qbt,Temporal,Lateral Prefrontal Cortex,1
+qbt,Temporal,Occipital/Temporal,0
+qbt,Temporal,Operculum/Insula,1
+qbt,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+qbt,Temporal,"Parietal, and Parieto-occipital region",0
+qbt,Temporal,Subcortical,0
+qbt,Temporal,Temporal,11
+xq,Cingulate gyrus,Cingulate gyrus,2
+xq,Cingulate gyrus,Frontal (agranular frontal motor areas),1
+xq,Cingulate gyrus,Hippocampal formation,0
+xq,Cingulate gyrus,Lateral Prefrontal Cortex,0
+xq,Cingulate gyrus,Occipital/Temporal,0
+xq,Cingulate gyrus,Operculum/Insula,2
+xq,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),3
+xq,Cingulate gyrus,"Parietal, and Parieto-occipital region",1
+xq,Cingulate gyrus,Subcortical,0
+xq,Cingulate gyrus,Temporal,4
+xq,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+xq,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),5
+xq,Frontal (agranular frontal motor areas),Hippocampal formation,0
+xq,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,2
+xq,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+xq,Frontal (agranular frontal motor areas),Operculum/Insula,0
+xq,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),4
+xq,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",1
+xq,Frontal (agranular frontal motor areas),Subcortical,0
+xq,Frontal (agranular frontal motor areas),Temporal,1
+xq,Hippocampal formation,Cingulate gyrus,0
+xq,Hippocampal formation,Frontal (agranular frontal motor areas),0
+xq,Hippocampal formation,Hippocampal formation,0
+xq,Hippocampal formation,Lateral Prefrontal Cortex,0
+xq,Hippocampal formation,Occipital/Temporal,0
+xq,Hippocampal formation,Operculum/Insula,0
+xq,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+xq,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+xq,Hippocampal formation,Subcortical,4
+xq,Hippocampal formation,Temporal,0
+xq,Lateral Prefrontal Cortex,Cingulate gyrus,0
+xq,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),5
+xq,Lateral Prefrontal Cortex,Hippocampal formation,0
+xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,8
+xq,Lateral Prefrontal Cortex,Occipital/Temporal,0
+xq,Lateral Prefrontal Cortex,Operculum/Insula,0
+xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),10
+xq,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",3
+xq,Lateral Prefrontal Cortex,Subcortical,0
+xq,Lateral Prefrontal Cortex,Temporal,4
+xq,Occipital/Temporal,Cingulate gyrus,0
+xq,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+xq,Occipital/Temporal,Hippocampal formation,0
+xq,Occipital/Temporal,Lateral Prefrontal Cortex,0
+xq,Occipital/Temporal,Occipital/Temporal,15
+xq,Occipital/Temporal,Operculum/Insula,0
+xq,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+xq,Occipital/Temporal,"Parietal, and Parieto-occipital region",3
+xq,Occipital/Temporal,Subcortical,0
+xq,Occipital/Temporal,Temporal,2
+xq,Operculum/Insula,Cingulate gyrus,0
+xq,Operculum/Insula,Frontal (agranular frontal motor areas),0
+xq,Operculum/Insula,Hippocampal formation,0
+xq,Operculum/Insula,Lateral Prefrontal Cortex,1
+xq,Operculum/Insula,Occipital/Temporal,0
+xq,Operculum/Insula,Operculum/Insula,5
+xq,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),5
+xq,Operculum/Insula,"Parietal, and Parieto-occipital region",1
+xq,Operculum/Insula,Subcortical,0
+xq,Operculum/Insula,Temporal,7
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,1
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,2
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),11
+xq,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",1
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+xq,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,2
+xq,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+xq,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),1
+xq,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+xq,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,2
+xq,"Parietal, and Parieto-occipital region",Occipital/Temporal,1
+xq,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+xq,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),1
+xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",11
+xq,"Parietal, and Parieto-occipital region",Subcortical,1
+xq,"Parietal, and Parieto-occipital region",Temporal,8
+xq,Subcortical,Cingulate gyrus,0
+xq,Subcortical,Frontal (agranular frontal motor areas),0
+xq,Subcortical,Hippocampal formation,0
+xq,Subcortical,Lateral Prefrontal Cortex,0
+xq,Subcortical,Occipital/Temporal,0
+xq,Subcortical,Operculum/Insula,0
+xq,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+xq,Subcortical,"Parietal, and Parieto-occipital region",0
+xq,Subcortical,Subcortical,17
+xq,Subcortical,Temporal,1
+xq,Temporal,Cingulate gyrus,0
+xq,Temporal,Frontal (agranular frontal motor areas),0
+xq,Temporal,Hippocampal formation,0
+xq,Temporal,Lateral Prefrontal Cortex,1
+xq,Temporal,Occipital/Temporal,4
+xq,Temporal,Operculum/Insula,3
+xq,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),1
+xq,Temporal,"Parietal, and Parieto-occipital region",9
+xq,Temporal,Subcortical,0
+xq,Temporal,Temporal,45
+xz,Cingulate gyrus,Cingulate gyrus,0
+xz,Cingulate gyrus,Frontal (agranular frontal motor areas),1
+xz,Cingulate gyrus,Hippocampal formation,0
+xz,Cingulate gyrus,Lateral Prefrontal Cortex,2
+xz,Cingulate gyrus,Occipital/Temporal,0
+xz,Cingulate gyrus,Operculum/Insula,0
+xz,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),1
+xz,Cingulate gyrus,"Parietal, and Parieto-occipital region",0
+xz,Cingulate gyrus,Subcortical,0
+xz,Cingulate gyrus,Temporal,2
+xz,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+xz,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),5
+xz,Frontal (agranular frontal motor areas),Hippocampal formation,0
+xz,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,3
+xz,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+xz,Frontal (agranular frontal motor areas),Operculum/Insula,0
+xz,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),0
+xz,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",1
+xz,Frontal (agranular frontal motor areas),Subcortical,0
+xz,Frontal (agranular frontal motor areas),Temporal,0
+xz,Hippocampal formation,Cingulate gyrus,0
+xz,Hippocampal formation,Frontal (agranular frontal motor areas),0
+xz,Hippocampal formation,Hippocampal formation,0
+xz,Hippocampal formation,Lateral Prefrontal Cortex,0
+xz,Hippocampal formation,Occipital/Temporal,0
+xz,Hippocampal formation,Operculum/Insula,0
+xz,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+xz,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+xz,Hippocampal formation,Subcortical,0
+xz,Hippocampal formation,Temporal,0
+xz,Lateral Prefrontal Cortex,Cingulate gyrus,0
+xz,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),1
+xz,Lateral Prefrontal Cortex,Hippocampal formation,0
+xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,7
+xz,Lateral Prefrontal Cortex,Occipital/Temporal,0
+xz,Lateral Prefrontal Cortex,Operculum/Insula,0
+xz,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),0
+xz,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",3
+xz,Lateral Prefrontal Cortex,Subcortical,0
+xz,Lateral Prefrontal Cortex,Temporal,6
+xz,Occipital/Temporal,Cingulate gyrus,0
+xz,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+xz,Occipital/Temporal,Hippocampal formation,0
+xz,Occipital/Temporal,Lateral Prefrontal Cortex,0
+xz,Occipital/Temporal,Occipital/Temporal,1
+xz,Occipital/Temporal,Operculum/Insula,0
+xz,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+xz,Occipital/Temporal,"Parietal, and Parieto-occipital region",0
+xz,Occipital/Temporal,Subcortical,0
+xz,Occipital/Temporal,Temporal,1
+xz,Operculum/Insula,Cingulate gyrus,0
+xz,Operculum/Insula,Frontal (agranular frontal motor areas),0
+xz,Operculum/Insula,Hippocampal formation,0
+xz,Operculum/Insula,Lateral Prefrontal Cortex,1
+xz,Operculum/Insula,Occipital/Temporal,1
+xz,Operculum/Insula,Operculum/Insula,0
+xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),7
+xz,Operculum/Insula,"Parietal, and Parieto-occipital region",0
+xz,Operculum/Insula,Subcortical,1
+xz,Operculum/Insula,Temporal,3
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,6
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,1
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,0
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),6
+xz,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+xz,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,1
+xz,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+xz,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),1
+xz,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+xz,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,2
+xz,"Parietal, and Parieto-occipital region",Occipital/Temporal,0
+xz,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+xz,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),3
+xz,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",5
+xz,"Parietal, and Parieto-occipital region",Subcortical,0
+xz,"Parietal, and Parieto-occipital region",Temporal,3
+xz,Subcortical,Cingulate gyrus,0
+xz,Subcortical,Frontal (agranular frontal motor areas),0
+xz,Subcortical,Hippocampal formation,0
+xz,Subcortical,Lateral Prefrontal Cortex,0
+xz,Subcortical,Occipital/Temporal,0
+xz,Subcortical,Operculum/Insula,0
+xz,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),0
+xz,Subcortical,"Parietal, and Parieto-occipital region",0
+xz,Subcortical,Subcortical,0
+xz,Subcortical,Temporal,0
+xz,Temporal,Cingulate gyrus,0
+xz,Temporal,Frontal (agranular frontal motor areas),0
+xz,Temporal,Hippocampal formation,0
+xz,Temporal,Lateral Prefrontal Cortex,0
+xz,Temporal,Occipital/Temporal,1
+xz,Temporal,Operculum/Insula,1
+xz,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),3
+xz,Temporal,"Parietal, and Parieto-occipital region",0
+xz,Temporal,Subcortical,0
+xz,Temporal,Temporal,18
+zs,Cingulate gyrus,Cingulate gyrus,0
+zs,Cingulate gyrus,Frontal (agranular frontal motor areas),0
+zs,Cingulate gyrus,Hippocampal formation,0
+zs,Cingulate gyrus,Lateral Prefrontal Cortex,1
+zs,Cingulate gyrus,Occipital/Temporal,0
+zs,Cingulate gyrus,Operculum/Insula,0
+zs,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),0
+zs,Cingulate gyrus,"Parietal, and Parieto-occipital region",0
+zs,Cingulate gyrus,Subcortical,0
+zs,Cingulate gyrus,Temporal,0
+zs,Frontal (agranular frontal motor areas),Cingulate gyrus,0
+zs,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),1
+zs,Frontal (agranular frontal motor areas),Hippocampal formation,0
+zs,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,0
+zs,Frontal (agranular frontal motor areas),Occipital/Temporal,0
+zs,Frontal (agranular frontal motor areas),Operculum/Insula,0
+zs,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),0
+zs,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region",1
+zs,Frontal (agranular frontal motor areas),Subcortical,0
+zs,Frontal (agranular frontal motor areas),Temporal,1
+zs,Hippocampal formation,Cingulate gyrus,0
+zs,Hippocampal formation,Frontal (agranular frontal motor areas),0
+zs,Hippocampal formation,Hippocampal formation,0
+zs,Hippocampal formation,Lateral Prefrontal Cortex,0
+zs,Hippocampal formation,Occipital/Temporal,0
+zs,Hippocampal formation,Operculum/Insula,0
+zs,Hippocampal formation,Orbitomedial Prefrontal Cortex (OMPFC),0
+zs,Hippocampal formation,"Parietal, and Parieto-occipital region",0
+zs,Hippocampal formation,Subcortical,0
+zs,Hippocampal formation,Temporal,0
+zs,Lateral Prefrontal Cortex,Cingulate gyrus,0
+zs,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),2
+zs,Lateral Prefrontal Cortex,Hippocampal formation,0
+zs,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,1
+zs,Lateral Prefrontal Cortex,Occipital/Temporal,0
+zs,Lateral Prefrontal Cortex,Operculum/Insula,0
+zs,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),0
+zs,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region",0
+zs,Lateral Prefrontal Cortex,Subcortical,0
+zs,Lateral Prefrontal Cortex,Temporal,0
+zs,Occipital/Temporal,Cingulate gyrus,0
+zs,Occipital/Temporal,Frontal (agranular frontal motor areas),0
+zs,Occipital/Temporal,Hippocampal formation,0
+zs,Occipital/Temporal,Lateral Prefrontal Cortex,0
+zs,Occipital/Temporal,Occipital/Temporal,2
+zs,Occipital/Temporal,Operculum/Insula,0
+zs,Occipital/Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+zs,Occipital/Temporal,"Parietal, and Parieto-occipital region",0
+zs,Occipital/Temporal,Subcortical,0
+zs,Occipital/Temporal,Temporal,0
+zs,Operculum/Insula,Cingulate gyrus,0
+zs,Operculum/Insula,Frontal (agranular frontal motor areas),0
+zs,Operculum/Insula,Hippocampal formation,0
+zs,Operculum/Insula,Lateral Prefrontal Cortex,2
+zs,Operculum/Insula,Occipital/Temporal,0
+zs,Operculum/Insula,Operculum/Insula,1
+zs,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),1
+zs,Operculum/Insula,"Parietal, and Parieto-occipital region",0
+zs,Operculum/Insula,Subcortical,0
+zs,Operculum/Insula,Temporal,9
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Frontal (agranular frontal motor areas),0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Hippocampal formation,0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),2
+zs,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region",0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,0
+zs,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,4
+zs,"Parietal, and Parieto-occipital region",Cingulate gyrus,0
+zs,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),0
+zs,"Parietal, and Parieto-occipital region",Hippocampal formation,0
+zs,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,1
+zs,"Parietal, and Parieto-occipital region",Occipital/Temporal,0
+zs,"Parietal, and Parieto-occipital region",Operculum/Insula,0
+zs,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),0
+zs,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region",1
+zs,"Parietal, and Parieto-occipital region",Subcortical,0
+zs,"Parietal, and Parieto-occipital region",Temporal,0
+zs,Subcortical,Cingulate gyrus,0
+zs,Subcortical,Frontal (agranular frontal motor areas),0
+zs,Subcortical,Hippocampal formation,0
+zs,Subcortical,Lateral Prefrontal Cortex,0
+zs,Subcortical,Occipital/Temporal,0
+zs,Subcortical,Operculum/Insula,0
+zs,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),1
+zs,Subcortical,"Parietal, and Parieto-occipital region",0
+zs,Subcortical,Subcortical,5
+zs,Subcortical,Temporal,0
+zs,Temporal,Cingulate gyrus,0
+zs,Temporal,Frontal (agranular frontal motor areas),0
+zs,Temporal,Hippocampal formation,0
+zs,Temporal,Lateral Prefrontal Cortex,0
+zs,Temporal,Occipital/Temporal,1
+zs,Temporal,Operculum/Insula,0
+zs,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),0
+zs,Temporal,"Parietal, and Parieto-occipital region",1
+zs,Temporal,Subcortical,0
+zs,Temporal,Temporal,4

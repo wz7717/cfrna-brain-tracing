@@ -1,0 +1,7 @@
+source,background_a,background_b,significant_a_n,significant_b_n,significant_intersection_n,significant_union_n,significant_jaccard,retention_of_a,retention_of_b,common_tested_terms_n,spearman_neglog10_q
+GO:BP,model_space_21668,gprofiler_annotated_domain,446,410,409,447,0.9149888143176734,0.9170403587443946,0.9975609756097561,3352,0.9920767668962609
+KEGG,model_space_21668,gprofiler_annotated_domain,11,8,8,11,0.7272727272727273,0.7272727272727273,1.0,199,0.950107791944034
+GO:BP,model_space_21668,bo2023_pseudobulk_tested_expression,446,438,438,446,0.9820627802690582,0.9820627802690582,1.0,3352,0.9999486743025893
+KEGG,model_space_21668,bo2023_pseudobulk_tested_expression,11,10,10,11,0.9090909090909091,0.9090909090909091,1.0,199,0.999877732756813
+GO:BP,gprofiler_annotated_domain,bo2023_pseudobulk_tested_expression,410,438,406,442,0.918552036199095,0.9902439024390244,0.9269406392694064,3352,0.9919800362210665
+KEGG,gprofiler_annotated_domain,bo2023_pseudobulk_tested_expression,8,10,8,10,0.8,1.0,0.8,199,0.9488804958175121

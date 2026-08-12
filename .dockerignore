@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Testing and CI
+.pytest_cache/
+.coverage
+htmlcov/
+.benchmarks/
+
+# Large data files (mount at runtime)
+external_data/
+raw_datasets_*/
+*.xls
+*.xlsx
+!requirements*.txt
+
+# Outputs and reports
+reports/
+results/
+*.png
+*.jpg
+*.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker itself
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Documentation
+*.md
+!README.md
+
+# Reproducibility (not needed for runtime)
+reproducibility/
+scripts/
+tests/

@@ -1,0 +1,9 @@
+metric,contrast,n_donors,mean_donor_difference,exact_sign_flip_p_two_sided
+top1,projected_vsd - logcpm_baseline,9,0.0696481517694144,0.046875
+top1,projected_vsd - native_vsd,9,0.07943456292061159,0.03125
+top3,projected_vsd - logcpm_baseline,9,0.048459421700253365,0.0703125
+top3,projected_vsd - native_vsd,9,0.04921854596266812,0.015625
+mrr,projected_vsd - logcpm_baseline,9,0.047444454436342744,0.03515625
+mrr,projected_vsd - native_vsd,9,0.05522153110988749,0.0234375
+ndcg_at_3,projected_vsd - logcpm_baseline,9,0.05531725852519029,0.03125
+ndcg_at_3,projected_vsd - native_vsd,9,0.061471255156527814,0.0078125

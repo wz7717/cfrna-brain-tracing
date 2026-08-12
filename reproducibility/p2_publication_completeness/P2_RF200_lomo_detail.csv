@@ -1,0 +1,820 @@
+sample_id,donor,truth,pred_top1,pred_top3,hit1,hit3,panel_genes
+19R348,2,"Parietal, and Parieto-occipital region",Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R349,2,"Parietal, and Parieto-occipital region",Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R350,2,Occipital/Temporal,Occipital/Temporal,Occipital/Temporal | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R356,2,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,1,200
+19R357,2,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+19R358,2,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R359,2,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R361,2,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+19R369,2,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Temporal",0,0,200
+19R372,2,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R376,2,Temporal,Temporal,Temporal | Operculum/Insula | Cingulate gyrus,1,1,200
+19R378,2,Subcortical,Subcortical,Subcortical | Hippocampal formation | Frontal (agranular frontal motor areas),1,1,200
+19R352,2,Subcortical,Subcortical,Subcortical | Hippocampal formation | Occipital/Temporal,1,1,200
+19R353,2,Subcortical,Subcortical,Subcortical | Temporal | Frontal (agranular frontal motor areas),1,1,200
+19R364,2,Operculum/Insula,Temporal,Temporal | Subcortical | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+19R368,2,"Parietal, and Parieto-occipital region",Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R371,2,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+19R627,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,0,0,200
+19R628,34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",1,1,200
+19R629,34,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,0,1,200
+19R630,34,Lateral Prefrontal Cortex,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R631,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+19R632,34,Lateral Prefrontal Cortex,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+19R633,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Temporal | Parietal, and Parieto-occipital region",0,0,200
+19R634,34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",1,1,200
+19R635,34,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R636,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R637,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R638,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R639,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,1,1,200
+19R640,34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Temporal,1,1,200
+19R641,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R642,34,Lateral Prefrontal Cortex,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R643,34,Cingulate gyrus,Operculum/Insula,Operculum/Insula | Cingulate gyrus | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R644,34,Cingulate gyrus,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+19R645,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+19R646,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R647,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Temporal | Lateral Prefrontal Cortex,0,1,200
+19R648,34,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,1,200
+19R649,34,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R650,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Subcortical | Operculum/Insula,1,1,200
+19R651,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R652,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R653,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+19R654,34,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,0,200
+19R655,34,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,0,200
+19R656,34,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+19R657,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R658,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R659,34,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,1,200
+19R660,34,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,1,1,200
+19R661,34,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+19R662,34,Temporal,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+19R663,34,"Parietal, and Parieto-occipital region",Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R664,34,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",0,1,200
+19R665,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R666,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Operculum/Insula",1,1,200
+19R667,34,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R668,34,Temporal,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+19R669,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",1,1,200
+19R670,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R671,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",1,1,200
+19R672,34,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R673,34,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R674,34,Occipital/Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+19R675,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",1,1,200
+19R676,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R677,34,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",0,1,200
+19R678,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R679,34,Occipital/Temporal,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,0,0,200
+19R680,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R722,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R723,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R724,34,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+19R725,34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R726,34,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,0,1,200
+19R727,34,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R728,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R729,34,Lateral Prefrontal Cortex,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+19R730,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Temporal | Lateral Prefrontal Cortex,0,1,200
+19R731,34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Operculum/Insula,1,1,200
+19R732,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R733,34,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R734,34,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+19R735,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R736,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,1,200
+19R737,34,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,0,200
+19R739,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R740,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R741,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R742,34,Lateral Prefrontal Cortex,Temporal,"Temporal | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",0,0,200
+19R743,34,Lateral Prefrontal Cortex,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+19R738,34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",1,1,200
+19R746,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",1,1,200
+19R747,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R748,34,Operculum/Insula,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+19R749,34,Temporal,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+19R750,34,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+19R751,34,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R752,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R753,34,Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",0,1,200
+19R754,34,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R755,34,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R756,34,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+19R757,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+19R758,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R759,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+19R760,34,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R793,34,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,1,200
+19R794,34,Temporal,Subcortical,Subcortical | Temporal | Lateral Prefrontal Cortex,0,1,200
+19R795,34,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R796,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R797,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R798,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R799,34,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R800,34,Temporal,Temporal,Temporal | Operculum/Insula | Cingulate gyrus,1,1,200
+19R801,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R802,34,Temporal,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+19R803,34,Subcortical,Operculum/Insula,Operculum/Insula | Temporal | Subcortical,0,1,200
+19R804,34,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+19R805,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",1,1,200
+19R806,34,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+19R807,34,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+19R808,34,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+19R809,34,Operculum/Insula,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Operculum/Insula | Temporal,0,1,200
+19R810,34,Cingulate gyrus,Cingulate gyrus,Cingulate gyrus | Temporal | Lateral Prefrontal Cortex,1,1,200
+19R811,34,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+19R812,34,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+19R813,34,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+19R814,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R815,34,Temporal,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R816,34,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+19R817,34,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,1,1,200
+19R818,34,Cingulate gyrus,Cingulate gyrus,Cingulate gyrus | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R819,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Subcortical",1,1,200
+19R820,34,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+19R821,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R822,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+19R823,34,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R744,34,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,0,200
+19R745,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R824,34,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R825,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R826,34,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R827,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R828,34,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R829,34,Frontal (agranular frontal motor areas),Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+19R830,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,0,0,200
+19R831,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R832,34,Temporal,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+19R833,34,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+19R834,34,Operculum/Insula,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,1,1,200
+19R835,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R836,34,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R837,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R838,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R839,34,Subcortical,Subcortical,"Subcortical | Hippocampal formation | Parietal, and Parieto-occipital region",1,1,200
+19R840,34,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+19R841,34,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Operculum/Insula | Temporal,0,0,200
+19R842,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R843,34,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",0,1,200
+19R844,34,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+19R845,34,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+19R846,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R873,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+19R874,34,"Parietal, and Parieto-occipital region",Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R875,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R876,34,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R877,34,Hippocampal formation,Subcortical,Subcortical | Hippocampal formation | Occipital/Temporal,0,1,200
+19R878,34,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R879,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Temporal",1,1,200
+19R882,34,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,1,200
+19R883,34,Temporal,Temporal,"Temporal | Operculum/Insula | Parietal, and Parieto-occipital region",1,1,200
+19R884,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R887,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R890,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R891,34,Lateral Prefrontal Cortex,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,1,200
+19R892,34,Hippocampal formation,Subcortical,Subcortical | Hippocampal formation | Frontal (agranular frontal motor areas),0,1,200
+19R893,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex",1,1,200
+19R894,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex",1,1,200
+20R046,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R047,34,Orbitomedial Prefrontal Cortex (OMPFC),Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R049,34,"Parietal, and Parieto-occipital region",Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+20R050,34,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R052,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R053,34,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R054,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Subcortical | Temporal",1,1,200
+20R059,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R060,34,Cingulate gyrus,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",0,0,200
+20R071,34,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Temporal",1,1,200
+20R072,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R073,34,Occipital/Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+20R074,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+20R075,34,Occipital/Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+20R077,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R078,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R080,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R081,34,Temporal,Operculum/Insula,Operculum/Insula | Temporal | Subcortical,0,1,200
+20R082,34,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R083,34,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,0,1,200
+20R085,34,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R086,34,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Frontal (agranular frontal motor areas),1,1,200
+20R087,34,Temporal,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+20R088,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R089,34,Occipital/Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+20R090,34,"Parietal, and Parieto-occipital region",Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+20R091,34,Occipital/Temporal,Temporal,"Temporal | Operculum/Insula | Parietal, and Parieto-occipital region",0,0,200
+20R093,34,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R095,34,Subcortical,Subcortical,Subcortical | Operculum/Insula | Temporal,1,1,200
+20R096,34,Temporal,Operculum/Insula,Operculum/Insula | Temporal | Subcortical,0,1,200
+20R097,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Occipital/Temporal,1,1,200
+20R098,34,Hippocampal formation,Hippocampal formation,Hippocampal formation | Subcortical | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R084,34,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Subcortical",1,1,200
+20R505,34,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Frontal (agranular frontal motor areas),0,0,200
+20R376,34,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus,0,1,200
+20R377,34,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R378,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Subcortical | Operculum/Insula,1,1,200
+20R379,34,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+20R382,34,Operculum/Insula,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,0,200
+20R383,34,Temporal,Subcortical,Subcortical | Operculum/Insula | Temporal,0,1,200
+20R384,34,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+20R385,34,Cingulate gyrus,Temporal,Temporal | Cingulate gyrus | Lateral Prefrontal Cortex,0,1,200
+20R509,34,Subcortical,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,1,1,200
+20R613,34,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R614,34,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Operculum/Insula,0,1,200
+20R615,34,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R619,34,Temporal,Operculum/Insula,Operculum/Insula | Temporal | Subcortical,0,1,200
+20R620,34,Temporal,Operculum/Insula,Operculum/Insula | Temporal | Subcortical,0,1,200
+20R621,34,Temporal,Operculum/Insula,Operculum/Insula | Subcortical | Temporal,0,1,200
+20R623,34,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Operculum/Insula | Temporal,0,0,200
+20R624,34,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Lateral Prefrontal Cortex,0,1,200
+20R625,34,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R636,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R637,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R638,34,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R639,34,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",0,1,200
+20R530,67,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+20R531,67,Operculum/Insula,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",0,0,200
+20R532,67,Subcortical,Subcortical,Subcortical | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R533,67,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+20R534,67,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R535,67,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R536,67,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R537,67,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas)",0,1,200
+20R538,67,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R539,67,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+20R540,67,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+20R511,79,Operculum/Insula,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,1,1,200
+20R512,79,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R513,79,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Operculum/Insula,0,0,200
+20R514,79,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R515,79,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,1,1,200
+20R516,79,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+20R517,79,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+20R518,79,Subcortical,Subcortical,"Subcortical | Parietal, and Parieto-occipital region | Hippocampal formation",1,1,200
+20R519,79,Subcortical,Hippocampal formation,Hippocampal formation | Subcortical | Operculum/Insula,0,1,200
+20R520,79,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Cingulate gyrus | Frontal (agranular frontal motor areas),0,1,200
+20R521,79,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R522,79,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+20R525,79,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Frontal (agranular frontal motor areas)",0,1,200
+20R526,79,Cingulate gyrus,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,0,200
+20R527,79,Cingulate gyrus,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Orbitomedial Prefrontal Cortex (OMPFC)",0,0,200
+20R528,79,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+20R529,79,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Frontal (agranular frontal motor areas)",0,1,200
+19R416,92,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Cingulate gyrus,0,0,200
+19R421,92,Frontal (agranular frontal motor areas),Subcortical,"Subcortical | Temporal | Parietal, and Parieto-occipital region",0,0,200
+19R422,92,Frontal (agranular frontal motor areas),Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",0,0,200
+19R423,92,Subcortical,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,1,1,200
+19R425,92,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Temporal",1,1,200
+19R426,92,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",0,1,200
+19R428,92,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+19R429,92,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R432,92,Occipital/Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+19R461,92,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",0,1,200
+19R462,92,"Parietal, and Parieto-occipital region",Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+19R464,92,Temporal,Operculum/Insula,"Operculum/Insula | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R465,92,Temporal,Subcortical,Subcortical | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R466,92,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R467,92,Occipital/Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,1,200
+19R468,92,Occipital/Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+19R469,92,Occipital/Temporal,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus,0,0,200
+19R470,92,Occipital/Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,0,0,200
+19R471,92,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R472,92,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+19R495,92,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Cingulate gyrus,0,1,200
+19R496,92,Lateral Prefrontal Cortex,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R497,92,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",1,1,200
+19R498,92,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R499,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R500,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Cingulate gyrus,1,1,200
+19R501,92,Frontal (agranular frontal motor areas),Temporal,"Temporal | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",0,1,200
+19R502,92,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R503,92,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+19R504,92,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R505,92,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+19R506,92,Operculum/Insula,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,0,200
+19R507,92,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+19R508,92,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+19R509,92,Temporal,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R510,92,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+19R511,92,Hippocampal formation,Subcortical,Subcortical | Operculum/Insula | Temporal,0,0,200
+19R512,92,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Temporal",1,1,200
+19R513,92,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",1,1,200
+19R514,92,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,1,1,200
+19R515,92,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R516,92,Subcortical,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,1,1,200
+19R517,92,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R518,92,Subcortical,Subcortical,Subcortical | Hippocampal formation | Occipital/Temporal,1,1,200
+19R519,92,Subcortical,Subcortical,Subcortical | Operculum/Insula | Temporal,1,1,200
+19R578,92,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,0,0,200
+19R579,92,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+19R580,92,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+19R581,92,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Operculum/Insula,0,1,200
+19R582,92,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R583,92,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",1,1,200
+19R584,92,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+19R585,92,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+19R586,92,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+19R587,92,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R588,92,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R589,92,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+19R590,92,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Operculum/Insula,0,0,200
+19R591,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R592,92,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R593,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R594,92,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas)",0,1,200
+19R595,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+19R596,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,"Operculum/Insula | Parietal, and Parieto-occipital region | Temporal",0,0,200
+19R597,92,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+19R598,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R599,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R600,92,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R601,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus,0,1,200
+19R602,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Subcortical,0,1,200
+19R603,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Subcortical,0,1,200
+19R604,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+19R605,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+19R606,92,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+19R607,92,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+19R608,92,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",1,1,200
+19R609,92,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Cingulate gyrus | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R610,92,Cingulate gyrus,Cingulate gyrus,Cingulate gyrus | Operculum/Insula | Temporal,1,1,200
+19R611,92,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Operculum/Insula",0,1,200
+19R612,92,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+19R613,92,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+19R614,92,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R880,92,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+19R881,92,Temporal,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+19R885,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Operculum/Insula,1,1,200
+19R886,92,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+19R888,92,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+19R889,92,Orbitomedial Prefrontal Cortex (OMPFC),Cingulate gyrus,Cingulate gyrus | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R048,92,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R051,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Operculum/Insula,1,1,200
+20R055,92,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,1,200
+20R056,92,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Temporal",1,1,200
+20R057,92,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+20R058,92,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Operculum/Insula",1,1,200
+20R061,92,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,1,200
+20R070,92,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",0,1,200
+20R076,92,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",0,1,200
+20R079,92,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Temporal",1,1,200
+20R092,92,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R094,92,Operculum/Insula,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,0,200
+20R316,92,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Lateral Prefrontal Cortex,1,1,200
+20R363,92,Operculum/Insula,Temporal,Temporal | Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex,0,0,200
+20R364,92,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,1,1,200
+20R365,92,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R626,92,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R627,92,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R628,92,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R629,92,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,0,200
+20R630,92,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R631,92,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R632,92,Subcortical,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,1,1,200
+20R633,92,Subcortical,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,1,1,200
+20R634,92,Subcortical,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,1,1,200
+20R635,92,Subcortical,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,1,1,200
+qbt-L-10o_BRRL200004689-1A,qbt,Lateral Prefrontal Cortex,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+qbt-L-46d_BRRL200004690-1A,qbt,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-R-F2_BRRL200004708-1A,qbt,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Temporal",1,1,200
+qbt-L-LIpd_BRRL200004705-1A,qbt,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Temporal",1,1,200
+qbt-R-3a-b-7-27_BRRL200004714-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+qbt-R-VIP-7-29_BRRL200004938-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+qbt-R-LIpd-7-29_BRRL200004939-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+qbt-R-7a-7-29_BRRL200004940-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+qbt-R-MST-7-29_BRRL200004941-1A,qbt,Occipital/Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+qbt-R-MT-7-29_BRRL200004942-1A,qbt,Occipital/Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+qbt-R-FST-7-29_BRRL200004943-1A,qbt,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+qbt-R-V4v-7-29_BRRL200004944-1A,qbt,Occipital/Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+qbt-R-V3v-7-29_BRRL200004945-1A,qbt,Occipital/Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+qbt-R-V2-7-29_BRRL200004946-1A,qbt,Occipital/Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+qbt-L-F3-8-2_BRRL200004954-1A,qbt,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+qbt-L-F2-8-2_BRRL200004955-1A,qbt,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-F1-8-2_BRRL200004956-1A,qbt,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-STGr-8-2_BRRL200004957-1A,qbt,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+qbt-L-1-2-8-2_BRRL200004958-1A,qbt,"Parietal, and Parieto-occipital region",Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+qbt-L-SII-8-2_BRRL200004959-1A,qbt,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-L-Ig-8-10_BRRL200004965-1A,qbt,Operculum/Insula,Temporal,"Temporal | Parietal, and Parieto-occipital region | Operculum/Insula",0,1,200
+qbt-L-Id-8-10_BRRL200004966-1A,qbt,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-L-pi-8-10_BRRL200004967-1A,qbt,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-L-TEa-8-10_BRRL200004968-1A,qbt,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-TEad-8-11_BRRL200004969-1A,qbt,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-24c-8-11_BRRL200004971-1A,qbt,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Frontal (agranular frontal motor areas),0,0,200
+qbt-L-9m-8-13_BRRL200004985-1A,qbt,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-46v-8-13_BRRL200004986-1A,qbt,Lateral Prefrontal Cortex,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+qbt-L-12r-8-13_BRRL200004987-1A,qbt,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-12m-8-13_BRRL200004988-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+qbt-L-11m-8-13_BRRL200004989-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-L-11l-8-13_BRRL200004990-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",0,1,200
+qbt-L-13b-8-13_BRRL200004991-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",0,1,200
+qbt-L-10m-8-13_BRRL200004992-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-L-24c-8-13_BRRL200004993-1A,qbt,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Operculum/Insula,0,0,200
+qbt-L-F5-8-14_BRRL200006259-1A,qbt,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+qbt-L-F4-8-14_BRRL200006260-1A,qbt,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+qbt-L-Prco-8-14_BRRL200006261-1A,qbt,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+qbt-L-G-8-14_BRRL200006262-1A,qbt,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-L-Ial-8-14_BRRL200006263-1A,qbt,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+qbt-L-Iapm-8-14_BRRL200006264-1A,qbt,Operculum/Insula,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Subcortical,1,1,200
+qbt-R-9d-8-18_BRRL200006271-1A,qbt,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Frontal (agranular frontal motor areas),1,1,200
+qbt-R-46d-8-18_BRRL200006272-1A,qbt,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-R-46v-8-18_BRRL200006273-1A,qbt,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-R-F4-8-19_BRRL200006274-1A,qbt,Frontal (agranular frontal motor areas),Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+qbt-R-Prco-8-19_BRRL200006275-1A,qbt,Operculum/Insula,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+qbt-R-G-8-19_BRRL200006276-1A,qbt,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+qbt-R-Iapl-8-19_BRRL200006277-1A,qbt,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+qbt-L-5-8-24_BRRL200007485-1A,qbt,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,1,200
+qbt-L-7b-8-24_BRRL200007486-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+qbt-L-7op-8-24_BRRL200007487-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+qbt-L-AI-8-24_BRRL200007488-1A,qbt,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+qbt-L-CL-8-24_BRRL200007489-1A,qbt,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+qbt-L-TPO-8-24_BRRL200007490-1A,qbt,Temporal,Operculum/Insula,Operculum/Insula | Temporal | Lateral Prefrontal Cortex,0,1,200
+qbt-L-PGa-8-24_BRRL200007491-1A,qbt,Temporal,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Operculum/Insula,0,1,200
+qbt-L-IPa-8-24_BRRL200007492-1A,qbt,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-VIP-8-27_BRRL200007560-1A,qbt,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",0,1,200
+qbt-L-LIpv-8-27_BRRL200007561-1A,qbt,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",0,1,200
+qbt-L-LIpd-8-27_BRRL200007562-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+qbt-L-7a-8-27_BRRL200007563-1A,qbt,"Parietal, and Parieto-occipital region",Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,0,200
+qbt-L-TPt-8-27_BRRL200007926-1A,qbt,Temporal,Temporal,"Temporal | Operculum/Insula | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-MST-8-27_BRRL200007927-1A,qbt,Occipital/Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,0,200
+qbt-L-FST-8-27_BRRL200007928-1A,qbt,Occipital/Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+qbt-L-V4-8-27_BRRL200007929-1A,qbt,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+qbt-L-F7-8-31_BRRL200008124-1A,qbt,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Temporal,0,1,200
+qbt-L-8Bd-8-31_BRRL200008125-1A,qbt,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Frontal (agranular frontal motor areas),1,1,200
+qbt-L-8Bs-8-31_BRRL200008126-1A,qbt,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",1,1,200
+qbt-L-8A-8-31_BRRL200008127-1A,qbt,Lateral Prefrontal Cortex,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+qbt-L-45-8-31_BRRL200008128-1A,qbt,Lateral Prefrontal Cortex,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+qbt-L-12o-8-31_BRRL200008129-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+qbt-L-13l-8-31_BRRL200008130-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+qbt-L-13m-8-31_BRRL200008131-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,1,200
+qbt-L-14c-8-31_BRRL200008132-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+qbt-L-32-8-31_BRRL200008305-1A,qbt,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Subcortical,1,1,200
+qbt-R-SII-9-2_BRRL200008316-1A,qbt,Operculum/Insula,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,0,200
+qbt-R-R-9-2_BRRL200008317-1A,qbt,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+qbt-R-PGa-9-2_BRRL200008318-1A,qbt,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",1,1,200
+qbt-R-TEm-9-2_BRRL200008319-1A,qbt,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+qbt-R-TEav-9-3_BRRL200008320-1A,qbt,Temporal,Temporal,"Temporal | Operculum/Insula | Parietal, and Parieto-occipital region",1,1,200
+20R099,xq,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+20R100,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,0,200
+20R101,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R102,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+20R103,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),"Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R104,xq,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,0,200
+20R105,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R106,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R107,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R108,xq,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R109,xq,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R110,xq,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R111,xq,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,0,200
+20R112,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R113,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R114,xq,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R115,xq,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R116,xq,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R117,xq,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+20R118,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R119,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Temporal",1,1,200
+20R120,xq,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,1,200
+20R121,xq,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R122,xq,Hippocampal formation,Subcortical,Subcortical | Temporal | Hippocampal formation,0,1,200
+20R123,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R125,xq,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R126,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Temporal",1,1,200
+20R127,xq,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R128,xq,Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",0,1,200
+20R129,xq,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R130,xq,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+20R131,xq,Temporal,Temporal,Temporal | Occipital/Temporal | Lateral Prefrontal Cortex,1,1,200
+20R132,xq,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R133,xq,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",0,1,200
+20R134,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R135,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R136,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R137,xq,"Parietal, and Parieto-occipital region",Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R138,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,0,200
+20R139,xq,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R140,xq,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R141,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+20R124,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R142,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+20R143,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,1,200
+20R144,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,0,1,200
+20R145,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,1,1,200
+20R146,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+20R147,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R148,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",1,1,200
+20R149,xq,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Temporal",0,1,200
+20R150,xq,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,0,0,200
+20R151,xq,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Temporal,0,0,200
+20R152,xq,Frontal (agranular frontal motor areas),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Operculum/Insula,0,0,200
+20R153,xq,Cingulate gyrus,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,0,200
+20R154,xq,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R155,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R156,xq,"Parietal, and Parieto-occipital region",Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+20R157,xq,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Hippocampal formation,1,1,200
+20R158,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,1,1,200
+20R159,xq,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+20R160,xq,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R161,xq,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,0,200
+20R162,xq,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Frontal (agranular frontal motor areas),0,1,200
+20R163,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R164,xq,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Temporal",0,0,200
+20R165,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R166,xq,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R167,xq,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R168,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R169,xq,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R170,xq,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R171,xq,Hippocampal formation,Subcortical,Subcortical | Hippocampal formation | Occipital/Temporal,0,1,200
+20R172,xq,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R173,xq,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R174,xq,Temporal,Temporal,"Temporal | Operculum/Insula | Parietal, and Parieto-occipital region",1,1,200
+20R175,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R176,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R177,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+20R178,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",1,1,200
+20R179,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas)",1,1,200
+20R180,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Lateral Prefrontal Cortex",0,0,200
+20R181,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R182,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",1,1,200
+20R183,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",1,1,200
+20R184,xq,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R185,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Orbitomedial Prefrontal Cortex (OMPFC)",1,1,200
+20R186,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",1,1,200
+20R187,xq,Occipital/Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,1,200
+20R188,xq,Hippocampal formation,Subcortical,Subcortical | Hippocampal formation | Operculum/Insula,0,1,200
+20R189,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R190,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex",1,1,200
+20R191,xq,Orbitomedial Prefrontal Cortex (OMPFC),"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Operculum/Insula | Lateral Prefrontal Cortex",0,0,200
+20R192,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",1,1,200
+20R193,xq,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Temporal",0,1,200
+20R194,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",1,1,200
+20R195,xq,Frontal (agranular frontal motor areas),Temporal,Temporal | Lateral Prefrontal Cortex | Cingulate gyrus,0,0,200
+20R196,xq,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",0,1,200
+20R197,xq,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Frontal (agranular frontal motor areas)",0,0,200
+20R198,xq,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",1,1,200
+20R199,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Temporal,0,0,200
+20R200,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,0,1,200
+20R201,xq,Lateral Prefrontal Cortex,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,1,200
+20R202,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,0,1,200
+20R203,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+20R204,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R205,xq,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R206,xq,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R207,xq,Temporal,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+20R208,xq,Cingulate gyrus,Operculum/Insula,Operculum/Insula | Frontal (agranular frontal motor areas) | Temporal,0,0,200
+20R209,xq,Subcortical,Subcortical,Subcortical | Frontal (agranular frontal motor areas) | Hippocampal formation,1,1,200
+20R210,xq,Hippocampal formation,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R211,xq,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R212,xq,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+20R213,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex",1,1,200
+20R214,xq,Operculum/Insula,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Operculum/Insula,0,1,200
+20R215,xq,Temporal,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+20R216,xq,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R217,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R218,xq,Temporal,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+20R219,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R220,xq,Subcortical,Temporal,Temporal | Subcortical | Operculum/Insula,0,1,200
+20R221,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R222,xq,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,0,200
+20R223,xq,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R224,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R225,xq,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R226,xq,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R227,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R228,xq,Operculum/Insula,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+20R229,xq,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,1,1,200
+20R230,xq,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R231,xq,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+20R232,xq,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R233,xq,Subcortical,Subcortical,Subcortical | Occipital/Temporal | Temporal,1,1,200
+20R234,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,1,200
+20R235,xq,Lateral Prefrontal Cortex,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,1,200
+20R236,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R237,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R238,xq,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Subcortical | Operculum/Insula,0,0,200
+20R239,xq,Cingulate gyrus,Cingulate gyrus,Cingulate gyrus | Operculum/Insula | Temporal,1,1,200
+20R240,xq,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R241,xq,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R242,xq,Temporal,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R243,xq,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R244,xq,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R245,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,1,1,200
+20R246,xq,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R247,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex",1,1,200
+20R248,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,1,200
+20R249,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,1,200
+20R250,xq,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,1,200
+20R251,xq,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R252,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Orbitomedial Prefrontal Cortex (OMPFC)",0,1,200
+20R253,xq,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+20R254,xq,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R255,xq,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+20R256,xq,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R257,xq,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",0,1,200
+20R258,xq,"Parietal, and Parieto-occipital region",Subcortical,Subcortical | Temporal | Occipital/Temporal,0,0,200
+20R259,xq,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R260,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,1,200
+20R261,xq,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R262,xq,Temporal,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R263,xq,Subcortical,Subcortical,Subcortical | Temporal | Hippocampal formation,1,1,200
+20R264,xq,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+20R265,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,1,200
+20R270,xq,Lateral Prefrontal Cortex,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,0,200
+20R271,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R272,xq,Subcortical,Subcortical,Subcortical | Frontal (agranular frontal motor areas) | Hippocampal formation,1,1,200
+20R273,xq,Temporal,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+20R274,xq,"Parietal, and Parieto-occipital region",Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+20R275,xq,Subcortical,Subcortical,"Subcortical | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R276,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R277,xq,"Parietal, and Parieto-occipital region",Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+20R278,xq,"Parietal, and Parieto-occipital region",Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,0,0,200
+20R279,xq,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",0,1,200
+20R280,xq,Temporal,Temporal,Temporal | Operculum/Insula | Cingulate gyrus,1,1,200
+20R281,xq,Occipital/Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,1,200
+20R282,xq,Occipital/Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R283,xq,Occipital/Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+20R284,xq,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+20R285,xq,Subcortical,Subcortical,Subcortical | Occipital/Temporal | Temporal,1,1,200
+20R286,xq,Subcortical,Subcortical,Subcortical | Hippocampal formation | Occipital/Temporal,1,1,200
+20R287,xq,Cingulate gyrus,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus,0,1,200
+20R288,xq,Cingulate gyrus,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+20R289,xq,Cingulate gyrus,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+20R290,xq,Orbitomedial Prefrontal Cortex (OMPFC),Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R504,xq,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Parietal, and Parieto-occipital region | Orbitomedial Prefrontal Cortex (OMPFC)",0,1,200
+20R360,xq,Operculum/Insula,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,0,200
+20R361,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Temporal",0,1,200
+20R362,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",0,1,200
+20R366,xq,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Hippocampal formation,1,1,200
+20R367,xq,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,0,200
+20R368,xq,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,1,200
+20R369,xq,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R370,xq,Cingulate gyrus,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,0,200
+20R371,xq,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R372,xq,Temporal,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+20R373,xq,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas),1,1,200
+20R374,xq,Cingulate gyrus,Cingulate gyrus,Cingulate gyrus | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,1,1,200
+20R375,xq,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+20R380,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Parietal, and Parieto-occipital region | Temporal",1,1,200
+20R381,xq,Occipital/Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Occipital/Temporal",0,1,200
+20R386,xq,Temporal,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R387,xq,Cingulate gyrus,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC)",0,0,200
+20R388,xq,Cingulate gyrus,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+20R506,xq,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+20R507,xq,Operculum/Insula,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,1,1,200
+20R508,xq,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+20R510,xq,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+20R523,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R524,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R611,xq,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+20R612,xq,Lateral Prefrontal Cortex,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,1,200
+20R616,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R617,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R618,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R622,xq,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R640,xq,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Temporal",1,1,200
+20R641,xq,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+20R642,xq,Operculum/Insula,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",0,0,200
+xz-L-10m-10o_BRRL200004691-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,0,200
+xz-L-10m_BRRL200004692-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+xz-L-10o_BRRL200004693-1A,xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",1,1,200
+xz-L-11m_BRRL200004694-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,0,200
+xz-L-11l_BRRL200004695-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+xz-R-10o_BRRL200004706-1A,xz,Lateral Prefrontal Cortex,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Occipital/Temporal,0,0,200
+xz-R-11l_BRRL200004707-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Occipital/Temporal,Occipital/Temporal | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+xz-L-Prco_BRRL200006258-1A,xz,Operculum/Insula,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,0,200
+xz-L-Ial_BRRL200004697-1A,xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+xz-R-F4_BRRL200004709-1A,xz,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+xz-R-G_BRRL200004710-1A,xz,Operculum/Insula,Occipital/Temporal,Occipital/Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,0,200
+xz-R-Ial_BRRL200004711-1A,xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,0,200
+xz-R-24b_BRRL200004712-1A,xz,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Temporal,0,0,200
+xz-R-24c_BRRL200004713-1A,xz,Cingulate gyrus,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+xz-L-Ig_BRRL200004699-1A,xz,Operculum/Insula,Temporal,Temporal | Lateral Prefrontal Cortex | Operculum/Insula,0,1,200
+xz-L-Id_BRRL200004700-1A,xz,Operculum/Insula,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,0,1,200
+xz-L-RM_BRRL200004701-1A,xz,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+xz-L-AL_BRRL200004702-1A,xz,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+xz-L-TPO_BRRL200004703-1A,xz,Temporal,Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",1,1,200
+xz-L-PGa_BRRL200004704-1A,xz,Temporal,Temporal,"Temporal | Operculum/Insula | Parietal, and Parieto-occipital region",1,1,200
+xz-R-F1-7-28_BRRL200004923-1A,xz,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+xz-R-3a-b-7-28_BRRL200004924-1A,xz,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Temporal",1,1,200
+xz-R-1-2-7-28_BRRL200004925-1A,xz,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",0,1,200
+xz-R-SII-7-28_BRRL200004926-1A,xz,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,0,200
+xz-R-Ig-7-28_BRRL200004927-1A,xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+xz-R-Id-7-28_BRRL200004928-1A,xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+xz-R-RM-7-28_BRRL200004929-1A,xz,Temporal,Operculum/Insula,Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC) | Temporal,0,1,200
+xz-R-R-7-28_BRRL200004930-1A,xz,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+xz-R-TAa-7-28_BRRL200004931-1A,xz,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus,1,1,200
+xz-R-TPO-7-28_BRRL200004932-1A,xz,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+xz-R-PGa-7-28_BRRL200004933-1A,xz,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+xz-R-Ipa-7-28_BRRL200004934-1A,xz,Temporal,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+xz-R-TEa-7-28_BRRL200004935-1A,xz,Temporal,Temporal,Temporal | Operculum/Insula | Lateral Prefrontal Cortex,1,1,200
+xz-R-TEm-7-28_BRRL200004936-1A,xz,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+xz-R-24a-7-28_BRRL200004937-1A,xz,Cingulate gyrus,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex,0,0,200
+xz-R-7m-7-30_BRRL200004947-1A,xz,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",1,1,200
+xz-R-VIP-7-30_BRRL200004948-1A,xz,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",1,1,200
+xz-R-LIpd-7-30_BRRL200004949-1A,xz,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",0,1,200
+xz-R-LIpv-7-30_BRRL200004950-1A,xz,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Occipital/Temporal",1,1,200
+xz-R-7a-7-30_BRRL200004951-1A,xz,"Parietal, and Parieto-occipital region",Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+xz-R-MST-7-30_BRRL200004952-1A,xz,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+xz-R-V2-7-30_BRRL200004953-1A,xz,Occipital/Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,0,200
+xz-L-F1-8-2_BRRL200004960-1A,xz,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+xz-L-3a-b-8-2_BRRL200004961-1A,xz,"Parietal, and Parieto-occipital region",Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+xz-L-1-2-8-2_BRRL200004962-1A,xz,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,0,200
+xz-L-F2-8-2_BRRL200004964-1A,xz,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Frontal (agranular frontal motor areas),0,1,200
+xz-L-24c-8-11_BRRL200004974-1A,xz,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Cingulate gyrus | Frontal (agranular frontal motor areas),0,1,200
+xz-L-9m-8-12_BRRL200004975-1A,xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Cingulate gyrus | Parietal, and Parieto-occipital region",1,1,200
+xz-L-9d-8-12_BRRL200004976-1A,xz,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Frontal (agranular frontal motor areas)",0,0,200
+xz-L-46d-8-12_BRRL200004977-1A,xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",1,1,200
+xz-L-46v-8-12_BRRL200004978-1A,xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",1,1,200
+xz-L-12r-8-12_BRRL200004979-1A,xz,Lateral Prefrontal Cortex,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+xz-L-12m-8-12_BRRL200004980-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Temporal,0,0,200
+xz-L-13b-8-12_BRRL200004981-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,1,1,200
+xz-L-14r-8-12_BRRL200004982-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),"Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Parietal, and Parieto-occipital region",1,1,200
+xz-L-32-8-12_BRRL200004983-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Operculum/Insula,1,1,200
+xz-L-24c-8-12_BRRL200004984-1A,xz,Cingulate gyrus,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Temporal,0,1,200
+xz-L-F4-8-17_BRRL200006266-1A,xz,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,0,200
+xz-L-G-8-17_BRRL200006267-1A,xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+xz-L-Iapl-8-17_BRRL200006268-1A,xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Subcortical,0,1,200
+xz-L-Iapm-8-17_BRRL200006269-1A,xz,Operculum/Insula,Subcortical,Subcortical | Operculum/Insula | Temporal,0,1,200
+xz-R-F6-8-20_BRRL200006279-1A,xz,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",0,1,200
+xz-R-F7-8-20_BRRL200006280-1A,xz,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Temporal,1,1,200
+xz-R-8Bd-8-20_BRRL200006281-1A,xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas)",1,1,200
+xz-R-8Bs-8-20_BRRL200006282-1A,xz,Lateral Prefrontal Cortex,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+xz-R-8A-8-20_BRRL200006283-1A,xz,Lateral Prefrontal Cortex,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,1,200
+xz-R-46d-8-20_BRRL200006284-1A,xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region | Temporal",1,1,200
+xz-R-46v-8-20_BRRL200006285-1A,xz,Lateral Prefrontal Cortex,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+xz-R-45-8-20_BRRL200006286-1A,xz,Lateral Prefrontal Cortex,Temporal,Temporal | Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas),0,1,200
+xz-R-14c-8-20_BRRL200006287-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,1,1,200
+xz-L-5-8-25_BRRL200007494-1A,xz,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Parietal, and Parieto-occipital region",0,1,200
+xz-L-VIP-8-25_BRRL200007847-1A,xz,"Parietal, and Parieto-occipital region",Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+xz-L-LIdv-8-25_BRRL200007541-1A,xz,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Temporal",1,1,200
+xz-L-7b-8-25_BRRL200007542-1A,xz,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Lateral Prefrontal Cortex,0,0,200
+xz-L-7op-8-25_BRRL200007543-1A,xz,"Parietal, and Parieto-occipital region",Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Lateral Prefrontal Cortex,0,0,200
+xz-L-CM-8-25_BRRL200007544-1A,xz,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+xz-L-AI-8-25_BRRL200007545-1A,xz,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+xz-L-CL-8-25_BRRL200007546-1A,xz,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+xz-L-TEa-8-25_BRRL200007547-1A,xz,Temporal,Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+xz-L-TEo-8-25_BRRL200007548-1A,xz,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+xz-L-TEpv-8-25_BRRL200007549-1A,xz,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+xz-L-TFO-8-25_BRRL200007550-1A,xz,Temporal,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,0,1,200
+xz-R-Pi-8-26_BRRL200007553-1A,xz,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Subcortical | Operculum/Insula,0,1,200
+xz-R-AL-8-26_BRRL200007554-1A,xz,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+xz-R-STGr-8-26_BRRL200007555-1A,xz,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+xz-R-TEad-8-26_BRRL200007556-1A,xz,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+xz-L-F6-9-1_BRRL200008306-1A,xz,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+xz-L-F7-9-1_BRRL200008307-1A,xz,Frontal (agranular frontal motor areas),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Temporal,0,1,200
+xz-L-8Bd-9-1_BRRL200008308-1A,xz,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+xz-L-8Bs-9-1_BRRL200008309-1A,xz,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas)",0,1,200
+xz-L-8A-9-1_BRRL200008310-1A,xz,Lateral Prefrontal Cortex,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Frontal (agranular frontal motor areas) | Temporal",0,0,200
+xz-L-45-9-1_BRRL200008311-1A,xz,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Frontal (agranular frontal motor areas) | Temporal,1,1,200
+xz-L-12o-9-1_BRRL200008312-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+xz-L-13l-9-1_BRRL200008313-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+xz-L-13m-9-1_BRRL200008314-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+xz-L-14c-9-1_BRRL200008315-1A,xz,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,1,1,200
+xz-R-TEav-9-3_BRRL200008321-1A,xz,Temporal,Temporal,"Temporal | Operculum/Insula | Parietal, and Parieto-occipital region",1,1,200
+xz-R-24c-9-3_BRRL200008323-1A,xz,Cingulate gyrus,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+20R291,zs,Subcortical,Subcortical,Subcortical | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R293,zs,Operculum/Insula,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+20R294,zs,Operculum/Insula,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula | Temporal,0,1,200
+20R300,zs,Frontal (agranular frontal motor areas),"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,0,200
+20R301,zs,Operculum/Insula,Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,0,200
+20R302,zs,Operculum/Insula,Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,0,200
+20R303,zs,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R304,zs,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R305,zs,Subcortical,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Lateral Prefrontal Cortex | Temporal,0,0,200
+20R306,zs,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R307,zs,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus,0,0,200
+20R308,zs,Temporal,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,1,1,200
+20R309,zs,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Occipital/Temporal | Temporal",1,1,200
+20R310,zs,"Parietal, and Parieto-occipital region",Lateral Prefrontal Cortex,"Lateral Prefrontal Cortex | Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R311,zs,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",1,1,200
+20R312,zs,Temporal,"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region | Temporal | Lateral Prefrontal Cortex",0,1,200
+20R313,zs,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R314,zs,Occipital/Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R315,zs,Temporal,Occipital/Temporal,"Occipital/Temporal | Temporal | Parietal, and Parieto-occipital region",0,1,200
+20R320,zs,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R321,zs,Lateral Prefrontal Cortex,Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,1,200
+20R322,zs,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Cingulate gyrus | Operculum/Insula,1,1,200
+20R323,zs,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+20R324,zs,Frontal (agranular frontal motor areas),Temporal,"Temporal | Occipital/Temporal | Parietal, and Parieto-occipital region",0,0,200
+20R325,zs,Operculum/Insula,Temporal,"Temporal | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",0,0,200
+20R326,zs,Operculum/Insula,Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+20R327,zs,Operculum/Insula,Temporal,"Temporal | Cingulate gyrus | Parietal, and Parieto-occipital region",0,0,200
+20R328,zs,Operculum/Insula,Operculum/Insula,Operculum/Insula | Temporal | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R331,zs,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Cingulate gyrus | Temporal,1,1,200
+20R332,zs,Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas),"Frontal (agranular frontal motor areas) | Lateral Prefrontal Cortex | Parietal, and Parieto-occipital region",1,1,200
+20R335,zs,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Parietal, and Parieto-occipital region | Lateral Prefrontal Cortex",0,0,200
+20R336,zs,Subcortical,Subcortical,Subcortical | Hippocampal formation | Temporal,1,1,200
+20R337,zs,Cingulate gyrus,Lateral Prefrontal Cortex,Lateral Prefrontal Cortex | Temporal | Frontal (agranular frontal motor areas),0,0,200
+20R338,zs,Temporal,Temporal,Temporal | Operculum/Insula | Orbitomedial Prefrontal Cortex (OMPFC),1,1,200
+20R340,zs,Temporal,Temporal,"Temporal | Parietal, and Parieto-occipital region | Occipital/Temporal",1,1,200
+20R341,zs,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R342,zs,Operculum/Insula,Temporal,Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Operculum/Insula,0,1,200
+20R343,zs,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,"Temporal | Orbitomedial Prefrontal Cortex (OMPFC) | Parietal, and Parieto-occipital region",0,1,200
+20R344,zs,Orbitomedial Prefrontal Cortex (OMPFC),Temporal,Temporal | Lateral Prefrontal Cortex | Orbitomedial Prefrontal Cortex (OMPFC),0,1,200
+20R345,zs,Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC) | Temporal | Operculum/Insula,1,1,200
+20R346,zs,Subcortical,Subcortical,"Subcortical | Occipital/Temporal | Parietal, and Parieto-occipital region",1,1,200
+20R347,zs,Subcortical,Subcortical,Subcortical | Hippocampal formation | Occipital/Temporal,1,1,200

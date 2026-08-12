@@ -21,7 +21,7 @@ Chiou 2023 and Siletti 2023 source workbooks are not redistributed.
 
 The public runner is `scripts/run_independent_panel_enrichment.py`. Re-querying
 g:Profiler may change database-version-dependent results; the archived result
-files and manifest are the fixed v0.1.11 results.
+files and manifest are carried forward as fixed results in v0.1.12.
 
 These analyses characterize annotation bias only. They do not establish cell
 of origin, cell abundance, mechanism, causality, or predictive validity.

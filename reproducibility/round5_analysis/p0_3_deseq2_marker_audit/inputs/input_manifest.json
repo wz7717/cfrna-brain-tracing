@@ -1,0 +1,34 @@
+{
+  "created_at_utc": "2026-08-03T08:40:58.295547+00:00",
+  "analysis": "P0-3 donor-by-Network pseudobulk DESeq2 Network marker audit",
+  "design": "sum raw counts within observed donor-Network cells; full ~ donor_id + network; reduced ~ donor_id; LRT for any Network effect",
+  "effect_followup": "DESeq2-normalized pseudobulk log2 counts; highest Network versus other-Network mean; descriptive only",
+  "prefilter": "pseudobulk raw count >=10 in at least 3 donor-Network units",
+  "canonicalization": {
+    "10m": "Orbitomedial Prefrontal Cortex (OMPFC)",
+    "V2": "Occipital/Temporal"
+  },
+  "n_samples": 819,
+  "n_donors": 9,
+  "n_networks": 10,
+  "design_rank": 18,
+  "expected_design_rank": 18,
+  "inputs": {
+    "metadata_xlsx": {
+      "source_file": "Information of sequenced samples_update_full878_filter819.xlsx",
+      "sha256": "9a2fe2bec1475f6ad613883d0ff5925b1e6ba36e800caa922c35d4f8ae7d3645"
+    },
+    "counts": {
+      "source_file": "mfas5_819samples_28415genes_featurecounts_counts.txt",
+      "sha256": "1fb3a512da11ab0c327c07c114da3b9c38cab0a504682f2c7c036eedb3c7561a"
+    },
+    "gene_map": {
+      "source_file": "04_expressed_genes_neocortex_plus_subcortical.cleaned_symbols.csv",
+      "sha256": "24e0545a478ed2643322f994627a0d1c8bfac3061f6a755eae49080b2b92a78a"
+    },
+    "locked_panel": {
+      "source_file": "bo2023_saleem_network_top200_model_genes.csv",
+      "sha256": "fcaf3a1927aa0e7b55513c9e3486333d67742e3ceaf0a7fb650a47b1dda15929"
+    }
+  }
+}

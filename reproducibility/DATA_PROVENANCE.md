@@ -76,7 +76,7 @@
 | **Source** | NCI Genomic Data Commons (https://portal.gdc.cancer.gov) |
 | **Citation** | TCGA Research Network (https://www.cancer.gov/tcga) |
 | **Content** | TCGA GBM/LGG primary tumor TPM expression (file-level) |
-| **Patients** | 65 glioma patients (64 evaluable for edema-based analysis) |
+| **Patients** | 65 glioma patients; 63 primary edema-comparator cases after excluding TCGA-HT-7686 (no edema voxels) and TCGA-HT-7680 (cerebellar/out-of-scope edema) |
 | **Role** | Tumor-tissue expression for brain-origin tracing evaluation |
 
 | Field | Value |
@@ -199,6 +199,6 @@ The complete Python environment is pinned in `requirements_reproducible.txt`:
 | GSE189919 CSF cfRNA | NCBI GEO | GSE189919 | Public |
 | Huang2025 cfRNA | npj Precis. Oncol. | Supplementary Data 1 | Public |
 | BrainTrace code | GitHub | https://github.com/wz7717/cfrna-brain-tracing | Public (MIT) |
-| BrainTrace archive | Zenodo | 10.5281/zenodo.21759823 (v0.1.11); 10.5281/zenodo.20773674 (concept) | Public |
+| BrainTrace archive | Zenodo | v0.1.12 version DOI pending deposit; 10.5281/zenodo.21759823 (previous v0.1.11); 10.5281/zenodo.20773674 (concept) | Public |
 
 > **FAIR compliance**: All datasets are Findable (accession numbers), Accessible (public repositories), Interoperable (standard formats: TSV, XLS, NIfTI), and Reusable (documented provenance + pinned environment + seed registry).

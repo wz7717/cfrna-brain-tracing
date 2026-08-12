@@ -1,0 +1,35 @@
+{
+  "created_at_utc": "2026-08-09T11:57:22.315499+00:00",
+  "script": "github_main_sync\\reproducibility\\round5_analysis\\run_p1_fg_donor_blocked_permutation_fdr.py",
+  "python": "3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "inputs": {
+    "counts": {
+      "path": "code\\reproduction_validation_workspace_20260802\\bo2023 data\\mfas5_819samples_28415genes_featurecounts_counts.txt",
+      "sha256": "1fb3a512da11ab0c327c07c114da3b9c38cab0a504682f2c7c036eedb3c7561a"
+    },
+    "metadata": {
+      "path": "code\\reproduction_validation_workspace_20260802\\bo2023 data\\Information of sequenced samples_update_full878_filter819.xlsx",
+      "sha256": "9a2fe2bec1475f6ad613883d0ff5925b1e6ba36e800caa922c35d4f8ae7d3645"
+    },
+    "gene_mapping": {
+      "path": "code\\reproduction_validation_workspace_20260802\\reproducibility\\p0_bio3_projector\\count_gene_symbol_mapping_audit.csv",
+      "sha256": "c028d204f6490157b7db4626a53c4a33fbde7c978dfc065fcf626af7898150b8"
+    },
+    "frozen_model": {
+      "path": "code\\reproduction_validation_workspace_20260802\\data\\models\\bo2023_formal_region_logcpm_reference_matrix.npz",
+      "sha256": "a989aefc561d8b4b58b41433c58794a9215984a2f91bd77e302341791fb9cfc8"
+    },
+    "locked_top200": {
+      "path": "code\\reproduction_validation_workspace_20260802\\data\\models\\bo2023_saleem_network_top200_model_genes.csv",
+      "sha256": "fcaf3a1927aa0e7b55513c9e3486333d67742e3ceaf0a7fb650a47b1dda15929"
+    }
+  },
+  "outputs": {
+    "summary": "fg_donor_blocked_summary.json",
+    "per_gene": "fg_donor_blocked_permutation_fdr_per_gene.csv",
+    "locked_panel": "locked_top200_donor_blocked_permutation_fdr.csv",
+    "block_metadata": "donor_region_block_metadata.tsv",
+    "exceed_counts": "permutation_exceed_counts.npy"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "release": "v0.1.12",
+  "version_doi": null,
+  "concept_doi": "10.5281/zenodo.20773674",
+  "previous_version_doi": "10.5281/zenodo.21759823",
+  "repository": "https://github.com/wz7717/cfrna-brain-tracing",
+  "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.12",
+  "model_lock_id": "canonical110-v0.1.12-20260813",
+  "verification": {
+    "pytest": "96 passed, 2 skipped",
+    "core_coverage": "64% (1,117 statements; 298 branches)",
+    "locked_artifacts": 8,
+    "validated_csv_files": 100,
+    "validated_csv_rows": 263189,
+    "s18_s19_reproduction_match": true
+  },
+  "public_release_files": [
+    {
+      "path": "reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv",
+      "bytes": 7548,
+      "sha256": "09c3dba659a7f1b8019124d5dff2628b37e47d1706c4cd1b622d70d17d88e5ef"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/independent_enrichment_manifest.json",
+      "bytes": 56989,
+      "sha256": "0a38d55073afbe2ab000ccf1c2de33d81826f1b249ee3784e05b5ee0581e59c3"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/gprofiler_model_background.csv",
+      "bytes": 611446,
+      "sha256": "fc79df030d7ceec7812a46e3e65ecd11915c63efad73aa650247786d40cf8028"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/gprofiler_annotated_background.csv",
+      "bytes": 551119,
+      "sha256": "5e1360e80b3e29b752ad0fe358aa17a6bff748225f26e02226a42554d7482c48"
+    },
+    {
+      "path": "reproducibility/independent_enrichment/independent_celltype_enrichment.csv",
+      "bytes": 2086,
+      "sha256": "af2880640af698a8a6eed948f7ef7864da00fcf3a5198ce1e1aafaa4c2c0783d"
+    },
+    {
+      "path": "reproducibility/s18_s19/run_s18_s19_sensitivity.py",
+      "bytes": 25619,
+      "sha256": "59580b6b592a42ef58b17734630406a05127188601927dfe8843a739d6d6bb6b"
+    },
+    {
+      "path": "reproducibility/s18_s19/sensitivity_analysis_results.json",
+      "bytes": 6546,
+      "sha256": "efe5e436e6a0dbf7197f5b5be35ada54db58b06a9a873d987461580049153cb5"
+    },
+    {
+      "path": "reproducibility/s18_s19/input_manifest.json",
+      "bytes": 3442,
+      "sha256": "8bf3c796a3a0005010dce1136bce3675f4754ab48eb2648d32272448e963061d"
+    },
+    {
+      "path": "reproducibility/p2_publication_completeness/P2_RF200_lomo_detail.csv",
+      "bytes": 118495,
+      "sha256": "4038d3f0743cb41b401ac0d683059b552c9187bdded8f0970eba269eabcfa4b9"
+    },
+    {
+      "path": "reproducibility/P1_NEURO1_resolution_group_anatomy_audit.csv",
+      "bytes": 3922,
+      "sha256": "bffe8711daca71e9fc96a1e71fb31c9348b7ca49e84ad0b77f94a49a92358cbd"
+    },
+    {
+      "path": "supplementary/p1_resolution_groups.csv",
+      "bytes": 1730,
+      "sha256": "2f51ce8c21295b7aa3087d7ef2d3f80f39aab9b8a9d6d24114e4c402a08e55ee"
+    },
+    {
+      "path": "reproducibility/v4_p0_9_triple_ci.csv",
+      "bytes": 1134,
+      "sha256": "2465e8b31a5741219fa2c63751a05d44586a72b891bd8b3fbb54bc168ff9e828"
+    },
+    {
+      "path": "reproducibility/v4_p0_11_ml_baselines.csv",
+      "bytes": 301,
+      "sha256": "b56f26b03e649b492986f2a9a8559c0021a416f47032f5482f7a570ecacc9922"
+    },
+    {
+      "path": "reproducibility/v4_p0_12_tcga_brats_ci_summary.csv",
+      "bytes": 6537,
+      "sha256": "2018547686c82f1ea8e63ab880ed9941fe9644ab6cb5d78d1ce6323590f9b8f4"
+    },
+    {
+      "path": "reproducibility/p0_stat1_empirical_coverage.csv",
+      "bytes": 1348,
+      "sha256": "046b5d2c45a9163e664a18ebd8b82000611b236e6ff0b096098f1f5ea31efbc6"
+    },
+    {
+      "path": "reproducibility/coverage_report.txt",
+      "bytes": 1944,
+      "sha256": "e756db955bb30529bd54c7e98287d5dabd16a7111885d0e692cbc99f1ea9cd53"
+    },
+    {
+      "path": "reproducibility/TRACEABILITY_MATRIX.md",
+      "bytes": 23310,
+      "sha256": "c6d9b6cdf4cc5c1322db2c6e9cae667896f24996954cebb7d6b361961c9f6c64"
+    },
+    {
+      "path": "README.md",
+      "bytes": 14784,
+      "sha256": "d6338842f53d63109035d1f49da9713254d07d8f194f4e4956a4d7d49aadae24"
+    },
+    {
+      "path": "DATA_PROVENANCE.md",
+      "bytes": 11173,
+      "sha256": "3e82120149fe2ff963e0c3b9e94fe857d61e418e0c1bd91f96eadc088e3984aa"
+    },
+    {
+      "path": "reproducibility/DATA_PROVENANCE.md",
+      "bytes": 11164,
+      "sha256": "fe1db2d9bd5598c43c285ca3be89423a1ce42ee7a66fa177df55f08dceebe571"
+    }
+  ],
+  "local_submission_artifacts": [
+    {
+      "filename": "BrainTrace_Main_Manuscript_v5_round5_p1_e4_e5_bo2023_provenance_v0.1.21_tcga_current_final_clean.docx",
+      "bytes": 5042476,
+      "sha256": "e647c444234b9b822a9c6d3ecd3544cbbc51f3e5cfc830cdc67887725f2cfd89",
+      "distribution": "local submission artifact; not included in the public software archive"
+    },
+    {
+      "filename": "BrainTrace_Supplementary_File_v5_round5_p1_e4_e5_bo2023_provenance_v0.1.21_tcga_current_final_s20_reflowed_clean.docx",
+      "bytes": 827910,
+      "sha256": "756aa4debb9de2024f928c67d46f8f9256abb2a5ba275cdee155e9f2ed6cb6b5",
+      "distribution": "local submission artifact; not included in the public software archive"
+    }
+  ],
+  "excluded_local_only": [
+    "Bo2023 processed author-package matrices",
+    "AHBA and TCGA/BraTS raw or patient-level inputs",
+    "CIBERSORTx TPM mixture, manifest and licensed LM22 input",
+    "permutation_fg_max.npz oversized regenerable intermediate",
+    "Python caches and local manuscript-editing scripts"
+  ]
+}

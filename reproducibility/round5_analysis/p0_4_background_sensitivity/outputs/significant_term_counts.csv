@@ -1,0 +1,7 @@
+background,source,tested_terms_n,significant_q05_n
+model_space_21668,GO:BP,3352,446
+model_space_21668,KEGG,199,11
+gprofiler_annotated_domain,GO:BP,3352,410
+gprofiler_annotated_domain,KEGG,199,8
+bo2023_pseudobulk_tested_expression,GO:BP,3352,438
+bo2023_pseudobulk_tested_expression,KEGG,199,10

@@ -1,0 +1,460 @@
+block_id	donor_id	region	network	n_tissue_samples
+2::7m	2	7m	Parietal, and Parieto-occipital region	1
+2::VIP	2	VIP	Parietal, and Parieto-occipital region	1
+2::V4v	2	V4v	Occipital/Temporal	1
+2::13b	2	13b	Orbitomedial Prefrontal Cortex (OMPFC)	1
+2::11l	2	11l	Orbitomedial Prefrontal Cortex (OMPFC)	1
+2::14r	2	14r	Orbitomedial Prefrontal Cortex (OMPFC)	1
+2::10m	2	10m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+2::F3	2	F3	Frontal (agranular frontal motor areas)	1
+2::F1	2	F1	Frontal (agranular frontal motor areas)	1
+2::1-2	2	1-2	Parietal, and Parieto-occipital region	1
+2::AL	2	AL	Temporal	1
+2::pu	2	pu	Subcortical	1
+92::F6	92	F6	Frontal (agranular frontal motor areas)	1
+92::F2	92	F2	Frontal (agranular frontal motor areas)	1
+92::F1	92	F1	Frontal (agranular frontal motor areas)	2
+92::cd	92	cd	Subcortical	3
+92::3a/b	92	3a/b	Parietal, and Parieto-occipital region	2
+92::1-2	92	1-2	Parietal, and Parieto-occipital region	1
+92::TEad	92	TEad	Temporal	1
+92::TEav	92	TEav	Temporal	2
+92::V4	92	V4	Occipital/Temporal	1
+92::5	92	5	Parietal, and Parieto-occipital region	2
+92::7a	92	7a	Parietal, and Parieto-occipital region	1
+92::TPO	92	TPO	Temporal	1
+92::TFO	92	TFO	Temporal	1
+92::TEO	92	TEO	Temporal	2
+92::V1	92	V1	Occipital/Temporal	4
+92::V2	92	V2	Occipital/Temporal	4
+92::V3v	92	V3v	Occipital/Temporal	1
+92::9m	92	9m	Lateral Prefrontal Cortex	2
+92::9d	92	9d	Lateral Prefrontal Cortex	2
+92::46d	92	46d	Lateral Prefrontal Cortex	1
+92::12l	92	12l	Lateral Prefrontal Cortex	1
+92::11m	92	11m	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::11l	92	11l	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::F4	92	F4	Frontal (agranular frontal motor areas)	1
+92::TG	92	TG	Temporal	1
+92::STG	92	STG	Temporal	4
+92::PrCo	92	PrCo	Operculum/Insula	2
+92::SII	92	SII	Operculum/Insula	2
+92::RM	92	RM	Temporal	2
+92::R	92	R	Temporal	2
+92::AL	92	AL	Temporal	2
+92::HC	92	HC	Hippocampal formation	1
+92::7op	92	7op	Parietal, and Parieto-occipital region	3
+92::VIP	92	VIP	Parietal, and Parieto-occipital region	2
+92::TEpd	92	TEpd	Temporal	2
+92::cla	92	cla	Subcortical	1
+92::thalamus	92	thalamus	Subcortical	1
+92::amy	92	amy	Subcortical	1
+2::amy	2	amy	Subcortical	1
+2::PL	2	PL	Subcortical	1
+2::G	2	G	Operculum/Insula	1
+2::3a/b	2	3a/b	Parietal, and Parieto-occipital region	1
+2::V3v	2	V3v	Occipital/Temporal	1
+92::F5	92	F5	Frontal (agranular frontal motor areas)	2
+92::Ial	92	Ial	Operculum/Insula	1
+92::24c	92	24c	Cingulate gyrus	2
+92::7b	92	7b	Parietal, and Parieto-occipital region	3
+92::A1	92	A1	Temporal	2
+92::CL	92	CL	Temporal	1
+92::TEpv	92	TEpv	Temporal	2
+92::12m	92	12m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+92::13b	92	13b	Orbitomedial Prefrontal Cortex (OMPFC)	4
+92::14r	92	14r	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::32	92	32	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::44	92	44	Lateral Prefrontal Cortex	2
+92::12o	92	12o	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::13a	92	13a	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::14c	92	14c	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::25	92	25	Orbitomedial Prefrontal Cortex (OMPFC)	2
+92::45	92	45	Lateral Prefrontal Cortex	1
+92::12r	92	12r	Lateral Prefrontal Cortex	1
+92::ML	92	ML	Temporal	2
+34::10m	34	10m	Orbitomedial Prefrontal Cortex (OMPFC)	4
+34::46d	34	46d	Lateral Prefrontal Cortex	3
+34::46v	34	46v	Lateral Prefrontal Cortex	3
+34::12r	34	12r	Lateral Prefrontal Cortex	3
+34::11l	34	11l	Orbitomedial Prefrontal Cortex (OMPFC)	3
+34::10o	34	10o	Lateral Prefrontal Cortex	4
+34::9m	34	9m	Lateral Prefrontal Cortex	2
+34::9d	34	9d	Lateral Prefrontal Cortex	3
+34::12l	34	12l	Lateral Prefrontal Cortex	2
+34::12m	34	12m	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::13b	34	13b	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::14r	34	14r	Orbitomedial Prefrontal Cortex (OMPFC)	3
+34::32	34	32	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::8Bm	34	8Bm	Lateral Prefrontal Cortex	2
+34::8Bd	34	8Bd	Lateral Prefrontal Cortex	2
+34::45	34	45	Lateral Prefrontal Cortex	2
+34::24b	34	24b	Cingulate gyrus	2
+34::24c	34	24c	Cingulate gyrus	2
+34::F6	34	F6	Frontal (agranular frontal motor areas)	2
+34::F7	34	F7	Frontal (agranular frontal motor areas)	2
+34::8Bs	34	8Bs	Lateral Prefrontal Cortex	3
+34::8A	34	8A	Lateral Prefrontal Cortex	3
+34::12o	34	12o	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::14c	34	14c	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::F3	34	F3	Frontal (agranular frontal motor areas)	3
+34::F2	34	F2	Frontal (agranular frontal motor areas)	4
+34::F4	34	F4	Frontal (agranular frontal motor areas)	2
+34::3a/b	34	3a/b	Parietal, and Parieto-occipital region	2
+34::1-2	34	1-2	Parietal, and Parieto-occipital region	4
+34::STG	34	STG	Temporal	4
+34::pu	34	pu	Subcortical	3
+34::cd	34	cd	Subcortical	3
+34::SII	34	SII	Operculum/Insula	2
+34::RM	34	RM	Temporal	2
+34::R	34	R	Temporal	2
+34::TEav	34	TEav	Temporal	2
+34::5	34	5	Parietal, and Parieto-occipital region	3
+34::7b	34	7b	Parietal, and Parieto-occipital region	2
+34::7op	34	7op	Parietal, and Parieto-occipital region	3
+34::A1	34	A1	Temporal	2
+34::ML	34	ML	Temporal	2
+34::TEpd	34	TEpd	Temporal	3
+34::TEpv	34	TEpv	Temporal	2
+34::VIP	34	VIP	Parietal, and Parieto-occipital region	2
+34::Tpt	34	Tpt	Temporal	2
+34::TEO	34	TEO	Temporal	4
+34::V4	34	V4	Occipital/Temporal	3
+34::TPO	34	TPO	Temporal	4
+34::TFO	34	TFO	Temporal	3
+34::7m	34	7m	Parietal, and Parieto-occipital region	3
+34::V3v	34	V3v	Occipital/Temporal	3
+34::V4v	34	V4v	Occipital/Temporal	4
+34::V3d	34	V3d	Occipital/Temporal	1
+34::V1	34	V1	Occipital/Temporal	4
+34::V2	34	V2	Occipital/Temporal	4
+34::13m	34	13m	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::13l	34	13l	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::44	34	44	Lateral Prefrontal Cortex	1
+34::AL	34	AL	Temporal	2
+34::CL	34	CL	Temporal	1
+34::Ig	34	Ig	Operculum/Insula	2
+34::36c	34	36c	Temporal	2
+34::Id	34	Id	Operculum/Insula	1
+34::RTM	34	RTM	Temporal	2
+34::F1	34	F1	Frontal (agranular frontal motor areas)	3
+34::NARegion	34	NARegion	Subcortical	2
+34::F5	34	F5	Frontal (agranular frontal motor areas)	2
+34::RT	34	RT	Temporal	2
+34::TAa	34	TAa	Temporal	2
+34::amy	34	amy	Subcortical	2
+34::24a'	34	24a'	Cingulate gyrus	2
+34::TEm	34	TEm	Temporal	2
+34::Iapm	34	Iapm	Operculum/Insula	1
+34::PrCo	34	PrCo	Operculum/Insula	2
+34::24c'	34	24c'	Cingulate gyrus	1
+34::Iapl	34	Iapl	Operculum/Insula	2
+34::TEad	34	TEad	Temporal	2
+34::Ial	34	Ial	Operculum/Insula	2
+34::G	34	G	Operculum/Insula	1
+34::Pir	34	Pir	Subcortical	1
+34::RTL	34	RTL	Temporal	2
+34::LIPd	34	LIPd	Parietal, and Parieto-occipital region	2
+34::LIPv	34	LIPv	Parietal, and Parieto-occipital region	2
+34::7a	34	7a	Parietal, and Parieto-occipital region	3
+34::HC	34	HC	Hippocampal formation	3
+34::thalamus	34	thalamus	Subcortical	2
+92::CM	92	CM	Temporal	1
+34::31	34	31	Cingulate gyrus	1
+92::TAa	92	TAa	Temporal	1
+34::MST	34	MST	Occipital/Temporal	1
+34::CM	34	CM	Temporal	1
+34::FST	34	FST	Occipital/Temporal	1
+xq::9d	xq	9d	Lateral Prefrontal Cortex	2
+xq::9m	xq	9m	Lateral Prefrontal Cortex	2
+xq::13b	xq	13b	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xq::14r	xq	14r	Orbitomedial Prefrontal Cortex (OMPFC)	3
+xq::12r	xq	12r	Lateral Prefrontal Cortex	2
+xq::24c	xq	24c	Cingulate gyrus	2
+xq::10m	xq	10m	Orbitomedial Prefrontal Cortex (OMPFC)	3
+xq::11m	xq	11m	Orbitomedial Prefrontal Cortex (OMPFC)	3
+xq::11l	xq	11l	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xq::F2	xq	F2	Frontal (agranular frontal motor areas)	3
+xq::F3	xq	F3	Frontal (agranular frontal motor areas)	3
+xq::F5	xq	F5	Frontal (agranular frontal motor areas)	2
+xq::pu	xq	pu	Subcortical	3
+xq::cd	xq	cd	Subcortical	2
+xq::45	xq	45	Lateral Prefrontal Cortex	4
+xq::44	xq	44	Lateral Prefrontal Cortex	2
+xq::8A	xq	8A	Lateral Prefrontal Cortex	3
+xq::8Bs	xq	8Bs	Lateral Prefrontal Cortex	3
+xq::NARegion	xq	NARegion	Subcortical	1
+xq::3a/b	xq	3a/b	Parietal, and Parieto-occipital region	3
+xq::SII	xq	SII	Operculum/Insula	2
+xq::Id	xq	Id	Operculum/Insula	5
+xq::HC	xq	HC	Hippocampal formation	4
+xq::STG	xq	STG	Temporal	5
+xq::ML	xq	ML	Temporal	1
+xq::VIP	xq	VIP	Parietal, and Parieto-occipital region	2
+xq::CM	xq	CM	Temporal	3
+xq::A1	xq	A1	Temporal	3
+xq::TAa	xq	TAa	Temporal	1
+xq::7op	xq	7op	Parietal, and Parieto-occipital region	2
+xq::TEpd	xq	TEpd	Temporal	3
+xq::5	xq	5	Parietal, and Parieto-occipital region	3
+xq::7b	xq	7b	Parietal, and Parieto-occipital region	2
+xq::V1	xq	V1	Occipital/Temporal	3
+xq::V2	xq	V2	Occipital/Temporal	5
+xq::V3v	xq	V3v	Occipital/Temporal	2
+xq::7m	xq	7m	Parietal, and Parieto-occipital region	1
+xq::R	xq	R	Temporal	2
+xq::46d	xq	46d	Lateral Prefrontal Cortex	2
+xq::46v	xq	46v	Lateral Prefrontal Cortex	2
+xq::Ig	xq	Ig	Operculum/Insula	4
+xq::1-2	xq	1-2	Parietal, and Parieto-occipital region	3
+xq::TEad	xq	TEad	Temporal	3
+xq::RTL	xq	RTL	Temporal	3
+xq::TEav	xq	TEav	Temporal	3
+xq::TPO	xq	TPO	Temporal	2
+xq::RM	xq	RM	Temporal	4
+xq::thalamus	xq	thalamus	Subcortical	4
+xq::F1	xq	F1	Frontal (agranular frontal motor areas)	3
+xq::TEm	xq	TEm	Temporal	6
+xq::AL	xq	AL	Temporal	3
+xq::LIPv	xq	LIPv	Parietal, and Parieto-occipital region	4
+xq::TFO	xq	TFO	Temporal	3
+xq::LIPd	xq	LIPd	Parietal, and Parieto-occipital region	3
+xq::Tpt	xq	Tpt	Temporal	2
+xq::7a	xq	7a	Parietal, and Parieto-occipital region	2
+xq::FST	xq	FST	Occipital/Temporal	3
+xq::V4	xq	V4	Occipital/Temporal	2
+xq::13l	xq	13l	Orbitomedial Prefrontal Cortex (OMPFC)	3
+xq::F6	xq	F6	Frontal (agranular frontal motor areas)	1
+xq::F7	xq	F7	Frontal (agranular frontal motor areas)	1
+xq::8Bd	xq	8Bd	Lateral Prefrontal Cortex	2
+xq::8Bm	xq	8Bm	Lateral Prefrontal Cortex	1
+xq::12l	xq	12l	Lateral Prefrontal Cortex	2
+xq::32	xq	32	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xq::TEpv	xq	TEpv	Temporal	2
+xq::23c	xq	23c	Cingulate gyrus	4
+xq::amy	xq	amy	Subcortical	2
+xq::RT	xq	RT	Temporal	2
+xq::RTM	xq	RTM	Temporal	2
+xq::10o	xq	10o	Lateral Prefrontal Cortex	3
+xq::13m	xq	13m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xq::24b'	xq	24b'	Cingulate gyrus	2
+xq::24c'	xq	24c'	Cingulate gyrus	2
+xq::G	xq	G	Operculum/Insula	1
+xq::Iapm	xq	Iapm	Operculum/Insula	1
+xq::Ial	xq	Ial	Operculum/Insula	1
+xq::Pir	xq	Pir	Subcortical	1
+xq::CL	xq	CL	Temporal	2
+xq::Iapl	xq	Iapl	Operculum/Insula	1
+xq::V4v	xq	V4v	Occipital/Temporal	1
+xq::GPeGPi	xq	GPeGPi	Subcortical	5
+xq::MST	xq	MST	Occipital/Temporal	2
+xq::24a'	xq	24a'	Cingulate gyrus	1
+xq::12m	xq	12m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+zs::NARegion	zs	NARegion	Subcortical	2
+zs::Iapl	zs	Iapl	Operculum/Insula	3
+zs::Iapm	zs	Iapm	Operculum/Insula	3
+zs::F4	zs	F4	Frontal (agranular frontal motor areas)	2
+zs::G	zs	G	Operculum/Insula	2
+zs::Ial	zs	Ial	Operculum/Insula	1
+zs::Pir	zs	Pir	Subcortical	1
+zs::Id	zs	Id	Operculum/Insula	1
+zs::RTM	zs	RTM	Temporal	2
+zs::LIPd	zs	LIPd	Parietal, and Parieto-occipital region	1
+zs::7a	zs	7a	Parietal, and Parieto-occipital region	1
+zs::Tpt	zs	Tpt	Temporal	1
+zs::TPO	zs	TPO	Temporal	1
+zs::MST	zs	MST	Occipital/Temporal	1
+zs::FST	zs	FST	Occipital/Temporal	1
+zs::TEO	zs	TEO	Temporal	1
+92::Ig	92	Ig	Operculum/Insula	1
+zs::8Bm	zs	8Bm	Lateral Prefrontal Cortex	1
+zs::8Bd	zs	8Bd	Lateral Prefrontal Cortex	2
+zs::32	zs	32	Orbitomedial Prefrontal Cortex (OMPFC)	1
+zs::12m	zs	12m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+zs::PrCo	zs	PrCo	Operculum/Insula	1
+zs::F6	zs	F6	Frontal (agranular frontal motor areas)	1
+zs::13l	zs	13l	Orbitomedial Prefrontal Cortex (OMPFC)	2
+zs::GPeGPi	zs	GPeGPi	Subcortical	3
+zs::24c'	zs	24c'	Cingulate gyrus	1
+zs::RTL	zs	RTL	Temporal	1
+zs::Pi	zs	Pi	Operculum/Insula	1
+zs::Ia	zs	Ia	Operculum/Insula	1
+zs::13m	zs	13m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+zs::14c	zs	14c	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xq::Ri	xq	Ri	Operculum/Insula	1
+xq::PGa	xq	PGa	Temporal	4
+xq::IPa	xq	IPa	Temporal	3
+92::Ri	92	Ri	Operculum/Insula	1
+92::PGa	92	PGa	Temporal	1
+92::IPa	92	IPa	Temporal	1
+xq::TF	xq	TF	Temporal	1
+xq::23b	xq	23b	Cingulate gyrus	2
+34::25	34	25	Orbitomedial Prefrontal Cortex (OMPFC)	2
+34::13a	34	13a	Orbitomedial Prefrontal Cortex (OMPFC)	1
+34::Ri	34	Ri	Operculum/Insula	1
+34::TF	34	TF	Temporal	1
+34::23c	34	23c	Cingulate gyrus	1
+34::23b	34	23b	Cingulate gyrus	1
+xq::Pi	xq	Pi	Operculum/Insula	1
+xq::Ia	xq	Ia	Operculum/Insula	2
+79::Ia	79	Ia	Operculum/Insula	1
+79::amy	79	amy	Subcortical	2
+79::24c'	79	24c'	Cingulate gyrus	1
+79::NARegion	79	NARegion	Subcortical	2
+79::13m	79	13m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+79::13a	79	13a	Orbitomedial Prefrontal Cortex (OMPFC)	1
+79::GPeGPi	79	GPeGPi	Subcortical	1
+79::24b'	79	24b'	Cingulate gyrus	1
+79::MST	79	MST	Occipital/Temporal	1
+79::FST	79	FST	Occipital/Temporal	1
+xq::V3d	xq	V3d	Occipital/Temporal	2
+79::CL	79	CL	Temporal	1
+79::23b	79	23b	Cingulate gyrus	1
+79::23a	79	23a	Cingulate gyrus	1
+79::V3d	79	V3d	Occipital/Temporal	1
+79::ML	79	ML	Temporal	1
+67::13a	67	13a	Orbitomedial Prefrontal Cortex (OMPFC)	2
+67::G	67	G	Operculum/Insula	1
+67::Pir	67	Pir	Subcortical	1
+67::24a	67	24a	Cingulate gyrus	1
+67::V3d	67	V3d	Occipital/Temporal	1
+67::F2	67	F2	Frontal (agranular frontal motor areas)	1
+67::F3	67	F3	Frontal (agranular frontal motor areas)	2
+67::F6	67	F6	Frontal (agranular frontal motor areas)	1
+67::F7	67	F7	Frontal (agranular frontal motor areas)	1
+34::TG	34	TG	Temporal	3
+92::10m	92	10m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+92::10o	92	10o	Lateral Prefrontal Cortex	2
+92::pu	92	pu	Subcortical	2
+qbt::10o	qbt	10o	Lateral Prefrontal Cortex	1
+qbt::46d	qbt	46d	Lateral Prefrontal Cortex	2
+xz::10m	xz	10m	Orbitomedial Prefrontal Cortex (OMPFC)	2
+xz::10o	xz	10o	Lateral Prefrontal Cortex	2
+xz::11m	xz	11m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xz::11l	xz	11l	Orbitomedial Prefrontal Cortex (OMPFC)	2
+qbt::F2	qbt	F2	Frontal (agranular frontal motor areas)	2
+xz::PrCo	xz	PrCo	Operculum/Insula	1
+xz::Ial	xz	Ial	Operculum/Insula	2
+xz::F4	xz	F4	Frontal (agranular frontal motor areas)	2
+xz::G	xz	G	Operculum/Insula	2
+xz::24b	xz	24b	Cingulate gyrus	1
+xz::24c	xz	24c	Cingulate gyrus	4
+xz::Ig	xz	Ig	Operculum/Insula	2
+xz::Id	xz	Id	Operculum/Insula	2
+xz::RM	xz	RM	Temporal	2
+xz::AL	xz	AL	Temporal	2
+xz::TPO	xz	TPO	Temporal	2
+xz::PGa	xz	PGa	Temporal	2
+qbt::LIPd	qbt	LIPd	Parietal, and Parieto-occipital region	3
+qbt::3a/b	qbt	3a/b	Parietal, and Parieto-occipital region	1
+xz::F1	xz	F1	Frontal (agranular frontal motor areas)	2
+xz::3a/b	xz	3a/b	Parietal, and Parieto-occipital region	2
+xz::1-2	xz	1-2	Parietal, and Parieto-occipital region	2
+xz::SII	xz	SII	Operculum/Insula	1
+xz::R	xz	R	Temporal	1
+xz::TAa	xz	TAa	Temporal	1
+xz::IPa	xz	IPa	Temporal	1
+xz::TEa	xz	TEa	Temporal	2
+xz::TEm	xz	TEm	Temporal	1
+xz::24a	xz	24a	Cingulate gyrus	1
+qbt::VIP	qbt	VIP	Parietal, and Parieto-occipital region	2
+qbt::7a	qbt	7a	Parietal, and Parieto-occipital region	2
+qbt::MST	qbt	MST	Occipital/Temporal	2
+qbt::MT	qbt	MT	Occipital/Temporal	1
+qbt::FST	qbt	FST	Occipital/Temporal	2
+qbt::V4v	qbt	V4v	Occipital/Temporal	1
+qbt::V3v	qbt	V3v	Occipital/Temporal	1
+qbt::V2	qbt	V2	Occipital/Temporal	1
+xz::7m	xz	7m	Parietal, and Parieto-occipital region	1
+xz::VIP	xz	VIP	Parietal, and Parieto-occipital region	2
+xz::LIPd	xz	LIPd	Parietal, and Parieto-occipital region	1
+xz::LIPv	xz	LIPv	Parietal, and Parieto-occipital region	2
+xz::7a	xz	7a	Parietal, and Parieto-occipital region	1
+xz::MST	xz	MST	Occipital/Temporal	1
+xz::V2	xz	V2	Occipital/Temporal	1
+qbt::F3	qbt	F3	Frontal (agranular frontal motor areas)	1
+qbt::F1	qbt	F1	Frontal (agranular frontal motor areas)	1
+qbt::STG	qbt	STG	Temporal	1
+qbt::1-2	qbt	1-2	Parietal, and Parieto-occipital region	1
+qbt::SII	qbt	SII	Operculum/Insula	2
+xz::F2	xz	F2	Frontal (agranular frontal motor areas)	1
+qbt::Ig	qbt	Ig	Operculum/Insula	1
+qbt::Id	qbt	Id	Operculum/Insula	1
+qbt::Pi	qbt	Pi	Operculum/Insula	1
+qbt::TEa	qbt	TEa	Temporal	1
+qbt::TEad	qbt	TEad	Temporal	1
+qbt::24c	qbt	24c	Cingulate gyrus	2
+xz::9m	xz	9m	Lateral Prefrontal Cortex	1
+xz::9d	xz	9d	Lateral Prefrontal Cortex	1
+xz::46d	xz	46d	Lateral Prefrontal Cortex	2
+xz::46v	xz	46v	Lateral Prefrontal Cortex	2
+xz::12r	xz	12r	Lateral Prefrontal Cortex	1
+xz::12m	xz	12m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xz::13b	xz	13b	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xz::14r	xz	14r	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xz::32	xz	32	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::9m	qbt	9m	Lateral Prefrontal Cortex	1
+qbt::46v	qbt	46v	Lateral Prefrontal Cortex	2
+qbt::12r	qbt	12r	Lateral Prefrontal Cortex	1
+qbt::12m	qbt	12m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::11m	qbt	11m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::11l	qbt	11l	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::13b	qbt	13b	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::10m	qbt	10m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::F5	qbt	F5	Frontal (agranular frontal motor areas)	1
+qbt::F4	qbt	F4	Frontal (agranular frontal motor areas)	2
+qbt::PrCo	qbt	PrCo	Operculum/Insula	2
+qbt::G	qbt	G	Operculum/Insula	2
+qbt::Ial	qbt	Ial	Operculum/Insula	1
+qbt::Iapm	qbt	Iapm	Operculum/Insula	1
+xz::Iapl	xz	Iapl	Operculum/Insula	1
+xz::Iapm	xz	Iapm	Operculum/Insula	1
+qbt::9d	qbt	9d	Lateral Prefrontal Cortex	1
+qbt::Iapl	qbt	Iapl	Operculum/Insula	1
+xz::F6	xz	F6	Frontal (agranular frontal motor areas)	2
+xz::F7	xz	F7	Frontal (agranular frontal motor areas)	2
+xz::8Bd	xz	8Bd	Lateral Prefrontal Cortex	2
+xz::8Bs	xz	8Bs	Lateral Prefrontal Cortex	2
+xz::8A	xz	8A	Lateral Prefrontal Cortex	2
+xz::45	xz	45	Lateral Prefrontal Cortex	2
+xz::14c	xz	14c	Orbitomedial Prefrontal Cortex (OMPFC)	2
+qbt::5	qbt	5	Parietal, and Parieto-occipital region	1
+qbt::7b	qbt	7b	Parietal, and Parieto-occipital region	1
+qbt::7op	qbt	7op	Parietal, and Parieto-occipital region	1
+qbt::A1	qbt	A1	Temporal	1
+qbt::CL	qbt	CL	Temporal	1
+qbt::TPO	qbt	TPO	Temporal	1
+qbt::PGa	qbt	PGa	Temporal	2
+qbt::IPa	qbt	IPa	Temporal	1
+xz::5	xz	5	Parietal, and Parieto-occipital region	1
+xz::7b	xz	7b	Parietal, and Parieto-occipital region	1
+xz::7op	xz	7op	Parietal, and Parieto-occipital region	1
+xz::CM	xz	CM	Temporal	1
+xz::A1	xz	A1	Temporal	1
+xz::CL	xz	CL	Temporal	1
+xz::TEO	xz	TEO	Temporal	1
+xz::TEpv	xz	TEpv	Temporal	1
+xz::TFO	xz	TFO	Temporal	1
+xz::Pi	xz	Pi	Operculum/Insula	1
+xz::STG	xz	STG	Temporal	1
+xz::TEad	xz	TEad	Temporal	1
+qbt::LIPv	qbt	LIPv	Parietal, and Parieto-occipital region	1
+qbt::Tpt	qbt	Tpt	Temporal	1
+qbt::V4	qbt	V4	Occipital/Temporal	1
+qbt::F7	qbt	F7	Frontal (agranular frontal motor areas)	1
+qbt::8Bd	qbt	8Bd	Lateral Prefrontal Cortex	1
+qbt::8Bs	qbt	8Bs	Lateral Prefrontal Cortex	1
+qbt::8A	qbt	8A	Lateral Prefrontal Cortex	1
+qbt::45	qbt	45	Lateral Prefrontal Cortex	1
+qbt::12o	qbt	12o	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::13l	qbt	13l	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::13m	qbt	13m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::14c	qbt	14c	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::32	qbt	32	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xz::12o	xz	12o	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xz::13l	xz	13l	Orbitomedial Prefrontal Cortex (OMPFC)	1
+xz::13m	xz	13m	Orbitomedial Prefrontal Cortex (OMPFC)	1
+qbt::R	qbt	R	Temporal	1
+qbt::TEm	qbt	TEm	Temporal	1
+qbt::TEav	qbt	TEav	Temporal	1
+xz::TEav	xz	TEav	Temporal	1

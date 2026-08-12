@@ -1,0 +1,28 @@
+{
+  "analysis": "Round-5 P0-4 GO:BP/KEGG background sensitivity",
+  "created_utc": "2026-08-03T10:13:07.928638+00:00",
+  "panel_n": 200,
+  "backgrounds": {
+    "model_space_21668": 21668,
+    "gprofiler_annotated_domain": null,
+    "bo2023_pseudobulk_tested_expression": 21375
+  },
+  "expression_background_rule": "unique nonblank uppercase gene_symbol among all 23,331 DESeq2-tested primary donor-by-Network pseudobulk rows; no significance filter",
+  "gprofiler_current": {
+    "version": "e114_eg62_p19_27110d83",
+    "request_timestamps": [
+      "2026-08-03T10:12:52.063886+00:00",
+      "2026-08-03T10:12:55.462238+00:00",
+      "2026-08-03T10:13:05.136621+00:00"
+    ]
+  },
+  "gprofiler_frozen_version_detected": "e114_eg62_p19_27110d83",
+  "same_version_within_run": true,
+  "request_rule": "all terms requested; q<0.05 applied to g:Profiler FDR-adjusted p_value; GO:BP and KEGG only",
+  "input_sha256": {
+    "data\\models\\bo2023_saleem_network_top200_model_genes.csv": "fcaf3a1927aa0e7b55513c9e3486333d67742e3ceaf0a7fb650a47b1dda15929",
+    "data\\models\\bo2023_reference_projector_linear_full.npz": "0be4788b14a2f7f89c509a252e5038831aab74d2e4ecf0052cee50d02e87982f",
+    "reproducibility\\round5_analysis\\p0_3_deseq2_marker_audit\\outputs\\primary_pseudobulk\\pseudobulk_deseq2_network_lrt_all_genes.csv": "11c3cd20b362d02f098ae2500697392eb7904f8300bc6f85c1f99b2e00677124",
+    "reproducibility\\independent_enrichment\\independent_enrichment_manifest.json": "26b2612c7bc52250395fa7a2feaa71a0cfbd7e4f634f99ba46140ca038c71f60"
+  }
+}

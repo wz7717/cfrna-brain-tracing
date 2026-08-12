@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "lock_id": "canonical110-v0.1.10-20260802",
+  "lock_id": "canonical110-v0.1.12-20260813",
   "status": "frozen",
   "policy": "Production inference must fail closed if any locked artifact or parameter differs.",
   "production_parameters": {
@@ -43,16 +43,26 @@
       "sha256": "0be4788b14a2f7f89c509a252e5038831aab74d2e4ecf0052cee50d02e87982f"
     },
     "data/models/bo2023_formal_region_logcpm_reference_matrix.npz": {
-      "size": 8453310,
-      "sha256": "a989aefc561d8b4b58b41433c58794a9215984a2f91bd77e302341791fb9cfc8"
+      "size": 8453292,
+      "sha256": "97cd339b3ec9eadeb40afb4a45b9c1f2cd9154b5e1f4c762ac696e2fc786a1a9"
     },
     "data/models/bo2023_formal_region_beam_gene_panels.json": {
-      "size": 3120775,
-      "sha256": "cd4c6a33d12e29712177af57c0f9c4eb2118a1bc67d87e4ef2de1a6d9441e941"
+      "size": 3119809,
+      "sha256": "18412b1963ab926157406661894f4e965e1bc19fc36a6e8de01abc7b5fdf478e"
     },
     "data/models/bo2023_region_resolution_groups.json": {
-      "size": 57691,
-      "sha256": "66028cdc4652a914eee682fe167d040901825c02278f75dbae8e4ef6cb7470db"
+      "size": 57685,
+      "sha256": "5e864a7e0a3be435c81bb9bb077dcbd9fe4a31328c8f816b0f0ea6786b54ebc8"
     }
+  },
+  "region_id_canonicalization": {
+    "status": "frozen",
+    "mapping": {
+      "AI": "A1",
+      "44563": "1-2"
+    },
+    "scope": "canonical region identity fields only",
+    "source_workbooks_unchanged": true,
+    "numeric_model_arrays_unchanged": true
   }
 }

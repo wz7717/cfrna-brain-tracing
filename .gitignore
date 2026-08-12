@@ -15,6 +15,7 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
 
 # Local Streamlit secrets
 .streamlit/secrets.toml
@@ -53,6 +54,11 @@ run_export.zip
 output/
 tmp/
 .tmp_docx_render*/
+
+# Non-redistributable or oversized analysis inputs/intermediates
+reproducibility/published_tool_comparison/cibersortx_input/
+reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz
+scripts/update_round5_p0_4_manuscripts.py
 
 # Local app logs and office/review QA artifacts
 streamlit.*.log

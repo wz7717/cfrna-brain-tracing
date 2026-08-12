@@ -9,13 +9,13 @@ The current submission workflow is:
 ```text
 Query logCPM/logTPM-compatible expression
 -> reference-fitted projection to Bo2023-like VSD
--> 10-class Network Top3 beam generation
+-> fixed 10-class Network Top3 candidate filtering
 -> logCPM-compatible resolution-group and exploratory exact-region reranking
 ```
 
-Projected VSD is used only for broad Network beam generation. Downstream
+Projected VSD is used only for broad Network candidate filtering. Downstream
 resolution-group and exploratory exact-region candidates are reranked within
-the retained Network beam using logCPM-compatible local expression. Exact-region
+the retained Network candidate set using logCPM-compatible local expression. Exact-region
 output is a candidate ranking, not a deterministic localization endpoint.
 
 The software reports candidates at three main levels:
@@ -42,6 +42,17 @@ validation.
 Choose one of the following workflows. The application environment is the
 smallest supported installation for interactive inference; it is not the full
 manuscript-reproduction environment.
+
+### Docker (recommended for quick start)
+
+```bash
+docker build -t braintrace:v0.1.12 .
+docker run -p 8501:8501 braintrace:v0.1.12
+# Open http://localhost:8501 in your browser
+
+# CLI mode
+docker run --rm braintrace:v0.1.12 braintrace --help
+```
 
 ### Run the application
 
@@ -75,6 +86,39 @@ python reproduce_all.py --output-dir reproducibility_audit
 environment; it is intended for CI/development checks rather than as the main
 installation entry point.
 
+#### Requirements files at a glance
+
+| File | Purpose | Packages | Install for |
+|------|---------|----------|-------------|
+| `requirements.txt` | Core application (Streamlit + inference) | 8 (pinned) | Interactive use |
+| `requirements_reproducible.txt` | Full manuscript reproduction | 24 (pinned) | Regenerating all results |
+| `requirements-repro.txt` | Testing extras | includes reproducible + pytest | CI and development |
+| `environment.yml` | Conda mirror of reproducible | 24 | Conda users |
+
+### Command-line interface
+
+The package installs the `braintrace` console entry point:
+
+```bash
+pip install -e .
+
+# Show help
+braintrace --help
+
+# Run a single-sample query from the command line
+braintrace query --input sample_counts.tsv --output result.json
+
+# List available models
+braintrace models
+
+# Validate the frozen reference projector
+braintrace validate --reference external_data/Bo2023/
+```
+
+The Streamlit web application (`streamlit run app/main.py`) provides an
+interactive graphical interface with file upload, parameter configuration
+and hierarchical result visualization.
+
 ## Input format
 
 Recommended query input is a gene-level RNA-seq expression table with:
@@ -100,6 +144,13 @@ TPM or logTPM tables remain accepted for backward compatibility, but they are
 treated as fallback inputs and fine-region interpretations should be reported
 more cautiously. Users are not expected to upload VSD; VSD-like query
 expression is generated internally by the projector.
+
+**Gene identifier format**: The tool accepts HGNC gene symbols as the primary
+identifier. Macaque Ensembl gene IDs (prefix `ENSMFAG`) are also recognized
+when present in the frozen reference lookup. Entrez Gene IDs and Ensembl
+human gene IDs are not directly supported; users should convert these to
+HGNC symbols before upload. Unrecognized gene symbols are set to zero in the
+projection step and do not contribute to ranking.
 
 Optional sample, subject, diagnosis and anatomical metadata can be included and
 are retained in exported reports.
@@ -128,6 +179,11 @@ Public derived reproducibility assets include:
   KEGG and broad cell-type enrichment outputs, protocol and hash manifest;
 - `reproducibility/s18_s19/`, containing the portable S18-S19 runner, frozen
   output and portable input manifest.
+- `reproducibility/round5_analysis/`, containing the Network-layer direct
+  projection ablation, projector OLS-fit audit, LOSO/LOMO MRR and NDCG@3
+  summaries, and the P0-3 donor-Network pseudobulk DESeq2 audit of the frozen
+  Network Top200 panel, plus the P0-4 same-version three-background GO:BP/KEGG
+  stability audit, with protocols and hash manifests.
 
 Run the S18-S19 analysis from the repository root with:
 
@@ -152,15 +208,19 @@ Canonical 110 locked route (rechecked 2026-07-13):
 - AHBA technical-replicate-collapsed, network-qualified mapped-label Network Top1/Top3: 73.99% (`165/223`) / 94.62% (`211/223`).
 - AHBA technical-replicate-collapsed, network-qualified mapped-label resolution-group Top1/Top3: 42.05% (`37/88`) / 68.18% (`60/88`).
 - AHBA technical-replicate-collapsed, network-qualified mapped-label exact-region Top1/Top3: 27.27% (`24/88`) / 45.45% (`40/88`).
-- TCGA/BraTS Network Top3 (strict): 31.25% (`20/64` evaluable cases, binomial p=0.4602 vs 30% uniform null).
-- TCGA/BraTS broad-anatomy Top3: 79.69% (`51/64` evaluable cases, binomial p<0.001 vs 20% uniform null).
+- TCGA/BraTS Network Top3 (strict, current tracer): 23.81% (`15/63` primary edema-comparator cases; exploratory one-sided exact-binomial p=0.8888 vs the 30% uniform-network null).
+- TCGA/BraTS broad-anatomy Top3 (strict, current tracer): 82.54% (`52/63` primary edema-comparator cases; descriptive only, with no valid prespecified Top3 null).
+- TCGA/BraTS Network candidate-set any-hit Top3: 36.51% (`23/63`; descriptive sensitivity; candidate set is Networks with >=20% edema overlap, not anatomical adjacency).
+- The primary edema comparator excludes TCGA-HT-7686 (no label-2 edema voxels) and TCGA-HT-7680 (cerebellar/out-of-scope edema); other MRI truth bases retain n=65.
+- The former `20/64` and `51/64` values belong to the archived 2026-06-09 endpoint and are not current release metrics.
+- The current reproducibility endpoint is generated by `score_tcga_gbm_lgg_sample_tracing_with_mri_labels.py` and `evaluate_brats_tcga_lgg_65_mri_truth.py` under `results/tcga_brats_current/`; the archived 2026-06-09 files are historical inputs only.
 - GSE189919 projector gene overlap: 15,622 / 21,668 (72.10%); projection feasibility / transfer stress test only, not localization accuracy.
 
 The repository exposes only the locked three-tier submission route. Historical
 baseline and tumour-adapted routes are not distributed in this release.
 
-The aligned endpoint definitions use projected VSD only for the Network Top3
-beam, an independent logCPM/Fisher-Top200 ranking for resolution groups, and an
+The aligned endpoint definitions use projected VSD only for the fixed Network
+Top3 candidate filter, an independent logCPM/Fisher-Top200 ranking for resolution groups, and an
 independent `0.25 x Top50 + 0.75 x Top100` logCPM fusion for exact regions.
 Resolution-group ordering does not rewrite the exact-region ranking. The static
 deployment hierarchy does not define validation groups: LOSO/LOMO groups are
@@ -178,19 +238,64 @@ because five samples lacked a truth-region reference after fold construction.
 Region-level LOMO metrics use 812 reference-supported samples because seven
 samples lacked a truth-region reference after fold construction.
 
+## Bo2023 source-data placement
+
+Bo2023 raw sequencing is available under NCBI SRA BioProject `PRJNA905082`.
+The exact processed count, VSD and metadata files used for the frozen projector
+were obtained from the paper's released supplementary/author package; they are
+not redistributed here and are not implied to be reproducible from SRA without
+the authors' processing workflow. Place them at the paths below before running
+the full reproduction pipeline. The checksum gate rejects non-matching files.
+
+| Expected relative path | SHA-256 |
+|---|---|
+| `external_data/Bo2023/mfas5_819samples_28415genes_featurecounts_counts.txt` | `1fb3a512da11ab0c327c07c114da3b9c38cab0a504682f2c7c036eedb3c7561a` |
+| `external_data/Bo2023/mfas5_819samples_23605genes_vsd4_rmbatch.xls` | `286aeab66b21b7fa012fac8ceaa24497894327e0736f9f6b200334c57089a1b3` |
+| `external_data/Bo2023/Information of sequenced samples_update_full878_filter819.xlsx` | `9a2fe2bec1475f6ad613883d0ff5925b1e6ba36e800caa922c35d4f8ae7d3645` |
+
+### Public Bo2023 file-level links
+
+The publisher's direct file links are recorded here so that the public source
+package is not confused with the exact author-package inputs above:
+
+- Supplementary Data 1–15 ZIP: <https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-023-37246-w/MediaObjects/41467_2023_37246_MOESM3_ESM.zip>
+- Source Data workbook: <https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-023-37246-w/MediaObjects/41467_2023_37246_MOESM5_ESM.xlsx>
+- Article landing page: <https://www.nature.com/articles/s41467-023-37246-w>
+- SRA BioProject: <https://www.ncbi.nlm.nih.gov/bioproject/PRJNA905082>
+- Analysis-code archive cited by Bo et al.: <https://doi.org/10.5281/zenodo.7641873>
+
+The publisher ZIP contains related supplementary workbooks (including a
+Supplementary Data 1 metadata workbook), but it does not expose the two exact
+SHA-256-matched count/VSD filenames listed above. No stable public file URL for
+those processed author-package matrices was identified in the publisher or SRA
+records checked on 2026-08-10; obtain them from the corresponding authors and
+verify the hashes rather than substituting a similarly named workbook.
+
+## Continuous-integration coverage
+
+CI runs the full test suite with branch coverage for the `core/` package. The
+current v0.1.12 release run produced **96 passed, 2 skipped**. Coverage.py 7.14.3
+reported **67.09% line coverage**, **52.05% branch coverage**, and **64% combined
+terminal coverage** (1,117 statements; 298 branches). The exact text and XML
+reports are `reproducibility/coverage_report.txt` and
+`reproducibility/coverage.xml`; the workflow also uploads the XML report as a
+CI artifact. This percentage is a software-test coverage metric, not a
+statistical confidence or biological validation measure.
+
 ## Status
 
-This repository contains the v0.1.11 public release for the
+This repository contains the v0.1.12 public release for the
 Bioinformatics Application Note describing BrainTrace. The software is
 intended for research use in hierarchical brain-origin candidate ranking and
 resolution-limit auditing. It is not a clinical diagnostic device and does not
 provide stand-alone clinical localization from unlabeled biofluid RNA. The
-v0.1.11 release uses the audited canonical 110-region assets, enforces the exact
+v0.1.12 release uses the audited canonical 110-region assets, enforces the exact
 110-region / 10-Network / 120-beam production contract, cleans the AHBA
 resolution-group detail export, and reports the formally rerun validation
-metrics. v0.1.11 supersedes v0.1.10 and includes the public Saleem crosswalk,
+metrics. v0.1.12 supersedes v0.1.11 and includes the public Saleem crosswalk,
 independent enrichment results, S18-S19 reproduction materials, synchronized
 provenance metadata, and automated CI checks. It is
-archived at Zenodo with version DOI
+prepared for a new Zenodo v0.1.12 deposit; its version DOI will be added after
+publication. The previous v0.1.11 version DOI is
 `https://doi.org/10.5281/zenodo.21759823`. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.

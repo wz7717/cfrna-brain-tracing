@@ -1070,12 +1070,12 @@
       "training_samples": 11,
       "nearest_centroid_corr": 0.9895645366669785
     },
-    "Parietal, and Parieto-occipital region||44563": {
-      "region_id": "44563",
+    "Parietal, and Parieto-occipital region||1-2": {
+      "region_id": "1-2",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "44563",
+      "resolution_group": "1-2",
       "group_members": [
-        "44563"
+        "1-2"
       ],
       "resolution_tier": "low_resolution",
       "resolution_reasons": [
@@ -1362,12 +1362,12 @@
       "training_samples": 2,
       "nearest_centroid_corr": 0.9905425250672885
     },
-    "Temporal||AI": {
-      "region_id": "AI",
+    "Temporal||A1": {
+      "region_id": "A1",
       "network_id": "Temporal",
-      "resolution_group": "Temporal::AI + CM",
+      "resolution_group": "Temporal::A1 + CM",
       "group_members": [
-        "AI",
+        "A1",
         "CM"
       ],
       "resolution_tier": "low_resolution",
@@ -1413,9 +1413,9 @@
     "Temporal||CM": {
       "region_id": "CM",
       "network_id": "Temporal",
-      "resolution_group": "Temporal::AI + CM",
+      "resolution_group": "Temporal::A1 + CM",
       "group_members": [
-        "AI",
+        "A1",
         "CM"
       ],
       "resolution_tier": "low_resolution",
@@ -1926,9 +1926,9 @@
     },
     {
       "network_id": "Temporal",
-      "group_id": "Temporal::AI + CM",
+      "group_id": "Temporal::A1 + CM",
       "members": [
-        "AI",
+        "A1",
         "CM"
       ]
     },

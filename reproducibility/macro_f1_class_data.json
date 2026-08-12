@@ -1,7 +1,7 @@
 {
   "comments": [
     {
-      "endpoint": "# Macro F1 denominator: LOSO Exact = 110 total regions - 2 non-evaluable = 108",
+      "endpoint": "# Macro F1 denominator: LOSO Exact = 110 total regions - 5 non-evaluable = 105",
       "class": "",
       "n": "",
       "precision": "",
@@ -9,7 +9,7 @@
       "f1": ""
     },
     {
-      "endpoint": "# Macro F1 denominator: LOMO Exact = 110 total regions - 1 non-evaluable = 109",
+      "endpoint": "# Macro F1 denominator: LOMO Exact = 110 total regions - 6 non-evaluable = 104",
       "class": "",
       "n": "",
       "precision": "",
@@ -220,7 +220,7 @@
     },
     {
       "endpoint": "LOSO_Exact",
-      "class": "44563",
+      "class": "1-2",
       "n": "12",
       "precision": "0.0",
       "recall": "0.0",
@@ -460,7 +460,7 @@
     },
     {
       "endpoint": "LOSO_Exact",
-      "class": "AI",
+      "class": "A1",
       "n": "9",
       "precision": "0.4444",
       "recall": "0.4444",
@@ -1060,7 +1060,7 @@
     },
     {
       "endpoint": "LOMO_Exact",
-      "class": "44563",
+      "class": "1-2",
       "n": "12",
       "precision": "0.0625",
       "recall": "0.0625",
@@ -1332,7 +1332,7 @@
     },
     {
       "endpoint": "LOMO_Exact",
-      "class": "AI",
+      "class": "A1",
       "n": "9",
       "precision": "0.5217",
       "recall": "0.3333",
