@@ -1,9 +1,9 @@
 relative_path,bytes
 .devcontainer/devcontainer.json,1034
 .dockerignore,629
-.gitattributes,638
+.gitattributes,658
 .github/workflows/ci.yml,1452
-.gitignore,2239
+.gitignore,2173
 .streamlit/config.toml,273
 CONTRIBUTING.md,1640
 DATA_PROVENANCE.md,11173
@@ -136,7 +136,7 @@ data/schema.py,157
 data/signatures/mb_cell_state_signatures.csv,28514
 data/signatures/mb_cell_state_signatures.provenance.json,6547
 data/system_check.py,5889
-data_processor.py,24649
+data_processor.py,24130
 database_init.py,27271
 environment.yml,940
 generate_reproducibility_report.py,21470
@@ -274,7 +274,7 @@ reproducibility/v4_p0_5_ahba_trace.csv,1105
 reproducibility/v4_p0_9_triple_ci.csv,1134
 requirements-repro.txt,113
 requirements.txt,962
-requirements_reproducible.txt,1761
+requirements_reproducible.txt,1704
 sample_regions.csv,2312
 scripts/add_supplementary_sparse_donor_tables.py,5936
 scripts/analyze_bo2023_lomo_optimization_audits.py,7978
@@ -402,7 +402,7 @@ tests/test_pairwise_marker_annotation.py,1795
 tests/test_production_route_lock.py,3956
 tests/test_public_demo_mode.py,2693
 tests/test_public_reproducibility_assets.py,1912
-tests/test_r08_rf_fair_comparator.py,4764
+tests/test_r08_rf_fair_comparator.py,4626
 tests/test_real_input_performance_harness.py,7006
 tests/test_region_resolution_annotation.py,2514
 tests/test_sparse_domain_shift_contract.py,3915
