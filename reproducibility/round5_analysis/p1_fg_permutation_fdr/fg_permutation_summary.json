@@ -1,0 +1,28 @@
+{
+  "analysis": "Permutation FDR for F_g feature-ranking scores (region-level, 110 regions, 10 Networks)",
+  "n_genes": 21668,
+  "n_regions": 110,
+  "n_networks": 10,
+  "n_permutations": 1000,
+  "seed": 20260805,
+  "fg_obs_median": 3.240620619448535,
+  "fg_obs_q1": 1.9156779487812468,
+  "fg_obs_q3": 6.022905939573676,
+  "genes_bh_fdr_005": 14399,
+  "genes_bh_fdr_005_pct": 66.45,
+  "genes_bh_fdr_001": 7294,
+  "genes_bh_fdr_001_pct": 33.66,
+  "top200_bh_fdr_005": 190,
+  "top200_bh_fdr_001": 151,
+  "top200_max_permutation_p": 0.003996003996003996,
+  "top200_max_bh_fdr": 1.0,
+  "top200_recomputed_vs_locked_overlap": 94,
+  "deseq2_comparison": {
+    "n_genes_tested": 21668,
+    "n_genes_sig_deseq2_bh_005": 15233,
+    "top200_deseq2_sig": 199,
+    "spearman_fg_vs_neglog10_padj": 0.6133079498380882,
+    "spearman_p": 0.0
+  },
+  "limitation": "Region-level analysis (110 regions); not weighted by per-region sample count or donor structure. Serves as sensitivity check alongside formal donor-aware DESeq2 pseudobulk LRT (P0-3 audit)."
+}

@@ -1,0 +1,8 @@
+TissueEnrich=1.32.0
+R=R version 4.6.1 (2026-06-24 ucrt)
+panel_n=200
+background_n=21668
+datasets=HPA,GTEx
+tissueSpecificGeneType=All
+multiple_testing=BH within each dataset
+interpretation=tissue enrichment only; not anatomical localization accuracy

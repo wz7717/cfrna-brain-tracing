@@ -5,6 +5,8 @@ import pytest
 
 from core.bo2023_metadata import (
     assert_unique_region_network_mapping,
+    canonicalize_bo2023_region_text,
+    normalize_bo2023_region_labels,
     normalize_bo2023_network_labels,
 )
 
@@ -45,3 +47,16 @@ def test_unique_mapping_guard_rejects_unresolved_cross_network_region() -> None:
 
     with pytest.raises(ValueError, match="X"):
         assert_unique_region_network_mapping(metadata)
+
+
+def test_canonicalizes_source_region_artifacts_before_lobe_lookup() -> None:
+    assert canonicalize_bo2023_region_text("AI") == "A1"
+    assert canonicalize_bo2023_region_text("44563") == "1-2"
+    assert canonicalize_bo2023_region_text("44563 | 7op") == "1-2 | 7op"
+
+
+def test_region_normalization_does_not_touch_non_region_fields() -> None:
+    frame = pd.DataFrame({"region_id": ["AI", "44563"], "sample_id": ["AI", "44563"]})
+    normalized = normalize_bo2023_region_labels(frame, columns=["region_id"])
+    assert normalized["region_id"].tolist() == ["A1", "1-2"]
+    assert normalized["sample_id"].tolist() == ["AI", "44563"]

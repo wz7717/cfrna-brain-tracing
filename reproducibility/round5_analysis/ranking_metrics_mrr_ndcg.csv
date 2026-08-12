@@ -1,0 +1,7 @@
+scheme,level,n,mrr,ndcg_at_3,top1,top3,unretrieved_truth_n,definition
+LOSO,Network,819,0.7547822547822547,0.7820756014826505,0.5897435897435898,0.9194139194139194,0,MRR assigns 0 when the true fine label is outside the retained candidate set; NDCG@3 uses one binary relevant label and ideal DCG=1.
+LOSO,ResolutionGroup,814,0.6072625957652696,0.6122574981923534,0.4520884520884521,0.7248157248157249,64,MRR assigns 0 when the true fine label is outside the retained candidate set; NDCG@3 uses one binary relevant label and ideal DCG=1.
+LOSO,ExactRegion,814,0.3799026863266114,0.3537617267857178,0.22358722358722358,0.4520884520884521,64,MRR assigns 0 when the true fine label is outside the retained candidate set; NDCG@3 uses one binary relevant label and ideal DCG=1.
+LOMO,Network,819,0.7295511366939937,0.765867794169726,0.5555555555555556,0.9157509157509157,0,MRR assigns 0 when the true fine label is outside the retained candidate set; NDCG@3 uses one binary relevant label and ideal DCG=1.
+LOMO,ResolutionGroup,812,0.5779295212176986,0.5818638299700959,0.4236453201970443,0.7007389162561576,67,MRR assigns 0 when the true fine label is outside the retained candidate set; NDCG@3 uses one binary relevant label and ideal DCG=1.
+LOMO,ExactRegion,812,0.3676044770358808,0.33881366301900445,0.21798029556650247,0.42610837438423643,67,MRR assigns 0 when the true fine label is outside the retained candidate set; NDCG@3 uses one binary relevant label and ideal DCG=1.

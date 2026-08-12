@@ -1,0 +1,2 @@
+"n_raw_genes","n_tested_genes","n_prefiltered_genes","rule"
+28415,19735,8680,"raw count >=10 in at least 9 samples"

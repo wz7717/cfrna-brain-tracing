@@ -1236,12 +1236,12 @@
       "training_samples": 11,
       "nearest_centroid_corr": 0.9895645366669785
     },
-    "Parietal, and Parieto-occipital region||44563": {
-      "region_id": "44563",
+    "Parietal, and Parieto-occipital region||1-2": {
+      "region_id": "1-2",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1261,9 +1261,9 @@
     "Parietal, and Parieto-occipital region||5": {
       "region_id": "5",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1283,9 +1283,9 @@
     "Parietal, and Parieto-occipital region||7a": {
       "region_id": "7a",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1305,9 +1305,9 @@
     "Parietal, and Parieto-occipital region||7b": {
       "region_id": "7b",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1327,9 +1327,9 @@
     "Parietal, and Parieto-occipital region||7m": {
       "region_id": "7m",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1350,9 +1350,9 @@
     "Parietal, and Parieto-occipital region||7op": {
       "region_id": "7op",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1386,9 +1386,9 @@
     "Parietal, and Parieto-occipital region||LIPv": {
       "region_id": "LIPv",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1408,9 +1408,9 @@
     "Parietal, and Parieto-occipital region||VIP": {
       "region_id": "VIP",
       "network_id": "Parietal, and Parieto-occipital region",
-      "resolution_group": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "resolution_group": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "group_members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -1593,12 +1593,12 @@
       "training_samples": 2,
       "nearest_centroid_corr": 0.9905425250672885
     },
-    "Temporal||AI": {
-      "region_id": "AI",
+    "Temporal||A1": {
+      "region_id": "A1",
       "network_id": "Temporal",
-      "resolution_group": "Temporal::AI + CL + CM + ML + Tpt",
+      "resolution_group": "Temporal::A1 + CL + CM + ML + Tpt",
       "group_members": [
-        "AI",
+        "A1",
         "CL",
         "CM",
         "ML",
@@ -1629,9 +1629,9 @@
     "Temporal||CL": {
       "region_id": "CL",
       "network_id": "Temporal",
-      "resolution_group": "Temporal::AI + CL + CM + ML + Tpt",
+      "resolution_group": "Temporal::A1 + CL + CM + ML + Tpt",
       "group_members": [
-        "AI",
+        "A1",
         "CL",
         "CM",
         "ML",
@@ -1649,9 +1649,9 @@
     "Temporal||CM": {
       "region_id": "CM",
       "network_id": "Temporal",
-      "resolution_group": "Temporal::AI + CL + CM + ML + Tpt",
+      "resolution_group": "Temporal::A1 + CL + CM + ML + Tpt",
       "group_members": [
-        "AI",
+        "A1",
         "CL",
         "CM",
         "ML",
@@ -1684,9 +1684,9 @@
     "Temporal||ML": {
       "region_id": "ML",
       "network_id": "Temporal",
-      "resolution_group": "Temporal::AI + CL + CM + ML + Tpt",
+      "resolution_group": "Temporal::A1 + CL + CM + ML + Tpt",
       "group_members": [
-        "AI",
+        "A1",
         "CL",
         "CM",
         "ML",
@@ -2048,9 +2048,9 @@
     "Temporal||Tpt": {
       "region_id": "Tpt",
       "network_id": "Temporal",
-      "resolution_group": "Temporal::AI + CL + CM + ML + Tpt",
+      "resolution_group": "Temporal::A1 + CL + CM + ML + Tpt",
       "group_members": [
-        "AI",
+        "A1",
         "CL",
         "CM",
         "ML",
@@ -2178,9 +2178,9 @@
     },
     {
       "network_id": "Parietal, and Parieto-occipital region",
-      "group_id": "Parietal, and Parieto-occipital region::44563 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
+      "group_id": "Parietal, and Parieto-occipital region::1-2 + 5 + 7a + 7b + 7m + 7op + LIPv + VIP",
       "members": [
-        "44563",
+        "1-2",
         "5",
         "7a",
         "7b",
@@ -2201,9 +2201,9 @@
     },
     {
       "network_id": "Temporal",
-      "group_id": "Temporal::AI + CL + CM + ML + Tpt",
+      "group_id": "Temporal::A1 + CL + CM + ML + Tpt",
       "members": [
-        "AI",
+        "A1",
         "CL",
         "CM",
         "ML",

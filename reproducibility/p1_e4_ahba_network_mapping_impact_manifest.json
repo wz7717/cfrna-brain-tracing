@@ -1,0 +1,20 @@
+{
+  "analysis": "P1 E4 per-Network AHBA mapping-impact audit",
+  "primary_endpoint": "set-valued any-allowed-label Network Top1 hit",
+  "sensitivity_endpoint": "strict same-Network Network Top1 hit",
+  "truth_denominator": "AHBA samples whose allowed Network set contains the named Network; denominators overlap under multi-label truth",
+  "pooled_any_allowed_top1": {
+    "hits": 165,
+    "n": 223,
+    "accuracy": 0.7399103139013453
+  },
+  "n_networks_with_ahba_support": 9,
+  "n_networks_without_ahba_support": 1,
+  "pearson_rho_unmapped_fraction_vs_any_allowed_accuracy": -0.06208560390927079,
+  "pearson_rho_unmapped_fraction_vs_strict_accuracy": -0.5073043643216717,
+  "multi_label_truth_note": "These are descriptive transfer metrics from two AHBA donors; no Network-level inferential P value or causal mapping-bias claim is made.",
+  "source_sha256": {
+    "network_humanization_enrichment.csv": "08adf8f43da6066dccfd3ed21c97c0bbce6be746cfd5070c04b2f5de852be0c4",
+    "ahba_formal_three_tier_sample_detail.csv": "2c5c280465c0f2de1212aa84ad3d7a4776fbefc519302406728d040b4c91c750"
+  }
+}

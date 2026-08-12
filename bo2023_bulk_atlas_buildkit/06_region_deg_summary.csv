@@ -39,7 +39,7 @@ protein_coding,8Bm,5024,Frontal,0.836636136552873
 protein_coding,8Bs,4645,Frontal,0.776106934001671
 protein_coding,9d,4391,Frontal,0.790601368383147
 protein_coding,9m,4827,Frontal,0.781573834196891
-protein_coding,AI,4645,Temporal,0.777666164406496
+protein_coding,A1,4645,Temporal,0.777666164406496
 protein_coding,AL,4501,Temporal,0.802317290552585
 protein_coding,amy,6075,Subcortical,0.794844956169043
 protein_coding,cd,6373,Subcortical,0.755452821242295
@@ -141,7 +141,7 @@ lincRNA,8Bm,230,Frontal,0.0383014154870941
 lincRNA,8Bs,296,Frontal,0.0494569757727652
 lincRNA,9d,266,Frontal,0.0478934101548434
 lincRNA,9m,278,Frontal,0.0450129533678756
-lincRNA,AI,296,Temporal,0.0495563368491545
+lincRNA,A1,296,Temporal,0.0495563368491545
 lincRNA,AL,275,Temporal,0.0490196078431373
 lincRNA,amy,309,Subcortical,0.0404291508569933
 lincRNA,cd,407,Subcortical,0.0482456140350877
@@ -243,7 +243,7 @@ pseudogene,8Bm,64,Frontal,0.0106577851790175
 pseudogene,8Bs,63,Frontal,0.0105263157894737
 pseudogene,9d,53,Frontal,0.00954267194814548
 pseudogene,9m,61,Frontal,0.00987694300518135
-pseudogene,AI,60,Temporal,0.0100452034153692
+pseudogene,A1,60,Temporal,0.0100452034153692
 pseudogene,AL,51,Temporal,0.00909090909090909
 pseudogene,amy,81,Subcortical,0.0105979327489206
 pseudogene,cd,101,Subcortical,0.0119724988146041
@@ -345,7 +345,7 @@ smallRNA,8Bm,687,Frontal,0.114404662781016
 smallRNA,8Bs,981,Frontal,0.16390977443609
 smallRNA,9d,844,Frontal,0.151962549513864
 smallRNA,9m,1010,Frontal,0.163536269430052
-smallRNA,AI,972,Temporal,0.16273229532898
+smallRNA,A1,972,Temporal,0.16273229532898
 smallRNA,AL,783,Temporal,0.139572192513369
 smallRNA,amy,1178,Subcortical,0.154127960225043
 smallRNA,cd,1555,Subcortical,0.184329065908013

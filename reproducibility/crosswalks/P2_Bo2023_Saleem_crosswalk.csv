@@ -64,7 +64,7 @@ SII,Operculum/Insula,secondary somatosensory area (S2),Parietal,S2
 14c,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal area,14c",Frontal,PFCom
 14r,Orbitomedial Prefrontal Cortex (OMPFC),"orbitomedial prefrontal area,14r",Frontal,PFCom
 5,"Parietal, and Parieto-occipital region",,,
-44563,"Parietal, and Parieto-occipital region",,,
+1-2,"Parietal, and Parieto-occipital region",,,
 3a/b,"Parietal, and Parieto-occipital region",somatosensory areas 3a and 3b,Parietal,S1
 7a,"Parietal, and Parieto-occipital region",visual area 7a,Parietal,PCi
 7b,"Parietal, and Parieto-occipital region",visual area 7b,Parietal,PCi
@@ -83,7 +83,7 @@ cla,Subcortical,,,
 pu,Subcortical,,,
 thalamus,Subcortical,,,
 36c,Temporal,"area 36 of the perirhinal cortex, caudal subregion",Temporal ,PHC
-AI,Temporal,,,
+A1,Temporal,,,
 AL,Temporal,"anterior lateral, belt region of the auditory cortex",Temporal ,TCs
 CL,Temporal,"caudal lateral, belt region of the auditory cortex",Temporal ,TCs
 CM,Temporal,"caudomedial, belt region of the auditory cortex",Temporal ,TCs

@@ -1,0 +1,75 @@
+"pseudobulk_id","PC1","PC2","network","donor_id","n_tissue_samples"
+"34__Cingulate gyrus",-10.7571051764974,5.65324369501406,"Cingulate gyrus","34",10
+"67__Cingulate gyrus",-19.0165782912488,-3.24404581671887,"Cingulate gyrus","67",1
+"79__Cingulate gyrus",-13.9690774423478,-14.857477112792,"Cingulate gyrus","79",4
+"92__Cingulate gyrus",-14.4757923798166,-7.36122267510866,"Cingulate gyrus","92",2
+"qbt__Cingulate gyrus",52.8313983500594,2.40661208411298,"Cingulate gyrus","qbt",2
+"xq__Cingulate gyrus",-12.9452043671189,4.06065494244302,"Cingulate gyrus","xq",13
+"xz__Cingulate gyrus",51.7806476969453,5.57025622458007,"Cingulate gyrus","xz",6
+"zs__Cingulate gyrus",-19.9350044018924,-26.5980151538375,"Cingulate gyrus","zs",1
+"2__Frontal (agranular frontal motor areas)",-5.3204763841335,-9.07036919753413,"Frontal (agranular frontal motor areas)","2",2
+"34__Frontal (agranular frontal motor areas)",-10.2071487301861,-2.59708664009791,"Frontal (agranular frontal motor areas)","34",18
+"67__Frontal (agranular frontal motor areas)",-13.564805041077,-9.19658068452912,"Frontal (agranular frontal motor areas)","67",5
+"92__Frontal (agranular frontal motor areas)",-11.9388680360486,-9.86126893454619,"Frontal (agranular frontal motor areas)","92",7
+"qbt__Frontal (agranular frontal motor areas)",55.9766788158901,0.0713654235528232,"Frontal (agranular frontal motor areas)","qbt",8
+"xq__Frontal (agranular frontal motor areas)",-11.5787078667485,-6.46148971638825,"Frontal (agranular frontal motor areas)","xq",13
+"xz__Frontal (agranular frontal motor areas)",54.3542401470713,-0.943404391950275,"Frontal (agranular frontal motor areas)","xz",9
+"zs__Frontal (agranular frontal motor areas)",-16.8024050077268,-24.5882271451788,"Frontal (agranular frontal motor areas)","zs",3
+"34__Hippocampal formation",-20.1327218378983,36.0310290891359,"Hippocampal formation","34",3
+"92__Hippocampal formation",-26.5636469129511,32.6253820655982,"Hippocampal formation","92",1
+"xq__Hippocampal formation",-23.1887964794364,43.5613865026115,"Hippocampal formation","xq",4
+"34__Lateral Prefrontal Cortex",-9.58583335265454,-5.23627499468407,"Lateral Prefrontal Cortex","34",33
+"92__Lateral Prefrontal Cortex",-15.6102879604615,-11.12463465328,"Lateral Prefrontal Cortex","92",12
+"qbt__Lateral Prefrontal Cortex",54.2044117451259,5.61752074078451,"Lateral Prefrontal Cortex","qbt",12
+"xq__Lateral Prefrontal Cortex",-12.3202585840272,-7.28747506630811,"Lateral Prefrontal Cortex","xq",30
+"xz__Lateral Prefrontal Cortex",54.129724196383,4.35512625257008,"Lateral Prefrontal Cortex","xz",17
+"zs__Lateral Prefrontal Cortex",-16.2402173072393,-23.5458896278712,"Lateral Prefrontal Cortex","zs",3
+"2__Occipital/Temporal",-11.4237212710545,-13.0158598080818,"Occipital/Temporal","2",2
+"34__Occipital/Temporal",-15.8247614796669,17.7863423248173,"Occipital/Temporal","34",21
+"67__Occipital/Temporal",-16.4209904700992,-23.6948213777634,"Occipital/Temporal","67",1
+"79__Occipital/Temporal",-12.8663175362318,-16.8054521563335,"Occipital/Temporal","79",3
+"92__Occipital/Temporal",-15.642140472571,-11.5841759757296,"Occipital/Temporal","92",10
+"qbt__Occipital/Temporal",53.3513865667155,2.00019060169443,"Occipital/Temporal","qbt",9
+"xq__Occipital/Temporal",-14.3776515969318,-7.87667555699231,"Occipital/Temporal","xq",20
+"xz__Occipital/Temporal",52.2077274031917,-2.99191143203218,"Occipital/Temporal","xz",2
+"zs__Occipital/Temporal",-17.8990431023684,-27.699642167071,"Occipital/Temporal","zs",2
+"2__Operculum/Insula",-14.2384046417759,-6.84320674321282,"Operculum/Insula","2",1
+"34__Operculum/Insula",-9.33459229473068,2.92375536806603,"Operculum/Insula","34",14
+"67__Operculum/Insula",-11.4372476969861,-21.1013023222042,"Operculum/Insula","67",1
+"79__Operculum/Insula",-12.8352139335814,-11.6994675396103,"Operculum/Insula","79",1
+"92__Operculum/Insula",-14.8486170703035,-7.62143788208953,"Operculum/Insula","92",7
+"qbt__Operculum/Insula",55.878477250233,4.6143931934317,"Operculum/Insula","qbt",12
+"xq__Operculum/Insula",-12.1106795216332,-0.274132922980811,"Operculum/Insula","xq",19
+"xz__Operculum/Insula",54.5330344846019,5.72918497386577,"Operculum/Insula","xz",13
+"zs__Operculum/Insula",-13.1797529095786,-12.1381287408483,"Operculum/Insula","zs",13
+"2__Orbitomedial Prefrontal Cortex (OMPFC)",-8.19395867055219,-8.24473640373989,"Orbitomedial Prefrontal Cortex (OMPFC)","2",4
+"34__Orbitomedial Prefrontal Cortex (OMPFC)",-11.9772406315737,10.5179708511348,"Orbitomedial Prefrontal Cortex (OMPFC)","34",27
+"67__Orbitomedial Prefrontal Cortex (OMPFC)",-14.3036951779786,-5.74034043045744,"Orbitomedial Prefrontal Cortex (OMPFC)","67",2
+"79__Orbitomedial Prefrontal Cortex (OMPFC)",-13.6580852091023,-6.11866961357713,"Orbitomedial Prefrontal Cortex (OMPFC)","79",2
+"92__Orbitomedial Prefrontal Cortex (OMPFC)",-15.351407675939,4.47579878254244,"Orbitomedial Prefrontal Cortex (OMPFC)","92",22
+"qbt__Orbitomedial Prefrontal Cortex (OMPFC)",54.6912002481199,6.0354221215719,"Orbitomedial Prefrontal Cortex (OMPFC)","qbt",10
+"xq__Orbitomedial Prefrontal Cortex (OMPFC)",-11.873865854477,-0.91846172941455,"Orbitomedial Prefrontal Cortex (OMPFC)","xq",17
+"xz__Orbitomedial Prefrontal Cortex (OMPFC)",52.9863697168731,6.19792374653493,"Orbitomedial Prefrontal Cortex (OMPFC)","xz",14
+"zs__Orbitomedial Prefrontal Cortex (OMPFC)",-17.1825284239973,-15.3952823430865,"Orbitomedial Prefrontal Cortex (OMPFC)","zs",6
+"2__Parietal, and Parieto-occipital region",-4.92491636118192,-9.81658176061229,"Parietal, and Parieto-occipital region","2",4
+"34__Parietal, and Parieto-occipital region",-11.9690815751737,8.9208924173208,"Parietal, and Parieto-occipital region","34",26
+"92__Parietal, and Parieto-occipital region",-13.8243937183882,-8.46877633133282,"Parietal, and Parieto-occipital region","92",14
+"qbt__Parietal, and Parieto-occipital region",56.2461199840968,1.23663386882455,"Parietal, and Parieto-occipital region","qbt",13
+"xq__Parietal, and Parieto-occipital region",-14.1771388714277,-7.45310456311149,"Parietal, and Parieto-occipital region","xq",25
+"xz__Parietal, and Parieto-occipital region",53.0205302892961,-1.82773606063877,"Parietal, and Parieto-occipital region","xz",14
+"zs__Parietal, and Parieto-occipital region",-14.2370415479438,-23.8236725049669,"Parietal, and Parieto-occipital region","zs",2
+"2__Subcortical",-19.0112146851506,56.6770588827319,"Subcortical","2",3
+"34__Subcortical",-22.706941724902,50.4309720486438,"Subcortical","34",13
+"67__Subcortical",-19.2331262646515,6.92762355979666,"Subcortical","67",1
+"79__Subcortical",-20.3749988541113,31.2586418873132,"Subcortical","79",5
+"92__Subcortical",-26.304045762706,43.8328632039467,"Subcortical","92",8
+"xq__Subcortical",-25.3942920815524,41.624705822738,"Subcortical","xq",18
+"zs__Subcortical",-25.5085586675899,15.196133872915,"Subcortical","zs",6
+"2__Temporal",-15.087660320233,-8.9045213943434,"Temporal","2",1
+"34__Temporal",-10.7750020453435,2.53996430881119,"Temporal","34",54
+"79__Temporal",-14.2799678481078,-20.3085822003347,"Temporal","79",2
+"92__Temporal",-13.8823750596435,-5.05956133734781,"Temporal","92",31
+"qbt__Temporal",56.5413085880543,1.72847952405945,"Temporal","qbt",13
+"xq__Temporal",-13.0391996694997,-0.045602779227731,"Temporal","xq",63
+"xz__Temporal",55.0833451501104,3.9206786580592,"Temporal","xz",23
+"zs__Temporal",-13.9537943745176,-17.0829011512566,"Temporal","zs",6

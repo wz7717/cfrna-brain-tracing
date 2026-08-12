@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "braintrace"
-version = "0.1.10"
+version = "0.1.12"
 description = "Hierarchical brain-origin candidate ranking from RNA expression profiles using a primate transcriptomic reference"
 readme = "README.md"
 license = {text = "MIT"}

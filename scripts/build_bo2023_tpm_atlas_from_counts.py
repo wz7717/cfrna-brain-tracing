@@ -11,6 +11,11 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.bo2023_metadata import normalize_bo2023_region_labels  # noqa: E402
+
 DEFAULT_DATA_DIR = ROOT / "bo2023 data"
 DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
 DEFAULT_COUNTS = DEFAULT_DATA_DIR / "mfas5_819samples_28415genes_featurecounts_counts.txt"
@@ -118,6 +123,7 @@ def read_sample_annotation(path: Path, sheet: str, region_col: str) -> pd.DataFr
     ann = ann.copy()
     ann["No."] = ann["No."].astype(str).str.strip()
     ann[region_col] = ann[region_col].astype(str).str.strip()
+    ann = normalize_bo2023_region_labels(ann, columns=[region_col])
     ann = ann.dropna(subset=["No.", region_col]).drop_duplicates(subset=["No."])
     return ann
 

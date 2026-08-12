@@ -1,0 +1,11 @@
+"metric","value"
+"raw_genes",28415
+"tested_genes",23331
+"pseudobulk_units",74
+"lrt_fdr_lt_0_05_all_genes",16024
+"locked_panel_genes",200
+"locked_panel_mapped_and_tested",200
+"locked_panel_lrt_fdr_lt_0_05",200
+"locked_panel_support_fraction",1
+"spearman_fisher_vs_lrt_stat",0.0977589439735994
+"spearman_fisher_vs_neglog10_padj",0.0977469803296327

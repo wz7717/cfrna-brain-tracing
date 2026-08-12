@@ -1,0 +1,31 @@
+theme,background,native,source,q_value,significant_q05
+cell-cell signaling,model_space_21668,GO:0007267,GO:BP,1.6723043159951275e-14,True
+cell-cell signaling,gprofiler_annotated_domain,GO:0007267,GO:BP,1.9421443669730043e-13,True
+cell-cell signaling,bo2023_pseudobulk_tested_expression,GO:0007267,GO:BP,1.86815155874673e-14,True
+nervous system development,model_space_21668,GO:0007399,GO:BP,6.041115953820185e-13,True
+nervous system development,gprofiler_annotated_domain,GO:0007399,GO:BP,2.922309144328394e-12,True
+nervous system development,bo2023_pseudobulk_tested_expression,GO:0007399,GO:BP,7.218923234119671e-13,True
+generation of neurons,model_space_21668,GO:0048699,GO:BP,2.143757962307106e-12,True
+generation of neurons,gprofiler_annotated_domain,GO:0048699,GO:BP,2.922309144328394e-12,True
+generation of neurons,bo2023_pseudobulk_tested_expression,GO:0048699,GO:BP,2.5467248724418376e-12,True
+potassium ion transport,model_space_21668,GO:0006813,GO:BP,8.547577712065507e-08,True
+potassium ion transport,gprofiler_annotated_domain,GO:0006813,GO:BP,1.4603006891462697e-07,True
+potassium ion transport,bo2023_pseudobulk_tested_expression,GO:0006813,GO:BP,7.967603482729296e-08,True
+glutamatergic synaptic transmission,model_space_21668,GO:0035249,GO:BP,1.4562724516233515e-06,True
+glutamatergic synaptic transmission,gprofiler_annotated_domain,GO:0035249,GO:BP,1.8133155129144905e-06,True
+glutamatergic synaptic transmission,bo2023_pseudobulk_tested_expression,GO:0035249,GO:BP,1.521655966642851e-06,True
+neuroactive ligand-receptor interaction,model_space_21668,KEGG:04080,KEGG,0.00034550899268221693,True
+neuroactive ligand-receptor interaction,gprofiler_annotated_domain,KEGG:04080,KEGG,0.0016709895495190309,True
+neuroactive ligand-receptor interaction,bo2023_pseudobulk_tested_expression,KEGG:04080,KEGG,0.00033826191068658655,True
+calcium signaling pathway,model_space_21668,KEGG:04020,KEGG,0.008605548030879089,True
+calcium signaling pathway,gprofiler_annotated_domain,KEGG:04020,KEGG,0.01371079945589568,True
+calcium signaling pathway,bo2023_pseudobulk_tested_expression,KEGG:04020,KEGG,0.008880064922217882,True
+axon guidance,model_space_21668,GO:0007411,GO:BP,0.010051517961884924,True
+axon guidance,gprofiler_annotated_domain,GO:0007411,GO:BP,0.009301022432928557,True
+axon guidance,bo2023_pseudobulk_tested_expression,GO:0007411,GO:BP,0.010309525642029646,True
+cholinergic synapse,model_space_21668,KEGG:04725,KEGG,0.04656099242435051,True
+cholinergic synapse,gprofiler_annotated_domain,KEGG:04725,KEGG,0.06388024689389103,False
+cholinergic synapse,bo2023_pseudobulk_tested_expression,KEGG:04725,KEGG,0.04751320270468738,True
+glutamatergic synapse,model_space_21668,KEGG:04724,KEGG,0.0498756889786906,True
+glutamatergic synapse,gprofiler_annotated_domain,KEGG:04724,KEGG,0.06388024689389103,False
+glutamatergic synapse,bo2023_pseudobulk_tested_expression,KEGG:04724,KEGG,0.050889003520518415,False

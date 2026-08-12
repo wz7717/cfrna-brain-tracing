@@ -1,0 +1,24 @@
+network_id,group_id,member_count,members
+Cingulate gyrus,Cingulate gyrus::23b + 23c + 24b',3,23b | 23c | 24b'
+Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas)::F1 + F2 + F3 + F7,4,F1 | F2 | F3 | F7
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::10o + 46d + 46v,3,10o | 46d | 46v
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::12l + 12r + 45 + 8A,4,12l | 12r | 45 | 8A
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::8Bd + 8Bm + 8Bs + 9m,4,8Bd | 8Bm | 8Bs | 9m
+Occipital/Temporal,Occipital/Temporal::FST + MST,2,FST | MST
+Occipital/Temporal,Occipital/Temporal::V1 + V2,2,V1 | V2
+Occipital/Temporal,Occipital/Temporal::V4 + V4v,2,V4 | V4v
+Operculum/Insula,Operculum/Insula::G + Id + Ig + SII,4,G | Id | Ig | SII
+Operculum/Insula,Operculum/Insula::Ia + Pi,2,Ia | Pi
+Operculum/Insula,Operculum/Insula::Ial + Iapm,2,Ial | Iapm
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::11m + 12m,2,11m | 12m
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::12o + 13l,2,12o | 13l
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::13a + 13b + 25,3,13a | 13b | 25
+"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region::5 + LIPv + VIP",3,5 | LIPv | VIP
+"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region::7a + 7b",2,7a | 7b
+Subcortical,Subcortical::NARegion + cd + pu,3,NARegion | cd | pu
+Temporal,Temporal::AI + CM,2,AI | CM
+Temporal,Temporal::CL + ML + Tpt,3,CL | ML | Tpt
+Temporal,Temporal::RT + RTM,2,RT | RTM
+Temporal,Temporal::STG + TAa,2,STG | TAa
+Temporal,Temporal::TEO + TEpd + TEpv,3,TEO | TEpd | TEpv
+Temporal,Temporal::TEad + TEm,2,TEad | TEm

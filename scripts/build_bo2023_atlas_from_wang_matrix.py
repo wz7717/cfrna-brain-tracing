@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from core.bo2023_metadata import canonicalize_bo2023_region_text  # noqa: E402
 from signature_builder import build_signature_set  # noqa: E402
 
 
@@ -70,7 +71,7 @@ def read_region_names(path: Path) -> dict[str, str]:
     if full_col not in abbr.columns:
         return {}
     return {
-        clean_text(row["Abbreviation"]): clean_text(row[full_col])
+        str(canonicalize_bo2023_region_text(row["Abbreviation"])).strip(): clean_text(row[full_col])
         for _, row in abbr.iterrows()
         if clean_text(row["Abbreviation"])
     }
@@ -136,6 +137,8 @@ def build_region_annotation(ann: pd.DataFrame, region_col: str, sample_info: Pat
     if region_col not in ann.columns:
         raise ValueError(f"sample annotation does not contain region column: {region_col}")
     region_names = read_region_names(sample_info)
+    ann = ann.copy()
+    ann[region_col] = ann[region_col].map(canonicalize_bo2023_region_text)
     rows = []
     for region_id, g in ann.groupby(region_col, dropna=True):
         rid = clean_text(region_id)
@@ -169,7 +172,7 @@ def aggregate_expression_by_region(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     ann_use = ann[["No.", region_col]].dropna().copy()
     ann_use["No."] = ann_use["No."].astype(str).str.strip()
-    ann_use[region_col] = ann_use[region_col].astype(str).str.strip()
+    ann_use[region_col] = ann_use[region_col].map(canonicalize_bo2023_region_text).astype(str).str.strip()
     ann_use = ann_use[ann_use["No."].isin(matrix.columns)]
 
     gene_meta = gene_map.set_index("Gene.stable.ID")

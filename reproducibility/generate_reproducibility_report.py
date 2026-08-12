@@ -169,7 +169,7 @@ products = [
         "√ seed=20260717, 固定树数=300, k=500"
     ),
     (
-        "results/archived_tcga_brats/*/brats_tcga_lgg_65_mri_truth_and_predictions.csv",
+        "results/tcga_brats_current/mri_truth/brats_tcga_lgg_65_mri_truth_and_predictions.csv",
         "evaluate_brats_tcga_lgg_65_mri_truth.py",
         "模型.npz + BraTS NIfTI + TCGA TPM",
         "√ 确定性 (无重采样)"

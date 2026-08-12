@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from core.bo2023_metadata import canonicalize_bo2023_region_text  # noqa: E402
 from core.reference_projection import (  # noqa: E402
     apply_projector,
     compute_logcpm,
@@ -229,6 +230,10 @@ def main() -> int:
     bo_logcpm = compute_logcpm(bo_counts)
 
     bo_metadata = read_bo_metadata(args.sample_info, args.sample_sheet, args.region_col, args.network_col)
+    # Canonicalize source region artifacts before training references and
+    # candidate beams are built. Otherwise 44563 remains separate from 1-2
+    # and cannot join the canonical Region->Lobe map.
+    bo_metadata["region_id"] = bo_metadata["region_id"].map(canonicalize_bo2023_region_text).astype(str)
     bo_samples = [sample for sample in bo_counts.columns.astype(str) if sample in set(bo_metadata["sample_id"])]
     bo_metadata = bo_metadata[bo_metadata["sample_id"].isin(bo_samples)].copy()
     bo_logcpm = bo_logcpm.loc[common, bo_samples]
@@ -247,12 +252,10 @@ def main() -> int:
         )
         for region in regions
     }
-    region_lobe = dict(
-        zip(
-            pd.read_csv(args.region_meta, usecols=["Region", "Lobe"])["Region"].astype(str),
-            pd.read_csv(args.region_meta, usecols=["Region", "Lobe"])["Lobe"].astype(str).str.lower(),
-        )
-    )
+    region_meta = pd.read_csv(args.region_meta, usecols=["Region", "Lobe"])
+    region_meta["Region"] = region_meta["Region"].map(canonicalize_bo2023_region_text).astype(str)
+    region_meta["Lobe"] = region_meta["Lobe"].astype(str).str.lower()
+    region_lobe = dict(zip(region_meta["Region"], region_meta["Lobe"]))
 
     route_spaces = {
         "logcpm_baseline": {

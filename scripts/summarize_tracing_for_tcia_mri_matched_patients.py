@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TRACING = (
     ROOT
     / "results"
-    / "tcga_gbm_lgg_sample_mri_label_tracing_20260605"
+    / "tcga_brats_current"
+    / "tracing"
     / "tcga_gbm_lgg_sample_mri_label_tracing_summary.csv"
 )
 DEFAULT_MATCH = (
@@ -22,7 +23,7 @@ DEFAULT_MATCH = (
     / "tcga_rnaseq_tcia_mri_collection_match_20260605"
     / "tcga_rnaseq_patient_to_tcia_mri_match.csv"
 )
-DEFAULT_OUTDIR = ROOT / "results" / "tcga_tracing_tcia_mri_matched_patients_20260605"
+DEFAULT_OUTDIR = ROOT / "results" / "tcga_brats_current" / "tcia_mri_matched_patients"
 
 
 def counts(series: pd.Series) -> dict[str, int]:

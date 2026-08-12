@@ -1,0 +1,8 @@
+{
+  "n_all_genes": 21668,
+  "n_locked_network_genes": 200,
+  "n_fallback_genes": 0,
+  "fraction_r2_below_0p10_all": 0.04365885176296843,
+  "fraction_r2_below_0p10_locked": 0.0,
+  "interpretation": "In-sample paired-reference engineering fit; not a proof of DESeq2 VST equivalence or external calibration."
+}

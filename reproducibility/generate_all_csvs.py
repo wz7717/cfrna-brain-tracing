@@ -70,20 +70,20 @@ RAW_COUNTS_INTERNAL = {
     # LOSO: Leave-One-Sample-Out (n=819 for Network, n=814 for Exact)
     "LOSO_Network_Top1": {"correct": 483, "n": 819},
     "LOSO_Network_Top3": {"correct": 753, "n": 819},
-    "LOSO_Exact_Top1":   {"correct": 368, "n": 814},   # 2 samples lack supported exact truth
+    "LOSO_Exact_Top1":   {"correct": 182, "n": 814},   # canonical110 formal exact-region Top1
     "LOSO_Exact_Top3":   {"correct": 368, "n": 814},
     # LOMO: Leave-One-Macaque-Out (n=819 for Network, n=812 for Exact)
     "LOMO_Network_Top1": {"correct": 455, "n": 819},
     "LOMO_Network_Top3": {"correct": 750, "n": 819},
-    "LOMO_Exact_Top1":   {"correct": 179, "n": 812},   # 7 samples lack supported exact truth
+    "LOMO_Exact_Top1":   {"correct": 177, "n": 812},   # canonical110 formal exact-region Top1
     "LOMO_Exact_Top3":   {"correct": 346, "n": 812},
 }
 
 # Resolution-group counts (from same validation runs)
 RAW_COUNTS_RESOLUTION = {
     "LOSO_ResGroup_Top1": {"correct": 368, "n": 814},
-    "LOSO_ResGroup_Top3": {"correct": 586, "n": 814},
-    "LOMO_ResGroup_Top1": {"correct": 358, "n": 812},
+    "LOSO_ResGroup_Top3": {"correct": 590, "n": 814},
+    "LOMO_ResGroup_Top1": {"correct": 344, "n": 812},
     "LOMO_ResGroup_Top3": {"correct": 569, "n": 812},
 }
 
@@ -98,10 +98,11 @@ RAW_COUNTS_AHBA = {
     "AHBA_Exact_Top3":     {"correct": 40,  "n": 88},
 }
 
-# --- Source: evaluate_brats_tcga_lgg_65_mri_truth.py ---
-# TCGA/BraTS 65-patient MRI truth evaluation
+# --- Source: current release TCGA tracer + evaluate_brats_tcga_lgg_65_mri_truth.py ---
+# Current endpoint root: results/tcga_brats_current/{tracing,mri_truth}
+# TCGA/BraTS 65-patient MRI truth evaluation (rerun 2026-08-11)
 # 4 region_types × 3 levels × 2 top_k × 2 variants = 48 data rows
-# region_types: center (n=65), core (n=65), edema (n=64), whole_tumor (n=65)
+# region_types: center (n=65), core (n=65), edema (n=63 primary), whole_tumor (n=65)
 # levels: broad, lobe, network
 # top_k: top1, top3
 # variants: strict (exact match), tolerant (1-neighbor tolerance)
@@ -109,66 +110,66 @@ RAW_COUNTS_AHBA = {
 # Format: (region_type, level, top_k, variant) → {"correct": int, "n": int}
 RAW_COUNTS_TCGA_BRATS = {
     # --- center (n=65): strict == tolerant (center has no adjacent region concept) ---
-    ("center", "broad",   "top1", "strict"):   {"correct": 15, "n": 65},
-    ("center", "broad",   "top1", "tolerant"): {"correct": 15, "n": 65},
-    ("center", "broad",   "top3", "strict"):   {"correct": 34, "n": 65},
-    ("center", "broad",   "top3", "tolerant"): {"correct": 34, "n": 65},
-    ("center", "lobe",    "top1", "strict"):   {"correct": 15, "n": 65},
-    ("center", "lobe",    "top1", "tolerant"): {"correct": 15, "n": 65},
-    ("center", "lobe",    "top3", "strict"):   {"correct": 34, "n": 65},
-    ("center", "lobe",    "top3", "tolerant"): {"correct": 34, "n": 65},
-    ("center", "network", "top1", "strict"):   {"correct": 14, "n": 65},
-    ("center", "network", "top1", "tolerant"): {"correct": 14, "n": 65},
-    ("center", "network", "top3", "strict"):   {"correct": 20, "n": 65},
-    ("center", "network", "top3", "tolerant"): {"correct": 20, "n": 65},
+    ("center", "broad", "top1", "strict"): {"correct": 12, "n": 65},
+    ("center", "broad", "top1", "tolerant"): {"correct": 12, "n": 65},
+    ("center", "broad", "top3", "strict"): {"correct": 32, "n": 65},
+    ("center", "broad", "top3", "tolerant"): {"correct": 32, "n": 65},
+    ("center", "lobe", "top1", "strict"): {"correct": 12, "n": 65},
+    ("center", "lobe", "top1", "tolerant"): {"correct": 12, "n": 65},
+    ("center", "lobe", "top3", "strict"): {"correct": 34, "n": 65},
+    ("center", "lobe", "top3", "tolerant"): {"correct": 34, "n": 65},
+    ("center", "network", "top1", "strict"): {"correct": 9, "n": 65},
+    ("center", "network", "top1", "tolerant"): {"correct": 9, "n": 65},
+    ("center", "network", "top3", "strict"): {"correct": 19, "n": 65},
+    ("center", "network", "top3", "tolerant"): {"correct": 19, "n": 65},
     # --- core (n=65) ---
-    ("core", "broad",   "top1", "strict"):   {"correct": 7,  "n": 65},
-    ("core", "broad",   "top1", "tolerant"): {"correct": 13, "n": 65},
-    ("core", "broad",   "top3", "strict"):   {"correct": 46, "n": 65},
-    ("core", "broad",   "top3", "tolerant"): {"correct": 55, "n": 65},
-    ("core", "lobe",    "top1", "strict"):   {"correct": 6,  "n": 65},
-    ("core", "lobe",    "top1", "tolerant"): {"correct": 13, "n": 65},
-    ("core", "lobe",    "top3", "strict"):   {"correct": 48, "n": 65},
-    ("core", "lobe",    "top3", "tolerant"): {"correct": 55, "n": 65},
-    ("core", "network", "top1", "strict"):   {"correct": 5,  "n": 65},
-    ("core", "network", "top1", "tolerant"): {"correct": 11, "n": 65},
-    ("core", "network", "top3", "strict"):   {"correct": 16, "n": 65},
-    ("core", "network", "top3", "tolerant"): {"correct": 30, "n": 65},
-    # --- edema (n=64, 1 patient lacks edema segmentation) ---
-    ("edema",  "broad",   "top1", "strict"):   {"correct": 8,  "n": 64},
-    ("edema",  "broad",   "top1", "tolerant"): {"correct": 18, "n": 64},
-    ("edema",  "broad",   "top3", "strict"):   {"correct": 51, "n": 64},
-    ("edema",  "broad",   "top3", "tolerant"): {"correct": 58, "n": 64},
-    ("edema",  "lobe",    "top1", "strict"):   {"correct": 9,  "n": 64},
-    ("edema",  "lobe",    "top1", "tolerant"): {"correct": 20, "n": 64},
-    ("edema",  "lobe",    "top3", "strict"):   {"correct": 54, "n": 64},
-    ("edema",  "lobe",    "top3", "tolerant"): {"correct": 59, "n": 64},
-    ("edema",  "network", "top1", "strict"):   {"correct": 10, "n": 64},
-    ("edema",  "network", "top1", "tolerant"): {"correct": 16, "n": 64},
-    ("edema",  "network", "top3", "strict"):   {"correct": 20, "n": 64},
-    ("edema",  "network", "top3", "tolerant"): {"correct": 29, "n": 64},
+    ("core", "broad", "top1", "strict"): {"correct": 10, "n": 65},
+    ("core", "broad", "top1", "tolerant"): {"correct": 18, "n": 65},
+    ("core", "broad", "top3", "strict"): {"correct": 45, "n": 65},
+    ("core", "broad", "top3", "tolerant"): {"correct": 55, "n": 65},
+    ("core", "lobe", "top1", "strict"): {"correct": 10, "n": 65},
+    ("core", "lobe", "top1", "tolerant"): {"correct": 17, "n": 65},
+    ("core", "lobe", "top3", "strict"): {"correct": 51, "n": 65},
+    ("core", "lobe", "top3", "tolerant"): {"correct": 55, "n": 65},
+    ("core", "network", "top1", "strict"): {"correct": 4, "n": 65},
+    ("core", "network", "top1", "tolerant"): {"correct": 12, "n": 65},
+    ("core", "network", "top3", "strict"): {"correct": 12, "n": 65},
+    ("core", "network", "top3", "tolerant"): {"correct": 29, "n": 65},
+    # --- edema (n=63 primary; excludes no-edema TCGA-HT-7686 and cerebellar/out-of-scope TCGA-HT-7680) ---
+    ("edema", "broad", "top1", "strict"): {"correct": 14, "n": 63},
+    ("edema", "broad", "top1", "tolerant"): {"correct": 20, "n": 63},
+    ("edema", "broad", "top3", "strict"): {"correct": 52, "n": 63},
+    ("edema", "broad", "top3", "tolerant"): {"correct": 55, "n": 63},
+    ("edema", "lobe", "top1", "strict"): {"correct": 12, "n": 63},
+    ("edema", "lobe", "top1", "tolerant"): {"correct": 22, "n": 63},
+    ("edema", "lobe", "top3", "strict"): {"correct": 55, "n": 63},
+    ("edema", "lobe", "top3", "tolerant"): {"correct": 58, "n": 63},
+    ("edema", "network", "top1", "strict"): {"correct": 7, "n": 63},
+    ("edema", "network", "top1", "tolerant"): {"correct": 13, "n": 63},
+    ("edema", "network", "top3", "strict"): {"correct": 15, "n": 63},
+    ("edema", "network", "top3", "tolerant"): {"correct": 23, "n": 63},
     # --- whole_tumor (n=65) ---
-    ("whole_tumor", "broad",   "top1", "strict"):   {"correct": 6,  "n": 65},
-    ("whole_tumor", "broad",   "top1", "tolerant"): {"correct": 10, "n": 65},
-    ("whole_tumor", "broad",   "top3", "strict"):   {"correct": 48, "n": 65},
-    ("whole_tumor", "broad",   "top3", "tolerant"): {"correct": 54, "n": 65},
-    ("whole_tumor", "lobe",    "top1", "strict"):   {"correct": 7,  "n": 65},
-    ("whole_tumor", "lobe",    "top1", "tolerant"): {"correct": 12, "n": 65},
-    ("whole_tumor", "lobe",    "top3", "strict"):   {"correct": 52, "n": 65},
-    ("whole_tumor", "lobe",    "top3", "tolerant"): {"correct": 55, "n": 65},
-    ("whole_tumor", "network", "top1", "strict"):   {"correct": 5,  "n": 65},
-    ("whole_tumor", "network", "top1", "tolerant"): {"correct": 9,  "n": 65},
-    ("whole_tumor", "network", "top3", "strict"):   {"correct": 15, "n": 65},
-    ("whole_tumor", "network", "top3", "tolerant"): {"correct": 24, "n": 65},
+    ("whole_tumor", "broad", "top1", "strict"): {"correct": 9, "n": 65},
+    ("whole_tumor", "broad", "top1", "tolerant"): {"correct": 17, "n": 65},
+    ("whole_tumor", "broad", "top3", "strict"): {"correct": 46, "n": 65},
+    ("whole_tumor", "broad", "top3", "tolerant"): {"correct": 55, "n": 65},
+    ("whole_tumor", "lobe", "top1", "strict"): {"correct": 11, "n": 65},
+    ("whole_tumor", "lobe", "top1", "tolerant"): {"correct": 18, "n": 65},
+    ("whole_tumor", "lobe", "top3", "strict"): {"correct": 55, "n": 65},
+    ("whole_tumor", "lobe", "top3", "tolerant"): {"correct": 57, "n": 65},
+    ("whole_tumor", "network", "top1", "strict"): {"correct": 2, "n": 65},
+    ("whole_tumor", "network", "top1", "tolerant"): {"correct": 9, "n": 65},
+    ("whole_tumor", "network", "top3", "strict"): {"correct": 10, "n": 65},
+    ("whole_tumor", "network", "top3", "tolerant"): {"correct": 22, "n": 65},
 }
 
 # TCGA/BraTS comment rows (documented metadata, not computed)
 TCGA_BRATS_COMMENTS = [
-    "# Primary report uses edema region_type with n=64 (after excluding 1 cerebellar out-of-scope case from 65 total)",
-    "# Variant definitions: strict = exact Network match required; tolerant = adjacent Network match allowed (1-neighbor tolerance)",
-    "# Network Top3 strict: 20/64=31.25%, p=0.4602 (not significant vs 30% uniform null)",
-    "# Broad Top3 strict: 51/64=79.69%, p<0.001 (significant)",
-    "# Network Top3 tolerant: 29/64=45.31%, p=0.0069 (significant)",
+    "# Primary report uses edema region_type with n=63 (after excluding TCGA-HT-7686 with no label-2 edema voxels and TCGA-HT-7680 with cerebellar/out-of-scope edema from 65 total)",
+    "# Variant definitions: strict = exact Network match required; candidate-set any-hit = predicted Top3 intersects the sample-specific truth set formed by Networks with >=20% edema overlap; this is not anatomical adjacency tolerance",
+    "# Network Top3 strict: 15/63=23.8095%, one-sided exact-binomial p=0.8888 versus the exploratory 30% uniform-network null",
+    "# Broad Top3 strict: 52/63=82.5397% (descriptive only; no prespecified valid Top3 null)",
+    "# Network Top3 candidate-set any-hit: 23/63=36.5079% (descriptive sensitivity result; no P value)",
 ]
 
 # --- Source: analyze_lambda_sensitivity_friedman.py ---
@@ -195,7 +196,7 @@ RAW_COUNTS_RF = {
     "RF_Network_Top1": {"correct": 491, "n": 819},
     "RF_Network_Top3": {"correct": 746, "n": 819},
     "RF_Exact_Top1":   {"correct": 179, "n": 812},
-    "RF_Exact_Top3":   {"correct": 346, "n": 812},
+    "RF_Exact_Top3":   {"correct": 337, "n": 812},
 }
 
 # --- Source: analyze_subcortical_ppv_subsampling.py ---
@@ -285,10 +286,41 @@ def clopper_pearson_ci(count: int, n: int, alpha: float = 0.05) -> tuple[float, 
         lo = beta_dist.ppf(alpha / 2, count, n - count + 1)
         hi = beta_dist.ppf(1 - alpha / 2, count + 1, n - count)
         return max(0.0, lo), min(1.0, hi)
-    # Fallback: normal approximation
-    p = count / n
-    se = math.sqrt(p * (1 - p) / n)
-    return max(0.0, p - 1.96 * se), min(1.0, p + 1.96 * se)
+    # Fallback: exact beta quantiles using a finite binomial-tail sum.
+    # This keeps the archived Clopper-Pearson columns reproducible when scipy
+    # is unavailable in the bundled runtime.
+    def binom_tail(lower: int, nn: int, prob: float) -> float:
+        if prob <= 0:
+            return 0.0
+        if prob >= 1:
+            return 1.0
+        terms = []
+        log_x = math.log(prob)
+        log_1mx = math.log1p(-prob)
+        for j in range(lower, nn + 1):
+            terms.append(
+                math.lgamma(nn + 1) - math.lgamma(j + 1)
+                - math.lgamma(nn - j + 1) + j * log_x
+                + (nn - j) * log_1mx
+            )
+        peak = max(terms)
+        return min(1.0, max(0.0, math.exp(peak) * sum(math.exp(t - peak) for t in terms)))
+
+    def beta_quantile(probability: float, a: int, b: int) -> float:
+        nn = a + b - 1
+        lo, hi = 0.0, 1.0
+        for _ in range(80):
+            mid = (lo + hi) / 2
+            tail = binom_tail(a, nn, mid)
+            if tail < probability:
+                lo = mid
+            else:
+                hi = mid
+        return (lo + hi) / 2
+
+    lo = 0.0 if count == 0 else beta_quantile(alpha / 2, count, n - count + 1)
+    hi = 1.0 if count == n else beta_quantile(1 - alpha / 2, count + 1, n - count)
+    return lo, hi
 
 
 def agresti_coull_ci(count: int, n: int, z: float = 1.96) -> tuple[float, float]:
@@ -627,8 +659,8 @@ def generate_rf_comparator(output_dir: Path) -> str:
     metrics = [
         ("Network", "Top1", RAW_COUNTS_RF["RF_Network_Top1"]),
         ("Network", "Top3", RAW_COUNTS_RF["RF_Network_Top3"]),
-        ("Exact",   "Top1", RAW_COUNTS_RF["RF_Exact_Top1"]),
-        ("Exact",   "Top3", RAW_COUNTS_RF["RF_Exact_Top3"]),
+        ("Exact", "Top1", RAW_COUNTS_RF["RF_Exact_Top1"]),
+        ("Exact", "Top3", RAW_COUNTS_RF["RF_Exact_Top3"]),
     ]
     for endpoint, metric, counts in metrics:
         correct, n = counts["correct"], counts["n"]
@@ -684,20 +716,21 @@ def generate_tcga_brats_ci(output_dir: Path) -> str:
         })
 
     # Add manuscript summary row
-    # Edema strict top3: Network 20/64=31.25% (p=0.4602), Broad 51/64=79.69% (p<0.001)
-    net_correct, net_n = RAW_COUNTS_TCGA_BRATS[("edema", "network", "top3", "strict")]["correct"], 64
-    broad_correct, broad_n = RAW_COUNTS_TCGA_BRATS[("edema", "broad", "top3", "strict")]["correct"], 64
+    # Edema strict top3: Network 15/63=23.8095% (p=0.8888), Broad 52/63=82.5397% (descriptive only)
+    net_correct = RAW_COUNTS_TCGA_BRATS[("edema", "network", "top3", "strict")]["correct"]
+    net_n = RAW_COUNTS_TCGA_BRATS[("edema", "network", "top3", "strict")]["n"]
+    broad_correct = RAW_COUNTS_TCGA_BRATS[("edema", "broad", "top3", "strict")]["correct"]
+    broad_n = RAW_COUNTS_TCGA_BRATS[("edema", "broad", "top3", "strict")]["n"]
     p_net = binomial_test_pvalue(net_correct, net_n, 0.30)
-    p_broad = binomial_test_pvalue(broad_correct, broad_n, 0.30)
     rows.append({
         "region_type": "edema", "level": "manuscript_summary", "top_k": "top3",
-        "variant": "strict", "n_patients": 64,
+        "variant": "strict", "n_patients": net_n,
         "n_correct": f"network={net_correct},broad={broad_correct}",
         "accuracy": f"network={net_correct/net_n:.4f},broad={broad_correct/broad_n:.4f}",
         "wilson_lo": "", "wilson_hi": "",
         "cp_lo": "", "cp_hi": "",
         "ac_lo": "", "ac_hi": "",
-        "bootstrap_lo": f"p_network={p_net:.4f}", "bootstrap_hi": f"p_broad={p_broad:.10f}",
+        "bootstrap_lo": f"p_network={p_net:.4f}", "bootstrap_hi": "p_broad=not_tested",
     })
 
     filename = "v4_p0_12_tcga_brats_ci_summary.csv"

@@ -1,0 +1,75 @@
+"pseudobulk_id","donor_id","network","n_tissue_samples"
+"34__Cingulate gyrus","34","Cingulate gyrus",10
+"67__Cingulate gyrus","67","Cingulate gyrus",1
+"79__Cingulate gyrus","79","Cingulate gyrus",4
+"92__Cingulate gyrus","92","Cingulate gyrus",2
+"qbt__Cingulate gyrus","qbt","Cingulate gyrus",2
+"xq__Cingulate gyrus","xq","Cingulate gyrus",13
+"xz__Cingulate gyrus","xz","Cingulate gyrus",6
+"zs__Cingulate gyrus","zs","Cingulate gyrus",1
+"2__Frontal (agranular frontal motor areas)","2","Frontal (agranular frontal motor areas)",2
+"34__Frontal (agranular frontal motor areas)","34","Frontal (agranular frontal motor areas)",18
+"67__Frontal (agranular frontal motor areas)","67","Frontal (agranular frontal motor areas)",5
+"92__Frontal (agranular frontal motor areas)","92","Frontal (agranular frontal motor areas)",7
+"qbt__Frontal (agranular frontal motor areas)","qbt","Frontal (agranular frontal motor areas)",8
+"xq__Frontal (agranular frontal motor areas)","xq","Frontal (agranular frontal motor areas)",13
+"xz__Frontal (agranular frontal motor areas)","xz","Frontal (agranular frontal motor areas)",9
+"zs__Frontal (agranular frontal motor areas)","zs","Frontal (agranular frontal motor areas)",3
+"34__Hippocampal formation","34","Hippocampal formation",3
+"92__Hippocampal formation","92","Hippocampal formation",1
+"xq__Hippocampal formation","xq","Hippocampal formation",4
+"34__Lateral Prefrontal Cortex","34","Lateral Prefrontal Cortex",33
+"92__Lateral Prefrontal Cortex","92","Lateral Prefrontal Cortex",12
+"qbt__Lateral Prefrontal Cortex","qbt","Lateral Prefrontal Cortex",12
+"xq__Lateral Prefrontal Cortex","xq","Lateral Prefrontal Cortex",30
+"xz__Lateral Prefrontal Cortex","xz","Lateral Prefrontal Cortex",17
+"zs__Lateral Prefrontal Cortex","zs","Lateral Prefrontal Cortex",3
+"2__Occipital/Temporal","2","Occipital/Temporal",2
+"34__Occipital/Temporal","34","Occipital/Temporal",21
+"67__Occipital/Temporal","67","Occipital/Temporal",1
+"79__Occipital/Temporal","79","Occipital/Temporal",3
+"92__Occipital/Temporal","92","Occipital/Temporal",10
+"qbt__Occipital/Temporal","qbt","Occipital/Temporal",9
+"xq__Occipital/Temporal","xq","Occipital/Temporal",20
+"xz__Occipital/Temporal","xz","Occipital/Temporal",2
+"zs__Occipital/Temporal","zs","Occipital/Temporal",2
+"2__Operculum/Insula","2","Operculum/Insula",1
+"34__Operculum/Insula","34","Operculum/Insula",14
+"67__Operculum/Insula","67","Operculum/Insula",1
+"79__Operculum/Insula","79","Operculum/Insula",1
+"92__Operculum/Insula","92","Operculum/Insula",7
+"qbt__Operculum/Insula","qbt","Operculum/Insula",12
+"xq__Operculum/Insula","xq","Operculum/Insula",19
+"xz__Operculum/Insula","xz","Operculum/Insula",13
+"zs__Operculum/Insula","zs","Operculum/Insula",13
+"2__Orbitomedial Prefrontal Cortex (OMPFC)","2","Orbitomedial Prefrontal Cortex (OMPFC)",4
+"34__Orbitomedial Prefrontal Cortex (OMPFC)","34","Orbitomedial Prefrontal Cortex (OMPFC)",27
+"67__Orbitomedial Prefrontal Cortex (OMPFC)","67","Orbitomedial Prefrontal Cortex (OMPFC)",2
+"79__Orbitomedial Prefrontal Cortex (OMPFC)","79","Orbitomedial Prefrontal Cortex (OMPFC)",2
+"92__Orbitomedial Prefrontal Cortex (OMPFC)","92","Orbitomedial Prefrontal Cortex (OMPFC)",22
+"qbt__Orbitomedial Prefrontal Cortex (OMPFC)","qbt","Orbitomedial Prefrontal Cortex (OMPFC)",10
+"xq__Orbitomedial Prefrontal Cortex (OMPFC)","xq","Orbitomedial Prefrontal Cortex (OMPFC)",17
+"xz__Orbitomedial Prefrontal Cortex (OMPFC)","xz","Orbitomedial Prefrontal Cortex (OMPFC)",14
+"zs__Orbitomedial Prefrontal Cortex (OMPFC)","zs","Orbitomedial Prefrontal Cortex (OMPFC)",6
+"2__Parietal, and Parieto-occipital region","2","Parietal, and Parieto-occipital region",4
+"34__Parietal, and Parieto-occipital region","34","Parietal, and Parieto-occipital region",26
+"92__Parietal, and Parieto-occipital region","92","Parietal, and Parieto-occipital region",14
+"qbt__Parietal, and Parieto-occipital region","qbt","Parietal, and Parieto-occipital region",13
+"xq__Parietal, and Parieto-occipital region","xq","Parietal, and Parieto-occipital region",25
+"xz__Parietal, and Parieto-occipital region","xz","Parietal, and Parieto-occipital region",14
+"zs__Parietal, and Parieto-occipital region","zs","Parietal, and Parieto-occipital region",2
+"2__Subcortical","2","Subcortical",3
+"34__Subcortical","34","Subcortical",13
+"67__Subcortical","67","Subcortical",1
+"79__Subcortical","79","Subcortical",5
+"92__Subcortical","92","Subcortical",8
+"xq__Subcortical","xq","Subcortical",18
+"zs__Subcortical","zs","Subcortical",6
+"2__Temporal","2","Temporal",1
+"34__Temporal","34","Temporal",54
+"79__Temporal","79","Temporal",2
+"92__Temporal","92","Temporal",31
+"qbt__Temporal","qbt","Temporal",13
+"xq__Temporal","xq","Temporal",63
+"xz__Temporal","xz","Temporal",23
+"zs__Temporal","zs","Temporal",6

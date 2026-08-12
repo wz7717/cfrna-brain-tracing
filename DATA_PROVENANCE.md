@@ -1,8 +1,8 @@
-# Data Provenance — BrainTrace v0.1.11
+# Data Provenance - BrainTrace v0.1.12
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool
-(v0.1.11, version DOI: [10.5281/zenodo.21759823](https://doi.org/10.5281/zenodo.21759823); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)).
+(v0.1.12; concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)). The previous v0.1.11 release remains archived at version DOI [10.5281/zenodo.21759823](https://doi.org/10.5281/zenodo.21759823); the v0.1.12 version DOI will be added after deposit.
 All datasets are publicly available under the cited accessions and licensing
 terms. No patient-level clinical identifiers are redistributed.
 
@@ -10,10 +10,10 @@ terms. No patient-level clinical identifiers are redistributed.
 
 | # | Dataset | Accession / DOI | Samples | Role |
 |---|---------|----------------|---------|------|
-| 1 | Bo2023 Macaque Brain Atlas | [10.1038/s41593-023-01379-0](https://doi.org/10.1038/s41593-023-01379-0) | 819 (9 donors, 110 regions) | Training reference |
+| 1 | Bo2023 Macaque Brain Atlas | [10.1038/s41467-023-37246-w](https://doi.org/10.1038/s41467-023-37246-w); SRA [PRJNA905082](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA905082) | 819 (9 donors, 110 regions) | Training reference |
 | 2 | Allen Human Brain Atlas (AHBA) | [https://human.brain-map.org](https://human.brain-map.org) | 2 donors, 231 mapped samples | Cross-species external validation |
-| 3 | TCGA-GBM / TCGA-LGG | [NCI Genomic Data Commons](https://portal.gdc.cancer.gov) | 65 expression cases linked to the imaging cohort; 64 edema-evaluable after one cerebellar case was excluded as out of scope | Glioma domain-shift test |
-| 4 | BraTS-TCGA-LGG | [10.5281/zenodo.3718921](https://doi.org/10.5281/zenodo.3718921) | 65 MRI cases; 64 edema-evaluable | Imaging-derived anatomical truth for the linked TCGA cases |
+| 3 | TCGA-GBM / TCGA-LGG | [NCI Genomic Data Commons](https://portal.gdc.cancer.gov) | 65 expression cases linked to the imaging cohort; 63 primary edema-comparator cases after excluding TCGA-HT-7686 (no label-2 edema voxels) and TCGA-HT-7680 (cerebellar/out of scope) | Glioma domain-shift test |
+| 4 | BraTS-TCGA-LGG | [10.5281/zenodo.3718921](https://doi.org/10.5281/zenodo.3718921) | 65 MRI cases; 63 primary edema-comparator cases under the same exclusions | Imaging-derived anatomical truth for the linked TCGA cases |
 | 5 | GSE189919 (GEO) | [GSE189919](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189919) | 51 samples; 72,108 expression rows; 15,622/21,668 frozen-projector genes overlap | Engineering benchmark and input-domain audit |
 | 6 | Huang2025 cfRNA | [10.1186/s41698-025-00909-0](https://doi.org/10.1186/s41698-025-00909-0) | 159 CSF/plasma profiles | cfRNA domain-shift audit |
 | 7 | Gene Ontology, KEGG, and g:Profiler | [Gene Ontology](https://geneontology.org), [KEGG](https://www.kegg.jp), [g:Profiler](https://biit.cs.ut.ee/gprofiler) | Frozen 200-gene panel; 179 mapped by g:Profiler; 21,668-gene model-space background | Independent GO:BP/KEGG annotation; not model training or predictive validation |
@@ -22,10 +22,20 @@ terms. No patient-level clinical identifiers are redistributed.
 
 ## Data Access & Licensing
 
-- **Bo2023**: Published with the original paper; raw expression matrices and
-  sample metadata are available from the authors or supplementary material.
-  The BrainTrace repository contains derived model artifacts (SHA-256 locked)
-  but not the raw expression matrices.
+- **Bo2023**: Raw sequencing is deposited under SRA BioProject PRJNA905082.
+  The exact processed count, VSD and sample-metadata files used here came from
+  the paper's released supplementary/author package. The repository contains
+  SHA-256-locked derived model artifacts but does not redistribute those source
+  files or claim that the processed matrices can be reconstructed from SRA
+  without the authors' processing workflow. For full reproduction, place the
+  files at `external_data/Bo2023/` using the exact names and hashes below:
+
+  | File | SHA-256 |
+  |---|---|
+  | `mfas5_819samples_28415genes_featurecounts_counts.txt` | `1fb3a512da11ab0c327c07c114da3b9c38cab0a504682f2c7c036eedb3c7561a` |
+  | `mfas5_819samples_23605genes_vsd4_rmbatch.xls` | `286aeab66b21b7fa012fac8ceaa24497894327e0736f9f6b200334c57089a1b3` |
+  | `Information of sequenced samples_update_full878_filter819.xlsx` | `9a2fe2bec1475f6ad613883d0ff5925b1e6ba36e800caa922c35d4f8ae7d3645` |
+  Public file-level links are the [Supplementary Data 1–15 ZIP](https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-023-37246-w/MediaObjects/41467_2023_37246_MOESM3_ESM.zip), the [Source Data workbook](https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-023-37246-w/MediaObjects/41467_2023_37246_MOESM5_ESM.xlsx), the [article landing page](https://www.nature.com/articles/s41467-023-37246-w), the [SRA BioProject](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA905082), and the authors' [Zenodo code archive](https://doi.org/10.5281/zenodo.7641873). The publisher ZIP contains related supplementary workbooks but does not expose the two exact SHA-matched count/VSD author-package filenames; no stable public file URL for those matrices was identified in the publisher or SRA records checked on 2026-08-10. The author package remains required for those inputs and must be hash-verified.
 - **AHBA**: Available via the Allen Institute API; requires acceptance of
   Allen Institute terms of use. BrainTrace distributes only aggregated
   validation results, not raw AHBA expression data.
@@ -59,22 +69,47 @@ macaque-out evaluation. Its row-level result file contains 819 samples and
 sums to 389 Top1 and 680 Top3 hits. Historical k=500 RF results are retained
 only as a separately labelled legacy comparator.
 
+The 110 Bo2023 regions are used as a dense, repeated-donor primate anatomical
+reference, not as direct human anatomical identity. Broad transcriptional
+gradients and network-linked cortical expression reported across primates
+support a cautious cross-species organizational bridge (Krienen et al., 2016;
+Burt et al., 2018), while AHBA mapping, orthology loss and species-specific
+association-cortex differences are audited explicitly. Saleem nomenclature is
+therefore a naming crosswalk rather than proof of one-to-one homology.
+
 The 3′ analysis is a transcript-coordinate/detection proxy sensitivity test;
 it is not molecule-level read generation and must not be described as a true
 3′-end sequencing simulation. GO/KEGG and cell-type analyses annotate the
 frozen panel and do not establish cell of origin, mechanism, causality, or
 clinical predictive performance.
 
+The Round-5 P0-3 formal differential-expression audit uses the immutable
+Bo2023 feature-count matrix. Raw counts are summed within each observed
+donor-by-Network cell (74 pseudobulk units from 9 macaques) before fitting a
+DESeq2 likelihood-ratio test with full design `~ donor_id + network` and
+reduced design `~ donor_id`. This avoids treating multiple tissue dissections
+from one animal as independent biological replication. The audit tests the
+frozen Network Top200; it does not retrain or replace the production panel.
+
+The Round-5 P0-4 enrichment sensitivity audit compares the same locked Top200
+query under three universes in one g:Profiler database version: the 21,668-gene
+model space, the g:Profiler annotated domain, and 21,375 unique nonblank gene
+symbols among all genes tested in the primary donor-by-Network pseudobulk
+DESeq2 analysis (with no significance filter). Full returned GO:BP/KEGG term
+tables, stability metrics, service metadata and SHA-256 values are retained in
+`reproducibility/round5_analysis/p0_4_background_sensitivity/`.
+
 ## Immutable Snapshot Policy
 
 The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
-original repositories to reproduce the exact numerical results. The software
-version v0.1.11 is permanently archived at Zenodo under version DOI
-10.5281/zenodo.21759823. The concept DOI resolves to the latest Zenodo
-version. The tagged GitHub tree and the Zenodo source archive contain the same
-public reproducibility assets described in this manifest.
+original repositories to reproduce the exact numerical results. The previous
+software version v0.1.11 is permanently archived at Zenodo under version DOI
+10.5281/zenodo.21759823. The v0.1.12 version DOI will be recorded after the new
+Zenodo deposit. The concept DOI resolves to the latest Zenodo version. The
+v0.1.12 GitHub tag and corresponding Zenodo source archive must contain the
+same public reproducibility assets described in this manifest.
 
 ## SHA-256 Integrity
 
@@ -93,3 +128,17 @@ intersections, protocol and manifest are public under
 are not redistributed. The Saleem crosswalk is public under
 `reproducibility/crosswalks/`, and the portable S18-S19 runner and input hashes
 are public under `reproducibility/s18_s19/`.
+
+The Round-5 audit outputs are under `reproducibility/round5_analysis/`. They
+separate the Network-layer projection ablation, paired-reference OLS fit
+quality, LOSO/LOMO ranking metrics, and the P0-3 donor-Network pseudobulk
+DESeq2 marker audit, plus the P0-4 three-universe GO:BP/KEGG background
+sensitivity audit. Source counts and the publisher workbook are not
+redistributed; filenames and hashes are recorded in the P0-3 input manifest.
+The OLS statistics are in-sample engineering-fit diagnostics and are not
+evidence of DESeq2-VST equivalence or external calibration.
+The P1 E4 mapping-impact output is
+`reproducibility/p1_e4_ahba_network_mapping_impact.csv`, with its derivation
+manifest in `p1_e4_ahba_network_mapping_impact_manifest.json`. CI branch
+coverage is archived in `reproducibility/coverage_report.txt` and
+`reproducibility/coverage.xml`.

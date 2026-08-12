@@ -1,0 +1,2 @@
+"n_raw_genes","n_tested_genes","n_prefiltered_genes","rule"
+28415,23331,5084,"pseudobulk raw count >=10 in at least 3 donor-Network units"

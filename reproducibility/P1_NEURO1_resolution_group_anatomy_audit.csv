@@ -1,0 +1,24 @@
+﻿network_id,group_id,member_count,members,anatomical_audit_tier,audit_rationale
+Cingulate gyrus,Cingulate gyrus::23b + 23c + 24b',3,23b | 23c | 24b',clear,members share a recognized local field family or functional-anatomical system
+Frontal (agranular frontal motor areas),Frontal (agranular frontal motor areas)::F1 + F2 + F3 + F7,4,F1 | F2 | F3 | F7,clear,members share a recognized local field family or functional-anatomical system
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::10o + 46d + 46v,3,10o | 46d | 46v,qualified,"frontopolar, dorsolateral and ventrolateral prefrontal fields; transcriptomic grouping, not one classical subdivision"
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::12l + 12r + 45 + 8A,4,12l | 12r | 45 | 8A,qualified,orbital/ventrolateral and dorsal area-8 fields span distinct connectivity systems
+Lateral Prefrontal Cortex,Lateral Prefrontal Cortex::8Bd + 8Bm + 8Bs + 9m,4,8Bd | 8Bm | 8Bs | 9m,clear,members share a recognized local field family or functional-anatomical system
+Occipital/Temporal,Occipital/Temporal::FST + MST,2,FST | MST,clear,members share a recognized local field family or functional-anatomical system
+Occipital/Temporal,Occipital/Temporal::V1 + V2,2,V1 | V2,clear,members share a recognized local field family or functional-anatomical system
+Occipital/Temporal,Occipital/Temporal::V4 + V4v,2,V4 | V4v,clear,members share a recognized local field family or functional-anatomical system
+Operculum/Insula,Operculum/Insula::G + Id + Ig + SII,4,G | Id | Ig | SII,qualified,granular/dysgranular insula plus secondary somatosensory operculum; operculo-insular affinity is plausible but not identity
+Operculum/Insula,Operculum/Insula::Ia + Pi,2,Ia | Pi,clear,members share a recognized local field family or functional-anatomical system
+Operculum/Insula,Operculum/Insula::Ial + Iapm,2,Ial | Iapm,clear,members share a recognized local field family or functional-anatomical system
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::11m + 12m,2,11m | 12m,clear,members share a recognized local field family or functional-anatomical system
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::12o + 13l,2,12o | 13l,clear,members share a recognized local field family or functional-anatomical system
+Orbitomedial Prefrontal Cortex (OMPFC),Orbitomedial Prefrontal Cortex (OMPFC)::13a + 13b + 25,3,13a | 13b | 25,qualified,orbitofrontal area 13 and subgenual area 25 require a broad limbic-orbitomedial interpretation
+"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region::5 + LIPv + VIP",3,5 | LIPv | VIP,qualified,area 5 somatosensory association plus intraparietal visuospatial fields; cross-modal convergence rather than one cytoarchitectonic unit
+"Parietal, and Parieto-occipital region","Parietal, and Parieto-occipital region::7a + 7b",2,7a | 7b,clear,members share a recognized local field family or functional-anatomical system
+Subcortical,Subcortical::NARegion + cd + pu,3,NARegion | cd | pu,clear,members share a recognized local field family or functional-anatomical system
+Temporal,Temporal::A1 + CM,2,A1 | CM,clear,members share a recognized local field family or functional-anatomical system
+Temporal,Temporal::CL + ML + Tpt,3,CL | ML | Tpt,qualified,auditory belt fields CL/ML plus temporoparietal association area Tpt; broad auditory-association grouping
+Temporal,Temporal::RT + RTM,2,RT | RTM,clear,members share a recognized local field family or functional-anatomical system
+Temporal,Temporal::STG + TAa,2,STG | TAa,clear,members share a recognized local field family or functional-anatomical system
+Temporal,Temporal::TEO + TEpd + TEpv,3,TEO | TEpd | TEpv,clear,members share a recognized local field family or functional-anatomical system
+Temporal,Temporal::TEad + TEm,2,TEad | TEm,clear,members share a recognized local field family or functional-anatomical system

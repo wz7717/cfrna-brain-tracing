@@ -1,9 +1,17 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 import pandas as pd
+
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.bo2023_metadata import normalize_bo2023_region_labels  # noqa: E402
 
 
 SHEET = "mfas5_819samples_phenSet4"
@@ -34,6 +42,7 @@ def main() -> None:
         raise ValueError(f"Missing required metadata columns: {missing}")
 
     metadata = metadata.loc[:, REQUIRED_COLUMNS].copy()
+    metadata = normalize_bo2023_region_labels(metadata, columns=["Region"])
     metadata["No."] = metadata["No."].astype(str)
     if metadata["No."].duplicated().any():
         duplicates = metadata.loc[metadata["No."].duplicated(), "No."].tolist()

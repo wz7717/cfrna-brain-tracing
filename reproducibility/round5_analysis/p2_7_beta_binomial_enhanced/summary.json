@@ -1,0 +1,46 @@
+{
+  "description": "Enhanced beta-binomial CR2 coverage simulation (P2-7)",
+  "grid": {
+    "p": [
+      0.45,
+      0.56,
+      0.72,
+      0.92
+    ],
+    "ICC": [
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ]
+  },
+  "n_sim": 5000,
+  "n_boot": 999,
+  "seed": 20260805,
+  "donor_sizes": [
+    17,
+    219,
+    11,
+    17,
+    114,
+    79,
+    222,
+    98,
+    42
+  ],
+  "cr2_coverage_range": "0.7562 - 0.9382",
+  "worst_case": {
+    "p": 0.92,
+    "ICC": 0.3,
+    "n_sim": 5000,
+    "n_donors": 9,
+    "total_n": 819,
+    "pct_cov": 0.7254,
+    "pct_width": 0.1687688863448556,
+    "cr1_cov": 0.725,
+    "cr1_width": 0.18441805046607665,
+    "cr2_cov": 0.7562,
+    "cr2_width": 0.2586863063953446,
+    "cr2_mcse": 0.006072257570294594
+  }
+}

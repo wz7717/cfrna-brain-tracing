@@ -24,10 +24,10 @@ from nibabel.processing import resample_from_to  # noqa: E402
 
 
 AUDIT = ROOT / "results" / "brats_tcga_lgg_training_65_audit_20260609" / "brats_tcga_lgg_training_65_patient_audit.csv"
-NETWORK_PRED = ROOT / "results" / "tcga_gbm_lgg_sample_mri_label_tracing_20260605" / "tcga_gbm_lgg_sample_network_tracing.csv"
+NETWORK_PRED = ROOT / "results" / "tcga_brats_current" / "tracing" / "tcga_gbm_lgg_sample_network_tracing.csv"
 ATLAS = ROOT / "data" / "atlases" / "sri24" / "labels" / "sri24" / "tzo116plus.nii"
 ATLAS_LUT = ROOT / "data" / "atlases" / "sri24" / "labels" / "sri24" / "SRI24-tzo116plus.txt"
-OUTDIR = ROOT / "results" / "brats_tcga_lgg_65_mri_truth_evaluation_20260609"
+OUTDIR = ROOT / "results" / "tcga_brats_current" / "mri_truth"
 
 
 NETWORK_TO_LOBES = {

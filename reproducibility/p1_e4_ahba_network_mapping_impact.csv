@@ -1,0 +1,11 @@
+network,mapping_group,signature_rows,unmapped_rows,unmapped_fraction,ahba_allowed_network_n,ahba_any_allowed_top1_hits,ahba_any_allowed_top1_accuracy,ahba_strict_network_top1_hits,ahba_strict_network_top1_accuracy,effect_delta_vs_pooled_any_allowed_top1_pp,effect_delta_vs_pooled_strict_network_top1_pp
+Cingulate gyrus,deficit-heavy,800,416,0.52,8,3,0.375,0,0,-36.49103139,-73.99103139
+Frontal (agranular frontal motor areas),lower-deficit,560,198,0.3535714286,72,68,0.9444444444,0,0,20.45341305,-73.99103139
+Hippocampal formation,lower-deficit,80,5,0.0625,0,0,,0,,,
+Lateral Prefrontal Cortex,deficit-heavy,1040,448,0.4307692308,72,68,0.9444444444,0,0,20.45341305,-73.99103139
+Occipital/Temporal,lower-deficit,720,193,0.2680555556,48,8,0.1666666667,7,0.1458333333,-57.32436472,-59.40769806
+Operculum/Insula,deficit-heavy,880,432,0.4909090909,135,130,0.962962963,100,0.7407407407,22.30526491,0.08304268394
+Orbitomedial Prefrontal Cortex (OMPFC),deficit-heavy,1040,471,0.4528846154,80,71,0.8875,18,0.225,14.75896861,-51.49103139
+"Parietal, and Parieto-occipital region",deficit-heavy,800,347,0.43375,55,54,0.9818181818,15,0.2727272727,24.19078679,-46.71830412
+Subcortical,lower-deficit,720,77,0.1069444444,24,24,1,24,1,26.00896861,26.00896861
+Temporal,lower-deficit,2160,889,0.4115740741,40,1,0.025,1,0.025,-71.49103139,-71.49103139

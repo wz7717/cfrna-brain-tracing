@@ -10,10 +10,10 @@ from scipy import stats
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUT_DIR = ROOT / "results" / "tcga_gbm_lgg_sample_mri_label_tracing_20260605"
+INPUT_DIR = ROOT / "results" / "tcga_brats_current" / "tracing"
 NETWORK_FILE = INPUT_DIR / "tcga_gbm_lgg_sample_network_tracing.csv"
 SUMMARY_FILE = INPUT_DIR / "tcga_gbm_lgg_sample_mri_label_tracing_summary.csv"
-OUTDIR = ROOT / "results" / "tcga_gbm_vs_lgg_network_domain_shift_20260609"
+OUTDIR = ROOT / "results" / "tcga_brats_current" / "domain_shift"
 RNG = np.random.default_rng(20260609)
 BOOTSTRAP_N = 5000
 PERMUTATION_N = 10000
