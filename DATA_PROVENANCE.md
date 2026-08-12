@@ -108,7 +108,8 @@ original repositories to reproduce the exact numerical results. The previous
 software version v0.1.11 is permanently archived at Zenodo under version DOI
 10.5281/zenodo.21759823. The v0.1.12 version DOI will be recorded after the new
 Zenodo deposit. The concept DOI resolves to the latest Zenodo version. The
-v0.1.12 GitHub tag and corresponding Zenodo source archive must contain the
+The v0.1.12 GitHub release contains the public materials listed here. The
+corresponding Zenodo source archive will mirror them after deposit and must contain the
 same public reproducibility assets described in this manifest.
 
 ## SHA-256 Integrity

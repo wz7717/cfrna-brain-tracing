@@ -6,6 +6,7 @@
   "previous_version_doi": "10.5281/zenodo.21759823",
   "repository": "https://github.com/wz7717/cfrna-brain-tracing",
   "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.12",
+  "github_release": "https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.12",
   "model_lock_id": "canonical110-v0.1.12-20260813",
   "verification": {
     "pytest": "96 passed, 2 skipped",
@@ -98,18 +99,18 @@
     },
     {
       "path": "reproducibility/TRACEABILITY_MATRIX.md",
-      "bytes": 23310,
-      "sha256": "c6d9b6cdf4cc5c1322db2c6e9cae667896f24996954cebb7d6b361961c9f6c64"
+      "bytes": 24238,
+      "sha256": "7843e3e6087acdb05ee5cdbb6f693c1f15189ccf1d052ffb29d43daf072eae38"
     },
     {
       "path": "README.md",
-      "bytes": 15015,
-      "sha256": "6d8b7d23e37a0d5f71c6dc2bbe9bf65de18ec282856d10053cd8efca7f4a4c44"
+      "bytes": 15056,
+      "sha256": "bb44751f536f44062243985f635073317e8c6ddc949f8f2f332c5c7520e22ab2"
     },
     {
       "path": "DATA_PROVENANCE.md",
-      "bytes": 11173,
-      "sha256": "3e82120149fe2ff963e0c3b9e94fe857d61e418e0c1bd91f96eadc088e3984aa"
+      "bytes": 11259,
+      "sha256": "f7305c93aa0f82cbda45bd943ea0efa02fea2f18c6c5b67d5b0307db375f8c0f"
     },
     {
       "path": "reproducibility/DATA_PROVENANCE.md",
