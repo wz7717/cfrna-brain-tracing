@@ -295,8 +295,8 @@ resolution-group detail export, and reports the formally rerun validation
 metrics. v0.1.12 supersedes v0.1.11 and includes the public Saleem crosswalk,
 independent enrichment results, S18-S19 reproduction materials, synchronized
 provenance metadata, and automated CI checks. It is
-prepared for a new Zenodo v0.1.12 deposit; its version DOI will be added after
-publication. The previous v0.1.11 version DOI is
+published as the GitHub v0.1.12 release. A matching Zenodo v0.1.12 deposit is
+pending; its version DOI will be added after archival. The previous v0.1.11 version DOI is
 `https://doi.org/10.5281/zenodo.21759823`. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
 
