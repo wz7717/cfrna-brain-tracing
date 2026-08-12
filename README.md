@@ -299,3 +299,7 @@ prepared for a new Zenodo v0.1.12 deposit; its version DOI will be added after
 publication. The previous v0.1.11 version DOI is
 `https://doi.org/10.5281/zenodo.21759823`. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
+
+The 164 MB `permutation_fg_max.npz` reproducibility intermediate is stored with
+Git LFS. Clone with Git LFS enabled (or run `git lfs pull`) to retrieve its full
+contents; its SHA-256 is included in the release checksum manifests.

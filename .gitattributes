@@ -4,6 +4,9 @@
 *.jpeg binary
 *.npz binary
 
+# Oversized reproducibility intermediate distributed through Git LFS.
+reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz filter=lfs diff=lfs merge=lfs -text
+
 # Preserve teacher-approved locked model artifacts byte-for-byte on every OS.
 data/models/bo2023_saleem_network_top200_model.json binary
 data/models/bo2023_saleem_network_top200_model_genes.csv binary

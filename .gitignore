@@ -57,7 +57,6 @@ tmp/
 
 # Non-redistributable or oversized analysis inputs/intermediates
 reproducibility/published_tool_comparison/cibersortx_input/
-reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz
 scripts/update_round5_p0_4_manuscripts.py
 
 # Local app logs and office/review QA artifacts

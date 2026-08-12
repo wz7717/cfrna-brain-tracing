@@ -12,7 +12,7 @@
     "core_coverage": "64% (1,117 statements; 298 branches)",
     "locked_artifacts": 8,
     "validated_csv_files": 100,
-    "validated_csv_rows": 263189,
+    "validated_csv_rows": 263190,
     "s18_s19_reproduction_match": true
   },
   "public_release_files": [
@@ -103,8 +103,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 14784,
-      "sha256": "d6338842f53d63109035d1f49da9713254d07d8f194f4e4956a4d7d49aadae24"
+      "bytes": 15015,
+      "sha256": "6d8b7d23e37a0d5f71c6dc2bbe9bf65de18ec282856d10053cd8efca7f4a4c44"
     },
     {
       "path": "DATA_PROVENANCE.md",
@@ -115,6 +115,12 @@
       "path": "reproducibility/DATA_PROVENANCE.md",
       "bytes": 11164,
       "sha256": "fe1db2d9bd5598c43c285ca3be89423a1ce42ee7a66fa177df55f08dceebe571"
+    },
+    {
+      "path": "reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz",
+      "bytes": 164161292,
+      "sha256": "0b574d5e12792db758c6909d42524b1c174197626f8c3e47d7220b2511a567ca",
+      "storage": "Git LFS payload"
     }
   ],
   "local_submission_artifacts": [
@@ -135,7 +141,6 @@
     "Bo2023 processed author-package matrices",
     "AHBA and TCGA/BraTS raw or patient-level inputs",
     "CIBERSORTx TPM mixture, manifest and licensed LM22 input",
-    "permutation_fg_max.npz oversized regenerable intermediate",
     "Python caches and local manuscript-editing scripts"
   ]
 }
