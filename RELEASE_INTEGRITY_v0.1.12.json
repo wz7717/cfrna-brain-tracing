@@ -1,12 +1,19 @@
 {
   "schema_version": 1,
   "release": "v0.1.12",
-  "version_doi": null,
+  "version_doi": "10.5281/zenodo.21911532",
   "concept_doi": "10.5281/zenodo.20773674",
   "previous_version_doi": "10.5281/zenodo.21759823",
   "repository": "https://github.com/wz7717/cfrna-brain-tracing",
   "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.12",
   "github_release": "https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.12",
+  "zenodo_record": "https://zenodo.org/records/21911532",
+  "zenodo_full_archive": {
+    "filename": "cfrna-brain-tracing-v0.1.12-full.zip",
+    "bytes": 197941829,
+    "md5": "58a98be1dfec79ba0e234ce25992ee8c",
+    "sha256": "08978679d7ef997a72ae90c3f76e81ec9960b956fcc03693eae99643403928a2"
+  },
   "model_lock_id": "canonical110-v0.1.12-20260813",
   "verification": {
     "pytest": "96 passed, 2 skipped",
@@ -99,23 +106,23 @@
     },
     {
       "path": "reproducibility/TRACEABILITY_MATRIX.md",
-      "bytes": 24238,
-      "sha256": "7843e3e6087acdb05ee5cdbb6f693c1f15189ccf1d052ffb29d43daf072eae38"
+      "bytes": 24247,
+      "sha256": "aa1d24abe5b485bdb71e1e12b27f7e92a9f6af8472be25263c55acc4773a9e41"
     },
     {
       "path": "README.md",
-      "bytes": 15056,
-      "sha256": "bb44751f536f44062243985f635073317e8c6ddc949f8f2f332c5c7520e22ab2"
+      "bytes": 15047,
+      "sha256": "fac623c4be1b00928509e6c0004f63277f96b04375748b97cbb9720acdab4e24"
     },
     {
       "path": "DATA_PROVENANCE.md",
-      "bytes": 11259,
-      "sha256": "f7305c93aa0f82cbda45bd943ea0efa02fea2f18c6c5b67d5b0307db375f8c0f"
+      "bytes": 11231,
+      "sha256": "7c51ccfe3a98ce94689cc891c645e876f28a5c21b681f38e8214d27785b574ce"
     },
     {
       "path": "reproducibility/DATA_PROVENANCE.md",
-      "bytes": 11164,
-      "sha256": "fe1db2d9bd5598c43c285ca3be89423a1ce42ee7a66fa177df55f08dceebe571"
+      "bytes": 11162,
+      "sha256": "94ffae533f45afc7173b2bd9bfdc699d398adc5ad8d3ba8fba9cf2f9fdb2b271"
     },
     {
       "path": "reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz",
@@ -127,14 +134,14 @@
   "local_submission_artifacts": [
     {
       "filename": "BrainTrace_Main_Manuscript_v5_round5_p1_e4_e5_bo2023_provenance_v0.1.21_tcga_current_final_clean.docx",
-      "bytes": 5042476,
-      "sha256": "e647c444234b9b822a9c6d3ecd3544cbbc51f3e5cfc830cdc67887725f2cfd89",
+      "bytes": 5038242,
+      "sha256": "de1bab1ec83135f5309a60c09ffd5c179a52d1c2ef24518257016d4ade3a5a9c",
       "distribution": "local submission artifact; not included in the public software archive"
     },
     {
       "filename": "BrainTrace_Supplementary_File_v5_round5_p1_e4_e5_bo2023_provenance_v0.1.21_tcga_current_final_s20_reflowed_clean.docx",
-      "bytes": 827910,
-      "sha256": "756aa4debb9de2024f928c67d46f8f9256abb2a5ba275cdee155e9f2ed6cb6b5",
+      "bytes": 821108,
+      "sha256": "bf1a749e7e81e5c3d72ff0a9fb69f14fc5c05ad5681d78729bee4a948ab90647",
       "distribution": "local submission artifact; not included in the public software archive"
     }
   ],
