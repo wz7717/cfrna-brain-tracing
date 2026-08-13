@@ -1,9 +1,9 @@
 # BrainTrace Dockerfile
 # =====================
-# Build:   docker build -t braintrace:v0.1.12 .
-# Run:     docker run -p 8501:8501 braintrace:v0.1.12
+# Build:   docker build -t braintrace:v0.1.13 .
+# Run:     docker run -p 8501:8501 braintrace:v0.1.13
 #              (Streamlit web interface at http://localhost:8501)
-#          docker run --rm --entrypoint braintrace braintrace:v0.1.12 --help
+#          docker run --rm --entrypoint braintrace braintrace:v0.1.13 --help
 #              (CLI help)
 #
 # For full reproducibility of manuscript results, mount the Bo2023 external
@@ -13,7 +13,7 @@ FROM python:3.11.9-slim-bookworm
 
 LABEL org.opencontainers.image.title="BrainTrace"
 LABEL org.opencontainers.image.description="Hierarchical brain-origin candidate ranking from RNA expression profiles"
-LABEL org.opencontainers.image.version="v0.1.12"
+LABEL org.opencontainers.image.version="v0.1.13"
 LABEL org.opencontainers.image.source="https://github.com/wz7717/cfrna-brain-tracing"
 
 # System dependencies

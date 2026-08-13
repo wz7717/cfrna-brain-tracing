@@ -50,6 +50,14 @@ def test_help_is_real_cli_help(capsys) -> None:
     assert "validate" in output
 
 
+def test_version_reports_current_software_release(capsys) -> None:
+    try:
+        cli.main(["--version"])
+    except SystemExit as exc:
+        assert exc.code == 0
+    assert capsys.readouterr().out.strip() == "braintrace 0.1.13"
+
+
 def test_models_reports_frozen_production_inventory(capsys) -> None:
     assert cli.main(["models"]) == 0
     output = capsys.readouterr().out
