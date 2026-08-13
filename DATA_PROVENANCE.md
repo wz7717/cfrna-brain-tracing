@@ -1,10 +1,13 @@
-# Data Provenance - BrainTrace v0.1.13
+# Data Provenance - BrainTrace v0.1.14
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool
-(v0.1.13; version DOI: [10.5281/zenodo.21917906](https://doi.org/10.5281/zenodo.21917906); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)). The frozen v0.1.12 scientific release remains archived at version DOI [10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
-All datasets are publicly available under the cited accessions and licensing
-terms. No patient-level clinical identifiers are redistributed.
+(v0.1.14; version DOI: [10.5281/zenodo.21920261](https://doi.org/10.5281/zenodo.21920261); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)). The frozen v0.1.12 scientific release remains archived at version DOI [10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
+Public source data are available under the cited accessions except where
+explicitly noted below. The exact Bo2023 processed author-package matrices used
+by the frozen projector have no identified stable public URL; they must be
+obtained from the original authors and verified against the reported SHA-256
+hashes. No patient-level clinical identifiers are redistributed.
 
 ## Source Datasets
 
@@ -15,7 +18,7 @@ terms. No patient-level clinical identifiers are redistributed.
 | 3 | TCGA-GBM / TCGA-LGG | [NCI Genomic Data Commons](https://portal.gdc.cancer.gov) | 65 expression cases linked to the imaging cohort; 63 primary edema-comparator cases after excluding TCGA-HT-7686 (no label-2 edema voxels) and TCGA-HT-7680 (cerebellar/out of scope) | Glioma domain-shift test |
 | 4 | BraTS-TCGA-LGG | [10.5281/zenodo.3718921](https://doi.org/10.5281/zenodo.3718921) | 65 MRI cases; 63 primary edema-comparator cases under the same exclusions | Imaging-derived anatomical truth for the linked TCGA cases |
 | 5 | GSE189919 (GEO) | [GSE189919](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189919) | 51 samples; 72,108 expression rows; 15,622/21,668 frozen-projector genes overlap | Engineering benchmark and input-domain audit |
-| 6 | Huang2025 cfRNA | [10.1186/s41698-025-00909-0](https://doi.org/10.1186/s41698-025-00909-0) | 159 CSF/plasma profiles | cfRNA domain-shift audit |
+| 6 | Huang2025 cfRNA | [10.1038/s41698-025-00909-6](https://doi.org/10.1038/s41698-025-00909-6) | 159 CSF/plasma profiles | cfRNA domain-shift audit |
 | 7 | Gene Ontology, KEGG, and g:Profiler | [Gene Ontology](https://geneontology.org), [KEGG](https://www.kegg.jp), [g:Profiler](https://biit.cs.ut.ee/gprofiler) | Frozen 200-gene panel; 179 mapped by g:Profiler; 21,668-gene model-space background | Independent GO:BP/KEGG annotation; not model training or predictive validation |
 | 8 | Chiou2023 rhesus macaque single-cell atlas | [10.1126/sciadv.adh1914](https://doi.org/10.1126/sciadv.adh1914) | Published Tables S3/S7; seven prespecified broad marker families | Primary independent cell-type annotation-bias analysis |
 | 9 | Siletti2023 adult human brain cell atlas | [10.1126/science.add7046](https://doi.org/10.1126/science.add7046) | Published cluster annotations; the same seven broad marker families | Human-reference sensitivity analysis |
@@ -105,13 +108,12 @@ The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
 original repositories to reproduce the exact numerical results. Software
-version v0.1.13 is permanently archived at Zenodo under version DOI
-10.5281/zenodo.21917906; the frozen v0.1.12 scientific release remains available
+version v0.1.14 is permanently archived at Zenodo under version DOI
+10.5281/zenodo.21920261; the frozen v0.1.12 scientific release remains available
 at 10.5281/zenodo.21911532. The concept DOI resolves to the latest Zenodo
-version. The v0.1.13 GitHub release contains the public materials listed here.
-The corresponding Zenodo record contains the repository source archive; the
-164 MB Git LFS payload is distributed as a checksum-matched GitHub Release
-asset.
+version. The v0.1.14 GitHub release contains the public materials listed here.
+The corresponding Zenodo record contains the full release archive, including
+the materialized 164 MB Git LFS reproducibility payload.
 
 ## SHA-256 Integrity
 

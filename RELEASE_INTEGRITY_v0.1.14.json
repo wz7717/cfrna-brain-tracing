@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "release": "v0.1.14",
+  "version_doi": "10.5281/zenodo.21920261",
+  "concept_doi": "10.5281/zenodo.20773674",
+  "previous_version_doi": "10.5281/zenodo.21917906",
+  "repository": "https://github.com/wz7717/cfrna-brain-tracing",
+  "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.14",
+  "github_release": "https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.14",
+  "zenodo_record": "https://zenodo.org/records/21920261",
+  "zenodo_full_archive": {
+    "filename": "cfrna-brain-tracing-v0.1.14-full.zip",
+    "contains_materialized_lfs_payload": true
+  },
+  "large_reproducibility_asset": {
+    "path": "reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz",
+    "bytes": 164161292,
+    "sha256": "0b574d5e12792db758c6909d42524b1c174197626f8c3e47d7220b2511a567ca"
+  },
+  "model_lock_id": "canonical110-v0.1.12-20260813",
+  "scientific_delta_from_v0.1.12": "none",
+  "documentation_corrections": [
+    "Huang2025 DOI corrected to 10.1038/s41698-025-00909-6",
+    "Bo2023 processed-matrix public-availability exception stated explicitly"
+  ],
+  "verification": {
+    "pytest": "106 passed, 2 skipped",
+    "locked_artifacts": 8,
+    "csv_validation": true,
+    "s18_s19_reproduction_match": true
+  }
+}

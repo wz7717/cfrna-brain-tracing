@@ -116,7 +116,7 @@
 | **Label** | `huang2025_cfRNA` |
 | **File** | `external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.csv` |
 | **Source** | Published article Supplementary Data 1 |
-| **Citation** | Huang, J. et al. (2025) Diagnostic and prognostic potential of cell-free RNAs in cerebrospinal fluid and plasma for brain tumors. *npj Precis. Oncol.*, 9, 123. |
+| **Citation** | Huang, J. et al. (2025) Diagnostic and prognostic potential of cell-free RNAs in cerebrospinal fluid and plasma for brain tumors. *npj Precis. Oncol.*, 9, 123. [doi:10.1038/s41698-025-00909-6](https://doi.org/10.1038/s41698-025-00909-6) |
 | **Content** | 159 CSF/plasma cfRNA expression profiles |
 | **Role** | Domain-transfer audit (empirical domain-shift stress test) |
 
@@ -199,6 +199,6 @@ The complete Python environment is pinned in `requirements_reproducible.txt`:
 | GSE189919 CSF cfRNA | NCBI GEO | GSE189919 | Public |
 | Huang2025 cfRNA | npj Precis. Oncol. | Supplementary Data 1 | Public |
 | BrainTrace code | GitHub | https://github.com/wz7717/cfrna-brain-tracing | Public (MIT) |
-| BrainTrace archive | Zenodo | 10.5281/zenodo.21917906 (v0.1.13); 10.5281/zenodo.21911532 (frozen v0.1.12 scientific release); 10.5281/zenodo.20773674 (concept) | Public |
+| BrainTrace archive | Zenodo | 10.5281/zenodo.21920261 (v0.1.14); 10.5281/zenodo.21917906 (v0.1.13); 10.5281/zenodo.21911532 (frozen v0.1.12 scientific release); 10.5281/zenodo.20773674 (concept) | Public |
 
-> **FAIR compliance**: All datasets are Findable (accession numbers), Accessible (public repositories), Interoperable (standard formats: TSV, XLS, NIfTI), and Reusable (documented provenance + pinned environment + seed registry).
+> **FAIR statement**: Public source datasets are identified by stable accessions or article records and use standard formats. The exact Bo2023 processed author-package matrices are an explicitly documented exception: no stable public file URL was identified, and exact reuse requires lawful acquisition from the original authors plus SHA-256 verification.

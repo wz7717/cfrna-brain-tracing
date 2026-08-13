@@ -55,7 +55,7 @@ def test_version_reports_current_software_release(capsys) -> None:
         cli.main(["--version"])
     except SystemExit as exc:
         assert exc.code == 0
-    assert capsys.readouterr().out.strip() == "braintrace 0.1.13"
+    assert capsys.readouterr().out.strip() == "braintrace 0.1.14"
 
 
 def test_models_reports_frozen_production_inventory(capsys) -> None:
