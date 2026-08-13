@@ -19,7 +19,7 @@ def _package_version() -> str:
     try:
         return version("braintrace")
     except PackageNotFoundError:
-        return "0.1.13"
+        return "0.1.14"
 
 
 def _json_default(value: Any) -> Any:
