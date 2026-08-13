@@ -1,8 +1,8 @@
-# Data Provenance - BrainTrace v0.1.12
+# Data Provenance - BrainTrace v0.1.13
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool
-(v0.1.12; version DOI: [10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)). The previous v0.1.11 release remains archived at version DOI [10.5281/zenodo.21759823](https://doi.org/10.5281/zenodo.21759823).
+(v0.1.13; version DOI: [10.5281/zenodo.21917906](https://doi.org/10.5281/zenodo.21917906); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)). The frozen v0.1.12 scientific release remains archived at version DOI [10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
 All datasets are publicly available under the cited accessions and licensing
 terms. No patient-level clinical identifiers are redistributed.
 
@@ -104,13 +104,14 @@ tables, stability metrics, service metadata and SHA-256 values are retained in
 The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
-original repositories to reproduce the exact numerical results. The previous
-software version v0.1.12 is permanently archived at Zenodo under version DOI
-10.5281/zenodo.21911532; v0.1.11 remains available at 10.5281/zenodo.21759823.
-The concept DOI resolves to the latest Zenodo version. The
-The v0.1.12 GitHub release contains the public materials listed here. The
-corresponding Zenodo source archive contains the
-same public reproducibility assets described in this manifest.
+original repositories to reproduce the exact numerical results. Software
+version v0.1.13 is permanently archived at Zenodo under version DOI
+10.5281/zenodo.21917906; the frozen v0.1.12 scientific release remains available
+at 10.5281/zenodo.21911532. The concept DOI resolves to the latest Zenodo
+version. The v0.1.13 GitHub release contains the public materials listed here.
+The corresponding Zenodo record contains the repository source archive; the
+164 MB Git LFS payload is distributed as a checksum-matched GitHub Release
+asset.
 
 ## SHA-256 Integrity
 

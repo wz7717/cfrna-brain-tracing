@@ -297,7 +297,7 @@ verify the hashes rather than substituting a similarly named workbook.
 ## Continuous-integration coverage
 
 CI runs the full test suite with branch coverage for the `core/` package. The
-archived v0.1.12 release run produced **96 passed, 2 skipped**. Coverage.py 7.14.3
+v0.1.13 release run produced **106 passed, 2 skipped**. Coverage.py 7.14.3
 reported **67.09% line coverage**, **52.05% branch coverage**, and **64% combined
 terminal coverage** (1,117 statements; 298 branches). The exact text and XML
 reports are `reproducibility/coverage_report.txt` and
@@ -322,12 +322,14 @@ ranking and resolution-limit auditing. It is not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-The frozen v0.1.12 scientific release is published on GitHub and archived at
-Zenodo under version DOI `https://doi.org/10.5281/zenodo.21911532`. The v0.1.13
-version DOI will be recorded in the release metadata after archival; no v0.1.13
-version DOI has been assigned here. The previous v0.1.11 version DOI is
-`https://doi.org/10.5281/zenodo.21759823`. The persistent Zenodo concept DOI is
-`https://doi.org/10.5281/zenodo.20773674`.
+BrainTrace v0.1.13 is published on GitHub and archived at Zenodo under version
+DOI `https://doi.org/10.5281/zenodo.21917906`. The frozen v0.1.12 scientific
+release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
+persistent Zenodo concept DOI is `https://doi.org/10.5281/zenodo.20773674`.
+
+The Zenodo v0.1.13 record contains the repository source archive. The 164 MB
+Git LFS payload is distributed separately as a checksum-matched asset on the
+[GitHub v0.1.13 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.13).
 
 The 164 MB `permutation_fg_max.npz` reproducibility intermediate is stored with
 Git LFS. Clone with Git LFS enabled (or run `git lfs pull`) to retrieve its full
