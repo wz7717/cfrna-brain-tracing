@@ -61,7 +61,7 @@ Repository = "https://github.com/wz7717/cfrna-brain-tracing"
 Zenodo = "https://doi.org/10.5281/zenodo.20773674"
 
 [project.scripts]
-braintrace = "streamlit_app:main"
+braintrace = "core.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["core*", "benchmark*", "data*", "reporting*", "scripts*", "reproducibility*"]

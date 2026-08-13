@@ -32,6 +32,8 @@ validation.
 ## Interfaces
 
 - Streamlit application: `streamlit_app.py`
+- Command-line interface: `core/cli.py`
+- Shared locked production inference: `core/inference.py`
 - Locked Network inference: `core/network_tracing.py`
 - Versioned models: `data/models/`
 - Validation and export scripts: `scripts/`
@@ -51,7 +53,13 @@ docker run -p 8501:8501 braintrace:v0.1.12
 # Open http://localhost:8501 in your browser
 
 # CLI mode
-docker run --rm braintrace:v0.1.12 braintrace --help
+docker run --rm --entrypoint braintrace braintrace:v0.1.12 --help
+
+# CLI query with the current directory mounted at /work
+docker run --rm --entrypoint braintrace \
+  -v "$PWD:/work" \
+  braintrace:v0.1.12 \
+  query --input /work/sample_counts.tsv --output /work/result.json
 ```
 
 ### Run the application
@@ -112,12 +120,14 @@ braintrace query --input sample_counts.tsv --output result.json
 braintrace models
 
 # Validate the frozen reference projector
-braintrace validate --reference external_data/Bo2023/
+braintrace validate
 ```
 
-The Streamlit web application (`streamlit run app/main.py`) provides an
-interactive graphical interface with file upload, parameter configuration
-and hierarchical result visualization.
+Both `braintrace query` and the Streamlit web application call the same locked
+production function in `core/inference.py`. The web application
+(`streamlit run app/main.py`) provides the complete released three-tier route:
+Network Top3, Resolution Group Top3 and Exact-Region Exploratory Top3. Exact
+regions remain exploratory candidates, not validated localization calls.
 
 ## Input format
 
@@ -137,8 +147,14 @@ logCPM
 
 Raw counts are converted internally to logCPM. The validated route uses
 logCPM-derived query expression with projected VSD for Network-level candidate
-generation, followed by logCPM-based resolution-group and local reranking where
-the full private reference is available.
+generation, followed by logCPM-based resolution-group and exploratory
+exact-region reranking using the frozen region-reference artifacts distributed
+with the release.
+
+The non-redistributed Bo2023 author-package matrices are required only for
+rebuilding the frozen reference artifacts and reproducing
+reference-construction analyses from source; they are not required for
+inference with the released model bundle.
 
 TPM or logTPM tables remain accepted for backward compatibility, but they are
 treated as fallback inputs and fine-region interpretations should be reported
@@ -156,6 +172,13 @@ Optional sample, subject, diagnosis and anatomical metadata can be included and
 are retained in exported reports.
 
 ## Reproducibility and data policy
+
+Released-model inference reproducibility requires the public code and frozen
+model artifacts distributed with this release. Full reference-construction
+reproduction additionally requires the external or non-redistributed source
+datasets identified in [`DATA_PROVENANCE.md`](DATA_PROVENANCE.md). These are
+distinct reproducibility levels: absence of the author-package matrices limits
+rebuilding from source, not inference with the released frozen bundle.
 
 This deployment repository contains application code, lightweight model
 artifacts and tests. It intentionally excludes:
