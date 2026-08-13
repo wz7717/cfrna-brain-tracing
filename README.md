@@ -327,8 +327,11 @@ DOI `https://doi.org/10.5281/zenodo.21920261`. The frozen v0.1.12 scientific
 release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
 persistent Zenodo concept DOI is `https://doi.org/10.5281/zenodo.20773674`.
 
-The Zenodo v0.1.14 record contains the full release archive, including the
-materialized 164 MB Git LFS reproducibility payload. The same payload is also
+The official Zenodo v0.1.14 software record is
+`https://doi.org/10.5281/zenodo.21920261`. Because Zenodo's GitHub-generated
+source archive does not materialize Git LFS objects, the 197,792,195-byte full
+reproducibility archive, including the 164 MB payload, is deposited separately
+under `https://doi.org/10.5281/zenodo.21920697`. The same payload is also
 available as a checksum-matched asset on the
 [GitHub v0.1.14 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.14).
 
