@@ -32,6 +32,8 @@ validation.
 ## Interfaces
 
 - Streamlit application: `streamlit_app.py`
+- Command-line interface: `core/cli.py`
+- Shared locked production inference: `core/inference.py`
 - Locked Network inference: `core/network_tracing.py`
 - Versioned models: `data/models/`
 - Validation and export scripts: `scripts/`
@@ -46,12 +48,18 @@ manuscript-reproduction environment.
 ### Docker (recommended for quick start)
 
 ```bash
-docker build -t braintrace:v0.1.12 .
-docker run -p 8501:8501 braintrace:v0.1.12
+docker build -t braintrace:v0.1.13 .
+docker run -p 8501:8501 braintrace:v0.1.13
 # Open http://localhost:8501 in your browser
 
 # CLI mode
-docker run --rm braintrace:v0.1.12 braintrace --help
+docker run --rm --entrypoint braintrace braintrace:v0.1.13 --help
+
+# CLI query with the current directory mounted at /work
+docker run --rm --entrypoint braintrace \
+  -v "$PWD:/work" \
+  braintrace:v0.1.13 \
+  query --input /work/sample_counts.tsv --output /work/result.json
 ```
 
 ### Run the application
@@ -111,13 +119,15 @@ braintrace query --input sample_counts.tsv --output result.json
 # List available models
 braintrace models
 
-# Validate the frozen reference projector
-braintrace validate --reference external_data/Bo2023/
+# Verify the frozen production model bundle
+braintrace validate
 ```
 
-The Streamlit web application (`streamlit run app/main.py`) provides an
-interactive graphical interface with file upload, parameter configuration
-and hierarchical result visualization.
+Both `braintrace query` and the Streamlit web application call the same locked
+production function in `core/inference.py`. The web application
+(`streamlit run app/main.py`) provides the complete released three-tier route:
+Network Top3, Resolution Group Top3 and Exact-Region Exploratory Top3. Exact
+regions remain exploratory candidates, not validated localization calls.
 
 ## Input format
 
@@ -137,8 +147,14 @@ logCPM
 
 Raw counts are converted internally to logCPM. The validated route uses
 logCPM-derived query expression with projected VSD for Network-level candidate
-generation, followed by logCPM-based resolution-group and local reranking where
-the full private reference is available.
+generation, followed by logCPM-based resolution-group and exploratory
+exact-region reranking using the frozen region-reference artifacts distributed
+with the release.
+
+The non-redistributed Bo2023 author-package matrices are required only for
+rebuilding the frozen reference artifacts and reproducing
+reference-construction analyses from source; they are not required for
+inference with the released model bundle.
 
 TPM or logTPM tables remain accepted for backward compatibility, but they are
 treated as fallback inputs and fine-region interpretations should be reported
@@ -156,6 +172,13 @@ Optional sample, subject, diagnosis and anatomical metadata can be included and
 are retained in exported reports.
 
 ## Reproducibility and data policy
+
+Released-model inference reproducibility requires the public code and frozen
+model artifacts distributed with this release. Full reference-construction
+reproduction additionally requires the external or non-redistributed source
+datasets identified in [`DATA_PROVENANCE.md`](DATA_PROVENANCE.md). These are
+distinct reproducibility levels: absence of the author-package matrices limits
+rebuilding from source, not inference with the released frozen bundle.
 
 This deployment repository contains application code, lightweight model
 artifacts and tests. It intentionally excludes:
@@ -274,7 +297,7 @@ verify the hashes rather than substituting a similarly named workbook.
 ## Continuous-integration coverage
 
 CI runs the full test suite with branch coverage for the `core/` package. The
-current v0.1.12 release run produced **96 passed, 2 skipped**. Coverage.py 7.14.3
+archived v0.1.12 release run produced **96 passed, 2 skipped**. Coverage.py 7.14.3
 reported **67.09% line coverage**, **52.05% branch coverage**, and **64% combined
 terminal coverage** (1,117 statements; 298 branches). The exact text and XML
 reports are `reproducibility/coverage_report.txt` and
@@ -284,19 +307,25 @@ statistical confidence or biological validation measure.
 
 ## Status
 
-This repository contains the v0.1.12 public release for the
-Bioinformatics Application Note describing BrainTrace. The software is
-intended for research use in hierarchical brain-origin candidate ranking and
-resolution-limit auditing. It is not a clinical diagnostic device and does not
-provide stand-alone clinical localization from unlabeled biofluid RNA. The
-v0.1.12 release uses the audited canonical 110-region assets, enforces the exact
-110-region / 10-Network / 120-beam production contract, cleans the AHBA
-resolution-group detail export, and reports the formally rerun validation
-metrics. v0.1.12 supersedes v0.1.11 and includes the public Saleem crosswalk,
-independent enrichment results, S18-S19 reproduction materials, synchronized
-provenance metadata, and automated CI checks. It is
-published as the GitHub v0.1.12 release and archived at Zenodo under version DOI
-`https://doi.org/10.5281/zenodo.21911532`. The previous v0.1.11 version DOI is
+This repository contains the BrainTrace v0.1.13 software release for the
+Bioinformatics Application Note. Version 0.1.13 is a software-interface and
+documentation update built on the unchanged frozen scientific model from
+v0.1.12. It adds the real command-line interface and aligns CLI, Streamlit,
+Docker and public-reference documentation; it does not change model artifacts,
+inference parameters or validation results. The production model remains
+locked under `canonical110-v0.1.12-20260813`.
+
+No model artifact, learned parameter, anatomical ontology, validation metric,
+benchmark result or manuscript result changed between v0.1.12 and v0.1.13. The
+software is intended for research use in hierarchical brain-origin candidate
+ranking and resolution-limit auditing. It is not a clinical diagnostic device
+and does not provide stand-alone clinical localization from unlabeled biofluid
+RNA.
+
+The frozen v0.1.12 scientific release is published on GitHub and archived at
+Zenodo under version DOI `https://doi.org/10.5281/zenodo.21911532`. The v0.1.13
+version DOI will be recorded in the release metadata after archival; no v0.1.13
+version DOI has been assigned here. The previous v0.1.11 version DOI is
 `https://doi.org/10.5281/zenodo.21759823`. The persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
 

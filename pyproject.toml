@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "braintrace"
-version = "0.1.12"
+version = "0.1.13"
 description = "Hierarchical brain-origin candidate ranking from RNA expression profiles using a primate transcriptomic reference"
 readme = "README.md"
 license = {text = "MIT"}
@@ -61,7 +61,7 @@ Repository = "https://github.com/wz7717/cfrna-brain-tracing"
 Zenodo = "https://doi.org/10.5281/zenodo.20773674"
 
 [project.scripts]
-braintrace = "streamlit_app:main"
+braintrace = "core.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["core*", "benchmark*", "data*", "reporting*", "scripts*", "reproducibility*"]

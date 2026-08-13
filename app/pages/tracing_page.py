@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import io
 import json
 import sqlite3
 import traceback
@@ -16,10 +15,9 @@ from app.components.result_cards import render_primary_metrics, render_run_meta
 from app.database_mode import database_label, get_database_mode, matches_species
 from app.i18n import tr
 from app.shared import DB_PATH, init_processor, is_public_demo_mode, render_page_hero
-from core.bo2023_region_tracing import packaged_formal_region_assets_available, trace_bo2023_secondary_regions
-from core.network_tracing import DEFAULT_BO2023_NETWORK_MODEL, trace_network_expression
-from core.model_lock import ModelLockError
-from core.production_route import verify_production_route
+from core.bo2023_region_tracing import packaged_formal_region_assets_available
+import core.inference as locked_inference
+import core.query_input as query_input
 from data.dao import get_atlas_options, table_exists
 
 
@@ -166,57 +164,7 @@ def _render_public_demo_diagnostics(network_out: dict) -> None:
 
 
 def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
-    name = str(uploaded_file.name).lower()
-    if name.endswith(".xlsx"):
-        df = pd.read_excel(uploaded_file)
-    else:
-        raw = uploaded_file.getvalue()
-        sep = "\t" if name.endswith((".tsv", ".txt")) or raw[:2048].count(b"\t") > raw[:2048].count(b",") else ","
-        df = pd.read_csv(io.BytesIO(raw), sep=sep)
-
-    lower_map = {str(col).strip().lower(): col for col in df.columns}
-    gene_col = lower_map.get("gene_symbol") or lower_map.get("gene") or lower_map.get("symbol")
-    value_col = None
-    query_source = ""
-    for source, candidates in [
-        ("raw_counts", ["raw_counts", "raw_count", "counts", "count", "read_count", "readcount", "reads"]),
-        ("logcpm", ["logcpm", "log_cpm", "log2cpm", "log2_cpm"]),
-        ("logtpm_fallback", ["logtpm", "log_tpm", "log1p_tpm"]),
-        ("tpm_fallback", ["tpm_value", "tpm", "expression", "value"]),
-    ]:
-        found = next((lower_map.get(candidate) for candidate in candidates if candidate in lower_map), None)
-        if found is not None:
-            value_col = found
-            query_source = source
-            break
-    if gene_col is None or value_col is None:
-        raise ValueError("Input must include gene_symbol/gene and one expression column: raw counts, logCPM, logTPM or TPM.")
-
-    out = df[[gene_col, value_col]].copy()
-    out.columns = ["gene_symbol", "query_value"]
-    out["gene_symbol"] = out["gene_symbol"].astype(str).str.strip()
-    out["query_value"] = pd.to_numeric(out["query_value"], errors="coerce")
-    out = out.dropna(subset=["gene_symbol", "query_value"])
-    out = out[out["gene_symbol"] != ""]
-    if out.empty:
-        raise ValueError("No valid expression rows were found.")
-    out = out.groupby("gene_symbol", as_index=False)["query_value"].mean()
-
-    if query_source == "raw_counts":
-        out["read_count"] = out["query_value"].clip(lower=0)
-        if float(out["read_count"].sum()) <= 0:
-            raise ValueError("Raw counts must sum to a positive value.")
-        return out[["gene_symbol", "read_count"]], query_source
-    elif query_source in {"logcpm", "logtpm_fallback"}:
-        out["log_tpm"] = out["query_value"]
-        return out[["gene_symbol", "log_tpm"]], query_source
-    elif query_source == "tpm_fallback":
-        out["tpm_value"] = out["query_value"].clip(lower=0)
-    else:
-        out["log_tpm"] = out["query_value"]
-        return out[["gene_symbol", "log_tpm"]], query_source
-
-    return out[["gene_symbol", "tpm_value"]], query_source
+    return query_input.read_expression_file(uploaded_file)
 
 
 def _select_locked_bo2023_atlas(db_mode: str) -> tuple[int | None, str]:
@@ -286,67 +234,7 @@ def _render_resolution_group_top3(out: dict) -> None:
 
 
 def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int | None, topk: int = 30) -> tuple[dict, dict]:
-    parameters, model_lock = verify_production_route()
-    network_out = trace_network_expression(
-        expr,
-        min_overlap_fraction=float(parameters["network_min_overlap_fraction"]),
-        project_to_vsd=bool(parameters["project_to_vsd"]),
-        enable_pairwise_rescue=bool(parameters["enable_pairwise_rescue"]),
-    )
-    network_meta = network_out.get("meta", {})
-    if (
-        int(network_meta.get("n_networks", -1)) != int(parameters["network_count"])
-        or int(network_meta.get("n_model_genes", -1)) != int(parameters["network_gene_count"])
-    ):
-        raise ModelLockError("production Network runtime metadata differs from the frozen route")
-    if not network_out.get("results"):
-        raise ValueError(
-            f"Insufficient Network model-gene overlap: {network_meta.get('n_overlap_genes', 0)}/"
-            f"{network_meta.get('n_model_genes', 0)}."
-        )
-    network_out.setdefault("meta", {})["model_lock"] = {
-        "lock_id": model_lock["lock_id"],
-        "status": model_lock["status"],
-    }
-    out = trace_bo2023_secondary_regions(
-        expr,
-        network_out,
-        DB_PATH,
-        atlas_id,
-        topk=max(int(topk), int(parameters["network_top_k"])),
-        network_top_k=int(parameters["network_top_k"]),
-        top50_weight=float(parameters["exact_top50_weight"]),
-        exact_top50_gene_count=int(parameters["exact_top50_gene_count"]),
-        exact_top100_gene_count=int(parameters["exact_top100_gene_count"]),
-        local_top_n_genes=int(parameters["region_local_top_n_genes"]),
-        min_region_gene_overlap=int(parameters["region_min_overlap_genes"]),
-    )
-    if not out.get("results"):
-        meta = out.get("meta", {})
-        raise ValueError(str(meta.get("error") or "Bo2023 three-tier route returned no region candidates."))
-    region_meta = out.get("meta", {})
-    expected_region_runtime = {
-        "network_top_k": int(parameters["network_top_k"]),
-        "n_local_candidate_genes": int(parameters["region_local_top_n_genes"]),
-        "n_scoring_genes_top50": int(parameters["exact_top50_gene_count"]),
-        "n_scoring_genes_top100": int(parameters["exact_top100_gene_count"]),
-        "min_required_region_overlap_genes": int(parameters["region_min_overlap_genes"]),
-    }
-    changed_runtime = sorted(
-        key
-        for key, expected in expected_region_runtime.items()
-        if int(region_meta.get(key, -1)) != expected
-    )
-    if changed_runtime:
-        raise ModelLockError(
-            "production Region runtime metadata differs from the frozen route: "
-            + ", ".join(changed_runtime)
-        )
-    out.setdefault("meta", {})["model_lock"] = {
-        "lock_id": model_lock["lock_id"],
-        "status": model_lock["status"],
-    }
-    return network_out, out
+    return locked_inference.run_locked_three_tier_route(expr, atlas_id=atlas_id, db_path=DB_PATH, topk=topk)
 
 
 def _render_locked_three_tier_results(sample_id: str, out: dict, network_out: dict) -> None:
