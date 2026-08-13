@@ -112,8 +112,10 @@ version v0.1.14 is permanently archived at Zenodo under version DOI
 10.5281/zenodo.21920261; the frozen v0.1.12 scientific release remains available
 at 10.5281/zenodo.21911532. The concept DOI resolves to the latest Zenodo
 version. The v0.1.14 GitHub release contains the public materials listed here.
-The corresponding Zenodo record contains the full release archive, including
-the materialized 164 MB Git LFS reproducibility payload.
+The official software version DOI is 10.5281/zenodo.21920261. The separate full
+reproducibility archive at 10.5281/zenodo.21920697 contains the materialized
+164 MB Git LFS payload because Zenodo's GitHub-generated source archive does not
+materialize Git LFS objects.
 
 ## SHA-256 Integrity
 

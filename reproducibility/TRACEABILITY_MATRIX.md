@@ -1,6 +1,6 @@
 # BrainTrace v0.1.14 - Calculation Traceability Matrix
 
-> **Scope**: This matrix traces the principal quantitative claims in the v0.1.14 manuscript package. Public rows cite paths in the v0.1.14 tagged GitHub tree and corresponding Zenodo archive. The quantitative results and model artifacts remain unchanged from the frozen v0.1.12 scientific model. Submission-only rows depend on non-redistributable source data or calculation outputs supplied with the journal submission and are not claimed to be in the public release.
+> **Scope**: This matrix traces the principal quantitative claims in the v0.1.14 manuscript package. Public rows cite paths in the v0.1.14 tagged GitHub tree and full Zenodo reproducibility archive (10.5281/zenodo.21920697); the software version DOI is 10.5281/zenodo.21920261. The quantitative results and model artifacts remain unchanged from the frozen v0.1.12 scientific model. Submission-only rows depend on non-redistributable source data or calculation outputs supplied with the journal submission and are not claimed to be in the public release.
 
 ## How to Read This Matrix
 
@@ -21,15 +21,15 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T001 | §4 Validation ¶1 | LOSO Network Top1 = 58.97% (483/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "LOSO Network Top1" | 483/819 = 0.5897 | LOSO validation: 483 correct out of 819 samples | ✓ |
-| T002 | §4 Validation ¶1 | LOSO Network Top3 = 91.94% (753/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "LOSO Network Top3" | 753/819 = 0.9194 | LOSO validation: 753 correct out of 819 | ✓ |
-| T003 | §4 Validation ¶1 | LOMO Network Top1 = 55.56% (455/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "LOMO Network Top1" | 455/819 = 0.5556 | LOMO validation: 455 correct out of 819 | ✓ |
-| T004 | §4 Validation ¶1 | LOMO Network Top3 = 91.58% (750/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "LOMO Network Top3" | 750/819 = 0.9158 | LOMO validation: 750 correct out of 819 | ✓ |
-| T005 | §4 Validation ¶1 | Resolution-group Top3 LOSO = 72.48% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | (derived from RAW_COUNTS_RESOLUTION) | 590/814 = 0.7248 | LOSO ResGroup: 590 correct out of 814 | ✓ |
-| T006 | §4 Validation ¶1 | Resolution-group Top3 LOMO = 70.07% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | (derived from RAW_COUNTS_RESOLUTION) | 569/812 = 0.7007 | LOMO ResGroup: 569 correct out of 812 | ✓ |
-| T007 | §4 Validation ¶1 | Exact-region Top3 LOSO = 45.21% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "LOSO Exact Top3" | 368/814 = 0.4521 | LOSO Exact: 368 correct out of 814 | ✓ |
-| T008 | §4 Validation ¶1 | Exact-region Top3 LOMO = 42.61% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "LOMO Exact Top3" | 346/812 = 0.4261 | LOMO Exact: 346 correct out of 812 | ✓ |
-| T009 | §4 Validation ¶1 | Donor-macro Top3: 89.40% vs 89.24% | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | SUMMARY rows (LOSO/LOMO Network) | Donor-weighted mean of per-donor Top3 | Per-donor hit rates from confusion matrices | ✓ |
+| T001 | §4 Validation ¶1 | LOSO Network Top1 = 58.97% (483/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "LOSO Network Top1" | 483/819 = 0.5897 | LOSO validation: 483 correct out of 819 samples | ✓ |
+| T002 | §4 Validation ¶1 | LOSO Network Top3 = 91.94% (753/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "LOSO Network Top3" | 753/819 = 0.9194 | LOSO validation: 753 correct out of 819 | ✓ |
+| T003 | §4 Validation ¶1 | LOMO Network Top1 = 55.56% (455/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "LOMO Network Top1" | 455/819 = 0.5556 | LOMO validation: 455 correct out of 819 | ✓ |
+| T004 | §4 Validation ¶1 | LOMO Network Top3 = 91.58% (750/819) | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "LOMO Network Top3" | 750/819 = 0.9158 | LOMO validation: 750 correct out of 819 | ✓ |
+| T005 | §4 Validation ¶1 | Resolution-group Top3 LOSO = 72.48% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | (derived from RAW_COUNTS_RESOLUTION) | 590/814 = 0.7248 | LOSO ResGroup: 590 correct out of 814 | ✓ |
+| T006 | §4 Validation ¶1 | Resolution-group Top3 LOMO = 70.07% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | (derived from RAW_COUNTS_RESOLUTION) | 569/812 = 0.7007 | LOMO ResGroup: 569 correct out of 812 | ✓ |
+| T007 | §4 Validation ¶1 | Exact-region Top3 LOSO = 45.21% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "LOSO Exact Top3" | 368/814 = 0.4521 | LOSO Exact: 368 correct out of 814 | ✓ |
+| T008 | §4 Validation ¶1 | Exact-region Top3 LOMO = 42.61% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "LOMO Exact Top3" | 346/812 = 0.4261 | LOMO Exact: 346 correct out of 812 | ✓ |
+| T009 | §4 Validation ¶1 | Donor-macro Top3: 89.40% vs 89.24% | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | SUMMARY rows (LOSO/LOMO Network) | Donor-weighted mean of per-donor Top3 | Per-donor hit rates from confusion matrices | ✓ |
 | T010 | §4 Validation ¶1 | Sign-flip p: Network 0.5625, ResGroup 0.5938, Exact 0.5625 | (archived sign-flip results) | Submission package only | BH-corrected p-values | Exact 2^9=512 sign permutations, BH correction | Paired donor-level Top3 differences | ✓ |
 | T011 | §4 Validation ¶1 | MDE ~6pp at 80% power | (computed) | Submission package only | — | Minimum detectable effect: 80% power, α=0.05, two-sided, n=9 donors | Donor-level Top3 SD from validation | ✓ |
 
@@ -39,10 +39,10 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T012 | §4 Validation ¶1 | Historical fold-local k=500 RF comparator: Network Top1/Top3 = 59.95%/91.09% | `reproducibility/v4_p0_11_rf_comparator.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Rows "Network Top1/Top3" | 491/819=0.5995, 746/819=0.9109 | Historical RF LOMO: 491/746 correct out of 819; not the frozen 200-gene comparator | ✓ |
-| T013 | §4 Validation ¶1 | 5-NN cosine Top1 = 43.71% | `reproducibility/v4_p0_11_ml_baselines.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "5-NN cosine" | 358/819=0.4371 | 5-NN LOMO: 358 correct out of 819 | ✓ |
-| T014 | §4 Validation ¶1 | Nearest Centroid Top1 = 19.29% | `reproducibility/v4_p0_11_ml_baselines.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "Nearest Centroid" | 158/819=0.1929 | NC LOMO: 158 correct out of 819 | ✓ |
-| T015 | §4 Validation ¶1 | Formal route Top1 = 55.56% (n=819) | `reproducibility/v4_p0_11_ml_baselines.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Row "Formal Route LOMO" | 455/819=0.5556 | LOMO: 455 correct out of 819 | ✓ |
+| T012 | §4 Validation ¶1 | Historical fold-local k=500 RF comparator: Network Top1/Top3 = 59.95%/91.09% | `reproducibility/v4_p0_11_rf_comparator.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Rows "Network Top1/Top3" | 491/819=0.5995, 746/819=0.9109 | Historical RF LOMO: 491/746 correct out of 819; not the frozen 200-gene comparator | ✓ |
+| T013 | §4 Validation ¶1 | 5-NN cosine Top1 = 43.71% | `reproducibility/v4_p0_11_ml_baselines.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "5-NN cosine" | 358/819=0.4371 | 5-NN LOMO: 358 correct out of 819 | ✓ |
+| T014 | §4 Validation ¶1 | Nearest Centroid Top1 = 19.29% | `reproducibility/v4_p0_11_ml_baselines.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "Nearest Centroid" | 158/819=0.1929 | NC LOMO: 158 correct out of 819 | ✓ |
+| T015 | §4 Validation ¶1 | Formal route Top1 = 55.56% (n=819) | `reproducibility/v4_p0_11_ml_baselines.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Row "Formal Route LOMO" | 455/819=0.5556 | LOMO: 455 correct out of 819 | ✓ |
 
 ---
 
@@ -50,8 +50,8 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T016 | §4 Validation ¶1 | Subcortical PPV = 1.00 (42/42) | `reproducibility/v4_p0_4_subcortical_subsampling.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Column "mean_ppv" (all rows) | 42/42 = 1.00 | Subcortical confusion matrix: 42 TP, 0 FP | ✓ |
-| T017 | §4 Validation ¶1 | Subcortical recall = 0.78 (42/54) | `reproducibility/v4_p0_4_subcortical_subsampling.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Full-sample row | 42/54 = 0.7778 | Subcortical confusion matrix: 42 TP, 12 FN | ✓ |
+| T016 | §4 Validation ¶1 | Subcortical PPV = 1.00 (42/42) | `reproducibility/v4_p0_4_subcortical_subsampling.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Column "mean_ppv" (all rows) | 42/42 = 1.00 | Subcortical confusion matrix: 42 TP, 0 FP | ✓ |
+| T017 | §4 Validation ¶1 | Subcortical recall = 0.78 (42/54) | `reproducibility/v4_p0_4_subcortical_subsampling.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Full-sample row | 42/54 = 0.7778 | Subcortical confusion matrix: 42 TP, 12 FN | ✓ |
 
 ---
 
@@ -62,10 +62,10 @@ Each trace entry has:
 | T018 | §4 Validation ¶2 | AHBA Network Top1/Top3 = 73.99%/94.62% (165/211 of 223) | (archived AHBA results) | Submission package only | — | 165/223=0.7399, 211/223=0.9462 | AHBA mapped-label: 165/211 correct out of 223 | ✓ |
 | T019 | §4 Validation ¶2 | AHBA ResGroup Top1/Top3 = 42.05%/68.18% (37/60 of 88) | (archived AHBA results) | Submission package only | — | 37/88=0.4205, 60/88=0.6818 | AHBA mapped-label: 37/60 correct out of 88 | ✓ |
 | T020 | §4 Validation ¶2 | AHBA Exact Top1/Top3 = 27.27%/45.45% (24/40 of 88) | (archived AHBA results) | Submission package only | — | 24/88=0.2727, 40/88=0.4545 | AHBA mapped-label: 24/40 correct out of 88 | ✓ |
-| T021 | §4 Validation ¶2 | 231 independent tissue samples | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Step 1, count_out=231 | 6 donors → 4 excluded → 2 retained → 231 post-collapse | AHBA raw sample count | ✓ |
-| T022 | §4 Validation ¶2 | n=223 (Network-qualified) | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Step 3, count_out=223 | 231 - 8 (no valid Network mapping) = 223 | AHBA attrition step 3 | ✓ |
+| T021 | §4 Validation ¶2 | 231 independent tissue samples | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Step 1, count_out=231 | 6 donors → 4 excluded → 2 retained → 231 post-collapse | AHBA raw sample count | ✓ |
+| T022 | §4 Validation ¶2 | n=223 (Network-qualified) | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Step 3, count_out=223 | 231 - 8 (no valid Network mapping) = 223 | AHBA attrition step 3 | ✓ |
 | T023 | §4 Validation ¶2 | 74.9% multi-label rate | (archived AHBA results) | Submission package only | — | 167/223 = 0.7489 | AHBA multi-Network samples / total | ✓ |
-| T024 | §4 Validation ¶2 | 12 samples excluded (8 subcortical) | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Step 7, excluded=12, reason | 100 → 88, 8 subcortical + 4 unmatched | AHBA attrition step 7 | ✓ |
+| T024 | §4 Validation ¶2 | 12 samples excluded (8 subcortical) | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Step 7, excluded=12, reason | 100 → 88, 8 subcortical + 4 unmatched | AHBA attrition step 7 | ✓ |
 
 ---
 
@@ -73,11 +73,11 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T025 | §4 Validation ¶2 | 63 primary edema-comparator patients | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | edema rows, n_patients=63 | 65 total - 1 no-edema case (TCGA-HT-7686) - 1 cerebellar/out-of-scope case (TCGA-HT-7680) = 63; center/core/whole_tumor retain n=65 | TCGA/BraTS patient count | ✓ |
-| T026 | §4 Validation ¶2 | Network Top3 = 23.81% | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | edema/network/top3/strict | 15/63 = 0.2381 | TCGA/BraTS: 15 correct out of 63 | ✓ |
-| T027 | §4 Validation ¶2 | Broad Top3 = 82.54% | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | edema/broad/top3/strict | 52/63 = 0.8254 | TCGA/BraTS: 52 correct out of 63 | ✓ |
-| T028 | §4 Validation ¶2 | p=0.8888 (exploratory one-sided exact-binomial vs 30%) | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | manuscript_summary row | binomtest(15, 63, 0.30, "greater").pvalue | 15/63 vs null_p=0.30 (Top3/10 uniform) | ✓ |
-| T029 | Figure 1B | TCGA/BraTS 23.81%/82.54% | Same as T026/T027 | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | — | — | — | ✓ |
+| T025 | §4 Validation ¶2 | 63 primary edema-comparator patients | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | edema rows, n_patients=63 | 65 total - 1 no-edema case (TCGA-HT-7686) - 1 cerebellar/out-of-scope case (TCGA-HT-7680) = 63; center/core/whole_tumor retain n=65 | TCGA/BraTS patient count | ✓ |
+| T026 | §4 Validation ¶2 | Network Top3 = 23.81% | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | edema/network/top3/strict | 15/63 = 0.2381 | TCGA/BraTS: 15 correct out of 63 | ✓ |
+| T027 | §4 Validation ¶2 | Broad Top3 = 82.54% | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | edema/broad/top3/strict | 52/63 = 0.8254 | TCGA/BraTS: 52 correct out of 63 | ✓ |
+| T028 | §4 Validation ¶2 | p=0.8888 (exploratory one-sided exact-binomial vs 30%) | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | manuscript_summary row | binomtest(15, 63, 0.30, "greater").pvalue | 15/63 vs null_p=0.30 (Top3/10 uniform) | ✓ |
+| T029 | Figure 1B | TCGA/BraTS 23.81%/82.54% | Same as T026/T027 | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | — | — | — | ✓ |
 
 Candidate-set sensitivity: Network Top3 any-hit = 36.51% (23/63), descriptive only; the patient-specific truth set contains Networks with at least 20% edema overlap and is not an anatomical adjacency rule.
 
@@ -89,9 +89,9 @@ Endpoint provenance: the current values are generated from `results/tcga_brats_c
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T030 | §2 System ¶4 | Network Top3 remained within 91.94% (<1pp deviation) | `reproducibility/v4_p0_10_lambda_sensitivity.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | All rows, network_top3 | 0.9194 at λ=0.25, 0.50, 0.75 (identical) | Lambda only affects exact-region fusion, not Network | ✓ |
-| T031 | §2 System ¶4 | Friedman chi2=0.54, df=2, p=0.764 | `reproducibility/v4_p0_10_lambda_friedman.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Friedman_test row | friedmanchisquare(hit3_λ0.25, hit3_λ0.50, hit3_λ0.75) | 9-donor per-donor hit3 at 3 lambda values | ✓ |
-| T032 | Supp SR4 ¶3 | Friedman hit1 chi2=3.0, p=0.2231 | `reproducibility/v4_p0_10_lambda_friedman.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Friedman_test_hit1 row | friedmanchisquare(hit1_λ0.25, hit1_λ0.50, hit1_λ0.75) | 9-donor per-donor hit1 at 3 lambda values | ✓ |
+| T030 | §2 System ¶4 | Network Top3 remained within 91.94% (<1pp deviation) | `reproducibility/v4_p0_10_lambda_sensitivity.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | All rows, network_top3 | 0.9194 at λ=0.25, 0.50, 0.75 (identical) | Lambda only affects exact-region fusion, not Network | ✓ |
+| T031 | §2 System ¶4 | Friedman chi2=0.54, df=2, p=0.764 | `reproducibility/v4_p0_10_lambda_friedman.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Friedman_test row | friedmanchisquare(hit3_λ0.25, hit3_λ0.50, hit3_λ0.75) | 9-donor per-donor hit3 at 3 lambda values | ✓ |
+| T032 | Supp SR4 ¶3 | Friedman hit1 chi2=3.0, p=0.2231 | `reproducibility/v4_p0_10_lambda_friedman.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Friedman_test_hit1 row | friedmanchisquare(hit1_λ0.25, hit1_λ0.50, hit1_λ0.75) | 9-donor per-donor hit1 at 3 lambda values | ✓ |
 
 ---
 
@@ -120,8 +120,8 @@ Endpoint provenance: the current values are generated from `results/tcga_brats_c
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
 | T039 | §5 Use ¶3 | Network Top3 declined 91.94% → 58.54% | (archived sparse simulation) | Submission package only | — | 30-repeat mean at extreme sparsity (20% genes, 1% depth) | 30-repeat sparse simulation, seed 20260711 | ✓ |
-| T040 | §2 System ¶5 | 30 repeats each; 99,099 archived seeds | `seed_registry.json` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | — | Base seed 20260711 + index → 99,099 unique seeds | Sparse simulation seed registry | ✓ |
-| T041 | §2 System ¶5 | 50,000 bootstrap draws (seed 20260716) | `seed_registry.json` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | — | 50,000 donor-cluster bootstrap resamples | Seed registry: donor_cluster_bootstrap=20260716 | ✓ |
+| T040 | §2 System ¶5 | 30 repeats each; 99,099 archived seeds | `seed_registry.json` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | — | Base seed 20260711 + index → 99,099 unique seeds | Sparse simulation seed registry | ✓ |
+| T041 | §2 System ¶5 | 50,000 bootstrap draws (seed 20260716) | `seed_registry.json` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | — | 50,000 donor-cluster bootstrap resamples | Seed registry: donor_cluster_bootstrap=20260716 | ✓ |
 
 ---
 
@@ -154,10 +154,10 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T044 | Supp Table S8/S13 | LOSO Exact macro F1 = 0.2102 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | SUMMARY, LOSO_Exact_macro | mean(F1_i) for i=1..105 | 105 class-level F1 from LOSO Exact confusion matrix | ✓ |
-| T045 | Supp Table S8/S13 | LOMO Exact macro F1 = 0.1943 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | SUMMARY, LOMO_Exact_macro | mean(F1_i) for i=1..104 | 104 class-level F1 from LOMO Exact confusion matrix | ✓ |
-| T046 | Supp Table S8 | LOSO Network macro F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | SUMMARY, LOSO_Network_macro | mean(F1_i) for i=1..10 | 10 Network class-level F1 from LOSO confusion matrix | ✓ |
-| T047 | Supp Table S8 | LOMO Network weighted F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | SUMMARY, LOMO_Network_weighted | Σ(n_i·F1_i) / Σ(n_i) for i=1..10 | 10 Network classes with sample counts from LOMO | ✓ |
+| T044 | Supp Table S8/S13 | LOSO Exact macro F1 = 0.2102 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | SUMMARY, LOSO_Exact_macro | mean(F1_i) for i=1..105 | 105 class-level F1 from LOSO Exact confusion matrix | ✓ |
+| T045 | Supp Table S8/S13 | LOMO Exact macro F1 = 0.1943 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | SUMMARY, LOMO_Exact_macro | mean(F1_i) for i=1..104 | 104 class-level F1 from LOMO Exact confusion matrix | ✓ |
+| T046 | Supp Table S8 | LOSO Network macro F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | SUMMARY, LOSO_Network_macro | mean(F1_i) for i=1..10 | 10 Network class-level F1 from LOSO confusion matrix | ✓ |
+| T047 | Supp Table S8 | LOMO Network weighted F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | SUMMARY, LOMO_Network_weighted | Σ(n_i·F1_i) / Σ(n_i) for i=1..10 | 10 Network classes with sample counts from LOMO | ✓ |
 
 ---
 
@@ -173,13 +173,13 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 
 | ID | Manuscript Location | Manuscript Value | Source CSV / Manifest | Availability | CSV Location | Formula | Raw Data Input | ✓? |
 |----|-------------------|-----------------|-----------------------|--------------|-------------|---------|---------------|---|
-| T048 | Supplementary S18 | Frozen 200-gene RF LOMO Top1/Top3 = 47.50%/83.03% (389/680 of 819) | `reproducibility/p2_publication_completeness/P2_RF200_lomo_detail.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | `hit1`, `hit3`, all 819 rows | Σhit1/819 = 389/819; Σhit3/819 = 680/819 | Exact frozen 200-gene Network panel, leave-one-macaque-out predictions | ✓ |
+| T048 | Supplementary S18 | Frozen 200-gene RF LOMO Top1/Top3 = 47.50%/83.03% (389/680 of 819) | `reproducibility/p2_publication_completeness/P2_RF200_lomo_detail.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | `hit1`, `hit3`, all 819 rows | Σhit1/819 = 389/819; Σhit3/819 = 680/819 | Exact frozen 200-gene Network panel, leave-one-macaque-out predictions | ✓ |
 | T049 | Supp S18 / truth-normalization note | Two prespecified frozen-truth corrections | Same CSV as T048 plus frozen mapping audit | Submission package only | Samples `19R470` and `xz-L-10m-10o_BRRL200004691-1A` | Apply mapping before scoring: Parietal → Occipital/Temporal; Lateral Prefrontal Cortex → OMPFC | Raw metadata, anatomical label crosswalk, and frozen scoring truth | ✓ |
 | T050 | Supp 3′-bias sensitivity | 185 evaluable genes; Spearman ρ=0.646, p=2.95×10⁻²³; median detected 151/185 | `reproducibility/p0_bio2_3prime_bias/panel_length_detection.csv` and archived summary | Submission package only | Per-gene detection/length rows | Spearman correlation and per-sample median; terminal-window simulations at 500/1,000/2,000 nt yield medians 74/106/136 | Observed gene detection plus transcript-coordinate proxy simulation; not molecule-level 3′-end sequencing simulation | ✓ |
-| T051 | Supp independent panel annotation | 179/200 mapped; significant GO:BP/KEGG terms = 446/11 (primary) and 410/8 (annotated-domain sensitivity) | `reproducibility/independent_enrichment/independent_enrichment_manifest.json` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | `gprofiler_*_significant` and g:Profiler metadata | g:Profiler FDR <0.05 separately by source | Frozen 200-gene panel, 21,668-gene model-space background, g:Profiler e114_eg62_p19_27110d83 (2026-07-31) | ✓ |
-| T052 | Supp independent cell-type annotation | Rhesus excitatory/inhibitory enrichment q=2.67×10⁻⁷/4.20×10⁻⁴; human sensitivity q=0.0477/5.89×10⁻⁵ | `reproducibility/independent_enrichment/independent_celltype_enrichment.csv`; `reproducibility/independent_enrichment/independent_enrichment_manifest.json` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Chiou2023 and Siletti2023 rows | One-sided hypergeometric test; BH correction across seven prespecified families | Chiou 2023 rhesus markers (primary) and Siletti 2023 human markers (sensitivity), intersected with 21,668-gene background | ✓ |
-| T053 | Supplementary S18 | Complete 110-row Bo2023-to-Saleem anatomical crosswalk | `reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | All 110 rows | Direct row-level crosswalk | Locked Bo2023 region IDs, Network labels, Saleem-style names and broad mappings | ✓ |
-| T054 | Supplementary Tables S18-S19 | Portable sensitivity blocks and frozen output | `reproducibility/s18_s19/run_s18_s19_sensitivity.py`; `reproducibility/s18_s19/sensitivity_analysis_results.json`; `reproducibility/s18_s19/input_manifest.json` | Public - GitHub v0.1.14 release; Zenodo 10.5281/zenodo.21920261 | Four named result blocks and input hashes | Deterministic runner using frozen public inputs | Frozen model artifacts and corrected lambda/AHBA CSV inputs | ✓ |
+| T051 | Supp independent panel annotation | 179/200 mapped; significant GO:BP/KEGG terms = 446/11 (primary) and 410/8 (annotated-domain sensitivity) | `reproducibility/independent_enrichment/independent_enrichment_manifest.json` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | `gprofiler_*_significant` and g:Profiler metadata | g:Profiler FDR <0.05 separately by source | Frozen 200-gene panel, 21,668-gene model-space background, g:Profiler e114_eg62_p19_27110d83 (2026-07-31) | ✓ |
+| T052 | Supp independent cell-type annotation | Rhesus excitatory/inhibitory enrichment q=2.67×10⁻⁷/4.20×10⁻⁴; human sensitivity q=0.0477/5.89×10⁻⁵ | `reproducibility/independent_enrichment/independent_celltype_enrichment.csv`; `reproducibility/independent_enrichment/independent_enrichment_manifest.json` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Chiou2023 and Siletti2023 rows | One-sided hypergeometric test; BH correction across seven prespecified families | Chiou 2023 rhesus markers (primary) and Siletti 2023 human markers (sensitivity), intersected with 21,668-gene background | ✓ |
+| T053 | Supplementary S18 | Complete 110-row Bo2023-to-Saleem anatomical crosswalk | `reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | All 110 rows | Direct row-level crosswalk | Locked Bo2023 region IDs, Network labels, Saleem-style names and broad mappings | ✓ |
+| T054 | Supplementary Tables S18-S19 | Portable sensitivity blocks and frozen output | `reproducibility/s18_s19/run_s18_s19_sensitivity.py`; `reproducibility/s18_s19/sensitivity_analysis_results.json`; `reproducibility/s18_s19/input_manifest.json` | Public - GitHub v0.1.14 release; Zenodo full archive 10.5281/zenodo.21920697 | Four named result blocks and input hashes | Deterministic runner using frozen public inputs | Frozen model artifacts and corrected lambda/AHBA CSV inputs | ✓ |
 ---
 
 ## Verification Summary
@@ -201,4 +201,4 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 | Frozen comparator, truth normalization & independent analyses | T048-T054 | 7/7 | 100% |
 | **Total** | **T001-T058** | **58/58** | **100%** |
 
-> **Availability note:** Public status means the cited relative path is included in the GitHub v0.1.14 release. The corresponding Zenodo v0.1.14 archive is available at 10.5281/zenodo.21920261; submission-package-only status is explicit and does not imply public availability.
+> **Availability note:** Public status means the cited relative path is included in the GitHub v0.1.14 release. The corresponding Zenodo v0.1.14 full archive is available at 10.5281/zenodo.21920697; submission-package-only status is explicit and does not imply public availability.

@@ -10,6 +10,10 @@
   "zenodo_record": "https://zenodo.org/records/21920261",
   "zenodo_full_archive": {
     "filename": "cfrna-brain-tracing-v0.1.14-full.zip",
+    "bytes": 197792195,
+    "sha256": "7f0bfece144e10aa3feab21565dcb679bfc7947e5854460c862f28720f172870",
+    "doi": "10.5281/zenodo.21920697",
+    "record": "https://zenodo.org/records/21920697",
     "contains_materialized_lfs_payload": true
   },
   "large_reproducibility_asset": {
