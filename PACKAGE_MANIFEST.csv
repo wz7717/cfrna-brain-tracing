@@ -6,11 +6,11 @@ relative_path,bytes
 .gitignore,2173
 .streamlit/config.toml,273
 CONTRIBUTING.md,1640
-DATA_PROVENANCE.md,11259
+DATA_PROVENANCE.md,11231
 Dockerfile,1643
 LICENSE,1063
 MODEL_LOCK.md,2015
-README.md,15056
+README.md,15047
 app/__init__.py,0
 app/components/__init__.py,167
 app/components/layout.py,3106
@@ -92,7 +92,7 @@ core/params.py,1914
 core/production_route.py,2347
 core/reference_loader.py,7122
 core/reference_projection.py,10880
-core/region_resolution.py,6811
+core/region_resolution.py,6931
 core/tracing_engine.py,89
 data/__init__.py,0
 data/atlas_registry.py,457
@@ -147,9 +147,9 @@ reporting/benchmark_figure_export.py,34565
 reproduce_all.ps1,6918
 reproduce_all.py,37386
 reproducibility/BrainTrace_Reproducibility_Audit_Report.docx,40995
-reproducibility/DATA_PROVENANCE.md,11164
+reproducibility/DATA_PROVENANCE.md,11162
 reproducibility/P1_NEURO1_resolution_group_anatomy_audit.csv,3922
-reproducibility/TRACEABILITY_MATRIX.md,24238
+reproducibility/TRACEABILITY_MATRIX.md,24247
 reproducibility/coverage.xml,52071
 reproducibility/coverage_report.txt,1944
 reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv,7548
@@ -404,7 +404,7 @@ tests/test_public_demo_mode.py,2693
 tests/test_public_reproducibility_assets.py,1912
 tests/test_r08_rf_fair_comparator.py,4626
 tests/test_real_input_performance_harness.py,7006
-tests/test_region_resolution_annotation.py,2514
+tests/test_region_resolution_annotation.py,2564
 tests/test_sparse_domain_shift_contract.py,3915
 tests/test_upload_input_audit.py,6688
 tests/test_upload_metadata_text_labels.py,613
