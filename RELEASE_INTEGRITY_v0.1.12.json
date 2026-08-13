@@ -134,8 +134,8 @@
   "local_submission_artifacts": [
     {
       "filename": "BrainTrace_Main_Manuscript_v5_round5_p1_e4_e5_bo2023_provenance_v0.1.21_tcga_current_final_clean.docx",
-      "bytes": 5038242,
-      "sha256": "de1bab1ec83135f5309a60c09ffd5c179a52d1c2ef24518257016d4ade3a5a9c",
+      "bytes": 5038194,
+      "sha256": "90b9529b18a92e795cd738f317895fd730c045639156c8565a78788069bf2335",
       "distribution": "local submission artifact; not included in the public software archive"
     },
     {
