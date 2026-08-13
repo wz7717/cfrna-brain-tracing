@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "release": "v0.1.13",
+  "version_doi": "10.5281/zenodo.21917906",
+  "concept_doi": "10.5281/zenodo.20773674",
+  "previous_version_doi": "10.5281/zenodo.21911532",
+  "repository": "https://github.com/wz7717/cfrna-brain-tracing",
+  "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.13",
+  "github_release": "https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.13",
+  "release_commit": "d087dfaf4eeaf252659964c129213d94b197f15d",
+  "zenodo_record": "https://zenodo.org/records/21917906",
+  "zenodo_source_archive": {
+    "filename": "wz7717/cfrna-brain-tracing-v0.1.13.zip",
+    "bytes": 33756486,
+    "md5": "cc27778f5e8179952bb4dea3c467ab2a"
+  },
+  "github_release_assets": [
+    {
+      "filename": "permutation_fg_max.npz",
+      "bytes": 164161292,
+      "sha256": "0b574d5e12792db758c6909d42524b1c174197626f8c3e47d7220b2511a567ca",
+      "role": "materialized Git LFS reproducibility payload"
+    }
+  ],
+  "model_lock_id": "canonical110-v0.1.12-20260813",
+  "scientific_delta_from_v0.1.12": "none",
+  "verification": {
+    "main_ci_run": 31696223324,
+    "pytest": "106 passed, 2 skipped",
+    "locked_artifacts": 8,
+    "csv_validation": true,
+    "s18_s19_reproduction_match": true
+  },
+  "distribution_note": "The Zenodo record contains the repository source archive. The materialized 164 MB Git LFS payload is distributed as the checksum-matched GitHub Release asset listed above."
+}
