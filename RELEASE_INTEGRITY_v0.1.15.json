@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "release": "v0.1.15",
+  "version_doi": "10.5281/zenodo.21970252",
+  "full_archive_doi": "10.5281/zenodo.21970278",
+  "concept_doi": "10.5281/zenodo.20773674",
+  "previous_version_doi": "10.5281/zenodo.21920261",
+  "repository": "https://github.com/wz7717/cfrna-brain-tracing",
+  "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.15",
+  "github_release": "https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.15",
+  "zenodo_record": "https://zenodo.org/records/21970252",
+  "zenodo_full_archive": {
+    "filename": "cfrna-brain-tracing-v0.1.15-full.zip",
+    "doi": "10.5281/zenodo.21970278",
+    "record": "https://zenodo.org/records/21970278",
+    "contains_materialized_lfs_payload": true,
+    "checksum_note": "Archive bytes and SHA-256 are recorded in the release-sidecar copy after the final tag is built."
+  },
+  "large_reproducibility_asset": {
+    "path": "reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz",
+    "bytes": 164161292,
+    "sha256": "0b574d5e12792db758c6909d42524b1c174197626f8c3e47d7220b2511a567ca"
+  },
+  "model_lock_id": "canonical110-v0.1.12-20260813",
+  "scientific_delta_from_v0.1.12": "none",
+  "patch_scope": "Reporting and provenance correction only; frozen model, ontology, formal prediction set, Top1, Top3, exact/resolution endpoints and model hashes are unchanged.",
+  "formal_lomo_network_f1": {
+    "source": "reproducibility/p2_publication_completeness/formal_lomo_network_detail.csv",
+    "source_sha256": "37751431501D8A334AE3A73609A60EC284531A285C576225FA3CE9BE6651F0DA",
+    "route_family": "hybrid_projected_network_logcpm_exact",
+    "route": "network_discriminative_correlation_top200",
+    "n": 819,
+    "top1": 455,
+    "top3": 750,
+    "micro_f1": 0.5555555555555556,
+    "sum_tp": 455,
+    "zero_f1_classes": 0
+  },
+  "verification": {
+    "pytest": "110 passed, 2 skipped",
+    "locked_artifacts": 8,
+    "csv_files_validated": 103,
+    "csv_rows_validated": 264046,
+    "scientific_model_changed": false
+  },
+  "historical_release_policy": "v0.1.14 and its Zenodo records remain immutable historical artifacts; this patch does not force-update, delete or recreate them."
+}

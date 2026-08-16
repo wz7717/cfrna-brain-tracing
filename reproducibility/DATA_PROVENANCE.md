@@ -211,6 +211,6 @@ The complete Python environment is pinned in `requirements_reproducible.txt`:
 | GSE189919 CSF cfRNA | NCBI GEO | GSE189919 | Public |
 | Huang2025 cfRNA | npj Precis. Oncol. | Supplementary Data 1 | Public |
 | BrainTrace code | GitHub | https://github.com/wz7717/cfrna-brain-tracing | Public (MIT) |
-| BrainTrace archive | Zenodo | v0.1.14 historical software/full-archive records remain at 10.5281/zenodo.21920261 and 10.5281/zenodo.21920697; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |
+| BrainTrace archive | Zenodo | Current v0.1.15 software/full archive: 10.5281/zenodo.21970252 / 10.5281/zenodo.21970278; immutable v0.1.14 historical records remain at 10.5281/zenodo.21920261 / 10.5281/zenodo.21920697; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |
 
 > **FAIR statement**: Public source datasets are identified by stable accessions or article records and use standard formats. The exact Bo2023 processed author-package matrices are an explicitly documented exception: no stable public file URL was identified, and exact reuse requires lawful acquisition from the original authors plus SHA-256 verification.
