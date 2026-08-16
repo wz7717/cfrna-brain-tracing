@@ -1,8 +1,8 @@
-# Data Provenance - BrainTrace v0.1.14
+# Data Provenance - BrainTrace v0.1.15
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool
-(v0.1.14; version DOI: [10.5281/zenodo.21920261](https://doi.org/10.5281/zenodo.21920261); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)). The frozen v0.1.12 scientific release remains archived at version DOI [10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
+(v0.1.15; version DOI: [10.5281/zenodo.21970252](https://doi.org/10.5281/zenodo.21970252); full reproducibility archive DOI: [10.5281/zenodo.21970278](https://doi.org/10.5281/zenodo.21970278); concept DOI: [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674)). This is a reporting/provenance correction-only patch built on the immutable v0.1.14 release; the frozen v0.1.12 scientific release remains archived at version DOI [10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
 Public source data are available under the cited accessions except where
 explicitly noted below. The exact Bo2023 processed author-package matrices used
 by the frozen projector have no identified stable public URL; they must be
@@ -108,14 +108,15 @@ The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
 original repositories to reproduce the exact numerical results. Software
-version v0.1.14 is permanently archived at Zenodo under version DOI
-10.5281/zenodo.21920261; the frozen v0.1.12 scientific release remains available
-at 10.5281/zenodo.21911532. The concept DOI resolves to the latest Zenodo
-version. The v0.1.14 GitHub release contains the public materials listed here.
-The official software version DOI is 10.5281/zenodo.21920261. The separate full
-reproducibility archive at 10.5281/zenodo.21920697 contains the materialized
-164 MB Git LFS payload because Zenodo's GitHub-generated source archive does not
-materialize Git LFS objects.
+version v0.1.15 is archived at Zenodo under version DOI 10.5281/zenodo.21970252;
+the separate full reproducibility archive is 10.5281/zenodo.21970278 and
+contains the materialized 164 MB Git LFS payload because Zenodo's GitHub-generated
+source archive does not materialize Git LFS objects. The immutable v0.1.14
+historical software/full-archive records remain available at 10.5281/zenodo.21920261
+and 10.5281/zenodo.21920697. The concept DOI resolves to the latest Zenodo
+version, and the v0.1.12 scientific release remains available at
+10.5281/zenodo.21911532. The v0.1.15 GitHub release contains the current public
+materials listed here.
 
 ## SHA-256 Integrity
 
@@ -126,6 +127,12 @@ the complete lock specification.
 
 The frozen 200-gene RF row-level result has SHA-256
 `d27b67c5ca7fa79b9186a79b24d94cf2624c4007c95bb53016043f554ceba3ac`.
+The formal LOMO Network prediction-level source is
+`reproducibility/p2_publication_completeness/formal_lomo_network_detail.csv`;
+its route-family filter, SHA-256, integer TP/FP/FN accounting and derived
+macro/weighted/micro F1 values are recorded in
+`reproducibility/lomo_network_f1_provenance.json` and the generated
+`reproducibility/LOMO_NETWORK_F1_PROVENANCE.md` report.
 The independent enrichment manifest records the input SHA-256 values for the
 locked panel, 21,668-gene projector background, and the Chiou2023 and
 Siletti2023 source spreadsheets. Derived enrichment outputs, marker-family

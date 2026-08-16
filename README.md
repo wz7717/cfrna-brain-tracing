@@ -48,17 +48,17 @@ manuscript-reproduction environment.
 ### Docker (recommended for quick start)
 
 ```bash
-docker build -t braintrace:v0.1.14 .
-docker run -p 8501:8501 braintrace:v0.1.14
+docker build -t braintrace:v0.1.15 .
+docker run -p 8501:8501 braintrace:v0.1.15
 # Open http://localhost:8501 in your browser
 
 # CLI mode
-docker run --rm --entrypoint braintrace braintrace:v0.1.14 --help
+docker run --rm --entrypoint braintrace braintrace:v0.1.15 --help
 
 # CLI query with the current directory mounted at /work
 docker run --rm --entrypoint braintrace \
   -v "$PWD:/work" \
-  braintrace:v0.1.14 \
+  braintrace:v0.1.15 \
   query --input /work/sample_counts.tsv --output /work/result.json
 ```
 
@@ -297,7 +297,7 @@ verify the hashes rather than substituting a similarly named workbook.
 ## Continuous-integration coverage
 
 CI runs the full test suite with branch coverage for the `core/` package. The
-v0.1.14 release run produced **106 passed, 2 skipped**. Coverage.py 7.14.3
+v0.1.15 release-candidate run produced **110 passed, 2 skipped**. Coverage.py 7.14.3
 reported **67.09% line coverage**, **52.05% branch coverage**, and **64% combined
 terminal coverage** (1,117 statements; 298 branches). The exact text and XML
 reports are `reproducibility/coverage_report.txt` and
@@ -307,33 +307,42 @@ statistical confidence or biological validation measure.
 
 ## Status
 
-This repository contains the BrainTrace v0.1.14 software release for the
-Bioinformatics Application Note. Version 0.1.14 retains the v0.1.13 software
-interface and corrects release-level provenance metadata, including the Huang
-2025 DOI and the explicit availability exception for the exact Bo2023 processed
-author-package matrices. It does not change model artifacts, inference
-parameters or validation results. The production model remains locked under
-`canonical110-v0.1.12-20260813`.
+This repository contains the BrainTrace v0.1.15 software release for the
+Bioinformatics Application Note. Version 0.1.15 is a reporting/provenance
+correction-only patch built on the v0.1.14 historical release. It synchronizes
+the formal prediction-level LOMO Network F1 evidence chain, including the
+integer-count class metrics and their reproducibility scripts. It does not
+change the frozen model, ontology, formal prediction set, Network Top1/Top3,
+resolution-group or exact-region endpoints. The production model remains
+locked under `canonical110-v0.1.12-20260813`.
 
-No model artifact, learned parameter, anatomical ontology, validation metric,
-benchmark result or manuscript result changed between v0.1.12 and v0.1.14. The
+No model artifact, learned parameter, anatomical ontology, formal prediction,
+primary endpoint or benchmark result changed between v0.1.14 and v0.1.15. The
 software is intended for research use in hierarchical brain-origin candidate
 ranking and resolution-limit auditing. It is not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-BrainTrace v0.1.14 is published on GitHub and archived at Zenodo under version
-DOI `https://doi.org/10.5281/zenodo.21920261`. The frozen v0.1.12 scientific
+BrainTrace v0.1.15 is published on GitHub and archived at Zenodo under version
+DOI `https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
 release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
-persistent Zenodo concept DOI is `https://doi.org/10.5281/zenodo.20773674`.
+v0.1.14 historical software record remains at
+`https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is
+`https://doi.org/10.5281/zenodo.20773674`.
 
-The official Zenodo v0.1.14 software record is
-`https://doi.org/10.5281/zenodo.21920261`. Because Zenodo's GitHub-generated
-source archive does not materialize Git LFS objects, the 197,792,195-byte full
-reproducibility archive, including the 164 MB payload, is deposited separately
-under `https://doi.org/10.5281/zenodo.21920697`. The same payload is also
+The official Zenodo v0.1.15 software record is
+`https://doi.org/10.5281/zenodo.21970252`. Because Zenodo's GitHub-generated
+source archive does not materialize Git LFS objects, the v0.1.15 full
+reproducibility archive, including the unchanged 164 MB payload, is deposited
+separately under `https://doi.org/10.5281/zenodo.21970278`. The same payload is
+also
 available as a checksum-matched asset on the
-[GitHub v0.1.14 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.14).
+[GitHub v0.1.15 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.15).
+
+The v0.1.14 LOMO Network F1 discrepancy arose from stale rounded class-level
+recall values and a non-formal historical route being used to estimate summary
+metrics. The v0.1.15 values are regenerated from the same locked formal
+prediction-level source: Top1 remains 455/819, and micro-F1 is exactly 455/819.
 
 The 164 MB `permutation_fg_max.npz` reproducibility intermediate is stored with
 Git LFS. Clone with Git LFS enabled (or run `git lfs pull`) to retrieve its full

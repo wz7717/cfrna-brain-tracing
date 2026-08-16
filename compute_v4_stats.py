@@ -136,8 +136,8 @@ loso_exact = compute_macro_f1(
 )
 # LOMO Network
 lomo_net = compute_macro_f1(
-    str(ROOT / "reports/validation_recheck_20260713_canonical110/lomo/formal_lomo_network_detail.csv"),
-    "label", "pred_top1", "hit1", "LOMO Network Top1"
+    str(ROOT / "reproducibility/p2_publication_completeness/formal_lomo_network_detail.csv"),
+    "truth", "pred_top1", "hit1", "LOMO Network Top1"
 )
 # LOMO Exact Region
 lomo_exact = compute_macro_f1(
