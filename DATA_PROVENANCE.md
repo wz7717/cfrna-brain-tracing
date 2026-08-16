@@ -126,6 +126,12 @@ the complete lock specification.
 
 The frozen 200-gene RF row-level result has SHA-256
 `d27b67c5ca7fa79b9186a79b24d94cf2624c4007c95bb53016043f554ceba3ac`.
+The formal LOMO Network prediction-level source is
+`reproducibility/p2_publication_completeness/formal_lomo_network_detail.csv`;
+its route-family filter, SHA-256, integer TP/FP/FN accounting and derived
+macro/weighted/micro F1 values are recorded in
+`reproducibility/lomo_network_f1_provenance.json` and the generated
+`reproducibility/LOMO_NETWORK_F1_PROVENANCE.md` report.
 The independent enrichment manifest records the input SHA-256 values for the
 locked panel, 21,668-gene projector background, and the Chiou2023 and
 Siletti2023 source spreadsheets. Derived enrichment outputs, marker-family

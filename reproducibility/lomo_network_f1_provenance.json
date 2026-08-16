@@ -1,0 +1,40 @@
+{
+  "schema": "braintrace.lomo_network_f1_provenance.v1",
+  "formal_source": {
+    "path": "reproducibility/p2_publication_completeness/formal_lomo_network_detail.csv",
+    "sha256": "37751431501D8A334AE3A73609A60EC284531A285C576225FA3CE9BE6651F0DA",
+    "staged_from": "external_source::formal_lomo_network_detail.csv",
+    "staged_from_sha256": "1F170F9AC69E78A096837FA14A863D788F2F49DA0214BC43D6DA546A63156961",
+    "route": "network_discriminative_correlation_top200",
+    "route_family": "hybrid_projected_network_logcpm_exact",
+    "n": 819
+  },
+  "prediction_level_metrics": {
+    "top1_correct": 455,
+    "top1_accuracy": 0.5555555555555556,
+    "top3_correct": 750,
+    "top3_accuracy": 0.9157509157509157,
+    "micro_f1": 0.5555555555555556,
+    "macro_f1": 0.5894844147345774,
+    "sd_class_f1_sample": 0.12917302108554013,
+    "median_class_f1": 0.5390885470557127,
+    "q1_class_f1": 0.5142781597038604,
+    "q3_class_f1": 0.6669004207573632,
+    "iqr_class_f1": 0.15262226105350285,
+    "weighted_f1": 0.5604715495288963,
+    "n_zero_f1_classes": 0,
+    "fraction_zero_f1_classes": 0.0,
+    "conditional_macro_f1_nonzero": 0.5894844147345774,
+    "conditional_median_f1_nonzero": 0.5390885470557127
+  },
+  "integer_confusion_accounting": {
+    "sum_tp": 455,
+    "sum_support": 819,
+    "micro_f1_equals_top1_accuracy": true
+  },
+  "root_cause": "Historical macro_f1_class_data.json used rounded class recall values and a separate/stale LOMO route; the old script estimated micro-F1 as sum(recall*n)/819 rather than counting prediction-level Top1 hits.",
+  "superseded_route": {
+    "route": "network_pairwise_correlation_rescue_top3",
+    "status": "historical; not the formal v0.1.15 reporting endpoint"
+  }
+}

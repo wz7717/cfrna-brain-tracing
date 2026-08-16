@@ -169,6 +169,23 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 
 **T058 (added 2026-08-10):** Bo2023 provenance now records publisher file-level Supplementary Data 1–15 and Source Data URLs, the SRA BioProject and the authors' Zenodo code archive. The exact SHA-matched processed count/VSD author-package files remain non-redistributed; no stable public direct URL for those two matrices was identified, and the README now states this explicitly.
 
+**T059 (updated 2026-08-17):** Formal LOMO Network F1 is regenerated from the
+819-row prediction-level source
+`reproducibility/p2_publication_completeness/formal_lomo_network_detail.csv`,
+filtered to route family `hybrid_projected_network_logcpm_exact` and route
+`network_discriminative_correlation_top200`. The locked endpoint is 455/819
+Top1 and 750/819 Top3; integer class TP counts sum to 455, so micro-F1 is
+455/819 = 0.5555555556. `formal_lomo_network_f1.csv` contains the class-level
+TP/FP/FN/P/R/F1 rows, and `lomo_network_f1_provenance.json` plus
+`LOMO_NETWORK_F1_PROVENANCE.md` record the source digest and superseded-route
+root cause.
+
+**T060 (updated 2026-08-17):** The derived LOMO Network distribution summary
+in `reproducibility/p1_cross1_5/cross3_f1_distribution_summary.csv` and the
+LOMO rows in `reproducibility/v4_p0_13_macro_f1.csv` are regenerated from the
+same prediction-level source by `scripts/generate_lomo_f1_evidence.py` and
+are regression-tested against the integer-count class table.
+
 ## 13. Frozen 200-gene Comparator, Truth Normalization, and Independent Analyses
 
 | ID | Manuscript Location | Manuscript Value | Source CSV / Manifest | Availability | CSV Location | Formula | Raw Data Input | ✓? |

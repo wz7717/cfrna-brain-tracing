@@ -4,13 +4,27 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-def macro_metrics(path: Path) -> pd.DataFrame:
+from core.lomo_f1 import (  # noqa: E402
+    CANONICAL_FORMAL_PATH,
+    compute_lomo_network_metrics,
+    cross3_summary_row,
+    load_formal_predictions,
+)
+
+
+def macro_metrics(
+    path: Path, formal_lomo_predictions: Path = CANONICAL_FORMAL_PATH
+) -> pd.DataFrame:
     payload = json.loads(path.read_text(encoding="utf-8"))
     frame = pd.DataFrame(payload["data"])
     frame = frame[frame["endpoint"].isin(
@@ -20,6 +34,14 @@ def macro_metrics(path: Path) -> pd.DataFrame:
         frame[column] = pd.to_numeric(frame[column], errors="coerce")
     rows = []
     for endpoint, part in frame.groupby("endpoint", sort=True):
+        if endpoint == "LOMO_Network":
+            # The formal endpoint must be computed from prediction-level rows;
+            # rounded class recall values cannot recover integer TP counts.
+            exact = compute_lomo_network_metrics(
+                load_formal_predictions(formal_lomo_predictions)
+            )
+            rows.append(cross3_summary_row(exact))
+            continue
         support = part["n"].sum()
         # In single-label multiclass evaluation micro-F1 equals accuracy.
         tp = (part["recall"] * part["n"]).sum()
@@ -53,13 +75,19 @@ def macro_metrics(path: Path) -> pd.DataFrame:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--macro-class-data", type=Path, required=True)
+    parser.add_argument(
+        "--formal-lomo-predictions",
+        type=Path,
+        default=CANONICAL_FORMAL_PATH,
+        help="Prediction-level formal LOMO Network source",
+    )
     parser.add_argument("--lambda-friedman", type=Path, required=True)
     parser.add_argument("--lambda-sensitivity", type=Path, required=True)
     parser.add_argument("--outdir", type=Path, required=True)
     args = parser.parse_args()
     args.outdir.mkdir(parents=True, exist_ok=True)
 
-    macro = macro_metrics(args.macro_class_data)
+    macro = macro_metrics(args.macro_class_data, args.formal_lomo_predictions)
     macro.to_csv(args.outdir / "cross3_f1_distribution_summary.csv", index=False)
 
     friedman = pd.read_csv(args.lambda_friedman)

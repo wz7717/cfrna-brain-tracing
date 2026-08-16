@@ -46,6 +46,17 @@ import sys
 from pathlib import Path
 from typing import Any
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.lomo_f1 import (  # noqa: E402
+    CANONICAL_FORMAL_PATH,
+    compute_lomo_network_metrics,
+    load_formal_predictions,
+    macro_class_rows,
+)
+
 # Optional imports for full computation
 try:
     from scipy.stats import binomtest, friedmanchisquare, beta as beta_dist
@@ -773,6 +784,29 @@ def generate_macro_f1(output_dir: Path) -> str:
             {"endpoint": "# Network macro/weighted use 10 classes (all evaluable in both LOSO and LOMO)",
              "class": "", "n": "", "precision": "", "recall": "", "f1": ""},
         ]
+
+    # LOMO Network is the one endpoint whose formal reporting source is now
+    # explicitly prediction-level.  Recompute its class rows here on every
+    # regeneration so a stale rounded JSON cannot reintroduce the old metrics.
+    if CANONICAL_FORMAL_PATH.exists():
+        formal_metrics = compute_lomo_network_metrics(
+            load_formal_predictions(CANONICAL_FORMAL_PATH)
+        )
+        class_data = [
+            row
+            for row in class_data
+            if row.get("endpoint") != "LOMO_Network"
+            and not (
+                row.get("endpoint") == "SUMMARY"
+                and str(row.get("class", "")).startswith("LOMO_Network_")
+            )
+        ]
+        class_data.extend(macro_class_rows(formal_metrics))
+
+    # The JSON keeps historical SUMMARY records for provenance, but they are
+    # not class-level observations and must not be fed back into the summary
+    # aggregation when regenerating the CSV.
+    class_data = [row for row in class_data if row.get("endpoint") != "SUMMARY"]
 
     # Compute SUMMARY rows from class-level data
     endpoints_data = {}

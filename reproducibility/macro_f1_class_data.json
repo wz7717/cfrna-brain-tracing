@@ -107,86 +107,6 @@
       "f1": "0.7273"
     },
     {
-      "endpoint": "LOMO_Network",
-      "class": "Temporal",
-      "n": "193",
-      "precision": "0.6826",
-      "recall": "0.4262",
-      "f1": "0.5247"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Lateral Prefrontal Cortex",
-      "n": "107",
-      "precision": "0.6717",
-      "recall": "0.4159",
-      "f1": "0.5137"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Orbitomedial Prefrontal Cortex (OMPFC)",
-      "n": "104",
-      "precision": "0.6026",
-      "recall": "0.5505",
-      "f1": "0.5754"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Parietal, and Parieto-occipital region",
-      "n": "98",
-      "precision": "0.4417",
-      "recall": "0.7245",
-      "f1": "0.5488"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Operculum/Insula",
-      "n": "81",
-      "precision": "0.3904",
-      "recall": "0.6265",
-      "f1": "0.481"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Occipital/Temporal",
-      "n": "70",
-      "precision": "0.6745",
-      "recall": "0.7179",
-      "f1": "0.6955"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Frontal (agranular frontal motor areas)",
-      "n": "65",
-      "precision": "0.6319",
-      "recall": "0.7",
-      "f1": "0.6642"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Subcortical",
-      "n": "54",
-      "precision": "1.0",
-      "recall": "0.7778",
-      "f1": "0.875"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Cingulate gyrus",
-      "n": "39",
-      "precision": "0.5367",
-      "recall": "0.609",
-      "f1": "0.5706"
-    },
-    {
-      "endpoint": "LOMO_Network",
-      "class": "Hippocampal formation",
-      "n": "8",
-      "precision": "0.5818",
-      "recall": "1.0",
-      "f1": "0.7356"
-    },
-    {
       "endpoint": "LOSO_Exact",
       "class": "V2",
       "n": "15",
@@ -1884,14 +1804,6 @@
     },
     {
       "endpoint": "SUMMARY",
-      "class": "LOMO_Network_macro",
-      "n": "10",
-      "precision": "",
-      "recall": "",
-      "f1": "0.6184"
-    },
-    {
-      "endpoint": "SUMMARY",
       "class": "LOSO_Network_weighted",
       "n": "819",
       "precision": "",
@@ -1899,12 +1811,107 @@
       "f1": "0.5921"
     },
     {
+      "endpoint": "LOMO_Network",
+      "class": "Temporal",
+      "n": "193",
+      "precision": "0.6641791045",
+      "recall": "0.4611398964",
+      "f1": "0.5443425076"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Lateral Prefrontal Cortex",
+      "n": "107",
+      "precision": "0.6363636364",
+      "recall": "0.3925233645",
+      "f1": "0.4855491329"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Orbitomedial Prefrontal Cortex (OMPFC)",
+      "n": "104",
+      "precision": "0.5949367089",
+      "recall": "0.4519230769",
+      "f1": "0.5136612022"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Parietal, and Parieto-occipital region",
+      "n": "98",
+      "precision": "0.4226190476",
+      "recall": "0.7244897959",
+      "f1": "0.5338345865"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Operculum/Insula",
+      "n": "81",
+      "precision": "0.3525179856",
+      "recall": "0.6049382716",
+      "f1": "0.4454545455"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Occipital/Temporal",
+      "n": "70",
+      "precision": "0.7500000000",
+      "recall": "0.6857142857",
+      "f1": "0.7164179104"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Frontal (agranular frontal motor areas)",
+      "n": "65",
+      "precision": "0.6101694915",
+      "recall": "0.5538461538",
+      "f1": "0.5806451613"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Subcortical",
+      "n": "54",
+      "precision": "1.0000000000",
+      "recall": "0.7592592593",
+      "f1": "0.8631578947"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Cingulate gyrus",
+      "n": "39",
+      "precision": "0.4444444444",
+      "recall": "0.6153846154",
+      "f1": "0.5161290323"
+    },
+    {
+      "endpoint": "LOMO_Network",
+      "class": "Hippocampal formation",
+      "n": "8",
+      "precision": "0.5333333333",
+      "recall": "1.0000000000",
+      "f1": "0.6956521739"
+    },
+    {
+      "endpoint": "SUMMARY",
+      "class": "LOMO_Network_macro",
+      "n": "10",
+      "precision": "",
+      "recall": "",
+      "f1": "0.5894844147"
+    },
+    {
       "endpoint": "SUMMARY",
       "class": "LOMO_Network_weighted",
       "n": "819",
       "precision": "",
       "recall": "",
-      "f1": "0.5813"
+      "f1": "0.5604715495"
     }
-  ]
+  ],
+  "provenance": {
+    "formal_lomo_network_source": "reproducibility\\p2_publication_completeness\\formal_lomo_network_detail.csv",
+    "route": "network_discriminative_correlation_top200",
+    "route_family": "hybrid_projected_network_logcpm_exact",
+    "metrics_are_prediction_level": true,
+    "micro_f1_definition": "sum integer TP / sum support = Top1 accuracy"
+  }
 }
