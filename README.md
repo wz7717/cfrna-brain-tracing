@@ -39,6 +39,38 @@ validation.
 - Validation and export scripts: `scripts/`
 - Tests: `tests/`
 
+## Quick tutorial
+
+### Option 1 — Live demo
+
+1. Open <https://brain-cfrna-tracing.streamlit.app/>.
+2. On **Tracing Analysis**, click **Load example data**.
+3. Click **Run example**.
+4. Inspect Network Top3, Resolution Group Top3 and Exact-Region Exploratory
+   Top3 together with coverage, entropy and score margin.
+
+The loaded file is a synthetic software smoke test, not a biological sample
+or localization-validation dataset. It is not saved to Sample Management or
+SQLite.
+
+### Option 2 — CLI
+
+```bash
+pip install -e .
+braintrace validate
+braintrace query \
+  --input examples/braintrace_example_counts.tsv \
+  --output example_result.json
+python examples/verify_examples.py
+```
+
+### Interpreting output
+
+- **Network Top3** is the primary validated candidate tier.
+- **Resolution Group Top3** is the recommended resolvable candidate tier.
+- **Exact-Region Top3** is exploratory and is not a deterministic localization
+  call.
+
 ## Installation and entry points
 
 Choose one of the following workflows. The application environment is the
@@ -48,17 +80,17 @@ manuscript-reproduction environment.
 ### Docker (recommended for quick start)
 
 ```bash
-docker build -t braintrace:v0.1.15 .
-docker run -p 8501:8501 braintrace:v0.1.15
+docker build -t braintrace:v0.1.16 .
+docker run -p 8501:8501 braintrace:v0.1.16
 # Open http://localhost:8501 in your browser
 
 # CLI mode
-docker run --rm --entrypoint braintrace braintrace:v0.1.15 --help
+docker run --rm --entrypoint braintrace braintrace:v0.1.16 --help
 
 # CLI query with the current directory mounted at /work
 docker run --rm --entrypoint braintrace \
   -v "$PWD:/work" \
-  braintrace:v0.1.15 \
+  braintrace:v0.1.16 \
   query --input /work/sample_counts.tsv --output /work/result.json
 ```
 
@@ -294,12 +326,23 @@ those processed author-package matrices was identified in the publisher or SRA
 records checked on 2026-08-10; obtain them from the corresponding authors and
 verify the hashes rather than substituting a similarly named workbook.
 
+## Availability and maintenance
+
+The authors commit to maintaining the public BrainTrace web service for at
+least three years after publication. Versioned source code and archived
+software releases will remain available through GitHub and Zenodo.
+
+The software source is open under the MIT license, and archived versions remain
+citable. Web-service availability is supplementary to the archived executable
+code: a temporary service interruption does not remove the versioned CLI,
+source, examples or immutable archives.
+
 ## Continuous-integration coverage
 
 CI runs the full test suite with branch coverage for the `core/` package. The
-v0.1.15 release-candidate run produced **110 passed, 2 skipped**. Coverage.py 7.14.3
-reported **67.09% line coverage**, **52.05% branch coverage**, and **64% combined
-terminal coverage** (1,117 statements; 298 branches). The exact text and XML
+v0.1.16 submission-readiness run produced **121 passed, 2 skipped**. Coverage.py 7.14.3
+reported **71.55% line coverage**, **53.93% branch coverage**, and **68% combined
+terminal coverage** (1,406 statements; 382 branches). The exact text and XML
 reports are `reproducibility/coverage_report.txt` and
 `reproducibility/coverage.xml`; the workflow also uploads the XML report as a
 CI artifact. This percentage is a software-test coverage metric, not a
@@ -307,28 +350,29 @@ statistical confidence or biological validation measure.
 
 ## Status
 
-This repository contains the BrainTrace v0.1.15 software release for the
-Bioinformatics Application Note. Version 0.1.15 is a reporting/provenance
-correction-only patch built on the v0.1.14 historical release. It synchronizes
-the formal prediction-level LOMO Network F1 evidence chain, including the
-integer-count class metrics and their reproducibility scripts. It does not
-change the frozen model, ontology, formal prediction set, Network Top1/Top3,
-resolution-group or exact-region endpoints. The production model remains
-locked under `canonical110-v0.1.12-20260813`.
+The current executable software metadata is BrainTrace v0.1.16, a
+documentation, public-example and web-usability patch prepared for the
+Bioinformatics Application Note. It does not change the frozen model,
+ontology, formal prediction set, Network Top1/Top3, resolution-group or
+exact-region endpoints. The production model remains locked under
+`canonical110-v0.1.12-20260813`.
 
 No model artifact, learned parameter, anatomical ontology, formal prediction,
-primary endpoint or benchmark result changed between v0.1.14 and v0.1.15. The
+primary endpoint or benchmark result changed in v0.1.16. The
 software is intended for research use in hierarchical brain-origin candidate
 ranking and resolution-limit auditing. It is not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-BrainTrace v0.1.15 is published on GitHub and archived at Zenodo under version
+BrainTrace v0.1.15 remains the previous immutable GitHub/Zenodo release under version
 DOI `https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
 release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
 v0.1.14 historical software record remains at
 `https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
+
+v0.1.16 release metadata will be synchronized with its immutable archive after
+archival. No v0.1.16 version DOI is claimed before that archive exists.
 
 The official Zenodo v0.1.15 software record is
 `https://doi.org/10.5281/zenodo.21970252`. Because Zenodo's GitHub-generated
