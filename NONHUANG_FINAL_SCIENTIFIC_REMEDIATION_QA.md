@@ -19,7 +19,7 @@
 
 ## 4. AHBA authoritative source
 
-The Tier-1 source is `D:\Download\文章改稿\code\reproduction_validation_workspace_20260802\reports\validation_recheck_20260713_canonical110\ahba\ahba_formal_three_tier_sample_detail.csv` (SHA-256 `82EB3EAD890058B18599F4BCF5A77F0C352626F8E3A3F18EECF7A14210654515`), route `hybrid_projected_network_logcpm_exact`.
+The Tier-1 source is `ahba_formal_three_tier_sample_detail.csv` (external source basename; SHA-256 `82eb3ead890058b18599f4bcf5a77f0c352626f8e3a3f18eecf7a14210654515`), route `hybrid_projected_network_logcpm_exact`.
 
 ## 5. AHBA canonical ledger
 
@@ -94,7 +94,7 @@ The four-test Tier-1 family is: Network Top1 raw/BH 0.031250/0.125000; Network T
 ## 20. Full test suite
 
 - `python -m py_compile` on every changed Python file: PASS.
-- `C:\Users\巨爪根\AppData\Local\Programs\Python\Python314\python.exe -m pytest -q`: **123 passed, 2 skipped, 0 failed**; pytest-reported runtime 6.99 s (wall-clock 8.19 s).
+- `python -m pytest -q`: **123 passed, 2 skipped, 0 failed**; pytest-reported runtime 6.99 s (wall-clock 8.19 s).
 - `scripts/verify_nonhuang_scientific_provenance.py`: **34/34 PASS**; machine-readable result at `reproducibility/nonhuang_scientific_arithmetic_qa.json`.
 
 ## 21. Residual grep

@@ -1,7 +1,8 @@
 {
   "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
   "source": {
-    "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reports\\validation_recheck_20260713_canonical110\\ahba\\ahba_formal_three_tier_sample_detail.csv",
+    "path": "ahba_formal_three_tier_sample_detail.csv",
+    "path_kind": "external_basename",
     "sha256": "82eb3ead890058b18599f4bcf5a77f0c352626f8e3a3f18eecf7a14210654515"
   },
   "canonical_route": "hybrid_projected_network_logcpm_exact",

@@ -2,11 +2,13 @@
   "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
   "sources": {
     "exact_evaluable_detail": {
-      "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\loso\\hybrid_formal_loso_exact_region_detail.csv",
+      "path": "hybrid_formal_loso_exact_region_detail.csv",
+      "path_kind": "external_basename",
       "sha256": "b221f928e6744683bea063ed612f2021af3dd167309834a59742b4b0e4350609"
     },
     "group_evaluable_detail": {
-      "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\loso\\hybrid_formal_loso_resolution_group_detail.csv",
+      "path": "hybrid_formal_loso_resolution_group_detail.csv",
+      "path_kind": "external_basename",
       "sha256": "b67a535426a82cbdc5ec2b96a91acf2118a966e80cfec8a5d8924eccba39d430"
     }
   },

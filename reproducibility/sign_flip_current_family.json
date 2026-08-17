@@ -1,7 +1,8 @@
 {
   "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
   "source": {
-    "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\validation_runs\\r02_small_donor_20260716\\exact_sign_flip_tests.csv",
+    "path": "exact_sign_flip_tests.csv",
+    "path_kind": "external_basename",
     "sha256": "b05b954b56c425b9160e4066494fb6226bae896eb3db46b436f7399d5c4524d3"
   },
   "family": "Network Top1, Network Top3, resolution-group Top3, exact-region Top3",

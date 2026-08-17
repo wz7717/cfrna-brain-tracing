@@ -1,7 +1,8 @@
 {
   "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
   "source": {
-    "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\endpoint_recheck_20260812\\current_predictions_current_evaluator\\brats_tcga_lgg_65_mri_truth_and_predictions.csv",
+    "path": "brats_tcga_lgg_65_mri_truth_and_predictions.csv",
+    "path_kind": "external_basename",
     "sha256": "00c0bf6751f3853edf2431d914c2e9d1d55ecfa7eb99924bde28a6d43dc61c96"
   },
   "total_paired_cases": 65,

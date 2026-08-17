@@ -32,7 +32,15 @@ def sha256(path: Path) -> str:
 
 
 def source_record(path: Path) -> dict[str, str]:
-    return {"path": str(path.resolve()), "sha256": sha256(path)}
+    # Store a portable locator plus SHA-256; never persist machine-local paths.
+    resolved = path.resolve()
+    try:
+        locator = resolved.relative_to(REPO_ROOT.resolve()).as_posix()
+        path_kind = "repository_relative"
+    except ValueError:
+        locator = path.name
+        path_kind = "external_basename"
+    return {"path": locator, "path_kind": path_kind, "sha256": sha256(path)}
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -393,8 +401,12 @@ def build_tier_cascade_summary(exact_detail: Path, group_detail: Path, output_di
             "truth_retained": int(network_retained),
             "truth_missed": int(network_miss),
         },
-        "exact_top3_given_network_truth_retained": fraction_record(exact_top3_hit, network_retained),
-        "group_top3_given_network_truth_retained": fraction_record(int(group_hit.sum()), network_retained),
+        "exact_top3_given_network_truth_retained": fraction_record(
+            int((exact_hit & network_hit).sum()), network_retained
+        ),
+        "group_top3_given_network_truth_retained": fraction_record(
+            int((group_hit & network_hit).sum()), network_retained
+        ),
         "network_candidate_miss_share_of_exact_top3_misses": fraction_record(network_miss, exact_top3_miss),
         "recovery_after_network_candidate_miss": {
             "exact_top3": fraction_record(recovery_exact, network_miss),
