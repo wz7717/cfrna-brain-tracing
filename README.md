@@ -307,9 +307,12 @@ statistical confidence or biological validation measure.
 
 ## Status
 
-This repository contains the BrainTrace v0.1.15 software release for the
-Bioinformatics Application Note. Version 0.1.15 is a reporting/provenance
-correction-only patch built on the v0.1.14 historical release. It synchronizes
+This repository contains the BrainTrace v0.1.15 manuscript/reporting/provenance
+snapshot for the Bioinformatics Application Note. The executable package
+metadata remains `0.1.14`; after installation, `braintrace --version` is
+expected to report `0.1.14`. This is intentional: the v0.1.15 snapshot is a
+reporting/provenance correction-only patch built on the immutable v0.1.14
+executable release. It synchronizes
 the formal prediction-level LOMO Network F1 evidence chain, including the
 integer-count class metrics and their reproducibility scripts. It does not
 change the frozen model, ontology, formal prediction set, Network Top1/Top3,
@@ -317,20 +320,22 @@ resolution-group or exact-region endpoints. The production model remains
 locked under `canonical110-v0.1.12-20260813`.
 
 No model artifact, learned parameter, anatomical ontology, formal prediction,
-primary endpoint or benchmark result changed between v0.1.14 and v0.1.15. The
-software is intended for research use in hierarchical brain-origin candidate
-ranking and resolution-limit auditing. It is not a clinical diagnostic device
+primary endpoint or benchmark result changed between v0.1.14 and v0.1.15.
+The model and algorithm are unchanged. The software is intended for research use in
+hierarchical brain-origin candidate ranking and resolution-limit auditing. It is
+not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-BrainTrace v0.1.15 is published on GitHub and archived at Zenodo under version
-DOI `https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
+The v0.1.15 manuscript/reporting/provenance snapshot is published on GitHub and
+archived at Zenodo under version DOI
+`https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
 release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
 v0.1.14 historical software record remains at
 `https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
 
-The official Zenodo v0.1.15 software record is
+The official Zenodo record for the v0.1.15 snapshot is
 `https://doi.org/10.5281/zenodo.21970252`. Because Zenodo's GitHub-generated
 source archive does not materialize Git LFS objects, the v0.1.15 full
 reproducibility archive, including the unchanged 164 MB payload, is deposited

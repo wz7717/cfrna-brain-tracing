@@ -1,4 +1,4 @@
-# Data Provenance - BrainTrace v0.1.15
+# Data Provenance - BrainTrace v0.1.15 manuscript/reporting/provenance snapshot
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool
@@ -8,6 +8,12 @@ explicitly noted below. The exact Bo2023 processed author-package matrices used
 by the frozen projector have no identified stable public URL; they must be
 obtained from the original authors and verified against the reported SHA-256
 hashes. No patient-level clinical identifiers are redistributed.
+
+> **Version semantics**: `v0.1.15` identifies the manuscript/reporting/provenance
+> snapshot. The executable package metadata remains `0.1.14`; after
+> installation, `braintrace --version` is expected to report `0.1.14`. This is
+> intentional because the snapshot is built on the immutable v0.1.14 executable
+> release. The model and algorithm are unchanged.
 
 ## Source Datasets
 
@@ -107,15 +113,16 @@ tables, stability metrics, service metadata and SHA-256 values are retained in
 The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
-original repositories to reproduce the exact numerical results. Software
-version v0.1.15 is archived at Zenodo under version DOI 10.5281/zenodo.21970252;
+original repositories to reproduce the exact numerical results. The v0.1.15
+manuscript/reporting/provenance snapshot is archived at Zenodo under
+version DOI 10.5281/zenodo.21970252;
 the separate full reproducibility archive is 10.5281/zenodo.21970278 and
 contains the materialized 164 MB Git LFS payload because Zenodo's GitHub-generated
 source archive does not materialize Git LFS objects. The immutable v0.1.14
 historical software/full-archive records remain available at 10.5281/zenodo.21920261
 and 10.5281/zenodo.21920697. The concept DOI resolves to the latest Zenodo
 version, and the v0.1.12 scientific release remains available at
-10.5281/zenodo.21911532. The v0.1.15 GitHub release contains the current public
+10.5281/zenodo.21911532. The v0.1.15 GitHub snapshot release contains the current public
 materials listed here.
 
 ## SHA-256 Integrity
