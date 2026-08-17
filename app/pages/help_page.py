@@ -104,7 +104,7 @@ def display_help_page() -> None:
     st.header(tr("引用、版本与归档", "Citation / version / archive"))
     st.write(
         tr(
-            "当前可执行软件版本为 v0.1.16。v0.1.15 是不可变历史归档；v0.1.16 的 release metadata 将在新的不可变归档创建后同步。",
-            "The current executable software version is v0.1.16. v0.1.15 remains an immutable historical archive; v0.1.16 release metadata will be synchronized after its immutable archive is created.",
+            "当前可执行软件版本为 v0.1.16。软件版本 DOI 为 10.5281/zenodo.21974954；含实体 Git LFS 数据的完整可复现归档 DOI 为 10.5281/zenodo.21974991。v0.1.15 保留为不可变历史归档。",
+            "The current executable software version is v0.1.16. Its software version DOI is 10.5281/zenodo.21974954; the full reproducibility archive DOI, including the materialized Git LFS payload, is 10.5281/zenodo.21974991. v0.1.15 remains an immutable historical archive.",
         )
     )
