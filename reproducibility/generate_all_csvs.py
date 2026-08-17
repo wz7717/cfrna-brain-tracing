@@ -98,16 +98,33 @@ RAW_COUNTS_RESOLUTION = {
     "LOMO_ResGroup_Top3": {"correct": 569, "n": 812},
 }
 
-# --- Source: run_ahba_projected_vsd_formal_three_tier_external.py ---
-# AHBA mapped-label transfer (2 whole-brain donors, 231→223→88 evaluable)
-RAW_COUNTS_AHBA = {
-    "AHBA_Network_Top1":   {"correct": 165, "n": 223},
-    "AHBA_Network_Top3":   {"correct": 211, "n": 223},
-    "AHBA_ResGroup_Top1":  {"correct": 37,  "n": 88},
-    "AHBA_ResGroup_Top3":  {"correct": 60,  "n": 88},
-    "AHBA_Exact_Top1":     {"correct": 24,  "n": 88},
-    "AHBA_Exact_Top3":     {"correct": 40,  "n": 88},
-}
+# --- Source: canonical AHBA endpoint-evaluability ledger ---
+# AHBA mapped-label transfer has endpoint-specific denominators, not a unique
+# sequential 231→223→88 attrition pipeline.
+AHBA_ENDPOINT_SUMMARY = OUTPUT_DIR / "ahba" / "ahba_endpoint_evaluability_summary.json"
+
+
+def load_ahba_raw_counts() -> dict[str, dict[str, int]]:
+    summary = json.loads(AHBA_ENDPOINT_SUMMARY.read_text(encoding="utf-8"))
+    endpoints = summary["endpoint_evaluability"]
+    mapping = {
+        "AHBA_Network_Top1": ("network", "top1"),
+        "AHBA_Network_Top3": ("network", "top3"),
+        "AHBA_ResGroup_Top1": ("resolution_group", "top1"),
+        "AHBA_ResGroup_Top3": ("resolution_group", "top3"),
+        "AHBA_Exact_Top1": ("exact_region", "top1"),
+        "AHBA_Exact_Top3": ("exact_region", "top3"),
+    }
+    return {
+        name: {
+            "correct": int(endpoints[endpoint][topk]["correct"]),
+            "n": int(endpoints[endpoint][topk]["n"]),
+        }
+        for name, (endpoint, topk) in mapping.items()
+    }
+
+
+RAW_COUNTS_AHBA = load_ahba_raw_counts()
 
 # --- Source: current release TCGA tracer + evaluate_brats_tcga_lgg_65_mri_truth.py ---
 # Current endpoint root: results/tcga_brats_current/{tracing,mri_truth}
@@ -226,7 +243,8 @@ RAW_COUNTS_SUBCORTICAL = {
 # using: precision = TP/(TP+FP), recall = TP/(TP+FN), F1 = 2*P*R/(P+R)
 MACRO_F1_DATA_FILE = "macro_f1_class_data.json"  # Generated from confusion matrices
 
-# --- AHBA trace (documented attrition, not computed) ---
+# --- Historical AHBA engineering trace (not endpoint accounting) ---
+AHBA_TRACE_CLASSIFICATION = "HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER"
 AHBA_TRACE_STEPS = [
     {"step": "1", "description": "Initial AHBA samples from 2 whole-brain donors (4 of 6 AHBA donors excluded for incomplete coverage)",
      "count_in": 231, "count_out": 231, "excluded": 0,
@@ -250,6 +268,8 @@ AHBA_TRACE_STEPS = [
      "count_in": 100, "count_out": 88, "excluded": 12,
      "reason": "8 were subcortical (cortical association-area bias); 4 lacked matched region labels"},
 ]
+for _ahba_trace_step in AHBA_TRACE_STEPS:
+    _ahba_trace_step["trace_classification"] = AHBA_TRACE_CLASSIFICATION
 
 
 # ============================================================================
@@ -503,19 +523,15 @@ def generate_subcortical_subsampling(output_dir: Path) -> str:
 
 
 def generate_ahba_trace(output_dir: Path) -> str:
-    """Generate v4_p0_5_ahba_trace.csv — AHBA sample attrition trace.
-
-    Source: Documented attrition steps (not computed from raw data,
-    but traced to run_ahba_projected_vsd_formal_three_tier_external.py)
-    """
+    """Generate a retained historical AHBA engineering trace, not endpoint truth."""
     filename = "v4_p0_5_ahba_trace.csv"
     _write_csv(output_dir / filename, AHBA_TRACE_STEPS,
-               ["step", "description", "count_in", "count_out", "excluded", "reason"])
+               ["step", "description", "count_in", "count_out", "excluded", "reason", "trace_classification"])
     return filename
 
 
 def generate_ahba_trace_aligned(output_dir: Path) -> str:
-    """Generate v4_p0_5_ahba_trace_manuscript_aligned.csv — 5-step manuscript version."""
+    """Generate a retained historical manuscript-aligned engineering trace."""
     aligned_steps = [
         {"step": "1", "description": "AHBA independent tissue samples (post technical-replicate collapse, 2 whole-brain donors)",
          "count_in": 231, "count_out": 231, "excluded": 0,
@@ -533,9 +549,11 @@ def generate_ahba_trace_aligned(output_dir: Path) -> str:
          "count_in": 100, "count_out": 88, "excluded": 12,
          "reason": "8 were subcortical (cortical association-area bias noted); 4 lacked matched region labels"},
     ]
+    for _ahba_trace_step in aligned_steps:
+        _ahba_trace_step["trace_classification"] = AHBA_TRACE_CLASSIFICATION
     filename = "v4_p0_5_ahba_trace_manuscript_aligned.csv"
     _write_csv(output_dir / filename, aligned_steps,
-               ["step", "description", "count_in", "count_out", "excluded", "reason"])
+               ["step", "description", "count_in", "count_out", "excluded", "reason", "trace_classification"])
     return filename
 
 

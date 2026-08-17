@@ -1,6 +1,6 @@
-step,description,count_in,count_out,excluded,reason
-1,"AHBA independent tissue samples (post technical-replicate collapse, 2 whole-brain donors)",231,231,0,6 AHBA donors; 4 excluded for incomplete coverage; 2 retained; technical replicates collapsed by donor+tissue ID
-2,Network-qualified subset (valid Network mapping),231,223,8,8 samples without valid Network mapping
-3,Map to Bo2023 region ontology; exclude non-cortical/cerebellum/white matter,223,200,23,"Non-cortical, cerebellum, white matter and unannotated structures excluded"
-4,Apply marker-coverage filter for single-label evaluation,200,100,100,Multi-label and insufficient marker-coverage samples excluded
-5,"Final evaluable subset (cortical association areas, single-label)",100,88,12,8 were subcortical (cortical association-area bias noted); 4 lacked matched region labels
+step,description,count_in,count_out,excluded,reason,trace_classification
+1,"AHBA independent tissue samples (post technical-replicate collapse, 2 whole-brain donors)",231,231,0,6 AHBA donors; 4 excluded for incomplete coverage; 2 retained; technical replicates collapsed by donor+tissue ID,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
+2,Network-qualified subset (valid Network mapping),231,223,8,8 samples without valid Network mapping,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
+3,Map to Bo2023 region ontology; exclude non-cortical/cerebellum/white matter,223,200,23,"Non-cortical, cerebellum, white matter and unannotated structures excluded",HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
+4,Apply marker-coverage filter for single-label evaluation,200,100,100,Multi-label and insufficient marker-coverage samples excluded,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
+5,"Final evaluable subset (cortical association areas, single-label)",100,88,12,8 were subcortical (cortical association-area bias noted); 4 lacked matched region labels,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER

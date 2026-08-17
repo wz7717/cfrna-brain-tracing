@@ -1,0 +1,107 @@
+{
+  "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
+  "source": {
+    "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reports\\validation_recheck_20260713_canonical110\\ahba\\ahba_formal_three_tier_sample_detail.csv",
+    "sha256": "82eb3ead890058b18599f4bcf5a77f0c352626f8e3a3f18eecf7a14210654515"
+  },
+  "canonical_route": "hybrid_projected_network_logcpm_exact",
+  "unit": "replicate-collapsed AHBA tissue sample",
+  "endpoint_evaluability": {
+    "replicate_collapsed_tissues": 231,
+    "network": {
+      "evaluable": 223,
+      "top1": {
+        "correct": 165,
+        "n": 223,
+        "proportion": 0.7399103139013453,
+        "percent": 73.99103139013454
+      },
+      "top3": {
+        "correct": 211,
+        "n": 223,
+        "proportion": 0.9461883408071748,
+        "percent": 94.61883408071749
+      }
+    },
+    "resolution_group": {
+      "evaluable": 88,
+      "top1": {
+        "correct": 37,
+        "n": 88,
+        "proportion": 0.42045454545454547,
+        "percent": 42.04545454545455
+      },
+      "top3": {
+        "correct": 60,
+        "n": 88,
+        "proportion": 0.6818181818181818,
+        "percent": 68.18181818181817
+      }
+    },
+    "exact_region": {
+      "evaluable": 88,
+      "top1": {
+        "correct": 24,
+        "n": 88,
+        "proportion": 0.2727272727272727,
+        "percent": 27.27272727272727
+      },
+      "top3": {
+        "correct": 40,
+        "n": 88,
+        "proportion": 0.45454545454545453,
+        "percent": 45.45454545454545
+      }
+    },
+    "network_unique_single_label_sensitivity": {
+      "n": 56,
+      "top1": {
+        "correct": 39,
+        "n": 56,
+        "proportion": 0.6964285714285714,
+        "percent": 69.64285714285714
+      },
+      "top3": {
+        "correct": 44,
+        "n": 56,
+        "proportion": 0.7857142857142857,
+        "percent": 78.57142857142857
+      }
+    },
+    "group_single_label_sensitivity": {
+      "n": 40,
+      "top1": {
+        "correct": 19,
+        "n": 40,
+        "proportion": 0.475,
+        "percent": 47.5
+      },
+      "top3": {
+        "correct": 29,
+        "n": 40,
+        "proportion": 0.725,
+        "percent": 72.5
+      }
+    },
+    "exact_single_label_sensitivity": {
+      "n": 40,
+      "top1": {
+        "correct": 11,
+        "n": 40,
+        "proportion": 0.275,
+        "percent": 27.500000000000004
+      },
+      "top3": {
+        "correct": 20,
+        "n": 40,
+        "proportion": 0.5,
+        "percent": 50.0
+      }
+    }
+  },
+  "interpretation": {
+    "canonical_accounting": "Endpoint-specific evaluability ledger; not a unique sequential sample-attrition pipeline.",
+    "group_truth_label_count": "Not available as a candidate-independent field in the source detail; only a candidate-beam-dependent source count is retained in the ledger.",
+    "single_label_group_rule": "The group single-label sensitivity subset is defined by a uniquely mapped exact-region truth label, the source-supported fixed mapping basis for the group/exact endpoints."
+  }
+}

@@ -10,6 +10,7 @@ from scipy.stats import hypergeom
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 
+REPOSITORY = Path(__file__).resolve().parents[1]
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "raw_datasets_v0.1.9_20260728/01_Bo2023"
 OUT = ROOT / "manuscript/calculations/p2"
@@ -182,6 +183,19 @@ cross.rename(columns={"Region":"bo2023_region_id","SaleemNetworks":"locked_netwo
                           ["locked_network","bo2023_region_id"]).to_csv(
                               OUT/"P2_Bo2023_Saleem_crosswalk.csv",index=False)
 
+# Frozen-tier diagnostic bounds, not retrained models.  The cascade quantities
+# are derived from the shared exact-evaluable sample universe by
+# generate_nonhuang_scientific_provenance_artifacts.py; do not reconstruct them
+# from the full 819-sample Network denominator.
+tier_cascade_path = REPOSITORY / "reproducibility" / "tier_cascade_loso_summary.json"
+tier_cascade = json.loads(tier_cascade_path.read_text(encoding="utf-8"))
+tier_exact = tier_cascade["exact_evaluable"]
+tier_network = tier_cascade["network_candidate_set_within_same_universe"]
+tier_exact_conditional = tier_cascade["exact_top3_given_network_truth_retained"]
+tier_group_conditional = tier_cascade["group_top3_given_network_truth_retained"]
+tier_beam_share = tier_cascade["network_candidate_miss_share_of_exact_top3_misses"]
+tier_recovery = tier_cascade["recovery_after_network_candidate_miss"]
+
 # Frozen-tier diagnostic bounds, not retrained models.
 ablation = {
  "full_route":{"network_top3":91.94,"group_top3":72.48,"exact_top3":45.21},
@@ -189,13 +203,19 @@ ablation = {
  "remove_group_output":{"network_top3":91.94,"group_top3":None,"exact_top3":45.21},
  "remove_all_fine_outputs":{"network_top3":91.94,"group_top3":None,"exact_top3":None},
  "beam_error_attribution":{
-   "exact_misses":446,"network_beam_misses_within_exact_denominator_approx":66,
-   "beam_share_of_exact_misses_approx":66/446,
-   "exact_top3_given_beam_hit":49.07,
-   "group_top3_given_beam_hit":78.32,
-   "recovery_after_beam_miss":0.0,
-   "note":"post hoc frozen-route diagnostic; not a retrained no-beam model"
- }
+    "exact_evaluable_n":tier_exact["n"],
+    "exact_top3_hits":tier_exact["top3_hit"],
+    "exact_misses":tier_exact["top3_miss"],
+    "network_candidate_truth_retained_within_exact_denominator":tier_network["truth_retained"],
+    "network_candidate_misses_within_exact_denominator":tier_network["truth_missed"],
+    "network_candidate_miss_share_of_exact_misses":tier_beam_share["proportion"],
+    "exact_top3_given_network_truth_retained":tier_exact_conditional["proportion"],
+    "group_top3_given_network_truth_retained":tier_group_conditional["proportion"],
+    "exact_recovery_after_network_candidate_miss":tier_recovery["exact_top3"]["proportion"],
+    "group_recovery_after_network_candidate_miss":tier_recovery["group_top3"]["proportion"],
+    "source":str(tier_cascade_path.relative_to(REPOSITORY)).replace("\\", "/"),
+    "note":"post hoc frozen-route diagnostic; shared exact-evaluable denominator; not a retrained no-beam model"
+  }
 }
 
 # Cell-type overlap using the Bo2023-provided marker list and panel symbols.

@@ -1,0 +1,176 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "AHBA endpoint counts",
+      "status": "PASS",
+      "value": "231 tissues; Network n=223; group/exact n=88"
+    },
+    {
+      "check": "AHBA Network Top1",
+      "status": "PASS",
+      "value": "165/223=73.99%"
+    },
+    {
+      "check": "AHBA Network Top3",
+      "status": "PASS",
+      "value": "211/223=94.62%"
+    },
+    {
+      "check": "AHBA group Top1",
+      "status": "PASS",
+      "value": "37/88=42.05%"
+    },
+    {
+      "check": "AHBA group Top3",
+      "status": "PASS",
+      "value": "60/88=68.18%"
+    },
+    {
+      "check": "AHBA exact Top1",
+      "status": "PASS",
+      "value": "24/88=27.27%"
+    },
+    {
+      "check": "AHBA exact Top3",
+      "status": "PASS",
+      "value": "40/88=45.45%"
+    },
+    {
+      "check": "AHBA Network single-label Top1",
+      "status": "PASS",
+      "value": "39/56=69.64%"
+    },
+    {
+      "check": "AHBA Network single-label Top3",
+      "status": "PASS",
+      "value": "44/56=78.57%"
+    },
+    {
+      "check": "AHBA group single-label Top1",
+      "status": "PASS",
+      "value": "19/40=47.50%"
+    },
+    {
+      "check": "AHBA group single-label Top3",
+      "status": "PASS",
+      "value": "29/40=72.50%"
+    },
+    {
+      "check": "AHBA exact single-label Top1",
+      "status": "PASS",
+      "value": "11/40=27.50%"
+    },
+    {
+      "check": "AHBA exact single-label Top3",
+      "status": "PASS",
+      "value": "20/40=50.00%"
+    },
+    {
+      "check": "AHBA ledger semantics",
+      "status": "PASS",
+      "value": "group_truth_label_count intentionally blank"
+    },
+    {
+      "check": "TCGA primary edema comparator",
+      "status": "PASS",
+      "value": "63 of 65 paired cases; 2 source-derived exclusions"
+    },
+    {
+      "check": "TCGA network center strict Top3",
+      "status": "PASS",
+      "value": "19/65=29.23%"
+    },
+    {
+      "check": "TCGA network core strict Top3",
+      "status": "PASS",
+      "value": "12/65=18.46%"
+    },
+    {
+      "check": "TCGA network edema strict Top3",
+      "status": "PASS",
+      "value": "15/63=23.81%"
+    },
+    {
+      "check": "TCGA network whole_tumor strict Top3",
+      "status": "PASS",
+      "value": "10/65=15.38%"
+    },
+    {
+      "check": "TCGA broad center strict Top3",
+      "status": "PASS",
+      "value": "32/65=49.23%"
+    },
+    {
+      "check": "TCGA broad core strict Top3",
+      "status": "PASS",
+      "value": "45/65=69.23%"
+    },
+    {
+      "check": "TCGA broad edema strict Top3",
+      "status": "PASS",
+      "value": "52/63=82.54%"
+    },
+    {
+      "check": "TCGA broad whole_tumor strict Top3",
+      "status": "PASS",
+      "value": "46/65=70.77%"
+    },
+    {
+      "check": "TCGA strict Top3 ranges",
+      "status": "PASS",
+      "value": "Network 13.85 pp; broad 33.31 pp"
+    },
+    {
+      "check": "Orthology humanized row occurrences",
+      "status": "PASS",
+      "value": "5324/8800=60.50%"
+    },
+    {
+      "check": "Orthology unmapped row occurrences",
+      "status": "PASS",
+      "value": "3476/8800=39.50%"
+    },
+    {
+      "check": "Top200 orthology humanizable",
+      "status": "PASS",
+      "value": "188/200=94.00%"
+    },
+    {
+      "check": "g:Profiler mapping universe",
+      "status": "PASS",
+      "value": "179/200, distinct from frozen orthology universe"
+    },
+    {
+      "check": "Tier exact-evaluable universe",
+      "status": "PASS",
+      "value": "368+446=814 and 750+64=814"
+    },
+    {
+      "check": "Tier Network candidate misses among exact Top3 misses",
+      "status": "PASS",
+      "value": "64/446=14.35%"
+    },
+    {
+      "check": "Tier Exact Top3 conditional on Network truth retained",
+      "status": "PASS",
+      "value": "368/750=49.07%"
+    },
+    {
+      "check": "Tier group Top3 conditional on Network truth retained",
+      "status": "PASS",
+      "value": "590/750=78.67%"
+    },
+    {
+      "check": "Tier recovery after Network candidate miss",
+      "status": "PASS",
+      "value": "0% exact and group"
+    },
+    {
+      "check": "Current four-test sign-flip family",
+      "status": "PASS",
+      "value": "raw/BH values verified; none significant"
+    }
+  ],
+  "n_checks": 34
+}

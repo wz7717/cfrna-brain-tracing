@@ -23,12 +23,12 @@ hashes. No patient-level clinical identifiers are redistributed.
 | # | Dataset | Accession / DOI | Samples | Role |
 |---|---------|----------------|---------|------|
 | 1 | Bo2023 Macaque Brain Atlas | [10.1038/s41467-023-37246-w](https://doi.org/10.1038/s41467-023-37246-w); SRA [PRJNA905082](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA905082) | 819 (9 donors, 110 regions) | Training reference |
-| 2 | Allen Human Brain Atlas (AHBA) | [https://human.brain-map.org](https://human.brain-map.org) | 2 donors, 231 mapped samples | Cross-species external validation |
+| 2 | Allen Human Brain Atlas (AHBA) | [https://human.brain-map.org](https://human.brain-map.org) | 2 donors; 231 replicate-collapsed tissues; endpoint-specific evaluability: Network n=223 and group/exact n=88 | Cross-species external validation |
 | 3 | TCGA-GBM / TCGA-LGG | [NCI Genomic Data Commons](https://portal.gdc.cancer.gov) | 65 expression cases linked to the imaging cohort; 63 primary edema-comparator cases after excluding TCGA-HT-7686 (no label-2 edema voxels) and TCGA-HT-7680 (cerebellar/out of scope) | Glioma domain-shift test |
 | 4 | BraTS-TCGA-LGG | [10.5281/zenodo.3718921](https://doi.org/10.5281/zenodo.3718921) | 65 MRI cases; 63 primary edema-comparator cases under the same exclusions | Imaging-derived anatomical truth for the linked TCGA cases |
 | 5 | GSE189919 (GEO) | [GSE189919](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189919) | 51 samples; 72,108 expression rows; 15,622/21,668 frozen-projector genes overlap | Engineering benchmark and input-domain audit |
 | 6 | Huang2025 cfRNA | [10.1038/s41698-025-00909-6](https://doi.org/10.1038/s41698-025-00909-6) | 159 CSF/plasma profiles | cfRNA domain-shift audit |
-| 7 | Gene Ontology, KEGG, and g:Profiler | [Gene Ontology](https://geneontology.org), [KEGG](https://www.kegg.jp), [g:Profiler](https://biit.cs.ut.ee/gprofiler) | Frozen 200-gene panel; 179 mapped by g:Profiler; 21,668-gene model-space background | Independent GO:BP/KEGG annotation; not model training or predictive validation |
+| 7 | Gene Ontology, KEGG, and g:Profiler | [Gene Ontology](https://geneontology.org), [KEGG](https://www.kegg.jp), [g:Profiler](https://biit.cs.ut.ee/gprofiler) | Frozen 200-gene panel; 179/200 mapped by g:Profiler in its own service/filtering universe; 21,668-gene model-space background | Independent GO:BP/KEGG annotation; not model training or predictive validation |
 | 8 | Chiou2023 rhesus macaque single-cell atlas | [10.1126/sciadv.adh1914](https://doi.org/10.1126/sciadv.adh1914) | Published Tables S3/S7; seven prespecified broad marker families | Primary independent cell-type annotation-bias analysis |
 | 9 | Siletti2023 adult human brain cell atlas | [10.1126/science.add7046](https://doi.org/10.1126/science.add7046) | Published cluster annotations; the same seven broad marker families | Human-reference sensitivity analysis |
 
@@ -88,6 +88,17 @@ support a cautious cross-species organizational bridge (Krienen et al., 2016;
 Burt et al., 2018), while AHBA mapping, orthology loss and species-specific
 association-cortex differences are audited explicitly. Saleem nomenclature is
 therefore a naming crosswalk rather than proof of one-to-one homology.
+
+The unreleased v0.1.17 scientific-provenance patch candidate records AHBA
+endpoint-specific accounting in
+`reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv`: 231
+replicate-collapsed tissues, Network n=223, and group/exact n=88. These are not
+a unique sequential attrition trace. Its strict TCGA/BraTS Top3 truth-basis
+audit reports a 13.85 percentage-point Network range and a 33.31
+percentage-point broad-anatomy range, with edema n=63. The frozen humanization
+audit is 5,324/8,800 humanized and 3,476/8,800 unmapped **gene-by-region row
+occurrences**, not independent macaque genes; Top200 orthology humanizable
+(`188/200`) and g:Profiler mapped (`179/200`) remain distinct universes.
 
 The 3′ analysis is a transcript-coordinate/detection proxy sensitivity test;
 it is not molecule-level read generation and must not be described as a true
