@@ -22,10 +22,10 @@ After the GitHub v0.1.16 release is created:
       release URL, version DOI, full-archive DOI/asset and SHA-256 values.
 - [x] Synchronize the real version DOI and archive wording in `README.md` and
       `DATA_PROVENANCE.md`.
-- [ ] Synchronize the DOI in the manuscript and Supplementary Material where
-      the current software release is cited.
+- [x] Synchronize the DOI in the manuscript, Supplementary Material and Cover
+      Letter where the current software release is cited.
 - [x] Confirm the Zenodo concept DOI still resolves to the latest version.
-- [ ] Re-run `braintrace validate`, `python examples/verify_examples.py`, the
+- [x] Re-run `braintrace validate`, `python examples/verify_examples.py`, the
       full test suite and package checksum verification after metadata edits.
 
 The immutable v0.1.15 records remain historical and must not be edited.

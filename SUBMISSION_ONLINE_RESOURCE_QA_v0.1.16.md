@@ -91,12 +91,17 @@ identical:
 No files under `data/models/`, no validation prediction CSVs and no reported
 LOSO, LOMO, AHBA or TCGA/BraTS endpoints changed.
 
-## Remaining manual release steps
+## Release completion status
 
-1. Create/archive GitHub Release v0.1.16.
-2. Create the Zenodo v0.1.16 immutable archive, including the materialized
-   approximately 164 MB LFS payload.
-3. Synchronize the resulting real version DOI to the manuscript,
-   Supplementary Material, README, Data Provenance and release-integrity file.
-4. Open the deployed Streamlit service in an anonymous browser and perform one
-   final Load example → Run example smoke test.
+Completed on 2026-08-17:
+
+1. GitHub Release v0.1.16 created from tag commit
+   `c1450fd8af933d6879c21c5efa3286f6edd03414`.
+2. Zenodo software version DOI published as `10.5281/zenodo.21974954`.
+3. Full reproducibility archive, including the materialized 164,161,292-byte
+   LFS payload, published as `10.5281/zenodo.21974991`.
+4. Real DOI values synchronized to the manuscript, Supplementary Material,
+   Cover Letter, README, Data Provenance and release-integrity metadata.
+
+Deployment-only follow-up: repeat the anonymous-browser Load example → Run
+example smoke test whenever the hosted Streamlit deployment is rebuilt.

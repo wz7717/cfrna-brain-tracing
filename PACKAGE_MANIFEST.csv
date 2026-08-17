@@ -16,9 +16,9 @@ RELEASE_INTEGRITY_v0.1.13.json,1449
 RELEASE_INTEGRITY_v0.1.14.json,1478
 RELEASE_INTEGRITY_v0.1.15.json,2208
 RELEASE_INTEGRITY_v0.1.16.json,1768
-SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md,4852
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md,5045
 VERSION_STRING_AUDIT_v0.1.16.txt,15941
-ZENODO_RELEASE_CHECKLIST_v0.1.16.md,1670
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md,1684
 app/__init__.py,0
 app/components/__init__.py,175
 app/components/layout.py,3198
@@ -31,7 +31,7 @@ app/pages/__init__.py,683
 app/pages/atlas_page.py,52998
 app/pages/benchmark_page.py,34326
 app/pages/compare_runs_page.py,7916
-app/pages/help_page.py,5822
+app/pages/help_page.py,5961
 app/pages/overview_page.py,33174
 app/pages/sample_manage_page.py,6735
 app/pages/tracing_page.py,41016
