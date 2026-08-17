@@ -364,24 +364,23 @@ ranking and resolution-limit auditing. It is not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-BrainTrace v0.1.15 remains the previous immutable GitHub/Zenodo release under version
-DOI `https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
+BrainTrace v0.1.16 is the current immutable GitHub/Zenodo software release under
+version DOI `https://doi.org/10.5281/zenodo.21974954`. BrainTrace v0.1.15 remains
+the previous immutable release under version DOI
+`https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
 release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
 v0.1.14 historical software record remains at
 `https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
 
-v0.1.16 release metadata will be synchronized with its immutable archive after
-archival. No v0.1.16 version DOI is claimed before that archive exists.
-
-The official Zenodo v0.1.15 software record is
-`https://doi.org/10.5281/zenodo.21970252`. Because Zenodo's GitHub-generated
-source archive does not materialize Git LFS objects, the v0.1.15 full
-reproducibility archive, including the unchanged 164 MB payload, is deposited
-separately under `https://doi.org/10.5281/zenodo.21970278`. The same payload is
-also
+Because Zenodo's GitHub-generated source archive does not materialize Git LFS
+objects, the v0.1.16 full reproducibility archive, including the unchanged
+164,161,292-byte payload, is deposited separately under
+`https://doi.org/10.5281/zenodo.21974991`. The same materialized archive is
 available as a checksum-matched asset on the
-[GitHub v0.1.15 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.15).
+[GitHub v0.1.16 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.16).
+Its size is 198,284,868 bytes and its SHA-256 is
+`742c0390aa413deb18a12d6ae6164df52c5ed06e45e5c0e4218cd996231ca24e`.
 
 The v0.1.14 LOMO Network F1 discrepancy arose from stale rounded class-level
 recall values and a non-formal historical route being used to estimate summary

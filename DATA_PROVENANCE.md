@@ -2,12 +2,13 @@
 
 This manifest documents every external dataset used to build, validate, and
 benchmark the BrainTrace hierarchical brain-origin candidate ranking tool.
-The current executable metadata is v0.1.16; its release metadata will be
-synchronized after an immutable archive is created. The previous immutable
-v0.1.15 software release remains at version DOI
-[10.5281/zenodo.21970252](https://doi.org/10.5281/zenodo.21970252), with its full
-reproducibility archive at
-[10.5281/zenodo.21970278](https://doi.org/10.5281/zenodo.21970278) and concept DOI
+The current executable metadata and immutable software release are v0.1.16,
+archived at version DOI
+[10.5281/zenodo.21974954](https://doi.org/10.5281/zenodo.21974954). Its full
+reproducibility archive, including the materialized 164 MB Git LFS payload, is
+archived separately at
+[10.5281/zenodo.21974991](https://doi.org/10.5281/zenodo.21974991); the persistent
+software concept DOI is
 [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). The frozen
 v0.1.12 scientific release remains archived at version DOI
 [10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
@@ -116,16 +117,16 @@ The validation results archived in `reproducibility/v4_p*.csv` and summarized
 in the manuscript correspond to frozen snapshots of these datasets. Users
 re-running `reproduce_all.py` must obtain the same data versions from their
 original repositories to reproduce the exact numerical results. Software
-version v0.1.15 is the previous immutable Zenodo release under version DOI 10.5281/zenodo.21970252;
-the separate full reproducibility archive is 10.5281/zenodo.21970278 and
-contains the materialized 164 MB Git LFS payload because Zenodo's GitHub-generated
-source archive does not materialize Git LFS objects. The immutable v0.1.14
+version v0.1.16 is the current immutable Zenodo release under version DOI
+10.5281/zenodo.21974954; the separate full reproducibility archive is
+10.5281/zenodo.21974991 and contains the materialized 164 MB Git LFS payload
+because Zenodo's GitHub-generated source archive does not materialize Git LFS
+objects. The previous v0.1.15 software/full-archive records remain immutable at
+10.5281/zenodo.21970252 and 10.5281/zenodo.21970278. The immutable v0.1.14
 historical software/full-archive records remain available at 10.5281/zenodo.21920261
 and 10.5281/zenodo.21920697. The concept DOI resolves to the latest Zenodo
 version, and the v0.1.12 scientific release remains available at
-10.5281/zenodo.21911532. The v0.1.16 documentation/example patch does not claim
-a version DOI before archival; its release metadata will be synchronized after
-the immutable v0.1.16 archive is created.
+10.5281/zenodo.21911532.
 
 ## SHA-256 Integrity
 

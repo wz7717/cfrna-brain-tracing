@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "release": "v0.1.16",
+  "version_doi": "10.5281/zenodo.21974954",
+  "full_archive_doi": "10.5281/zenodo.21974991",
+  "concept_doi": "10.5281/zenodo.20773674",
+  "full_archive_concept_doi": "10.5281/zenodo.21920696",
+  "previous_version_doi": "10.5281/zenodo.21970252",
+  "repository": "https://github.com/wz7717/cfrna-brain-tracing",
+  "tag_commit": "c1450fd8af933d6879c21c5efa3286f6edd03414",
+  "tag_tree": "https://github.com/wz7717/cfrna-brain-tracing/tree/v0.1.16",
+  "github_release": "https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.16",
+  "zenodo_record": "https://zenodo.org/records/21974954",
+  "zenodo_full_archive": {
+    "filename": "cfrna-brain-tracing-v0.1.16-full.zip",
+    "bytes": 198284868,
+    "sha256": "742c0390aa413deb18a12d6ae6164df52c5ed06e45e5c0e4218cd996231ca24e",
+    "doi": "10.5281/zenodo.21974991",
+    "record": "https://zenodo.org/records/21974991",
+    "contains_materialized_lfs_payload": true
+  },
+  "large_reproducibility_asset": {
+    "path": "reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz",
+    "bytes": 164161292,
+    "sha256": "0b574d5e12792db758c6909d42524b1c174197626f8c3e47d7220b2511a567ca"
+  },
+  "model_lock_id": "canonical110-v0.1.12-20260813",
+  "scientific_delta_from_v0.1.12": "none",
+  "patch_scope": "Software interface, documentation, public-example and online-resource compliance only; frozen model and scientific endpoints are unchanged.",
+  "verification": {
+    "pytest": "121 passed, 2 skipped",
+    "locked_artifacts": 8,
+    "csv_files_validated": 103,
+    "csv_rows_validated": 264058,
+    "scientific_model_changed": false
+  },
+  "historical_release_policy": "v0.1.15 and its Zenodo records remain immutable historical artifacts."
+}
