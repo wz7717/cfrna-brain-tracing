@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sqlite3
 import traceback
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -27,6 +28,10 @@ METHOD_LABELS = {
     "nnls_simplex": ("NNLS / simplex 去卷积", "NNLS / simplex deconvolution"),
     "marker": ("标记基因路径", "Marker-gene path"),
 }
+
+PUBLIC_EXAMPLE_COUNTS_PATH = (
+    Path(__file__).resolve().parents[2] / "examples" / "braintrace_example_counts.tsv"
+)
 
 
 def _is_vsd_atlas(atlas_meta: dict) -> bool:
@@ -167,6 +172,11 @@ def _read_demo_expression(uploaded_file) -> tuple[pd.DataFrame, str]:
     return query_input.read_expression_file(uploaded_file)
 
 
+def _load_public_example_expression() -> tuple[pd.DataFrame, str]:
+    """Load the public synthetic example without using sample persistence."""
+    return query_input.read_expression_file(PUBLIC_EXAMPLE_COUNTS_PATH)
+
+
 def _select_locked_bo2023_atlas(db_mode: str) -> tuple[int | None, str]:
     atlas_opts = get_atlas_options(DB_PATH, species_mode=db_mode)
     for atlas_id, label in atlas_opts:
@@ -235,6 +245,13 @@ def _render_resolution_group_top3(out: dict) -> None:
 
 def _run_locked_bo2023_route(expr: pd.DataFrame, atlas_id: int | None, topk: int = 30) -> tuple[dict, dict]:
     return locked_inference.run_locked_three_tier_route(expr, atlas_id=atlas_id, db_path=DB_PATH, topk=topk)
+
+
+def _run_public_example_locked_route(topk: int = 30) -> tuple[pd.DataFrame, str, dict, dict]:
+    """Run the public example through the same locked function used by uploads."""
+    expression, query_source = _load_public_example_expression()
+    network_out, region_out = _run_locked_bo2023_route(expression, atlas_id=None, topk=topk)
+    return expression, query_source, network_out, region_out
 
 
 def _render_locked_three_tier_results(sample_id: str, out: dict, network_out: dict) -> None:
@@ -621,11 +638,26 @@ def _render_public_demo_tracing() -> None:
             "Read Network Top3 as the primary conclusion; resolution group Top3 is the more robust candidate scope; exact-region Top3 remains exploratory.",
         )
     )
-    uploaded = st.file_uploader(
-        tr("上传表达矩阵 CSV/TSV/XLSX", "Upload expression matrix CSV/TSV/XLSX"),
-        type=["csv", "tsv", "txt", "xlsx"],
-        key="public_demo_expression_upload_locked",
-    )
+    upload_col, example_col = st.columns([3, 1])
+    with upload_col:
+        uploaded = st.file_uploader(
+            tr("上传表达矩阵 CSV/TSV/XLSX", "Upload expression matrix CSV/TSV/XLSX"),
+            type=["csv", "tsv", "txt", "xlsx"],
+            key="public_demo_expression_upload_locked",
+        )
+    with example_col:
+        if st.button(
+            tr("加载示例数据", "Load example data"),
+            key="load_public_synthetic_example",
+            width="stretch",
+        ):
+            st.session_state["braintrace_public_example_loaded"] = True
+        st.caption(
+            tr(
+                "合成软件示例，仅用于演示软件运行，不代表生物学验证数据。",
+                "Synthetic software example. Not biological validation data.",
+            )
+        )
     st.caption(
         tr(
             "至少包含 gene_symbol/gene 和一个表达列。推荐列名：raw_counts/count/read_count 或 logCPM。",
@@ -634,14 +666,27 @@ def _render_public_demo_tracing() -> None:
     )
     with st.expander(tr("查看 10 个 Network 候选范围", "View the 10 Network candidate scopes"), expanded=False):
         _render_network_description_table()
-    if uploaded is None:
+    use_example = uploaded is None and bool(st.session_state.get("braintrace_public_example_loaded", False))
+    if uploaded is None and not use_example:
         return
 
     try:
-        expr, query_source = _read_demo_expression(uploaded)
+        if use_example:
+            expr, query_source = _load_public_example_expression()
+        else:
+            expr, query_source = _read_demo_expression(uploaded)
+            st.session_state["braintrace_public_example_loaded"] = False
     except Exception as exc:
         st.error(f"{tr('无法读取输入文件', 'Could not read input file')}: {exc}")
         return
+
+    if use_example:
+        st.warning(
+            tr(
+                "当前加载的是合成软件 smoke-test 数据；它不是生物学样本，不能用于评估定位性能。",
+                "The loaded input is synthetic software smoke-test data. It is not a biological sample and cannot assess localization performance.",
+            )
+        )
 
     if query_source in {"tpm_fallback", "logtpm_fallback"}:
         st.warning(
@@ -651,11 +696,14 @@ def _render_public_demo_tracing() -> None:
             )
         )
 
-    try:
-        atlas_id, atlas_label = _select_locked_bo2023_atlas(get_database_mode())
-    except RuntimeError as exc:
-        st.error(str(exc))
-        return
+    if use_example:
+        atlas_id, atlas_label = None, tr("Bo2023 正式打包参考", "Bo2023 packaged formal reference")
+    else:
+        try:
+            atlas_id, atlas_label = _select_locked_bo2023_atlas(get_database_mode())
+        except RuntimeError as exc:
+            st.error(str(exc))
+            return
     render_kpi_cards(
         [
             {"icon": "GENE", "label": tr("有效基因行", "Valid gene rows"), "value": f"{len(expr):,}", "note": tr("用于 Bo2023 三层路线", "Used for the Bo2023 three-tier route")},
@@ -665,14 +713,16 @@ def _render_public_demo_tracing() -> None:
         ]
     )
 
-    if st.button(tr("运行三层溯源", "Run three-tier tracing"), type="primary", width="stretch"):
+    run_label = tr("运行示例", "Run example") if use_example else tr("运行三层溯源", "Run three-tier tracing")
+    if st.button(run_label, type="primary", width="stretch"):
         try:
             network_out, out = _run_locked_bo2023_route(expr, atlas_id, topk=30)
             network_out.setdefault("meta", {})["query_source"] = query_source
             network_out["meta"]["input_recommendation"] = "raw counts/logCPM preferred; TPM/logTPM fallback only"
             network_out["meta"].pop("model_metadata", None)
             network_out["meta"].pop("pairwise_rescue_validation", None)
-            _render_locked_three_tier_results("uploaded_expression", out, network_out)
+            sample_label = "synthetic_public_example" if use_example else "uploaded_expression"
+            _render_locked_three_tier_results(sample_label, out, network_out)
         except Exception as exc:
             st.error(f"{tr('三层溯源运行失败', 'Three-tier tracing failed')}: {exc}")
 

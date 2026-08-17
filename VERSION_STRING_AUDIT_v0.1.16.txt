@@ -1,0 +1,167 @@
+BrainTrace version-string audit v0.1.16
+Generated: 2026-08-17
+Scope: repository text files; VERSION_STRING_AUDIT_v0.1.16.txt excluded to avoid self-recursion
+
+Summary: CURRENT=50, HISTORICAL=14, MODEL_LOCK=11, PROVENANCE=85
+
+file	line	value	classification	action
+DATA_PROVENANCE.md	1	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+DATA_PROVENANCE.md	5	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+DATA_PROVENANCE.md	7	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+DATA_PROVENANCE.md	12	v0.1.12	PROVENANCE	PRESERVE: manuscript/release provenance
+DATA_PROVENANCE.md	119	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+DATA_PROVENANCE.md	122	v0.1.14	PROVENANCE	PRESERVE: manuscript/release provenance
+DATA_PROVENANCE.md	125	v0.1.12	PROVENANCE	PRESERVE: manuscript/release provenance
+DATA_PROVENANCE.md	126	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+DATA_PROVENANCE.md	128	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+Dockerfile	3	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+Dockerfile	4	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+Dockerfile	6	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+Dockerfile	16	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+MODEL_LOCK.md	3	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+PACKAGE_MANIFEST.csv	14	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+PACKAGE_MANIFEST.csv	15	v0.1.13	PROVENANCE	PRESERVE: immutable release/checksum provenance
+PACKAGE_MANIFEST.csv	16	v0.1.14	PROVENANCE	PRESERVE: immutable release/checksum provenance
+PACKAGE_MANIFEST.csv	17	v0.1.15	PROVENANCE	PRESERVE: immutable release/checksum provenance
+PACKAGE_MANIFEST.csv	18	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+PACKAGE_MANIFEST.csv	19	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+PACKAGE_MANIFEST.csv	20	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	83	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	84	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	88	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	93	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	343	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	353	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	358	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+README.md	361	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	367	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	368	v0.1.12	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	370	v0.1.14	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	374	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	375	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+README.md	377	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	379	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	384	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	384	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	386	v0.1.14	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+README.md	388	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+RELEASE_INTEGRITY_v0.1.12.json	3	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.12.json	8	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.12.json	9	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.12.json	12	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.12.json	17	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+RELEASE_INTEGRITY_v0.1.13.json	3	v0.1.13	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.13.json	8	v0.1.13	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.13.json	9	v0.1.13	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.13.json	13	v0.1.13	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.13.json	25	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+RELEASE_INTEGRITY_v0.1.13.json	26	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.14.json	3	v0.1.14	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.14.json	8	v0.1.14	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.14.json	9	v0.1.14	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.14.json	12	v0.1.14	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.14.json	24	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+RELEASE_INTEGRITY_v0.1.14.json	25	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.15.json	3	v0.1.15	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.15.json	9	v0.1.15	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.15.json	10	v0.1.15	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.15.json	13	v0.1.15	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.15.json	24	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+RELEASE_INTEGRITY_v0.1.15.json	25	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+RELEASE_INTEGRITY_v0.1.15.json	46	v0.1.14	PROVENANCE	PRESERVE: immutable release/checksum provenance
+SHA256SUMS.txt	13	v0.1.12	PROVENANCE	PRESERVE: immutable release/checksum provenance
+SHA256SUMS.txt	14	v0.1.13	PROVENANCE	PRESERVE: immutable release/checksum provenance
+SHA256SUMS.txt	15	v0.1.14	PROVENANCE	PRESERVE: immutable release/checksum provenance
+SHA256SUMS.txt	16	v0.1.15	PROVENANCE	PRESERVE: immutable release/checksum provenance
+SHA256SUMS.txt	17	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SHA256SUMS.txt	18	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SHA256SUMS.txt	19	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	1	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	12	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	37	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	48	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	94	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	95	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	1	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	3	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	6	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	8	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	10	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	12	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	13	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	18	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	18	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	19	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	20	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+ZENODO_RELEASE_CHECKLIST_v0.1.16.md	30	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+app/pages/help_page.py	17	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+app/pages/help_page.py	108	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+app/pages/help_page.py	108	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+app/pages/help_page.py	108	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+app/pages/help_page.py	109	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+app/pages/help_page.py	109	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+app/pages/help_page.py	109	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+core/cli.py	18	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+core/model_lock.py	12	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+data/models/canonical110_model_lock.json	3	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+examples/expected_output_counts.json	127	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+examples/expected_output_counts.json	129	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+examples/expected_output_logcpm.json	133	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+examples/expected_output_logcpm.json	135	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
+pyproject.toml	7	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+reproducibility/DATA_PROVENANCE.md	214	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/DATA_PROVENANCE.md	214	v0.1.14	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/DATA_PROVENANCE.md	214	v0.1.12	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	1	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	3	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	3	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	3	v0.1.12	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	3	v0.1.14	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	24	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	25	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	26	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	27	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	28	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	29	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	30	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	31	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	32	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	42	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	43	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	44	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	45	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	53	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	54	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	65	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	66	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	68	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	76	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	77	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	78	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	79	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	80	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	92	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	93	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	94	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	123	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	124	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	157	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	158	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	159	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	160	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	168	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	193	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	196	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	197	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	198	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	199	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	221	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	221	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/TRACEABILITY_MATRIX.md	221	v0.1.14	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/independent_enrichment/README.md	24	v0.1.12	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/independent_enrichment/README.md	25	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+reproducibility/lomo_network_f1_provenance.json	38	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
+scripts/generate_lomo_f1_evidence.py	262	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+tests/test_cli.py	58	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+tests/test_online_resource_compliance.py	47	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+tests/test_online_resource_compliance.py	48	0.1.16	CURRENT	KEEP: current executable/documentation patch version

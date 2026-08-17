@@ -15,11 +15,15 @@ import core.production_route as production_route
 import core.query_input as query_input
 
 
+CURRENT_SOFTWARE_VERSION = "0.1.16"
+
+
 def _package_version() -> str:
     try:
-        return version("braintrace")
-    except PackageNotFoundError:
-        return "0.1.14"
+        installed_version = version("braintrace")
+        return installed_version or CURRENT_SOFTWARE_VERSION
+    except (PackageNotFoundError, KeyError):
+        return CURRENT_SOFTWARE_VERSION
 
 
 def _json_default(value: Any) -> Any:

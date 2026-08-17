@@ -14,8 +14,8 @@ def test_main_exposes_tracing_and_sample_upload_with_lazy_imports(monkeypatch) -
 
     main = importlib.import_module("app.main")
 
-    assert sorted(main.PAGES) == ["overview", "samples", "upload"]
-    assert main.NAV_ORDER == ["upload", "samples", "overview"]
+    assert sorted(main.PAGES) == ["help", "overview", "samples", "upload"]
+    assert main.NAV_ORDER == ["upload", "samples", "overview", "help"]
     assert "app.pages.tracing_page" not in sys.modules
 
     func = main.resolve_page_func(main.PAGES["overview"]["func"])
@@ -24,6 +24,8 @@ def test_main_exposes_tracing_and_sample_upload_with_lazy_imports(monkeypatch) -
     assert upload_func.__name__ == "display_data_upload"
     samples_func = main.resolve_page_func(main.PAGES["samples"]["func"])
     assert samples_func.__name__ == "display_sample_list"
+    help_func = main.resolve_page_func(main.PAGES["help"]["func"])
+    assert help_func.__name__ == "display_help_page"
 
 
 def test_sidebar_navigation_uses_a_single_widget_rerun(monkeypatch) -> None:

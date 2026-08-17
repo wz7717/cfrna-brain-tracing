@@ -24,8 +24,13 @@ PAGES = {
         "en": "Sample Management",
         "func": "app.pages.sample_manage_page:display_sample_list",
     },
+    "help": {
+        "zh": "帮助与教程",
+        "en": "Help & Tutorial",
+        "func": "app.pages.help_page:display_help_page",
+    },
 }
-NAV_ORDER = ["upload", "samples", "overview"]
+NAV_ORDER = ["upload", "samples", "overview", "help"]
 
 
 def resolve_page_func(func_path: str):
