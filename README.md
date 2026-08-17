@@ -340,7 +340,7 @@ source, examples or immutable archives.
 ## Continuous-integration coverage
 
 CI runs the full test suite with branch coverage for the `core/` package. The
-v0.1.16 submission-readiness run produced **120 passed, 2 skipped**. Coverage.py 7.14.3
+v0.1.16 submission-readiness run produced **121 passed, 2 skipped**. Coverage.py 7.14.3
 reported **71.55% line coverage**, **53.93% branch coverage**, and **68% combined
 terminal coverage** (1,406 statements; 382 branches). The exact text and XML
 reports are `reproducibility/coverage_report.txt` and

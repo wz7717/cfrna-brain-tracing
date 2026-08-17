@@ -80,8 +80,8 @@ SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	1	v0.1.16	CURRENT	KEEP: current executa
 SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	12	0.1.16	CURRENT	KEEP: current executable/documentation patch version
 SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	37	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
 SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	48	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
-SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	94	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
-SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	95	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	96	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md	97	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
 ZENODO_RELEASE_CHECKLIST_v0.1.16.md	1	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
 ZENODO_RELEASE_CHECKLIST_v0.1.16.md	3	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
 ZENODO_RELEASE_CHECKLIST_v0.1.16.md	6	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
@@ -95,12 +95,12 @@ ZENODO_RELEASE_CHECKLIST_v0.1.16.md	19	v0.1.16	CURRENT	KEEP: current executable/
 ZENODO_RELEASE_CHECKLIST_v0.1.16.md	20	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
 ZENODO_RELEASE_CHECKLIST_v0.1.16.md	30	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
 app/pages/help_page.py	17	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+app/pages/help_page.py	107	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
+app/pages/help_page.py	107	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
+app/pages/help_page.py	107	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
 app/pages/help_page.py	108	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
 app/pages/help_page.py	108	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
 app/pages/help_page.py	108	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
-app/pages/help_page.py	109	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
-app/pages/help_page.py	109	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
-app/pages/help_page.py	109	v0.1.16	CURRENT	KEEP: current executable/documentation patch version
 core/cli.py	18	0.1.16	CURRENT	KEEP: current executable/documentation patch version
 core/model_lock.py	12	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
 data/models/canonical110_model_lock.json	3	v0.1.12	MODEL_LOCK	PRESERVE: frozen scientific lock identifier
@@ -163,5 +163,5 @@ reproducibility/independent_enrichment/README.md	25	v0.1.15	PROVENANCE	PRESERVE:
 reproducibility/lomo_network_f1_provenance.json	38	v0.1.15	PROVENANCE	PRESERVE: manuscript/release provenance
 scripts/generate_lomo_f1_evidence.py	262	v0.1.15	HISTORICAL	PRESERVE: explicitly historical or previous-release reference
 tests/test_cli.py	58	0.1.16	CURRENT	KEEP: current executable/documentation patch version
-tests/test_online_resource_compliance.py	47	0.1.16	CURRENT	KEEP: current executable/documentation patch version
 tests/test_online_resource_compliance.py	48	0.1.16	CURRENT	KEEP: current executable/documentation patch version
+tests/test_online_resource_compliance.py	49	0.1.16	CURRENT	KEEP: current executable/documentation patch version

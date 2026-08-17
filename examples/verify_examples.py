@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Any
@@ -25,6 +26,8 @@ EXAMPLES = (
     ("braintrace_example_counts.tsv", "expected_output_counts.json", "raw_counts"),
     ("braintrace_example_logcpm.tsv", "expected_output_logcpm.json", "logcpm"),
 )
+FLOAT_REL_TOL = 1e-10
+FLOAT_ABS_TOL = 1e-12
 NETWORK_GENES = ROOT / "data/models/bo2023_saleem_network_top200_model_genes.csv"
 REGION_REFERENCE = ROOT / "data/models/bo2023_formal_region_logcpm_reference_matrix.npz"
 ALLOWED_ARTIFACT_ROOT = (ROOT / "data/models").resolve()
@@ -32,6 +35,32 @@ ALLOWED_ARTIFACT_ROOT = (ROOT / "data/models").resolve()
 
 def _json_ready(value: Any) -> Any:
     return json.loads(json.dumps(value, ensure_ascii=False, default=_json_default))
+
+
+def _assert_payload_equal(actual: Any, expected: Any, path: str = "$") -> None:
+    """Require identical structure/order and tolerate only last-bit float drift."""
+    if isinstance(actual, float) and isinstance(expected, float):
+        if not math.isclose(actual, expected, rel_tol=FLOAT_REL_TOL, abs_tol=FLOAT_ABS_TOL):
+            raise AssertionError(f"{path}: float differs: {actual!r} != {expected!r}")
+        return
+    if type(actual) is not type(expected):
+        raise AssertionError(
+            f"{path}: type differs: {type(actual).__name__} != {type(expected).__name__}"
+        )
+    if isinstance(actual, dict):
+        if list(actual) != list(expected):
+            raise AssertionError(f"{path}: object fields/order differ")
+        for key in actual:
+            _assert_payload_equal(actual[key], expected[key], f"{path}.{key}")
+        return
+    if isinstance(actual, list):
+        if len(actual) != len(expected):
+            raise AssertionError(f"{path}: list length differs: {len(actual)} != {len(expected)}")
+        for index, (actual_item, expected_item) in enumerate(zip(actual, expected)):
+            _assert_payload_equal(actual_item, expected_item, f"{path}[{index}]")
+        return
+    if actual != expected:
+        raise AssertionError(f"{path}: value differs: {actual!r} != {expected!r}")
 
 
 def _assert_public_packaged_reference(region_out: dict[str, Any]) -> None:
@@ -89,8 +118,10 @@ def run_and_verify(input_name: str, expected_name: str, expected_source: str) ->
 
     actual = _json_ready(_query_payload(network_out, region_out, query_source))
     expected = json.loads(expected_path.read_text(encoding="utf-8"))
-    if actual != expected:
-        raise AssertionError(f"{input_name}: output differs from {expected_name}")
+    try:
+        _assert_payload_equal(actual, expected)
+    except AssertionError as exc:
+        raise AssertionError(f"{input_name}: output differs from {expected_name}: {exc}") from exc
 
     print(
         f"PASS {input_name}: Network {network_overlap}/200; "

@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import pandas as pd
+import pytest
 import tomllib
 
 from app import main as app_main
@@ -65,6 +66,28 @@ def test_public_example_logcpm_runs() -> None:
 def test_public_example_expected_output() -> None:
     for args in verify_examples.EXAMPLES:
         verify_examples.run_and_verify(*args)
+
+
+def test_expected_output_comparison_is_strict_except_for_float_tolerance() -> None:
+    expected = {"network_top3": [{"network_id": "N1", "score": 0.5}, {"network_id": "N2", "score": 0.4}]}
+    within_tolerance = {
+        "network_top3": [
+            {"network_id": "N1", "score": 0.5 + 2e-11},
+            {"network_id": "N2", "score": 0.4 - 2e-11},
+        ]
+    }
+    verify_examples._assert_payload_equal(within_tolerance, expected)
+
+    with pytest.raises(AssertionError, match="value differs"):
+        verify_examples._assert_payload_equal(
+            {"network_top3": [{"network_id": "N9", "score": 0.5}, {"network_id": "N2", "score": 0.4}]},
+            expected,
+        )
+    with pytest.raises(AssertionError, match="value differs"):
+        verify_examples._assert_payload_equal(
+            {"network_top3": list(reversed(expected["network_top3"]))},
+            expected,
+        )
 
 
 def test_public_example_does_not_require_private_data() -> None:

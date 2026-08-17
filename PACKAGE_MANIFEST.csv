@@ -15,7 +15,7 @@ RELEASE_INTEGRITY_v0.1.12.json,5983
 RELEASE_INTEGRITY_v0.1.13.json,1449
 RELEASE_INTEGRITY_v0.1.14.json,1478
 RELEASE_INTEGRITY_v0.1.15.json,2208
-SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md,4655
+SUBMISSION_ONLINE_RESOURCE_QA_v0.1.16.md,4852
 VERSION_STRING_AUDIT_v0.1.16.txt,16108
 ZENODO_RELEASE_CHECKLIST_v0.1.16.md,1597
 app/__init__.py,0
@@ -157,7 +157,7 @@ examples/braintrace_example_counts.tsv,357732
 examples/braintrace_example_logcpm.tsv,426674
 examples/expected_output_counts.json,26929
 examples/expected_output_logcpm.json,26980
-examples/verify_examples.py,4555
+examples/verify_examples.py,6025
 generate_reproducibility_report.py,21931
 pyproject.toml,2102
 pytest.ini,72
@@ -426,7 +426,7 @@ tests/test_lomo_f1_provenance.py,3164
 tests/test_model_lock.py,2633
 tests/test_network_correlation.py,610
 tests/test_network_primary_output.py,1765
-tests/test_online_resource_compliance.py,4948
+tests/test_online_resource_compliance.py,5864
 tests/test_pairwise_marker_annotation.py,1847
 tests/test_production_route_lock.py,4656
 tests/test_public_demo_mode.py,2897
