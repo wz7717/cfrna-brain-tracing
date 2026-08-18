@@ -47,11 +47,11 @@ Run-Python "GSE189919 frozen route" `
     --outdir (Join-Path $Out "gse189919") `
     --db-path (Join-Path $Root "braintrace_source_tracing.db")
 
-Run-Python "Huang 2025 external candidate audit" `
+Run-Python "Huang 2025 provenance-remediated external domain audit" `
     scripts/run_huang2025_external_candidate.py `
     --input-csv (Join-Path $Root "external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.csv") `
     --source-xlsb (Join-Path $Root "external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.xlsb") `
-    --outdir (Join-Path $Out "huang2025") `
+    --outdir (Join-Path $Root "reproducibility/huang_2025") `
     --db-path (Join-Path $Root "braintrace_source_tracing.db")
 
 Run-Python "Sparse/domain-shift 30-repeat analysis" `

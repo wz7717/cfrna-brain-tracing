@@ -249,6 +249,23 @@ python reproducibility/s18_s19/run_s18_s19_sensitivity.py
 Publisher-hosted source workbooks and raw expression matrices remain excluded;
 the public enrichment directory contains only derived marker sets and results.
 
+### Huang 2025 cfRNA provenance remediation (unreleased working package)
+
+`reproducibility/huang_2025/` is a provenance-remediated working package, not
+part of the immutable v0.1.16 release and not a published v0.1.17 release.
+It analyses all 159 profiles in the published Huang 2025 expression matrix as
+an external computational domain-shift audit: 77 CSF profiles and 82 plasma
+profiles are separate, independent fluid-specific cohorts. The public matrix
+does not provide a patient identifier or a verified CSF-plasma correspondence,
+so no patient-paired comparison, sample-name substitution, or synthetic
+CSF-plasma mixture is performed. The source study's aggregate clinical-QC
+exclusions are recorded for provenance but are not reproducible per profile.
+
+The package supports technical portability/domain-shift statements only; it
+does not validate anatomical localization, tumour-source discrimination,
+patient-level stability, or clinical performance. Its formal release requires
+explicit scientific approval.
+
 ## Validation summary
 
 Canonical 110 locked route (rechecked 2026-07-13):

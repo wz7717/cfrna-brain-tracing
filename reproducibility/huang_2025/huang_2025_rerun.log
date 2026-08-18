@@ -1,0 +1,166 @@
+[001/159] GLI_CSF1: Subcortical -> Ia
+[002/159] GLI_CSF2: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[003/159] GLI_CSF3: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[004/159] GLI_CSF4: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[005/159] GLI_CSF5: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[006/159] GLI_CSF6: Operculum/Insula -> Ia
+[007/159] GLI_CSF7: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[008/159] GLI_CSF8: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[009/159] GLI_CSF9: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[010/159] GLI_CSF10: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[011/159] GLI_CSF11: Orbitomedial Prefrontal Cortex (OMPFC) -> NARegion
+[012/159] GLI_CSF12: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[013/159] GLI_CSF13: Orbitomedial Prefrontal Cortex (OMPFC) -> cla
+[014/159] GLI_CSF14: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[015/159] GLI_CSF15: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[016/159] GLI_CSF16: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[017/159] GLI_plasma1: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[018/159] GLI_plasma2: Operculum/Insula -> TG
+[019/159] GLI_plasma3: Operculum/Insula -> Pi
+[020/159] GLI_plasma4: Orbitomedial Prefrontal Cortex (OMPFC) -> amy
+[021/159] GLI_plasma5: Orbitomedial Prefrontal Cortex (OMPFC) -> Pi
+[022/159] GLI_plasma6: Subcortical -> Ri
+[023/159] GLI_plasma7: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[024/159] GLI_plasma8: Operculum/Insula -> Ial
+[025/159] GLI_plasma9: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[026/159] GLI_plasma10: Orbitomedial Prefrontal Cortex (OMPFC) -> Pi
+[027/159] GLI_plasma11: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[028/159] GLI_plasma12: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[029/159] GLI_plasma13: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[030/159] GLI_plasma14: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[031/159] GLI_plasma15: Operculum/Insula -> Ial
+[032/159] GLI_plasma16: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[033/159] GLI_plasma17: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[034/159] GLI_plasma18: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[035/159] MEN_CSF1: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[036/159] MEN_CSF2: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[037/159] MEN_CSF3: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[038/159] MEN_CSF4: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[039/159] MEN_CSF5: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[040/159] MEN_CSF6: Orbitomedial Prefrontal Cortex (OMPFC) -> NARegion
+[041/159] MEN_CSF7: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[042/159] MEN_CSF8: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[043/159] MEN_CSF9: Orbitomedial Prefrontal Cortex (OMPFC) -> Pi
+[044/159] MEN_CSF10: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[045/159] MEN_CSF11: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[046/159] MEN_CSF12: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[047/159] MEN_CSF13: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[048/159] MEN_CSF14: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[049/159] MEN_CSF15: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[050/159] MEN_CSF16: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[051/159] MEN_CSF17: Orbitomedial Prefrontal Cortex (OMPFC) -> GPeGPi
+[052/159] MEN_CSF18: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[053/159] MEN_CSF19: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[054/159] MEN_CSF20: Orbitomedial Prefrontal Cortex (OMPFC) -> NARegion
+[055/159] MEN_CSF21: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[056/159] MEN_CSF22: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[057/159] MEN_CSF23: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[058/159] MEN_CSF24: Orbitomedial Prefrontal Cortex (OMPFC) -> GPeGPi
+[059/159] MEN_CSF25: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[060/159] MEN_CSF26: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[061/159] MEN_CSF27: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[062/159] MEN_CSF28: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[063/159] MEN_CSF29: Orbitomedial Prefrontal Cortex (OMPFC) -> NARegion
+[064/159] MEN_CSF30: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[065/159] MEN_CSF31: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[066/159] MEN_CSF32: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[067/159] MEN_CSF33: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[068/159] MEN_CSF34: Orbitomedial Prefrontal Cortex (OMPFC) -> Pi
+[069/159] MEN_CSF35: Operculum/Insula -> TG
+[070/159] MEN_CSF36: Orbitomedial Prefrontal Cortex (OMPFC) -> Ri
+[071/159] MEN_CSF37: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[072/159] MEN_CSF38: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[073/159] MEN_CSF39: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[074/159] MEN_CSF40: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[075/159] MEN_CSF41: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[076/159] MEN_CSF42: Orbitomedial Prefrontal Cortex (OMPFC) -> Ri
+[077/159] MEN_CSF43: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[078/159] MEN_plasma1: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[079/159] MEN_plasma2: Operculum/Insula -> Ial
+[080/159] MEN_plasma3: Operculum/Insula -> TG
+[081/159] MEN_plasma4: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[082/159] MEN_plasma5: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[083/159] MEN_plasma6: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[084/159] MEN_plasma7: Operculum/Insula -> Ia
+[085/159] MEN_plasma8: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[086/159] MEN_plasma9: Operculum/Insula -> Pi
+[087/159] MEN_plasma10: Subcortical -> Ri
+[088/159] MEN_plasma11: Subcortical -> Ri
+[089/159] MEN_plasma12: Operculum/Insula -> TG
+[090/159] MEN_plasma13: Operculum/Insula -> Ia
+[091/159] MEN_plasma14: Operculum/Insula -> Ri
+[092/159] MEN_plasma15: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[093/159] MEN_plasma16: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[094/159] MEN_plasma17: Operculum/Insula -> Pi
+[095/159] MEN_plasma18: Orbitomedial Prefrontal Cortex (OMPFC) -> Ri
+[096/159] MEN_plasma19: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[097/159] MEN_plasma20: Operculum/Insula -> TG
+[098/159] MEN_plasma21: Operculum/Insula -> Pi
+[099/159] MEN_plasma22: Operculum/Insula -> Pi
+[100/159] MEN_plasma23: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[101/159] MEN_plasma24: Operculum/Insula -> Ial
+[102/159] MEN_plasma25: Subcortical -> Ri
+[103/159] MEN_plasma26: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[104/159] MEN_plasma27: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[105/159] MEN_plasma28: Operculum/Insula -> TG
+[106/159] MEN_plasma29: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[107/159] MEN_plasma30: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[108/159] MEN_plasma31: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[109/159] MEN_plasma32: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[110/159] MEN_plasma33: Operculum/Insula -> Ri
+[111/159] MEN_plasma34: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[112/159] MEN_plasma35: Operculum/Insula -> Pi
+[113/159] MEN_plasma36: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[114/159] MEN_plasma37: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[115/159] MEN_plasma38: Orbitomedial Prefrontal Cortex (OMPFC) -> Ri
+[116/159] MEN_plasma39: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[117/159] MEN_plasma40: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[118/159] MEN_plasma41: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[119/159] MEN_plasma42: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[120/159] MEN_plasma43: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[121/159] MEN_plasma44: Orbitomedial Prefrontal Cortex (OMPFC) -> 25
+[122/159] MEN_plasma45: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[123/159] MEN_plasma46: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[124/159] NOR_CSF1: Orbitomedial Prefrontal Cortex (OMPFC) -> 32
+[125/159] NOR_CSF2: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[126/159] NOR_CSF3: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[127/159] NOR_CSF4: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[128/159] NOR_CSF5: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[129/159] NOR_CSF6: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[130/159] NOR_CSF7: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[131/159] NOR_CSF8: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[132/159] NOR_CSF9: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[133/159] NOR_CSF10: Orbitomedial Prefrontal Cortex (OMPFC) -> cla
+[134/159] NOR_CSF11: Orbitomedial Prefrontal Cortex (OMPFC) -> thalamus
+[135/159] NOR_CSF12: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[136/159] NOR_CSF13: Orbitomedial Prefrontal Cortex (OMPFC) -> NARegion
+[137/159] NOR_CSF14: Orbitomedial Prefrontal Cortex (OMPFC) -> NARegion
+[138/159] NOR_CSF15: Orbitomedial Prefrontal Cortex (OMPFC) -> 13m
+[139/159] NOR_CSF16: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[140/159] NOR_CSF17: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[141/159] NOR_CSF18: Orbitomedial Prefrontal Cortex (OMPFC) -> TG
+[142/159] NOR_plasma1: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[143/159] NOR_plasma2: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[144/159] NOR_plasma3: Operculum/Insula -> Pi
+[145/159] NOR_plasma4: Orbitomedial Prefrontal Cortex (OMPFC) -> Pir
+[146/159] NOR_plasma5: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[147/159] NOR_plasma6: Orbitomedial Prefrontal Cortex (OMPFC) -> Pi
+[148/159] NOR_plasma7: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[149/159] NOR_plasma8: Orbitomedial Prefrontal Cortex (OMPFC) -> Pi
+[150/159] NOR_plasma9: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[151/159] NOR_plasma10: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[152/159] NOR_plasma11: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[153/159] NOR_plasma12: Orbitomedial Prefrontal Cortex (OMPFC) -> GPeGPi
+[154/159] NOR_plasma13: Operculum/Insula -> TG
+[155/159] NOR_plasma14: Operculum/Insula -> Ri
+[156/159] NOR_plasma15: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[157/159] NOR_plasma16: Orbitomedial Prefrontal Cortex (OMPFC) -> Ial
+[158/159] NOR_plasma17: Orbitomedial Prefrontal Cortex (OMPFC) -> Ia
+[159/159] NOR_plasma18: Orbitomedial Prefrontal Cortex (OMPFC) -> GPeGPi
+{
+  "n_profiles": 159,
+  "n_csf": 77,
+  "n_plasma": 82,
+  "n_traceable_outputs": 159,
+  "minimum_bh_fdr": 0.7220518354631562
+}
