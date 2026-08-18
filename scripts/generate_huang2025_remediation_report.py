@@ -84,7 +84,7 @@ The full published matrix was retained as a technical audit universe, not as an 
 
 ## 5. Analysis unit and statistics
 
-The unit is an independent profile within a fluid-specific cohort. Six two-sided Mann-Whitney U tumour-control comparisons were run across CSF/plasma and atlas-fit/margin/entropy metrics, with Benjamini-Hochberg correction across all six tests. The smallest BH-FDR was {summary['minimum_bh_fdr']:.6f}; all six comparisons were non-significant after correction.
+The analysis unit is a published expression profile within a fluid-specific cohort. Six two-sided profile-level Mann-Whitney U tumour-control comparisons were run across CSF/plasma and atlas-fit/margin/entropy metrics, with Benjamini-Hochberg correction across all six tests. The public matrix does not provide a profile-to-patient map, so patient-level dependence or independence cannot be assessed. The smallest BH-FDR was {summary['minimum_bh_fdr']:.6f}; all six comparisons were non-significant after correction.
 
 ## 6. Output chain and cohort accounting
 
@@ -101,7 +101,7 @@ Sixteen platelet-associated and extracellular-vesicle-associated markers were as
 
 - Targeted Huang contract tests passed before the full suite.
 - Full suite: `{test_log}`.
-- Structural verifier: `{verification['status']}`; it confirmed 159/77/82 accounting, six independent tests, no patient IDs, and no legacy pseudo-pair output names.
+- Structural verifier: `{verification['status']}`; it confirmed 159/77/82 accounting, six profile-level tests, no patient IDs, and no legacy pseudo-pair output names.
 
 ## 9. Security and repository cleanliness
 
@@ -164,7 +164,7 @@ The public record still lacks per-profile source-QC status, patient corresponden
 | C. No inferred patient pairing | PASS | ledger + static contract tests |
 | D. No synthetic mixture | PASS | canonical output inventory + source inspection |
 | E. Locked BrainTrace route | PASS | audit manifest and per-profile outputs |
-| F. Independent statistics | PASS | six comparison rows |
+| F. Profile-level statistics | PASS | six comparison rows; patient pairing unavailable |
 | G. Correct BH correction | PASS | comparison CSV and verifier |
 | H. Fluid-specific distributions | PASS | fluid-summary and Top1/Top3 CSVs |
 | I. Marker diagnostics | PASS | marker-correlation CSV |
@@ -185,7 +185,7 @@ Status: working remediation candidate only; not a public v0.1.17 release.
 
 FILE: scripts/run_huang2025_external_candidate.py
 OLD: Sample label suffixes were converted to a patient key and used for CSF-plasma concordance/permutation outputs.
-NEW: The full 159-profile matrix is processed through the locked route as independent 77-CSF and 82-plasma cohorts; the ledger leaves patient_id blank and explicit paired/synthetic analyses are absent.
+NEW: The full 159-profile matrix is processed through the locked route as separate 77-CSF and 82-plasma profile cohorts; the ledger leaves patient_id blank, records that patient pairing is unavailable, and excludes paired/synthetic analyses.
 REASON: The public matrix does not supply a patient-level CSF-plasma correspondence.
 SOURCE / OUTPUT SUPPORT: Huang DOI 10.1038/s41698-025-00909-6; huang_2025_sample_ledger.csv; huang_2025_canonical_summary.json.
 
@@ -197,25 +197,25 @@ SOURCE / OUTPUT SUPPORT: tests/test_huang2025_external_candidate.py static regre
 
 FILE: reproducibility/huang_2025/*
 OLD: No canonical remediation package.
-NEW: Full matrix ledger, per-profile locked-route outputs, ranks, fluid distributions, marker correlations, six independent tests, manifest, summary and results report.
+NEW: Full matrix ledger, per-profile locked-route outputs, ranks, fluid distributions, marker correlations, six profile-level tests, manifest, summary and results report.
 REASON: Create auditable data-to-claim chain.
 SOURCE / OUTPUT SUPPORT: SHA256SUMS.txt; huang_2025_audit_manifest.json.
 
 FILE: reproduce_all.py; reproduce_all.ps1; README.md; DATA_PROVENANCE.md; reproducibility/TRACEABILITY_MATRIX.md
 OLD: The Huang audit pointed to obsolete output locations or lacked the patient-correspondence provenance boundary.
-NEW: Canonical path is reproducibility/huang_2025; documentation states full-matrix independent-fluid scope, source-QC limitation, claim boundary and unreleased status.
+NEW: Canonical path is reproducibility/huang_2025; documentation states full-matrix profile-level scope, separate fluid-specific cohorts, unavailable patient pairing, source-QC limitation, claim boundary and unreleased status.
 REASON: Keep scripts, provenance and manuscript-facing traceability aligned.
 SOURCE / OUTPUT SUPPORT: canonical summary and audit manifest.
 
 FILE: BrainTrace_Main_Manuscript_HuangRemediated.docx
 OLD: Reported paired-stability diagnostics and a minimum paired P=0.304.
-NEW: Reports 159 full-matrix profiles, 77 CSF/82 plasma independent cohorts, 159/159 traceability and minimum BH-FDR=0.722 without pairing claims.
+NEW: Reports 159 full-matrix profiles, separate 77-CSF and 82-plasma profile cohorts, 159/159 traceability and minimum BH-FDR=0.722 without patient-pairing claims.
 REASON: Correct unsupported patient-paired inference.
 SOURCE / OUTPUT SUPPORT: huang_2025_canonical_summary.json; huang_2025_tumour_control_comparisons.csv.
 
 FILE: BrainTrace_Supplementary_File_HuangRemediated.docx
 OLD: Contained matched-patient admixture, pseudo-paired stability language, old plasma denominator and the 0.304 claim.
-NEW: Replaces those passages and Tables S5/S6 with full independent-fluid results, correct denominators, marker-analysis description and claim boundaries.
+NEW: Replaces those passages and Tables S5/S6 with separate fluid-specific profile results, correct denominators, marker-analysis description and claim boundaries.
 REASON: Correct the full scientific-provenance chain.
 SOURCE / OUTPUT SUPPORT: huang_2025_fluid_summary.csv; huang_2025_marker_correlations.csv; huang_2025_tumour_control_comparisons.csv.
 
