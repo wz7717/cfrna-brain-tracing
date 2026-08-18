@@ -44,7 +44,7 @@ items=[
 ("9","三个requirements命名","明确minimal app/full reproduction/testing extras三种角色，不宣称可互换。","主文及S20"),
 ("10","F1 median/IQR","补报Exact和Network的LOSO/LOMO中位数与IQR。","主文及S20"),
 ("11","RF同200 panel","保留历史k=500并新增匹配200-gene RF；不替换正式路线。","主文、S20、Figure S2"),
-("12","Friedman n=9近似","并列χ²近似与19,683模式精确枚举，限制结论强度。","主文及S20"),
+("12","Friedman n=9近似","保留可复现的χ²近似；无可复现精确枚举证据，相关声明已移除。","主文及S20"),
 ("13","Sign-flip exchangeability","补充donor间独立、零假设下符号对称；非sample-row置换。","主文及S20"),
 ("14","Cerebellum排除理由","明确训练参考、层级和验证truth均缺失，故必须abstain/out-of-scope。","主文及S20"),
 ("15","Donor confusion可视化","新增匹配200-gene RF的9 donor小多图；明确并非正式路线。","Supplementary Figure S2"),

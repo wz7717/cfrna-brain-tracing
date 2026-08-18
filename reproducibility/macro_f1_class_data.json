@@ -947,852 +947,12 @@
       "f1": "0.0"
     },
     {
-      "endpoint": "LOMO_Exact",
-      "class": "STG",
-      "n": "15",
-      "precision": "0.2927",
-      "recall": "0.2",
-      "f1": "0.2376"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "V2",
-      "n": "15",
-      "precision": "0.4286",
-      "recall": "0.15",
-      "f1": "0.2222"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "10m",
-      "n": "12",
-      "precision": "0.2245",
-      "recall": "0.2292",
-      "f1": "0.2268"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "F1",
-      "n": "12",
-      "precision": "0.3205",
-      "recall": "0.5208",
-      "f1": "0.3968"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "1-2",
-      "n": "12",
-      "precision": "0.0625",
-      "recall": "0.0625",
-      "f1": "0.0625"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "10o",
-      "n": "12",
-      "precision": "0.1842",
-      "recall": "0.1458",
-      "f1": "0.1628"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "24c",
-      "n": "12",
-      "precision": "0.1053",
-      "recall": "0.125",
-      "f1": "0.1143"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "F2",
-      "n": "12",
-      "precision": "0.3125",
-      "recall": "0.2083",
-      "f1": "0.25"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "VIP",
-      "n": "11",
-      "precision": "0.4054",
-      "recall": "0.3409",
-      "f1": "0.3704"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "3a/b",
-      "n": "11",
-      "precision": "0.3333",
-      "recall": "0.3409",
-      "f1": "0.3371"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TPO",
-      "n": "11",
-      "precision": "0.1944",
-      "recall": "0.1591",
-      "f1": "0.175"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "V1",
-      "n": "11",
-      "precision": "0.5806",
-      "recall": "0.8182",
-      "f1": "0.6792"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "13b",
-      "n": "10",
-      "precision": "0.1053",
-      "recall": "0.05",
-      "f1": "0.0678"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "11l",
-      "n": "10",
-      "precision": "0.125",
-      "recall": "0.1",
-      "f1": "0.1111"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "14r",
-      "n": "10",
-      "precision": "0.4231",
-      "recall": "0.55",
-      "f1": "0.4783"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "F3",
-      "n": "10",
-      "precision": "0.24",
-      "recall": "0.3",
-      "f1": "0.2667"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "AL",
-      "n": "10",
-      "precision": "0.08",
-      "recall": "0.1",
-      "f1": "0.0889"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "G",
-      "n": "10",
-      "precision": "0.08",
-      "recall": "0.05",
-      "f1": "0.0615"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "46d",
-      "n": "10",
-      "precision": "0.3462",
-      "recall": "0.225",
-      "f1": "0.2727"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "45",
-      "n": "10",
-      "precision": "0.15",
-      "recall": "0.075",
-      "f1": "0.1"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "RM",
-      "n": "10",
-      "precision": "0.2",
-      "recall": "0.1",
-      "f1": "0.1333"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "5",
-      "n": "10",
-      "precision": "0.14",
-      "recall": "0.175",
-      "f1": "0.1556"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "7op",
-      "n": "10",
-      "precision": "0.1273",
-      "recall": "0.175",
-      "f1": "0.1474"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Ig",
-      "n": "10",
-      "precision": "0.2069",
-      "recall": "0.15",
-      "f1": "0.1739"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Id",
-      "n": "10",
-      "precision": "0.3333",
-      "recall": "0.35",
-      "f1": "0.3415"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TEm",
-      "n": "10",
-      "precision": "0.2963",
-      "recall": "0.2",
-      "f1": "0.2388"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "LIPd",
-      "n": "10",
-      "precision": "0.28",
-      "recall": "0.175",
-      "f1": "0.2154"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "7a",
-      "n": "10",
-      "precision": "0.0488",
-      "recall": "0.05",
-      "f1": "0.0494"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "pu",
-      "n": "9",
-      "precision": "0.7714",
-      "recall": "0.75",
-      "f1": "0.7606"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "46v",
-      "n": "9",
-      "precision": "0.16",
-      "recall": "0.1111",
-      "f1": "0.1311"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "9d",
-      "n": "9",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "8Bd",
-      "n": "9",
-      "precision": "0.1333",
-      "recall": "0.1111",
-      "f1": "0.1212"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "8Bs",
-      "n": "9",
-      "precision": "0.0667",
-      "recall": "0.0556",
-      "f1": "0.0606"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "8A",
-      "n": "9",
-      "precision": "0.2381",
-      "recall": "0.1389",
-      "f1": "0.1754"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "F4",
-      "n": "9",
-      "precision": "0.15",
-      "recall": "0.0833",
-      "f1": "0.1071"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "SII",
-      "n": "9",
-      "precision": "0.15",
-      "recall": "0.0833",
-      "f1": "0.1071"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TEav",
-      "n": "9",
-      "precision": "0.1087",
-      "recall": "0.1389",
-      "f1": "0.122"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "7b",
-      "n": "9",
-      "precision": "0.1538",
-      "recall": "0.1111",
-      "f1": "0.129"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "A1",
-      "n": "9",
-      "precision": "0.5217",
-      "recall": "0.3333",
-      "f1": "0.4068"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "13l",
-      "n": "9",
-      "precision": "0.2222",
-      "recall": "0.3333",
-      "f1": "0.2667"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "LIPv",
-      "n": "9",
-      "precision": "0.1163",
-      "recall": "0.1389",
-      "f1": "0.1266"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "GPeGPi",
-      "n": "9",
-      "precision": "1.0",
-      "recall": "0.7778",
-      "f1": "0.875"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "PGa",
-      "n": "9",
-      "precision": "0.1579",
-      "recall": "0.0833",
-      "f1": "0.1091"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "amy",
-      "n": "8",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "V3v",
-      "n": "8",
-      "precision": "0.12",
-      "recall": "0.0938",
-      "f1": "0.1053"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "12r",
-      "n": "8",
-      "precision": "0.0588",
-      "recall": "0.0625",
-      "f1": "0.0606"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "9m",
-      "n": "8",
-      "precision": "0.1136",
-      "recall": "0.1562",
-      "f1": "0.1316"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "32",
-      "n": "8",
-      "precision": "0.25",
-      "recall": "0.5",
-      "f1": "0.3333"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "F6",
-      "n": "8",
-      "precision": "0.1429",
-      "recall": "0.125",
-      "f1": "0.1333"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "14c",
-      "n": "8",
-      "precision": "0.4615",
-      "recall": "0.375",
-      "f1": "0.4138"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "cd",
-      "n": "8",
-      "precision": "0.7273",
-      "recall": "0.5",
-      "f1": "0.5926"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "R",
-      "n": "8",
-      "precision": "0.0667",
-      "recall": "0.0312",
-      "f1": "0.0426"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TEpd",
-      "n": "8",
-      "precision": "0.1207",
-      "recall": "0.2188",
-      "f1": "0.1556"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TEO",
-      "n": "8",
-      "precision": "0.0357",
-      "recall": "0.0312",
-      "f1": "0.0333"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TFO",
-      "n": "8",
-      "precision": "0.35",
-      "recall": "0.2188",
-      "f1": "0.2692"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "PrCo",
-      "n": "8",
-      "precision": "0.1",
-      "recall": "0.1562",
-      "f1": "0.122"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Iapl",
-      "n": "8",
-      "precision": "0.0364",
-      "recall": "0.0625",
-      "f1": "0.046"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TEad",
-      "n": "8",
-      "precision": "0.1579",
-      "recall": "0.1875",
-      "f1": "0.1714"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Ial",
-      "n": "8",
-      "precision": "0.3421",
-      "recall": "0.4062",
-      "f1": "0.3714"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "HC",
-      "n": "8",
-      "precision": "0.7368",
-      "recall": "0.875",
-      "f1": "0.8"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "MST",
-      "n": "8",
-      "precision": "0.2333",
-      "recall": "0.4375",
-      "f1": "0.3043"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "FST",
-      "n": "8",
-      "precision": "0.2353",
-      "recall": "0.125",
-      "f1": "0.1633"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "V4v",
-      "n": "7",
-      "precision": "0.125",
-      "recall": "0.1429",
-      "f1": "0.1333"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "12m",
-      "n": "7",
-      "precision": "0.0476",
-      "recall": "0.0357",
-      "f1": "0.0408"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "F7",
-      "n": "7",
-      "precision": "0.2083",
-      "recall": "0.1786",
-      "f1": "0.1923"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TEpv",
-      "n": "7",
-      "precision": "0.12",
-      "recall": "0.1071",
-      "f1": "0.1132"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "V4",
-      "n": "7",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "13m",
-      "n": "7",
-      "precision": "0.1111",
-      "recall": "0.1071",
-      "f1": "0.1091"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "CL",
-      "n": "7",
-      "precision": "0.1852",
-      "recall": "0.1786",
-      "f1": "0.1818"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "NARegion",
-      "n": "7",
-      "precision": "0.5714",
-      "recall": "0.7143",
-      "f1": "0.6349"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "F5",
-      "n": "7",
-      "precision": "0.1",
-      "recall": "0.0357",
-      "f1": "0.0526"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Iapm",
-      "n": "7",
-      "precision": "0.1481",
-      "recall": "0.1429",
-      "f1": "0.1455"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "thalamus",
-      "n": "7",
-      "precision": "0.8571",
-      "recall": "0.8571",
-      "f1": "0.8571"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "11m",
-      "n": "7",
-      "precision": "0.0256",
-      "recall": "0.0357",
-      "f1": "0.0299"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "7m",
-      "n": "6",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "12o",
-      "n": "6",
-      "precision": "0.1562",
-      "recall": "0.2083",
-      "f1": "0.1786"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "ML",
-      "n": "6",
-      "precision": "0.0563",
-      "recall": "0.1667",
-      "f1": "0.0842"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Tpt",
-      "n": "6",
-      "precision": "0.1081",
-      "recall": "0.1667",
-      "f1": "0.1311"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "RTM",
-      "n": "6",
-      "precision": "0.4194",
-      "recall": "0.5417",
-      "f1": "0.4727"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "RTL",
-      "n": "6",
-      "precision": "0.6087",
-      "recall": "0.5833",
-      "f1": "0.5957"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "CM",
-      "n": "6",
-      "precision": "0.2941",
-      "recall": "0.2083",
-      "f1": "0.2439"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "13a",
-      "n": "6",
-      "precision": "0.3529",
-      "recall": "0.25",
-      "f1": "0.2927"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "IPa",
-      "n": "6",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "12l",
-      "n": "5",
-      "precision": "0.0408",
-      "recall": "0.1",
-      "f1": "0.058"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "V3d",
-      "n": "5",
-      "precision": "0.1935",
-      "recall": "0.3",
-      "f1": "0.2353"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "44",
-      "n": "5",
-      "precision": "0.0435",
-      "recall": "0.05",
-      "f1": "0.0465"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TAa",
-      "n": "5",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "24c'",
-      "n": "5",
-      "precision": "0.1333",
-      "recall": "0.1",
-      "f1": "0.1143"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "23c",
-      "n": "5",
-      "precision": "0.25",
-      "recall": "0.1",
-      "f1": "0.1429"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "8Bm",
-      "n": "4",
-      "precision": "0.125",
-      "recall": "0.125",
-      "f1": "0.125"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "RT",
-      "n": "4",
-      "precision": "0.1481",
-      "recall": "0.25",
-      "f1": "0.186"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Pir",
-      "n": "4",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "25",
-      "n": "4",
-      "precision": "0.1111",
-      "recall": "0.125",
-      "f1": "0.1176"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "23b",
-      "n": "4",
-      "precision": "0.1667",
-      "recall": "0.0625",
-      "f1": "0.0909"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TG",
-      "n": "4",
-      "precision": "0.375",
-      "recall": "0.375",
-      "f1": "0.375"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Ia",
-      "n": "4",
-      "precision": "0.0238",
-      "recall": "0.0625",
-      "f1": "0.0345"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Pi",
-      "n": "4",
-      "precision": "0.0606",
-      "recall": "0.125",
-      "f1": "0.0816"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "24b",
-      "n": "3",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "24a'",
-      "n": "3",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "Ri",
-      "n": "3",
-      "precision": "1.0",
-      "recall": "0.0833",
-      "f1": "0.1538"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "24b'",
-      "n": "3",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TEa",
-      "n": "3",
-      "precision": "0.0476",
-      "recall": "0.1667",
-      "f1": "0.0741"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "TF",
-      "n": "2",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
-      "endpoint": "LOMO_Exact",
-      "class": "24a",
-      "n": "2",
-      "precision": "0.0",
-      "recall": "0.0",
-      "f1": "0.0"
-    },
-    {
       "endpoint": "SUMMARY",
       "class": "LOSO_Exact_macro",
       "n": "105",
       "precision": "",
       "recall": "",
       "f1": "0.2102"
-    },
-    {
-      "endpoint": "SUMMARY",
-      "class": "LOMO_Exact_macro",
-      "n": "104",
-      "precision": "",
-      "recall": "",
-      "f1": "0.1943"
     },
     {
       "endpoint": "SUMMARY",
@@ -1905,6 +1065,854 @@
       "precision": "",
       "recall": "",
       "f1": "0.5604715495"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "STG",
+      "n": "15",
+      "precision": "0.2222222222",
+      "recall": "0.1333333333",
+      "f1": "0.1666666667"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "V2",
+      "n": "15",
+      "precision": "0.6000000000",
+      "recall": "0.2000000000",
+      "f1": "0.3000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "1-2",
+      "n": "12",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "10m",
+      "n": "12",
+      "precision": "0.2500000000",
+      "recall": "0.3333333333",
+      "f1": "0.2857142857"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "10o",
+      "n": "12",
+      "precision": "0.2222222222",
+      "recall": "0.1666666667",
+      "f1": "0.1904761905"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "24c",
+      "n": "12",
+      "precision": "0.1000000000",
+      "recall": "0.0833333333",
+      "f1": "0.0909090909"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "F1",
+      "n": "12",
+      "precision": "0.3000000000",
+      "recall": "0.5000000000",
+      "f1": "0.3750000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "F2",
+      "n": "12",
+      "precision": "0.3000000000",
+      "recall": "0.2500000000",
+      "f1": "0.2727272727"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "3a/b",
+      "n": "11",
+      "precision": "0.2222222222",
+      "recall": "0.1818181818",
+      "f1": "0.2000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TPO",
+      "n": "11",
+      "precision": "0.2000000000",
+      "recall": "0.0909090909",
+      "f1": "0.1250000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "V1",
+      "n": "11",
+      "precision": "0.6000000000",
+      "recall": "0.8181818182",
+      "f1": "0.6923076923"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "VIP",
+      "n": "11",
+      "precision": "0.3000000000",
+      "recall": "0.2727272727",
+      "f1": "0.2857142857"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "11l",
+      "n": "10",
+      "precision": "0.1428571429",
+      "recall": "0.1000000000",
+      "f1": "0.1176470588"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "13b",
+      "n": "10",
+      "precision": "0.2500000000",
+      "recall": "0.1000000000",
+      "f1": "0.1428571429"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "14r",
+      "n": "10",
+      "precision": "0.5384615385",
+      "recall": "0.7000000000",
+      "f1": "0.6086956522"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "45",
+      "n": "10",
+      "precision": "0.3333333333",
+      "recall": "0.1000000000",
+      "f1": "0.1538461538"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "46d",
+      "n": "10",
+      "precision": "0.3750000000",
+      "recall": "0.3000000000",
+      "f1": "0.3333333333"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "5",
+      "n": "10",
+      "precision": "0.1333333333",
+      "recall": "0.2000000000",
+      "f1": "0.1600000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "7a",
+      "n": "10",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "7op",
+      "n": "10",
+      "precision": "0.0833333333",
+      "recall": "0.1000000000",
+      "f1": "0.0909090909"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "AL",
+      "n": "10",
+      "precision": "0.0588235294",
+      "recall": "0.1000000000",
+      "f1": "0.0740740741"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "F3",
+      "n": "10",
+      "precision": "0.2500000000",
+      "recall": "0.4000000000",
+      "f1": "0.3076923077"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "G",
+      "n": "10",
+      "precision": "1.0000000000",
+      "recall": "0.1000000000",
+      "f1": "0.1818181818"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Id",
+      "n": "10",
+      "precision": "0.3000000000",
+      "recall": "0.3000000000",
+      "f1": "0.3000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Ig",
+      "n": "10",
+      "precision": "0.2000000000",
+      "recall": "0.2000000000",
+      "f1": "0.2000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "LIPd",
+      "n": "10",
+      "precision": "0.2222222222",
+      "recall": "0.2000000000",
+      "f1": "0.2105263158"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "RM",
+      "n": "10",
+      "precision": "0.2500000000",
+      "recall": "0.1000000000",
+      "f1": "0.1428571429"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TEm",
+      "n": "10",
+      "precision": "0.4000000000",
+      "recall": "0.2000000000",
+      "f1": "0.2666666667"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "13l",
+      "n": "9",
+      "precision": "0.3571428571",
+      "recall": "0.5555555556",
+      "f1": "0.4347826087"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "46v",
+      "n": "9",
+      "precision": "0.1666666667",
+      "recall": "0.1111111111",
+      "f1": "0.1333333333"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "7b",
+      "n": "9",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "8A",
+      "n": "9",
+      "precision": "0.1666666667",
+      "recall": "0.1111111111",
+      "f1": "0.1333333333"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "8Bd",
+      "n": "9",
+      "precision": "0.1428571429",
+      "recall": "0.1111111111",
+      "f1": "0.1250000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "8Bs",
+      "n": "9",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "9d",
+      "n": "9",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "A1",
+      "n": "9",
+      "precision": "0.6666666667",
+      "recall": "0.4444444444",
+      "f1": "0.5333333333"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "F4",
+      "n": "9",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "GP",
+      "n": "9",
+      "precision": "1.0000000000",
+      "recall": "0.7777777778",
+      "f1": "0.8750000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "LIPv",
+      "n": "9",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "PGa",
+      "n": "9",
+      "precision": "0.1666666667",
+      "recall": "0.1111111111",
+      "f1": "0.1333333333"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "SII",
+      "n": "9",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TEav",
+      "n": "9",
+      "precision": "0.0909090909",
+      "recall": "0.1111111111",
+      "f1": "0.1000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "pu",
+      "n": "9",
+      "precision": "0.7777777778",
+      "recall": "0.7777777778",
+      "f1": "0.7777777778"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "12r",
+      "n": "8",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "14c",
+      "n": "8",
+      "precision": "0.3333333333",
+      "recall": "0.3750000000",
+      "f1": "0.3529411765"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "32",
+      "n": "8",
+      "precision": "0.2666666667",
+      "recall": "0.5000000000",
+      "f1": "0.3478260870"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "9m",
+      "n": "8",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Amy",
+      "n": "8",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Cd",
+      "n": "8",
+      "precision": "0.7142857143",
+      "recall": "0.6250000000",
+      "f1": "0.6666666667"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "F6",
+      "n": "8",
+      "precision": "0.2000000000",
+      "recall": "0.1250000000",
+      "f1": "0.1538461538"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "FST",
+      "n": "8",
+      "precision": "0.3333333333",
+      "recall": "0.1250000000",
+      "f1": "0.1818181818"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "HC",
+      "n": "8",
+      "precision": "0.7272727273",
+      "recall": "1.0000000000",
+      "f1": "0.8421052632"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Ial",
+      "n": "8",
+      "precision": "0.5000000000",
+      "recall": "0.5000000000",
+      "f1": "0.5000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Iapl",
+      "n": "8",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "MST",
+      "n": "8",
+      "precision": "0.1578947368",
+      "recall": "0.3750000000",
+      "f1": "0.2222222222"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "PrCO",
+      "n": "8",
+      "precision": "0.2222222222",
+      "recall": "0.2500000000",
+      "f1": "0.2352941176"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "R",
+      "n": "8",
+      "precision": "0.2000000000",
+      "recall": "0.1250000000",
+      "f1": "0.1538461538"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TEO",
+      "n": "8",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TEad",
+      "n": "8",
+      "precision": "0.2000000000",
+      "recall": "0.2500000000",
+      "f1": "0.2222222222"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TEpd",
+      "n": "8",
+      "precision": "0.1176470588",
+      "recall": "0.2500000000",
+      "f1": "0.1600000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TFO",
+      "n": "8",
+      "precision": "0.3333333333",
+      "recall": "0.1250000000",
+      "f1": "0.1818181818"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "V3v",
+      "n": "8",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "11m",
+      "n": "7",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "12m",
+      "n": "7",
+      "precision": "0.1000000000",
+      "recall": "0.1428571429",
+      "f1": "0.1176470588"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "13m",
+      "n": "7",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "CL",
+      "n": "7",
+      "precision": "0.1428571429",
+      "recall": "0.1428571429",
+      "f1": "0.1428571429"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "F5",
+      "n": "7",
+      "precision": "1.0000000000",
+      "recall": "0.1428571429",
+      "f1": "0.2500000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "F7",
+      "n": "7",
+      "precision": "0.2500000000",
+      "recall": "0.1428571429",
+      "f1": "0.1818181818"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Iapm",
+      "n": "7",
+      "precision": "0.1666666667",
+      "recall": "0.1428571429",
+      "f1": "0.1538461538"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "NAcc",
+      "n": "7",
+      "precision": "0.6250000000",
+      "recall": "0.7142857143",
+      "f1": "0.6666666667"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TEpv",
+      "n": "7",
+      "precision": "0.1666666667",
+      "recall": "0.1428571429",
+      "f1": "0.1538461538"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Tha",
+      "n": "7",
+      "precision": "0.8571428571",
+      "recall": "0.8571428571",
+      "f1": "0.8571428571"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "V4",
+      "n": "7",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "V4v",
+      "n": "7",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "12o",
+      "n": "6",
+      "precision": "0.1000000000",
+      "recall": "0.1666666667",
+      "f1": "0.1250000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "13a",
+      "n": "6",
+      "precision": "0.6666666667",
+      "recall": "0.3333333333",
+      "f1": "0.4444444444"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "7m",
+      "n": "6",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "CM",
+      "n": "6",
+      "precision": "0.3333333333",
+      "recall": "0.1666666667",
+      "f1": "0.2222222222"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "IPa",
+      "n": "6",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "ML",
+      "n": "6",
+      "precision": "0.0416666667",
+      "recall": "0.1666666667",
+      "f1": "0.0666666667"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "RTL",
+      "n": "6",
+      "precision": "0.5714285714",
+      "recall": "0.6666666667",
+      "f1": "0.6153846154"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "RTM",
+      "n": "6",
+      "precision": "0.5714285714",
+      "recall": "0.6666666667",
+      "f1": "0.6153846154"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Tpt",
+      "n": "6",
+      "precision": "0.0769230769",
+      "recall": "0.1666666667",
+      "f1": "0.1052631579"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "12l",
+      "n": "5",
+      "precision": "0.0666666667",
+      "recall": "0.2000000000",
+      "f1": "0.1000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "23c",
+      "n": "5",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "24c'",
+      "n": "5",
+      "precision": "0.1666666667",
+      "recall": "0.2000000000",
+      "f1": "0.1818181818"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "44",
+      "n": "5",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TAa",
+      "n": "5",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "V3d",
+      "n": "5",
+      "precision": "0.2222222222",
+      "recall": "0.4000000000",
+      "f1": "0.2857142857"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "23b",
+      "n": "4",
+      "precision": "0.3333333333",
+      "recall": "0.2500000000",
+      "f1": "0.2857142857"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "25",
+      "n": "4",
+      "precision": "0.2500000000",
+      "recall": "0.2500000000",
+      "f1": "0.2500000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "8Bm",
+      "n": "4",
+      "precision": "0.2000000000",
+      "recall": "0.2500000000",
+      "f1": "0.2222222222"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Ia",
+      "n": "4",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Pi",
+      "n": "4",
+      "precision": "0.0909090909",
+      "recall": "0.2500000000",
+      "f1": "0.1333333333"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Pir",
+      "n": "4",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "RT",
+      "n": "4",
+      "precision": "0.2222222222",
+      "recall": "0.5000000000",
+      "f1": "0.3076923077"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TG",
+      "n": "4",
+      "precision": "0.5000000000",
+      "recall": "0.2500000000",
+      "f1": "0.3333333333"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "24a'",
+      "n": "3",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "24b",
+      "n": "3",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "24b'",
+      "n": "3",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "Ri",
+      "n": "3",
+      "precision": "1.0000000000",
+      "recall": "0.3333333333",
+      "f1": "0.5000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TEa",
+      "n": "3",
+      "precision": "0.0555555556",
+      "recall": "0.3333333333",
+      "f1": "0.0952380952"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "24a",
+      "n": "2",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "LOMO_Exact",
+      "class": "TF",
+      "n": "2",
+      "precision": "0.0000000000",
+      "recall": "0.0000000000",
+      "f1": "0.0000000000"
+    },
+    {
+      "endpoint": "SUMMARY",
+      "class": "LOMO_Exact_macro",
+      "n": "104",
+      "precision": "",
+      "recall": "",
+      "f1": "0.2034153340"
+    },
+    {
+      "endpoint": "SUMMARY",
+      "class": "LOMO_Exact_weighted",
+      "n": "812",
+      "precision": "",
+      "recall": "",
+      "f1": "0.2135268625"
     }
   ],
   "provenance": {
@@ -1912,6 +1920,13 @@
     "route": "network_discriminative_correlation_top200",
     "route_family": "hybrid_projected_network_logcpm_exact",
     "metrics_are_prediction_level": true,
-    "micro_f1_definition": "sum integer TP / sum support = Top1 accuracy"
+    "micro_f1_definition": "sum integer TP / sum support = Top1 accuracy",
+    "formal_lomo_exact_source": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+    "formal_lomo_exact_source_sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36",
+    "formal_lomo_exact_staged_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
+    "formal_lomo_exact_route": "top3_beam_local_top50_top100_zfusion_w0p25",
+    "formal_lomo_exact_route_family": "hybrid_projected_network_logcpm_exact",
+    "formal_lomo_exact_truth_class_universe": true,
+    "formal_lomo_exact_micro_f1_definition": "sum integer TP / sum support = Top1 accuracy"
   }
 }

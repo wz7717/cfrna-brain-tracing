@@ -1,0 +1,6 @@
+{
+  "origin_path": "external_source::manifest.json",
+  "origin_sha256": "9442D7901F47A9A0A826E4502A58B0C4D1ADE61FCA70912890D66FDECC8498A3",
+  "staged_path": "reproducibility/formal_real_input_performance_manifest.json",
+  "staged_sha256": "9442D7901F47A9A0A826E4502A58B0C4D1ADE61FCA70912890D66FDECC8498A3"
+}

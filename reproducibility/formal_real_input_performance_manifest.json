@@ -1,0 +1,159 @@
+{
+  "schema_version": 2,
+  "status": "formal_real_input_performance_gate",
+  "interpretation_boundary": "Engineering performance on public GSE189919 count inputs only; this benchmark makes no accuracy, localization, or clinical claim.",
+  "route": "projected_vsd_network_top3_logcpm_resolution_local_exact",
+  "input": {
+    "file_name": "GSE189919_count.csv.gz",
+    "sha256": "b5f53cddf65bbf905429c327db77ea9fdca83c4f02fb3f81cccea29611bd1472",
+    "bytes": 1490245,
+    "total_samples_in_header": 51,
+    "workload_samples": 51,
+    "fixed_header_order": true,
+    "clinical_metadata_read": false,
+    "clinical_metadata_copied": false,
+    "persistent_database_read": false
+  },
+  "preregistration": {
+    "formal_workload_sizes": [
+      1,
+      8,
+      51
+    ],
+    "formal_warm_repeats": 3,
+    "formal_execution_authorized": true,
+    "concurrency": 1,
+    "independent_process_per_workload": true,
+    "untimed_warmup_samples": 1
+  },
+  "measurement_definitions": {
+    "cold_process_entry_to_completion_seconds": "Elapsed from this Python module's timer initialization through remaining imports, input SHA/read, canonical contract validation, and one complete workload; excludes interpreter launch before module execution.",
+    "cold_inference_wall_seconds": "Wall time for the first complete workload after input and contract setup.",
+    "warm_wall_total_seconds": "Wall time around each complete workload after one untimed warmup.",
+    "sample_time_p50_p95_seconds": "Nearest-linear pandas quantiles of per-sample frozen-route inference durations; aggregate warm quantiles pool all three fixed-order repeats.",
+    "memory": "Windows PeakWorkingSetSize is the process-lifetime peak and includes native allocations; tracemalloc records Python allocations and can exclude NumPy native memory."
+  },
+  "cold": {
+    "process_entry_to_completion_seconds": 20.9447839,
+    "timing": {
+      "samples": 51,
+      "wall_total_seconds": 19.5901258,
+      "wall_seconds_per_sample": 0.38412011372549015,
+      "sample_time_sum_seconds": 19.3453789,
+      "sample_time_p50_seconds": 0.3769141,
+      "sample_time_p95_seconds": 0.4025757,
+      "pairwise_rescue_switches": 0
+    },
+    "memory": {
+      "process": {
+        "working_set_bytes": 202084352,
+        "peak_working_set_bytes": 227266560
+      },
+      "python_current_bytes": 51454402,
+      "python_peak_bytes": 77284355
+    }
+  },
+  "warm": {
+    "repeats": [
+      {
+        "repeat": 1,
+        "timing": {
+          "samples": 51,
+          "wall_total_seconds": 19.6703127,
+          "wall_seconds_per_sample": 0.38569240588235293,
+          "sample_time_sum_seconds": 19.434081999999997,
+          "sample_time_p50_seconds": 0.3758953,
+          "sample_time_p95_seconds": 0.414252,
+          "pairwise_rescue_switches": 0
+        },
+        "memory": {
+          "process": {
+            "working_set_bytes": 208084992,
+            "peak_working_set_bytes": 232787968
+          },
+          "python_current_bytes": 54426193,
+          "python_peak_bytes": 78261836
+        }
+      },
+      {
+        "repeat": 2,
+        "timing": {
+          "samples": 51,
+          "wall_total_seconds": 19.9785197,
+          "wall_seconds_per_sample": 0.39173568039215684,
+          "sample_time_sum_seconds": 19.743137,
+          "sample_time_p50_seconds": 0.3817584,
+          "sample_time_p95_seconds": 0.42764409999999997,
+          "pairwise_rescue_switches": 0
+        },
+        "memory": {
+          "process": {
+            "working_set_bytes": 200429568,
+            "peak_working_set_bytes": 232787968
+          },
+          "python_current_bytes": 50696737,
+          "python_peak_bytes": 78384897
+        }
+      },
+      {
+        "repeat": 3,
+        "timing": {
+          "samples": 51,
+          "wall_total_seconds": 19.9723097,
+          "wall_seconds_per_sample": 0.3916139156862745,
+          "sample_time_sum_seconds": 19.7338924,
+          "sample_time_p50_seconds": 0.3797938,
+          "sample_time_p95_seconds": 0.42535155,
+          "pairwise_rescue_switches": 0
+        },
+        "memory": {
+          "process": {
+            "working_set_bytes": 201232384,
+            "peak_working_set_bytes": 232787968
+          },
+          "python_current_bytes": 53639076,
+          "python_peak_bytes": 80382565
+        }
+      }
+    ],
+    "aggregate": {
+      "samples": 153,
+      "wall_total_seconds": 59.6211421,
+      "wall_seconds_per_sample": 0.38968066732026146,
+      "sample_time_sum_seconds": 58.911111399999996,
+      "sample_time_p50_seconds": 0.379717,
+      "sample_time_p95_seconds": 0.4252377,
+      "pairwise_rescue_switches": 0
+    }
+  },
+  "memory_at_process_start": {
+    "working_set_bytes": 117022720,
+    "peak_working_set_bytes": 117022720
+  },
+  "canonical_contract": {
+    "canonical_regions": 110,
+    "networks": 10,
+    "network_top3_beams": 120,
+    "reference_genes": 21668,
+    "reference_source": "packaged_region_logcpm_reference"
+  },
+  "environment": {
+    "os": "Windows-10-10.0.26200-SP0",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "logical_cpu_count": 12,
+    "total_physical_memory_bytes": 16505966592,
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "packages": {
+      "numpy": "2.4.2",
+      "pandas": "2.3.3",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.8.0",
+      "streamlit": "1.55.0"
+    },
+    "git_commit": "8a4b638977a5fb31159366bdcbab1c9af5329167"
+  },
+  "outputs": {
+    "timing_csv": "timing.csv"
+  }
+}

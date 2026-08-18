@@ -56,6 +56,12 @@ from core.lomo_f1 import (  # noqa: E402
     load_formal_predictions,
     macro_class_rows,
 )
+from core.lomo_exact_f1 import (  # noqa: E402
+    CANONICAL_FORMAL_PATH as CANONICAL_EXACT_FORMAL_PATH,
+    compute_lomo_exact_metrics,
+    load_formal_predictions as load_formal_exact_predictions,
+    macro_class_rows as exact_macro_class_rows,
+)
 
 # Optional imports for full computation
 try:
@@ -820,6 +826,25 @@ def generate_macro_f1(output_dir: Path) -> str:
             )
         ]
         class_data.extend(macro_class_rows(formal_metrics))
+
+    # The formal LOMO Exact endpoint is also defined by a frozen
+    # prediction-level source.  Preserve its truth-label class universe and
+    # regenerate it here so the legacy rounded JSON rows cannot reappear when
+    # the manuscript CSV suite is rebuilt.
+    if CANONICAL_EXACT_FORMAL_PATH.exists():
+        exact_metrics = compute_lomo_exact_metrics(
+            load_formal_exact_predictions(CANONICAL_EXACT_FORMAL_PATH)
+        )
+        class_data = [
+            row
+            for row in class_data
+            if row.get("endpoint") != "LOMO_Exact"
+            and not (
+                row.get("endpoint") == "SUMMARY"
+                and str(row.get("class", "")).startswith("LOMO_Exact_")
+            )
+        ]
+        class_data.extend(exact_macro_class_rows(exact_metrics))
 
     # The JSON keeps historical SUMMARY records for provenance, but they are
     # not class-level observations and must not be fed back into the summary

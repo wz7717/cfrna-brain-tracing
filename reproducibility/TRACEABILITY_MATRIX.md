@@ -99,9 +99,9 @@ Endpoint provenance: the candidate values are recomputed from the canonical per-
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T033 | §3 Implementation ¶1 | Cold inference 0.3841 s/sample | (archived benchmark) | Submission package only | — | 19.5901 s / 51 samples = 0.3841 | GSE189919: 51 samples, cold frozen-route | ✓ |
-| T034 | §3 Implementation ¶1 | p50/p95 0.3769/0.4026 s | (archived benchmark) | Submission package only | — | Percentile of per-sample inference times | GSE189919 per-sample timing | ✓ |
-| T035 | §3 Implementation ¶1 | Peak working set 222.0 MiB | (archived benchmark) | Submission package only | — | Peak RSS during inference | GSE189919 benchmark memory profiling | ✓ |
+| T033 | §3 Implementation ¶1 | Cold inference 0.3841 s/profile (19.5901 s / 51 profiles) | `reproducibility/formal_real_input_performance_manifest.json` | Unreleased candidate working tree | cold/timing | 19.5901258 s / 51 profiles | GSE189919: 51-profile cold frozen-route workload | ✓ |
+| T034 | §3 Implementation ¶1 | Cold p50/p95 0.3769/0.4026 s/profile | `reproducibility/formal_real_input_performance_manifest.json` | Unreleased candidate working tree | cold/timing | Percentile of 51 cold profile timings | GSE189919 cold per-profile timing | ✓ |
+| T035 | §3 Implementation ¶1 | Cold peak 216.7 MiB; warm maximum 222.0 MiB across 153 timed inference events | `reproducibility/formal_real_input_performance_manifest.json` | Unreleased candidate working tree | cold/memory; warm/repeats | bytes / 2^20; 51 profiles × 3 warm repeats = 153 events | GSE189919 benchmark memory profiling | ✓ |
 
 ---
 
@@ -155,13 +155,13 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
 | T044 | Supp Table S8/S13 | LOSO Exact macro F1 = 0.2102 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOSO_Exact_macro | mean(F1_i) for i=1..105 | 105 class-level F1 from LOSO Exact confusion matrix | ✓ |
-| T045 | Supp Table S8/S13 | LOMO Exact macro F1 = 0.1943 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOMO_Exact_macro | mean(F1_i) for i=1..104 | 104 class-level F1 from LOMO Exact confusion matrix | ✓ |
+| T045 | Supp Table S8/S13 | LOMO Exact macro F1 = 0.2034 | `reproducibility/formal_lomo_exact_region_f1.csv`; `reproducibility/v4_p0_13_macro_f1.csv` | Unreleased candidate working tree | Current formal class rows; SUMMARY, LOMO_Exact_macro | mean(F1_i) over the 104-label truth universe | 812 current formal prediction rows; prediction-only labels remain false positives | ✓ |
 | T046 | Supp Table S8 | LOSO Network macro F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOSO_Network_macro | mean(F1_i) for i=1..10 | 10 Network class-level F1 from LOSO confusion matrix | ✓ |
 | T047 | Supp Table S8 | LOMO Network weighted F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOMO_Network_weighted | Σ(n_i·F1_i) / Σ(n_i) for i=1..10 | 10 Network classes with sample counts from LOMO | ✓ |
 
 ---
 
-**T055 (added 2026-08-09):** Supplementary S11 now reports Macro-F1 mean±SD, median(IQR), weighted-F1 and micro-F1 for LOSO/LOMO Exact and Network endpoints. The reproducible source is `reproducibility/p1_cross1_5/cross3_f1_distribution_summary.csv`; mean±SD is the sample SD across evaluable class-level F1 values from `reproducibility/macro_f1_class_data.json`.
+**T055 (updated 2026-08-19):** Supplementary S11 reports Macro-F1 mean±SD, median(IQR), weighted-F1 and micro-F1 for LOSO/LOMO Exact and Network endpoints. The current LOMO Exact rows are regenerated from `reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv` by `scripts/generate_lomo_exact_f1_evidence.py`; the 104-class macro denominator is the truth-label universe, and `sum(TP)=177`, `sum(support)=812`, and micro-F1=`177/812`. The derived summaries are in `reproducibility/p1_cross1_5/cross3_f1_distribution_summary.csv` and `reproducibility/v4_p0_13_macro_f1.csv`.
 
 **T056 (added 2026-08-10):** Supplementary S6 now reports all ten Network mapping fractions, AHBA allowed-label denominators, any-allowed Top1 hits, strict same-Network Top1 hits and percentage-point effects versus the pooled 165/223 mapped-label Top1 rate. The public derived source is `reproducibility/p1_e4_ahba_network_mapping_impact.csv`; its input hashes and formula are in `p1_e4_ahba_network_mapping_impact_manifest.json`. The primary denominators are membership-weighted because AHBA truth is multi-label; all results are descriptive with two AHBA donors.
 
@@ -185,6 +185,13 @@ in `reproducibility/p1_cross1_5/cross3_f1_distribution_summary.csv` and the
 LOMO rows in `reproducibility/v4_p0_13_macro_f1.csv` are regenerated from the
 same prediction-level source by `scripts/generate_lomo_f1_evidence.py` and
 are regression-tested against the integer-count class table.
+
+**T062 (added 2026-08-19):** Table S8 current-formal resolution-group Top3
+random baselines are regenerated from the staged LOSO and LOMO prediction
+details by `core/resolution_group_baselines.py`: LOSO uniform/weighted =
+22.6%/6.5%; LOMO uniform/weighted = 21.3%/4.1%. The input origin and staged
+SHA-256 values, formula, RNG seed and 10,000 weighted draws are recorded in
+`reproducibility/formal_resolution_group_random_baselines.json`.
 
 ## 13. Frozen 200-gene Comparator, Truth Normalization, and Independent Analyses
 
@@ -224,6 +231,7 @@ are regression-tested against the integer-count class table.
 | Mapping-impact and CI coverage addenda | T056–T058 | 3/3 | 100% |
 | Frozen comparator, truth normalization & independent analyses | T048-T054 | 7/7 | 100% |
 | Current candidate tier-cascade provenance | T061 | 1/1 | 100% |
-| **Total** | **T001-T061** | **61/61** | **100%** |
+| Current-formal resolution-group baseline provenance | T062 | 1/1 | 100% |
+| **Total** | **T001-T062** | **62/62** | **100%** |
 
 > **Availability note:** “Unreleased candidate working tree” means the artifact is present only in this v0.1.17 scientific-provenance patch candidate; it is not a published release and has no new DOI. References to GitHub/Zenodo v0.1.15 in unchanged rows are explicitly historical mirrors. The current immutable public release remains v0.1.16; submission-package-only status does not imply public availability.
