@@ -4,17 +4,20 @@
     "region_signature_humanization": {
       "path": "signature_humanization_8800.csv",
       "path_kind": "external_basename",
-      "sha256": "9725213db8f74aeea837a6b6e4909b587d748490d891de313215a3491ecdf05b"
+      "sha256": "9725213db8f74aeea837a6b6e4909b587d748490d891de313215a3491ecdf05b",
+      "hash_mode": "raw_bytes"
     },
     "network_top200_humanization": {
       "path": "network_top200_humanization.csv",
       "path_kind": "external_basename",
-      "sha256": "d71c31ee2659bd034a3ece0aa63cbfcdb37de9bb38207e1e05876dd4c2e69be0"
+      "sha256": "d71c31ee2659bd034a3ece0aa63cbfcdb37de9bb38207e1e05876dd4c2e69be0",
+      "hash_mode": "raw_bytes"
     },
     "gprofiler_model_background_results": {
       "path": "reproducibility/independent_enrichment/gprofiler_model_background.json",
       "path_kind": "repository_relative",
-      "sha256": "1461c0d0ac18587d652b875151a688bac62c8c42ff784743bf03aac5e4b8420c"
+      "sha256": "1461c0d0ac18587d652b875151a688bac62c8c42ff784743bf03aac5e4b8420c",
+      "hash_mode": "utf8_lf_canonical_text"
     }
   },
   "region_signature_rows": {

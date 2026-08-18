@@ -4,7 +4,7 @@ Source: Huang et al. (2025), DOI [10.1038/s41698-025-00909-6](https://doi.org/10
 
 ## Scope and provenance
 
-The public expression matrix was used as a computational stress-test resource. Although the source study applied its own sequencing-QC exclusions for its clinical analyses, all 159 profiles available in the published matrix were considered here for technical transfer auditing; this analysis does not attempt to reproduce the source study’s QC-filtered clinical analysis.
+The public expression matrix was used as a computational stress-test resource. The authors' archived processing code applies the reported sequencing-QC exclusions before generating Supplementary Data; the 159 published profiles (77 CSF and 82 plasma) are therefore author-QC-retained, and the excluded five CSF and one plasma profiles are absent.
 
 No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as separate fluid-specific profile cohorts; patient-level dependence or independence cannot be established from the public matrix. Sample-label suffixes were not interpreted as patient identifiers.
 
@@ -18,9 +18,9 @@ This audit supports a narrow technical-portability/domain-shift statement. It do
 
 ## Profile-level tumour-control diagnostics
 
-Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was 0.722052. All tests are profile-level analyses with pairing unavailable; patient-level dependence cannot be verified from the public matrix.
+Six exploratory two-sided Mann-Whitney U comparisons were run across fluid and metric; the smallest nominal Benjamini-Hochberg-adjusted profile-level P value was 0.722052. Pairing is unavailable and patient-level dependence cannot be verified from the public matrix, so these values are descriptive diagnostics rather than patient-level inference. Profile-resampling confidence intervals are not reported because patient clustering cannot be reconstructed.
 
-| Fluid | Metric | tumour n | control n | raw P | BH-FDR |
+| Fluid | Metric | tumour n | control n | nominal raw P | nominal BH-adjusted P |
 |---|---|---:|---:|---:|---:|
 | CSF | atlas_fit_score | 59 | 18 | 0.320726 | 0.722052 |
 | CSF | network_margin | 59 | 18 | 0.481368 | 0.722052 |
@@ -33,7 +33,7 @@ Six two-sided Mann-Whitney U tests were run across fluid and metric; the smalles
 
 Marker associations are descriptive, fluid-specific Spearman correlations with the OMPFC network score; they are not matched-biofluid comparisons; patient-level dependence cannot be assessed from the public matrix.
 
-| Fluid | Marker class | Marker | n | rho | raw P | BH-FDR |
+| Fluid | Marker class | Marker | n | rho | nominal raw P | nominal BH-adjusted P |
 |---|---|---|---:|---:|---:|---:|
 | CSF | platelet-associated | PF4 | 77 | 0.1497 | 0.193883 | 0.238625 |
 | CSF | platelet-associated | PPBP | 77 | 0.0254 | 0.826658 | 0.853324 |
@@ -44,28 +44,28 @@ Marker associations are descriptive, fluid-specific Spearman correlations with t
 | CSF | platelet-associated | SELP | 77 | -0.2428 | 0.033338 | 0.046383 |
 | CSF | platelet-associated | NRGN | 77 | -0.3996 | 0.000318 | 0.000782 |
 | CSF | extracellular-vesicle-associated | CD9 | 77 | -0.2099 | 0.066867 | 0.089156 |
-| CSF | extracellular-vesicle-associated | CD63 | 77 | -0.4761 | 0.000012 | 0.000048 |
+| CSF | extracellular-vesicle-associated | CD63 | 77 | -0.4761 | 1.209e-05 | 4.835e-05 |
 | CSF | extracellular-vesicle-associated | CD81 | 77 | -0.2892 | 0.010756 | 0.020246 |
 | CSF | extracellular-vesicle-associated | TSG101 | 77 | -0.4119 | 0.000198 | 0.000575 |
 | CSF | extracellular-vesicle-associated | PDCD6IP | 77 | -0.4019 | 0.000291 | 0.000776 |
-| CSF | extracellular-vesicle-associated | SDCBP | 77 | -0.4402 | 0.000062 | 0.000198 |
+| CSF | extracellular-vesicle-associated | SDCBP | 77 | -0.4402 | 6.175e-05 | 0.000198 |
 | CSF | extracellular-vesicle-associated | FLOT1 | 77 | -0.3590 | 0.001347 | 0.002873 |
 | CSF | extracellular-vesicle-associated | FLOT2 | 77 | -0.2516 | 0.027263 | 0.039655 |
-| plasma | platelet-associated | PF4 | 82 | 0.4338 | 0.000047 | 0.000166 |
+| plasma | platelet-associated | PF4 | 82 | 0.4338 | 4.679e-05 | 0.000166 |
 | plasma | platelet-associated | PPBP | 82 | 0.3754 | 0.000510 | 0.001165 |
 | plasma | platelet-associated | RGS18 | 82 | -0.3161 | 0.003818 | 0.007636 |
 | plasma | platelet-associated | GP9 | 82 | 0.0126 | 0.910802 | 0.910802 |
 | plasma | platelet-associated | ITGA2B | 82 | -0.2692 | 0.014468 | 0.025721 |
 | plasma | platelet-associated | TUBB1 | 82 | 0.1879 | 0.090913 | 0.116368 |
-| plasma | platelet-associated | SELP | 82 | -0.7165 | 0.000000 | 0.000000 |
+| plasma | platelet-associated | SELP | 82 | -0.7165 | 3.777e-14 | 4.028e-13 |
 | plasma | platelet-associated | NRGN | 82 | 0.2529 | 0.021911 | 0.033388 |
-| plasma | extracellular-vesicle-associated | CD9 | 82 | -0.6499 | 0.000000 | 0.000000 |
+| plasma | extracellular-vesicle-associated | CD9 | 82 | -0.6499 | 3.930e-11 | 3.144e-10 |
 | plasma | extracellular-vesicle-associated | CD63 | 82 | -0.0938 | 0.401668 | 0.476052 |
-| plasma | extracellular-vesicle-associated | CD81 | 82 | -0.5624 | 0.000000 | 0.000000 |
-| plasma | extracellular-vesicle-associated | TSG101 | 82 | -0.7503 | 0.000000 | 0.000000 |
-| plasma | extracellular-vesicle-associated | PDCD6IP | 82 | -0.7896 | 0.000000 | 0.000000 |
-| plasma | extracellular-vesicle-associated | SDCBP | 82 | -0.4890 | 0.000003 | 0.000017 |
-| plasma | extracellular-vesicle-associated | FLOT1 | 82 | -0.4759 | 0.000006 | 0.000028 |
+| plasma | extracellular-vesicle-associated | CD81 | 82 | -0.5624 | 3.815e-08 | 2.442e-07 |
+| plasma | extracellular-vesicle-associated | TSG101 | 82 | -0.7503 | 4.924e-16 | 7.878e-15 |
+| plasma | extracellular-vesicle-associated | PDCD6IP | 82 | -0.7896 | 1.207e-18 | 3.862e-17 |
+| plasma | extracellular-vesicle-associated | SDCBP | 82 | -0.4890 | 3.142e-06 | 1.676e-05 |
+| plasma | extracellular-vesicle-associated | FLOT1 | 82 | -0.4759 | 6.220e-06 | 2.843e-05 |
 | plasma | extracellular-vesicle-associated | FLOT2 | 82 | -0.2529 | 0.021901 | 0.033388 |
 
 ## Canonical outputs

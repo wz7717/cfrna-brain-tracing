@@ -1,6 +1,6 @@
 {
   "protocol_status": "huang_2025_provenance_remediated",
-  "generated_at_utc": "2026-08-18T06:37:25.123836+00:00",
+  "generated_at_utc": "2026-08-18T11:06:34.787617+00:00",
   "source": {
     "citation": "Huang et al., 2025",
     "doi": "10.1038/s41698-025-00909-6",
@@ -16,18 +16,50 @@
         "control": 21
       }
     },
-    "source_clinical_qc_note": "The source study reports aggregate sequencing-QC exclusions for its clinical analyses (five CSF and one plasma profile); no public per-profile QC-status mapping accompanies the expression matrix.",
-    "matrix_scale_interpretation": "audited as log2(RPM+1); converted to ln(RPM+1) by multiplying values by ln(2) before BrainTrace inference"
+    "source_qc_status": "retained_in_author_qc_filtered_public_matrix",
+    "source_clinical_qc_note": "The source study reports excluding five CSF and one plasma profiles by sequencing QC. The authors' archived Quality controls.R constructs meta_good after these exclusions and writes the 159-profile Supplementary Data matrix from meta_good; all 159 public-matrix profiles are therefore author-QC-retained, while the six excluded profiles are absent.",
+    "source_qc_evidence": {
+      "code_doi": "10.5281/zenodo.14869536",
+      "archive_sha256": "66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7",
+      "file": "code/Quality controls/Quality controls.R",
+      "failure_rules": [
+        "CleanRatio < 20",
+        "Trimmed < 3000000"
+      ],
+      "retained_object": "meta_good<-Summary_unique[!(Summary_unique$seqID %in% fail),]",
+      "matrix_object": "cfRNA_good<-cfRNA_unique[,meta_good$seqID]",
+      "supplementary_export": "write.xlsx(data,\"Supplementary data.xlsx\", rowNames=T)",
+      "retained_group_counts": {
+        "GLI_CSF": 16,
+        "GLI_plasma": 18,
+        "MEN_CSF": 43,
+        "MEN_plasma": 46,
+        "NOR_CSF": 18,
+        "NOR_plasma": 18
+      }
+    },
+    "matrix_scale_interpretation": "article labels the matrix log-transformed RPM; author code computes reads/trimmed_reads*1e6 in CPM and exports log2(CPM+1); treated as log2(per-million+1) and converted to ln(per-million+1) by multiplying by ln(2)",
+    "matrix_scale_source": {
+      "code_doi": "10.5281/zenodo.14869536",
+      "archive_sha256": "66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7",
+      "file": "code/Quality controls/Quality controls.R",
+      "article_scale_label": "log-transformed RPM",
+      "code_normalization": "CPM <- apply(cfRNA_good, 1, function(x) x/trimmedreads*1e6)",
+      "source_expression": "log2CPM <- log2(CPM + 1)",
+      "export_filename": "BrainTumor_cfRNA_log2RPM_good_samples.csv"
+    }
   },
   "provenance_guardrails": {
     "patient_id_metadata": "not_available_in_public_expression_matrix",
     "patient_paired_analysis": "NOT_SUPPORTED",
     "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
     "sample_suffix_interpreted_as_patient_id": false,
-    "CSF_to_plasma_sample_name_substitution": "PROHIBITED"
+    "CSF_to_plasma_sample_name_substitution": "PROHIBITED",
+    "profile_resampling_confidence_intervals": "NOT_REPORTED_PATIENT_CLUSTERING_UNAVAILABLE",
+    "nominal_profile_p_values": "DESCRIPTIVE_ONLY_NOT_PATIENT_LEVEL_FDR_CONTROL"
   },
   "analysis_scope": {
-    "audit_universe": "all 159 published-matrix profiles",
+    "audit_universe": "all 159 author-QC-retained published-matrix profiles",
     "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
     "supported_claim": "technical portability and domain-shift audit",
     "not_supported_claims": [
@@ -75,8 +107,8 @@
       "path": "41698_2025_909_MOESM2_ESM.xlsb",
       "path_kind": "external_basename",
       "exists": true,
-      "bytes": 5107712,
-      "sha256": "4ca9519933b75c52b4b6650405971cd167a4ecfaacd8d48d1247f604a800a7df"
+      "bytes": 39675418,
+      "sha256": "e7cd6cfbdfe5b14f68e2f3792ea3c713b6824595370ea9f16510ec439be58531"
     },
     {
       "label": "braintrace_source_tracing_database",

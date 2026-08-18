@@ -17,6 +17,7 @@ import json
 import math
 import re
 import sys
+import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
@@ -54,15 +55,19 @@ EXPECTED_COUNTS = {
 EXPECTED_TOTAL = 159
 EXPECTED_CSF = 77
 EXPECTED_PLASMA = 82
-N_BOOTSTRAP = 10_000
-RANDOM_SEED = 20250719
-
 SOURCE_DOI = "10.1038/s41698-025-00909-6"
 SOURCE_ARTICLE_URL = "https://doi.org/10.1038/s41698-025-00909-6"
+SOURCE_CODE_DOI = "10.5281/zenodo.14869536"
+SOURCE_CODE_ARCHIVE_SHA256 = "66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7"
+EXPECTED_INPUT_CSV_SHA256 = "ef0c72c17d65a0293ec4089880716ca3db1ad74764f43fe3bbe828b3e62ea6a3"
+EXPECTED_SOURCE_XLSB_SHA256 = "e7cd6cfbdfe5b14f68e2f3792ea3c713b6824595370ea9f16510ec439be58531"
+SOURCE_QC_STATUS = "retained_in_author_qc_filtered_public_matrix"
 SOURCE_QC_NOTE = (
-    "The source study reports aggregate sequencing-QC exclusions for its clinical analyses "
-    "(five CSF and one plasma profile); no public per-profile QC-status mapping accompanies "
-    "the expression matrix."
+    "The source study reports excluding five CSF and one plasma profiles by sequencing QC. "
+    "The authors' archived Quality controls.R constructs meta_good after these exclusions "
+    "and writes the 159-profile Supplementary Data matrix from meta_good; all 159 "
+    "public-matrix profiles are therefore author-QC-retained, while the six excluded "
+    "profiles are absent."
 )
 PATIENT_ID_STATUS = "unknown_not_supplied_in_public_expression_matrix"
 OMPFC_NETWORK = "Orbitomedial Prefrontal Cortex (OMPFC)"
@@ -104,6 +109,36 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def validate_source_assets(input_csv: Path, source_xlsb: Path | None) -> None:
+    """Fail closed on the exact matrix export and any supplied source workbook."""
+
+    csv_hash = sha256_file(input_csv)
+    if csv_hash != EXPECTED_INPUT_CSV_SHA256:
+        raise ValueError(
+            "Published Huang expression-matrix SHA-256 mismatch: "
+            f"expected {EXPECTED_INPUT_CSV_SHA256}, found {csv_hash}"
+        )
+    if source_xlsb is None:
+        return
+    if not source_xlsb.exists() or not source_xlsb.is_file():
+        raise FileNotFoundError(f"Huang source supplementary XLSB not found: {source_xlsb}")
+    if not zipfile.is_zipfile(source_xlsb):
+        raise ValueError(
+            "Huang source supplementary XLSB is not a complete ZIP-based Office workbook"
+        )
+    with zipfile.ZipFile(source_xlsb) as archive:
+        members = set(archive.namelist())
+    required_members = {"[Content_Types].xml", "xl/workbook.bin"}
+    if not required_members.issubset(members):
+        raise ValueError("Huang source supplementary XLSB is missing required workbook members")
+    xlsb_hash = sha256_file(source_xlsb)
+    if xlsb_hash != EXPECTED_SOURCE_XLSB_SHA256:
+        raise ValueError(
+            "Huang source supplementary XLSB SHA-256 mismatch: "
+            f"expected {EXPECTED_SOURCE_XLSB_SHA256}, found {xlsb_hash}"
+        )
 
 
 def asset_record(path: Path | None, label: str) -> dict[str, Any]:
@@ -149,7 +184,7 @@ def parse_sample_id(sample_id: str) -> dict[str, Any]:
     }
 
 
-def source_log2_rpm_to_log1p_rpm(values: np.ndarray) -> np.ndarray:
+def source_log2_per_million_to_ln1p_per_million(values: np.ndarray) -> np.ndarray:
     numeric = np.asarray(values, dtype=np.float64)
     if not np.isfinite(numeric).all() or (numeric < 0).any():
         raise ValueError("Huang matrix contains negative or non-finite values")
@@ -173,25 +208,6 @@ def cliffs_delta(left: np.ndarray, right: np.ndarray) -> float:
     return float((np.greater.outer(x, y).sum() - np.less.outer(x, y).sum()) / (len(x) * len(y)))
 
 
-def bootstrap_median_difference(
-    left: np.ndarray, right: np.ndarray, *, n_resamples: int, seed: int
-) -> tuple[float, float, float]:
-    x = np.asarray(left, dtype=float)
-    y = np.asarray(right, dtype=float)
-    rng = np.random.default_rng(seed)
-    differences = np.empty(n_resamples, dtype=float)
-    for index in range(n_resamples):
-        differences[index] = float(
-            np.median(rng.choice(x, size=len(x), replace=True))
-            - np.median(rng.choice(y, size=len(y), replace=True))
-        )
-    return (
-        float(np.median(x) - np.median(y)),
-        float(np.quantile(differences, 0.025)),
-        float(np.quantile(differences, 0.975)),
-    )
-
-
 def benjamini_hochberg(p_values: Iterable[float]) -> list[float]:
     values = np.asarray(list(p_values), dtype=float)
     order = np.argsort(values)
@@ -202,6 +218,15 @@ def benjamini_hochberg(p_values: Iterable[float]) -> list[float]:
         running = min(running, float(values[index]) * len(values) / rank)
         adjusted[index] = min(running, 1.0)
     return adjusted.tolist()
+
+
+def format_p_value(value: float) -> str:
+    """Format probabilities without rounding small nonzero values to zero."""
+
+    numeric = float(value)
+    if not np.isfinite(numeric):
+        return "NA"
+    return f"{numeric:.3e}" if 0.0 < numeric < 1e-4 else f"{numeric:.6f}"
 
 
 def top_ids(rows: list[dict[str, Any]], key: str, k: int = 3) -> list[str]:
@@ -242,7 +267,7 @@ def read_expression(path: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
         raise ValueError("Gene symbols must be nonblank and unique")
     selected = raw.loc[raw["gene_symbol"].isin(required_genes)].copy()
     values = selected[sample_ids].to_numpy(dtype=np.float64)
-    selected.loc[:, sample_ids] = source_log2_rpm_to_log1p_rpm(values)
+    selected.loc[:, sample_ids] = source_log2_per_million_to_ln1p_per_million(values)
     return selected.set_index("gene_symbol").astype(np.float32), metadata
 
 
@@ -251,32 +276,27 @@ def compare_tumour_control(sample_df: pd.DataFrame) -> pd.DataFrame:
 
     rows: list[dict[str, Any]] = []
     metrics = ["atlas_fit_score", "network_margin", "network_entropy"]
-    counter = 0
     for fluid in ["CSF", "plasma"]:
         subset = sample_df.loc[sample_df["fluid"].eq(fluid)]
         tumour = subset.loc[subset["tumor_status"].eq("tumour")]
         control = subset.loc[subset["tumor_status"].eq("control")]
         for metric in metrics:
-            counter += 1
             x = tumour[metric].to_numpy(dtype=float)
             y = control[metric].to_numpy(dtype=float)
             statistic, raw_p = mannwhitneyu(x, y, alternative="two-sided")
-            difference, ci_low, ci_high = bootstrap_median_difference(
-                x, y, n_resamples=N_BOOTSTRAP, seed=RANDOM_SEED + counter
-            )
+            difference = float(np.median(x) - np.median(y))
             rows.append(
                 {
                     "fluid": fluid,
                     "comparison": "tumour_vs_control",
                     "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
+                    "inference_scope": "exploratory profile-level diagnostic; patient clustering unavailable",
                     "metric": metric,
                     "n_tumour": len(x),
                     "n_control": len(y),
                     "median_tumour": float(np.median(x)),
                     "median_control": float(np.median(y)),
                     "median_difference_tumour_minus_control": difference,
-                    "bootstrap_ci95_low": ci_low,
-                    "bootstrap_ci95_high": ci_high,
                     "mann_whitney_u": float(statistic),
                     "raw_p": float(raw_p),
                     "cliffs_delta": cliffs_delta(x, y),
@@ -284,6 +304,7 @@ def compare_tumour_control(sample_df: pd.DataFrame) -> pd.DataFrame:
             )
     frame = pd.DataFrame(rows)
     frame["bh_fdr"] = benjamini_hochberg(frame["raw_p"].tolist())
+    frame["bh_interpretation"] = "nominal BH-adjusted profile-level P; not patient-level FDR control"
     return frame
 
 
@@ -311,6 +332,7 @@ def marker_correlations(sample_df: pd.DataFrame) -> pd.DataFrame:
                         "marker_class": marker_class,
                         "marker": marker,
                         "target": "OMPFC network score",
+                        "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
                         "n": int(len(pair)),
                         "spearman_rho": float(rho) if pd.notna(rho) else np.nan,
                         "raw_p": float(raw_p) if pd.notna(raw_p) else np.nan,
@@ -320,6 +342,7 @@ def marker_correlations(sample_df: pd.DataFrame) -> pd.DataFrame:
     result = pd.DataFrame(rows)
     estimable = result["raw_p"].notna()
     result.loc[estimable, "bh_fdr"] = benjamini_hochberg(result.loc[estimable, "raw_p"].tolist())
+    result["bh_interpretation"] = "nominal BH-adjusted profile-level P; not patient-level FDR control"
     return result
 
 
@@ -403,7 +426,7 @@ def build_ledger(metadata: pd.DataFrame, sample_df: pd.DataFrame) -> pd.DataFram
     ledger["included_in_CSF_analysis"] = ledger["fluid"].eq("CSF")
     ledger["included_in_plasma_analysis"] = ledger["fluid"].eq("plasma")
     ledger["included_in_tumour_control_analysis"] = True
-    ledger["source_QC_status_if_known"] = "not_publicly_mapped_per_profile"
+    ledger["source_QC_status_if_known"] = SOURCE_QC_STATUS
     ledger["source_QC_note"] = SOURCE_QC_NOTE
     return ledger.reset_index().loc[
         :,
@@ -437,10 +460,14 @@ def validate_canonical_invariants(
         raise ValueError("The canonical audit requires 77 CSF and 82 plasma profiles.")
     if not ledger["patient_id"].isna().all() or not ledger["patient_id_status"].eq(PATIENT_ID_STATUS).all():
         raise ValueError("Patient identity must remain unavailable in the public-matrix audit.")
+    if not ledger["source_QC_status_if_known"].eq(SOURCE_QC_STATUS).all():
+        raise ValueError("Every public-matrix profile must be recorded as author-QC-retained.")
+    if not ledger["source_QC_note"].eq(SOURCE_QC_NOTE).all():
+        raise ValueError("The per-profile QC provenance note is inconsistent.")
     if not sample_df["BrainTrace_output_available"].all():
         raise ValueError("Every published profile must yield a traceable canonical output.")
     if len(comparisons) != 6 or not comparisons["test"].eq("two-sided Mann-Whitney U (profile-level; pairing unavailable)").all():
-        raise ValueError("Exactly six independent tumour-control tests are required.")
+        raise ValueError("Exactly six profile-level tumour-control tests are required.")
     if set(comparisons["n_tumour"].astype(int)) != {59, 64} or set(comparisons["n_control"].astype(int)) != {18}:
         raise ValueError("Tumour-control denominators are inconsistent with the complete fluid cohorts.")
 
@@ -465,6 +492,7 @@ def make_summary(
         "patient_paired_analysis": "NOT_SUPPORTED",
         "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
         "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
+        "source_qc_status": SOURCE_QC_STATUS,
         "source_clinical_qc_note": SOURCE_QC_NOTE,
         "interpretation": {
             "supported_claim": "technical portability and domain-shift audit",
@@ -476,8 +504,9 @@ def make_summary(
             ],
         },
         "fluid_summary": fluid.to_dict(orient="records"),
-        "independent_tumour_control_tests": comparisons.to_dict(orient="records"),
+        "profile_level_tumour_control_tests": comparisons.to_dict(orient="records"),
         "minimum_bh_fdr": float(comparisons["bh_fdr"].min()),
+        "minimum_bh_fdr_interpretation": "minimum nominal BH-adjusted profile-level P; not patient-level FDR control",
         "marker_correlations": correlations.to_dict(orient="records"),
     }
 
@@ -500,7 +529,7 @@ def write_results_markdown(
         "",
         "## Scope and provenance",
         "",
-        "The public expression matrix was used as a computational stress-test resource. Although the source study applied its own sequencing-QC exclusions for its clinical analyses, all 159 profiles available in the published matrix were considered here for technical transfer auditing; this analysis does not attempt to reproduce the source study’s QC-filtered clinical analysis.",
+        "The public expression matrix was used as a computational stress-test resource. The authors' archived processing code applies the reported sequencing-QC exclusions before generating Supplementary Data; the 159 published profiles (77 CSF and 82 plasma) are therefore author-QC-retained, and the excluded five CSF and one plasma profiles are absent.",
         "",
         "No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as separate fluid-specific profile cohorts; patient-level dependence or independence cannot be established from the public matrix. Sample-label suffixes were not interpreted as patient identifiers.",
         "",
@@ -514,13 +543,16 @@ def write_results_markdown(
         "",
         "## Profile-level tumour-control diagnostics",
         "",
-        f"Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was {summary['minimum_bh_fdr']:.6f}. All tests are profile-level analyses with pairing unavailable; patient-level dependence cannot be verified from the public matrix.",
+        f"Six exploratory two-sided Mann-Whitney U comparisons were run across fluid and metric; the smallest nominal Benjamini-Hochberg-adjusted profile-level P value was {summary['minimum_bh_fdr']:.6f}. Pairing is unavailable and patient-level dependence cannot be verified from the public matrix, so these values are descriptive diagnostics rather than patient-level inference. Profile-resampling confidence intervals are not reported because patient clustering cannot be reconstructed.",
         "",
-        "| Fluid | Metric | tumour n | control n | raw P | BH-FDR |",
+        "| Fluid | Metric | tumour n | control n | nominal raw P | nominal BH-adjusted P |",
         "|---|---|---:|---:|---:|---:|",
     ]
     for _, row in comparisons.iterrows():
-        lines.append(f"| {row['fluid']} | {row['metric']} | {int(row['n_tumour'])} | {int(row['n_control'])} | {row['raw_p']:.6f} | {row['bh_fdr']:.6f} |")
+        lines.append(
+            f"| {row['fluid']} | {row['metric']} | {int(row['n_tumour'])} | {int(row['n_control'])} | "
+            f"{format_p_value(row['raw_p'])} | {format_p_value(row['bh_fdr'])} |"
+        )
     lines.extend(
         [
             "",
@@ -528,14 +560,14 @@ def write_results_markdown(
             "",
             "Marker associations are descriptive, fluid-specific Spearman correlations with the OMPFC network score; they are not matched-biofluid comparisons; patient-level dependence cannot be assessed from the public matrix.",
             "",
-            "| Fluid | Marker class | Marker | n | rho | raw P | BH-FDR |",
+            "| Fluid | Marker class | Marker | n | rho | nominal raw P | nominal BH-adjusted P |",
             "|---|---|---|---:|---:|---:|---:|",
         ]
     )
     for _, row in correlations.iterrows():
         rho = "NA" if pd.isna(row["spearman_rho"]) else f"{row['spearman_rho']:.4f}"
-        raw_p = "NA" if pd.isna(row["raw_p"]) else f"{row['raw_p']:.6f}"
-        fdr = "NA" if pd.isna(row.get("bh_fdr")) else f"{row['bh_fdr']:.6f}"
+        raw_p = format_p_value(row["raw_p"])
+        fdr = format_p_value(row.get("bh_fdr", np.nan))
         lines.append(f"| {row['fluid']} | {row['marker_class']} | {row['marker']} | {int(row['n'])} | {rho} | {raw_p} | {fdr} |")
     lines.extend(
         [
@@ -554,6 +586,7 @@ def run(args: argparse.Namespace) -> int:
         raise FileNotFoundError(f"Published Huang expression matrix not found: {args.input_csv}")
     if not args.db_path.exists():
         raise FileNotFoundError(f"BrainTrace source-tracing database not found: {args.db_path}")
+    validate_source_assets(args.input_csv, args.source_xlsb)
     outdir = args.outdir.resolve()
     outdir.mkdir(parents=True, exist_ok=True)
     expression, metadata = read_expression(args.input_csv)
@@ -564,6 +597,9 @@ def run(args: argparse.Namespace) -> int:
 
     for index, meta in enumerate(metadata.to_dict("records"), start=1):
         sample_id = str(meta["sample_id"])
+        # The tracing core's legacy input schema requires the field name
+        # ``log_tpm``.  Huang values supplied here are ln(per-million + 1),
+        # not TPM; that scale boundary is recorded explicitly in the manifest.
         frame = pd.DataFrame(
             {"gene_symbol": expression.index.astype(str), "log_tpm": expression[sample_id].to_numpy(dtype=np.float32)}
         )
@@ -589,7 +625,7 @@ def run(args: argparse.Namespace) -> int:
         sample_row = {
             **meta,
             "route": ROUTE_NAME,
-            "input_scale": "source_log2_rpm_plus1_times_ln2",
+            "input_scale": "source_log2_per_million_plus1_times_ln2",
             "network_traceability": network_out["meta"].get("traceability"),
             "region_traceability": region_out["meta"].get("traceability"),
             "BrainTrace_output_available": bool(
@@ -661,6 +697,7 @@ def run(args: argparse.Namespace) -> int:
                 "patient_paired_analysis": summary["patient_paired_analysis"],
                 "synthetic_matched_admixture": summary["synthetic_matched_admixture"],
                 "minimum_bh_fdr": summary["minimum_bh_fdr"],
+                "minimum_bh_fdr_interpretation": summary["minimum_bh_fdr_interpretation"],
             }
         ]
     ).to_csv(
@@ -683,8 +720,35 @@ def run(args: argparse.Namespace) -> int:
                 "patients_reported_by_source": 85,
                 "disease_groups_reported_by_source": {"glioma": 18, "meningioma": 46, "control": 21},
             },
+            "source_qc_status": SOURCE_QC_STATUS,
             "source_clinical_qc_note": SOURCE_QC_NOTE,
-            "matrix_scale_interpretation": "audited as log2(RPM+1); converted to ln(RPM+1) by multiplying values by ln(2) before BrainTrace inference",
+            "source_qc_evidence": {
+                "code_doi": SOURCE_CODE_DOI,
+                "archive_sha256": SOURCE_CODE_ARCHIVE_SHA256,
+                "file": "code/Quality controls/Quality controls.R",
+                "failure_rules": ["CleanRatio < 20", "Trimmed < 3000000"],
+                "retained_object": "meta_good<-Summary_unique[!(Summary_unique$seqID %in% fail),]",
+                "matrix_object": "cfRNA_good<-cfRNA_unique[,meta_good$seqID]",
+                "supplementary_export": "write.xlsx(data,\"Supplementary data.xlsx\", rowNames=T)",
+                "retained_group_counts": {
+                    "GLI_CSF": 16,
+                    "GLI_plasma": 18,
+                    "MEN_CSF": 43,
+                    "MEN_plasma": 46,
+                    "NOR_CSF": 18,
+                    "NOR_plasma": 18,
+                },
+            },
+            "matrix_scale_interpretation": "article labels the matrix log-transformed RPM; author code computes reads/trimmed_reads*1e6 in CPM and exports log2(CPM+1); treated as log2(per-million+1) and converted to ln(per-million+1) by multiplying by ln(2)",
+            "matrix_scale_source": {
+                "code_doi": SOURCE_CODE_DOI,
+                "archive_sha256": SOURCE_CODE_ARCHIVE_SHA256,
+                "file": "code/Quality controls/Quality controls.R",
+                "article_scale_label": "log-transformed RPM",
+                "code_normalization": "CPM <- apply(cfRNA_good, 1, function(x) x/trimmedreads*1e6)",
+                "source_expression": "log2CPM <- log2(CPM + 1)",
+                "export_filename": "BrainTumor_cfRNA_log2RPM_good_samples.csv",
+            },
         },
         "provenance_guardrails": {
             "patient_id_metadata": "not_available_in_public_expression_matrix",
@@ -692,9 +756,11 @@ def run(args: argparse.Namespace) -> int:
             "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
             "sample_suffix_interpreted_as_patient_id": False,
             "CSF_to_plasma_sample_name_substitution": "PROHIBITED",
+            "profile_resampling_confidence_intervals": "NOT_REPORTED_PATIENT_CLUSTERING_UNAVAILABLE",
+            "nominal_profile_p_values": "DESCRIPTIVE_ONLY_NOT_PATIENT_LEVEL_FDR_CONTROL",
         },
         "analysis_scope": {
-            "audit_universe": "all 159 published-matrix profiles",
+            "audit_universe": "all 159 author-QC-retained published-matrix profiles",
             "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
             "supported_claim": "technical portability and domain-shift audit",
             "not_supported_claims": summary["interpretation"]["not_supported_claims"],

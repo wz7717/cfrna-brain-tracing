@@ -7,7 +7,8 @@
 
 ## 2. Branch
 
-- `fix/nonhuang-final-scientific-provenance`
+- `integration/final-remediation`
+- The first integrated remote candidate was pushed as `ee475df6402383fa75ecde6954f91912ed10a05b` and then subjected to the post-push audit recorded below.
 
 ## 3. Files changed
 
@@ -85,7 +86,7 @@ The four-test Tier-1 family is: Network Top1 raw/BH 0.031250/0.125000; Network T
 
 ## 18. TRACEABILITY_MATRIX
 
-`reproducibility/TRACEABILITY_MATRIX.md` now identifies this as an unreleased v0.1.17 scientific-provenance patch candidate, points current AHBA accounting to the new ledger, records TCGA edema n=63 and 33.31 pp, uses the denominator-consistent tier results, and gives the current four-test sign-flip family. No DOI was added or changed.
+`reproducibility/TRACEABILITY_MATRIX.md` now identifies this as an unreleased v0.1.17 scientific-provenance patch candidate, points current AHBA accounting to the new ledger, records TCGA edema n=63 and 33.31 pp, uses the denominator-consistent tier results, and gives the current four-test sign-flip family. The incorrect deleted-spam BraTS Zenodo reference was replaced by the official TCIA dataset DOI; no project DOI, release DOI, tag, or release record was invented or changed.
 
 ## 19. README and provenance synchronization
 
@@ -94,12 +95,12 @@ The four-test Tier-1 family is: Network Top1 raw/BH 0.031250/0.125000; Network T
 ## 20. Full test suite
 
 - `python -m py_compile` on every changed Python file: PASS.
-- `python -m pytest -q`: **123 passed, 2 skipped, 0 failed**; pytest-reported runtime 6.99 s (wall-clock 8.19 s).
-- `scripts/verify_nonhuang_scientific_provenance.py`: **34/34 PASS**; machine-readable result at `reproducibility/nonhuang_scientific_arithmetic_qa.json`.
+- `python -m pytest -q`: **135 passed, 2 skipped, 0 failed**; pytest-reported runtime 7.08 s.
+- `scripts/verify_nonhuang_scientific_provenance.py`: **40/40 PASS**; machine-readable result at `reproducibility/nonhuang_scientific_arithmetic_qa.json`.
 
 ## 21. Residual grep
 
-The required terms were searched across text/source files, excluding `.git` and the untracked DOCX render directory. There are no current incorrect claims: no `"edema": 64`, `edema=64`, `231 -> 223 -> 200`, `66/446`, `14.8%`, `78.32%`, or legacy sign-flip value as a current validation claim.
+The required terms were searched across the complete 52-file unmerged diff and the revised DOCX text. There are no current incorrect claims: no `"edema": 64`, `edema=64`, `231 -> 223 -> 200`, `66/446`, `14.8%`, `78.32%`, deleted-spam BraTS DOI as current provenance, 72,108-row GSE189919 claim, six-donor AHBA RNA-seq claim, unreconciled Huang RPM/CPM scale label, or legacy sign-flip value as a current validation claim.
 
 Remaining literal matches were classified as: (a) the conflict ledger and generator’s historical-statement fields, which deliberately preserve the superseded value for auditability; (b) DOCX updater source markers used solely to find and replace historical source-document text; (c) unrelated decimal substrings in unchanged per-gene numerical CSVs; or (d) correct negations such as “not a unique sequential attrition pipeline.” The revised DOCX outputs contain none of the prohibited stale phrases.
 
@@ -113,12 +114,12 @@ No `data/models/*.npz`, `data/models/canonical110_model_lock.json`, Network scor
 
 ## 24. DOCX synchronization
 
-Untracked revised copies were produced from the user-supplied current submission files:
+Untracked integrated revised copies were rebuilt from the user-supplied current submission files:
 
-- `manuscript_remediation/BrainTrace_Main_Manuscript_NonHuangRemediated.docx`
-- `manuscript_remediation/BrainTrace_Supplementary_File_NonHuangRemediated.docx`
+- `manuscript_remediation/BrainTrace_Main_Manuscript_HuangRemediated.docx`
+- `manuscript_remediation/BrainTrace_Supplementary_File_HuangRemediated.docx`
 
-They update only non-Huang AHBA, TCGA/BraTS, orthology, and tier-cascade wording. No cover letter was supplied, so its status is not applicable.
+They contain both the non-Huang AHBA/TCGA/BraTS/orthology/tier-cascade corrections and the Huang profile-level provenance correction. No cover letter was supplied, so its status is not applicable.
 
 ## 25. DOCX render and structure QA
 
@@ -126,7 +127,24 @@ All rendered pages were reviewed: main manuscript 12 pages and supplement 81 pag
 
 ## 26. Remaining unresolved issues
 
-None. `NONHUANG_SCIENTIFIC_CONFLICT_LEDGER.csv` has 5 `FIXED_STALE_VALUE` and 1 `DOCUMENTATION_SYNC` entries; it has no `UNRESOLVED` entries.
+None in the audited evidence chain. `NONHUANG_SCIENTIFIC_CONFLICT_LEDGER.csv` has 9 `FIXED_STALE_VALUE` and 1 `DOCUMENTATION_SYNC` entries; it has no `UNRESOLVED` entries.
+
+## 27. Post-integration external-source audit
+
+The post-push audit rechecked every unmerged provenance claim against the relevant public primary source and, where applicable, the exact downloaded artifact. It found and corrected ten additional material conflicts:
+
+- BraTS-TCGA-LGG provenance now uses official TCIA DOI `10.7937/K9/TCIA.2017.GJQ7R0EF`, distinguishes the 65-subject public training set from the controlled 43-subject test set, and records the public training license as CC BY 3.0.
+- The MRI-linked expression subset is identified as TCGA-LGG rather than the broader TCGA-GBM/LGG collection.
+- Official GSE189919 count and TPM matrices contain 51 samples and 59,453 gene rows; the frozen-projector overlap remains independently verified at 15,622/21,668.
+- The AHBA RNA-seq endpoint audit uses two donors and selected matched anatomical structures; the separate six-donor figure and Hawrylycz et al. (2012) citation belong to the broader/microarray atlas, and the official page does not support a two-donor “whole-brain coverage” claim. The retained historical engineering-trace labels and their generator were also aligned to this supported scope and no longer invent a four-donor RNA-seq exclusion cascade.
+- The Huang supplementary matrix is the 159-profile author-QC-retained output (77 CSF, 82 plasma); the six source-QC failures are absent, and the public matrix does not expose patient correspondence.
+- The Huang scale record now reconciles the article's RPM label with the code's CPM variable and `log2RPM` export filename. Derived metadata uses the neutral `log2(per-million+1)` to `ln(per-million+1)` description, so neither source nomenclature is silently overwritten.
+- Huang Supplementary Data 1 is described as publicly downloadable, not unrestricted: reuse remains subject to the article/file rights terms, while the underlying GSA-Human `HRA007247` sequencing data are controlled access and are not redistributed.
+- Naive profile-resampling 95% confidence intervals were removed from the Huang tumour-control table because the public matrix cannot reconstruct patient clustering; the remaining nominal P values are explicitly exploratory profile-level diagnostics, not patient-level inference.
+- The detailed provenance manifest now separates legacy `generate_all_csvs.py` outputs from the new sample-level non-Huang provenance generator instead of incorrectly attributing every CSV/JSON artifact to one ten-file raw-count pipeline.
+- Two residual DOCX tier-cascade statements were corrected from the mixed-denominator values 66/446 = 14.8% and 78.32% to the same-universe results 64/446 = 14.35% and 590/750 = 78.67%.
+
+The exact complete Huang XLSB (39,675,418 bytes; SHA-256 `e7cd6cfbdfe5b14f68e2f3792ea3c713b6824595370ea9f16510ec439be58531`) was compared with the CSV export across 13,344,711 numeric cells with no disagreement beyond export rounding. The author-code archive (DOI `10.5281/zenodo.14869536`; SHA-256 `66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7`) supplies the per-million normalization/log transformation and the source-QC filtering evidence.
 
 ## Acceptance checklist
 
@@ -142,6 +160,7 @@ None. `NONHUANG_SCIENTIFIC_CONFLICT_LEDGER.csv` has 5 `FIXED_STALE_VALUE` and 1 
 | SIGN_FLIP_TRACEABILITY | PASS |
 | TRACEABILITY_MATRIX | PASS |
 | README_PROVENANCE | PASS |
+| POST_PUSH_PRIMARY_SOURCE_AUDIT | PASS |
 | FULL_TESTS | PASS |
 | MODEL_LOCK | PASS |
 | GIT_SAFETY | PASS |

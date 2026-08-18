@@ -1,6 +1,6 @@
 step,description,count_in,count_out,excluded,reason,trace_classification
-1,Initial AHBA samples from 2 whole-brain donors (4 of 6 AHBA donors excluded for incomplete coverage),231,231,0,2 donors with whole-brain structural sampling retained,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
-2,Collapse technical replicates (sibling samples by donor + tissue ID),231,231,0,Raw-count summation before logCPM; 231 already independent tissues post-collapse,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
+1,Initial AHBA RNA-seq tissue records from 2 donors in the selected matched-structure resource,231,231,0,The official RNA-seq resource contains 2 donors and selected matched anatomical structures,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
+2,Collapse technical replicates (sibling samples by donor + tissue ID),231,231,0,Raw-count summation before logCPM; 231 replicate-collapsed tissue records from the 2 RNA-seq donors,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
 3,Map AHBA structure names to Bo2023 region ontology,231,223,8,8 samples without valid Network mapping excluded,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
 4,"Filter to supported exact-region labels (exclude cerebellum, white matter, etc.)",223,200,23,"Non-cortical, cerebellum, white matter and unannotated structures excluded",HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER
 5,Apply marker-coverage filter (200-gene Network panel overlap >= threshold),200,120,80,Samples failing marker-coverage threshold excluded,HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER

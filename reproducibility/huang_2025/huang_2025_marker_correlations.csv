@@ -1,33 +1,33 @@
-fluid,marker_class,marker,target,n,spearman_rho,raw_p,status,bh_fdr
-CSF,platelet-associated,PF4,OMPFC network score,77,0.14966757681598253,0.19388290355946441,estimated,0.23862511207318698
-CSF,platelet-associated,PPBP,OMPFC network score,77,0.025367168434563155,0.8266575631578911,estimated,0.8533239361629843
-CSF,platelet-associated,RGS18,OMPFC network score,77,-0.04262174294226209,0.7128327824474275,estimated,0.7603549679439227
-CSF,platelet-associated,GP9,OMPFC network score,77,-0.2755432378485742,0.015287840401873073,estimated,0.02574794172947044
-CSF,platelet-associated,ITGA2B,OMPFC network score,77,-0.07985499381126286,0.48996336280429104,estimated,0.5599581289191897
-CSF,platelet-associated,TUBB1,OMPFC network score,77,0.07416876323761597,0.5214792018212119,estimated,0.5754253261475442
-CSF,platelet-associated,SELP,OMPFC network score,77,-0.24283610202073763,0.03333802890447056,estimated,0.046383344562741645
-CSF,platelet-associated,NRGN,OMPFC network score,77,-0.3996195824679881,0.0003175539274451753,estimated,0.000781671206018893
-CSF,extracellular-vesicle-associated,CD9,OMPFC network score,77,-0.2099404519013592,0.06686672145723278,estimated,0.08915562860964371
-CSF,extracellular-vesicle-associated,CD63,OMPFC network score,77,-0.4760558156071143,1.2087385432893904e-05,estimated,4.8349541731575615e-05
-CSF,extracellular-vesicle-associated,CD81,OMPFC network score,77,-0.2891521788932971,0.010755838978696055,estimated,0.020246285136369044
-CSF,extracellular-vesicle-associated,TSG101,OMPFC network score,77,-0.4118870945943128,0.00019778784669524722,estimated,0.0005753828267498101
-CSF,extracellular-vesicle-associated,PDCD6IP,OMPFC network score,77,-0.40192300739076764,0.0002909444407879813,estimated,0.0007758518421012835
-CSF,extracellular-vesicle-associated,SDCBP,OMPFC network score,77,-0.4401880251538668,6.17519267437195e-05,estimated,0.0001976061655799024
-CSF,extracellular-vesicle-associated,FLOT1,OMPFC network score,77,-0.3589515127842212,0.0013467615360236594,estimated,0.0028730912768504735
-CSF,extracellular-vesicle-associated,FLOT2,OMPFC network score,77,-0.2516466351364052,0.02726299243860733,estimated,0.03965526172888339
-plasma,platelet-associated,PF4,OMPFC network score,82,0.43377001236756346,4.679496522350793e-05,estimated,0.00016638209857247263
-plasma,platelet-associated,PPBP,OMPFC network score,82,0.3754312643528041,0.000509830441655606,estimated,0.0011653267237842423
-plasma,platelet-associated,RGS18,OMPFC network score,82,-0.31607881206545524,0.003817871707362874,estimated,0.007635743414725748
-plasma,platelet-associated,GP9,OMPFC network score,82,0.012563771948652094,0.9108015168532438,estimated,0.9108015168532438
-plasma,platelet-associated,ITGA2B,OMPFC network score,82,-0.2691799039939117,0.014468131136340913,estimated,0.02572112202016162
-plasma,platelet-associated,TUBB1,OMPFC network score,82,0.18791352811015774,0.09091273208536584,estimated,0.11636829706926827
-plasma,platelet-associated,SELP,OMPFC network score,82,-0.7164942207911386,3.7766700780832126e-14,estimated,4.02844808328876e-13
-plasma,platelet-associated,NRGN,OMPFC network score,82,0.25285342297512214,0.021910641924778228,estimated,0.0333876448377573
-plasma,extracellular-vesicle-associated,CD9,OMPFC network score,82,-0.6499195219387542,3.930382265034021e-11,estimated,3.1443058120272166e-10
-plasma,extracellular-vesicle-associated,CD63,OMPFC network score,82,-0.09384897766782557,0.4016684923510406,estimated,0.47605154649012216
-plasma,extracellular-vesicle-associated,CD81,OMPFC network score,82,-0.5624489708049085,3.8154565453387934e-08,estimated,2.4418921890168276e-07
-plasma,extracellular-vesicle-associated,TSG101,OMPFC network score,82,-0.7502788770311579,4.923735804842346e-16,estimated,7.877977287747753e-15
-plasma,extracellular-vesicle-associated,PDCD6IP,OMPFC network score,82,-0.7895849360643759,1.2068721435548384e-18,estimated,3.861990859375483e-17
-plasma,extracellular-vesicle-associated,SDCBP,OMPFC network score,82,-0.48898620793747083,3.1417810159664646e-06,estimated,1.675616541848781e-05
-plasma,extracellular-vesicle-associated,FLOT1,OMPFC network score,82,-0.47590169651712505,6.219944052327416e-06,estimated,2.8434029953496757e-05
-plasma,extracellular-vesicle-associated,FLOT2,OMPFC network score,82,-0.2528720427650524,0.02190057366453459,estimated,0.0333876448377573
+fluid,marker_class,marker,target,inference_scope,n,spearman_rho,raw_p,status,bh_fdr,bh_interpretation
+CSF,platelet-associated,PF4,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,0.14966757681598253,0.19388290355946441,estimated,0.23862511207318698,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,platelet-associated,PPBP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,0.025367168434563155,0.8266575631578911,estimated,0.8533239361629843,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,platelet-associated,RGS18,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.04262174294226209,0.7128327824474275,estimated,0.7603549679439227,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,platelet-associated,GP9,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.2755432378485742,0.015287840401873073,estimated,0.02574794172947044,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,platelet-associated,ITGA2B,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.07985499381126286,0.48996336280429104,estimated,0.5599581289191897,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,platelet-associated,TUBB1,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,0.07416876323761597,0.5214792018212119,estimated,0.5754253261475442,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,platelet-associated,SELP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.24283610202073763,0.03333802890447056,estimated,0.046383344562741645,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,platelet-associated,NRGN,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.3996195824679881,0.0003175539274451753,estimated,0.000781671206018893,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,CD9,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.2099404519013592,0.06686672145723278,estimated,0.08915562860964371,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,CD63,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.4760558156071143,1.2087385432893904e-05,estimated,4.8349541731575615e-05,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,CD81,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.2891521788932971,0.010755838978696055,estimated,0.020246285136369044,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,TSG101,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.4118870945943128,0.00019778784669524722,estimated,0.0005753828267498101,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,PDCD6IP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.40192300739076764,0.0002909444407879813,estimated,0.0007758518421012835,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,SDCBP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.4401880251538668,6.17519267437195e-05,estimated,0.0001976061655799024,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,FLOT1,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.3589515127842212,0.0013467615360236594,estimated,0.0028730912768504735,nominal BH-adjusted profile-level P; not patient-level FDR control
+CSF,extracellular-vesicle-associated,FLOT2,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,77,-0.2516466351364052,0.02726299243860733,estimated,0.03965526172888339,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,PF4,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,0.43377001236756346,4.679496522350793e-05,estimated,0.00016638209857247263,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,PPBP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,0.3754312643528041,0.000509830441655606,estimated,0.0011653267237842423,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,RGS18,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.31607881206545524,0.003817871707362874,estimated,0.007635743414725748,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,GP9,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,0.012563771948652094,0.9108015168532438,estimated,0.9108015168532438,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,ITGA2B,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.2691799039939117,0.014468131136340913,estimated,0.02572112202016162,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,TUBB1,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,0.18791352811015774,0.09091273208536584,estimated,0.11636829706926827,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,SELP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.7164942207911386,3.7766700780832126e-14,estimated,4.02844808328876e-13,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,platelet-associated,NRGN,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,0.25285342297512214,0.021910641924778228,estimated,0.0333876448377573,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,CD9,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.6499195219387542,3.930382265034021e-11,estimated,3.1443058120272166e-10,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,CD63,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.09384897766782557,0.4016684923510406,estimated,0.47605154649012216,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,CD81,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.5624489708049085,3.8154565453387934e-08,estimated,2.4418921890168276e-07,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,TSG101,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.7502788770311579,4.923735804842346e-16,estimated,7.877977287747753e-15,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,PDCD6IP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.7895849360643759,1.2068721435548384e-18,estimated,3.861990859375483e-17,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,SDCBP,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.48898620793747083,3.1417810159664646e-06,estimated,1.675616541848781e-05,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,FLOT1,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.47590169651712505,6.219944052327416e-06,estimated,2.8434029953496757e-05,nominal BH-adjusted profile-level P; not patient-level FDR control
+plasma,extracellular-vesicle-associated,FLOT2,OMPFC network score,exploratory profile-level correlation; patient clustering unavailable,82,-0.2528720427650524,0.02190057366453459,estimated,0.0333876448377573,nominal BH-adjusted profile-level P; not patient-level FDR control

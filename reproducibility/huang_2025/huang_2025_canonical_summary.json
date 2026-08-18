@@ -11,7 +11,8 @@
   "patient_paired_analysis": "NOT_SUPPORTED",
   "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
   "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
-  "source_clinical_qc_note": "The source study reports aggregate sequencing-QC exclusions for its clinical analyses (five CSF and one plasma profile); no public per-profile QC-status mapping accompanies the expression matrix.",
+  "source_qc_status": "retained_in_author_qc_filtered_public_matrix",
+  "source_clinical_qc_note": "The source study reports excluding five CSF and one plasma profiles by sequencing QC. The authors' archived Quality controls.R constructs meta_good after these exclusions and writes the 159-profile Supplementary Data matrix from meta_good; all 159 public-matrix profiles are therefore author-QC-retained, while the six excluded profiles are absent.",
   "interpretation": {
     "supported_claim": "technical portability and domain-shift audit",
     "not_supported_claims": [
@@ -121,463 +122,528 @@
       "median_OMPFC_network_score": 0.8687971889397383
     }
   ],
-  "independent_tumour_control_tests": [
+  "profile_level_tumour_control_tests": [
     {
       "fluid": "CSF",
       "comparison": "tumour_vs_control",
       "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
+      "inference_scope": "exploratory profile-level diagnostic; patient clustering unavailable",
       "metric": "atlas_fit_score",
       "n_tumour": 59,
       "n_control": 18,
       "median_tumour": 0.8719934448946052,
       "median_control": 0.8708486336988739,
       "median_difference_tumour_minus_control": 0.0011448111957312879,
-      "bootstrap_ci95_low": -0.0011437645227714288,
-      "bootstrap_ci95_high": 0.003576699395365508,
       "mann_whitney_u": 614.0,
       "raw_p": 0.3207258178124601,
       "cliffs_delta": 0.15630885122410546,
-      "bh_fdr": 0.7220518354631562
+      "bh_fdr": 0.7220518354631562,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "comparison": "tumour_vs_control",
       "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
+      "inference_scope": "exploratory profile-level diagnostic; patient clustering unavailable",
       "metric": "network_margin",
       "n_tumour": 59,
       "n_control": 18,
       "median_tumour": 0.001570004932965774,
       "median_control": 0.0015933200210334064,
       "median_difference_tumour_minus_control": -2.3315088067632495e-05,
-      "bootstrap_ci95_low": -0.00021802431716932968,
-      "bootstrap_ci95_high": 0.0001607691478434482,
       "mann_whitney_u": 472.0,
       "raw_p": 0.4813678903087708,
       "cliffs_delta": -0.1111111111111111,
-      "bh_fdr": 0.7220518354631562
+      "bh_fdr": 0.7220518354631562,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "comparison": "tumour_vs_control",
       "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
+      "inference_scope": "exploratory profile-level diagnostic; patient clustering unavailable",
       "metric": "network_entropy",
       "n_tumour": 59,
       "n_control": 18,
       "median_tumour": 0.9999928531958108,
       "median_control": 0.9999928168093781,
       "median_difference_tumour_minus_control": 3.638643264469721e-08,
-      "bootstrap_ci95_low": -2.5909828200998403e-07,
-      "bootstrap_ci95_high": 1.0185515962879421e-06,
       "mann_whitney_u": 566.0,
       "raw_p": 0.6779655363426264,
       "cliffs_delta": 0.06591337099811675,
-      "bh_fdr": 0.8135586436111517
+      "bh_fdr": 0.8135586436111517,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "comparison": "tumour_vs_control",
       "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
+      "inference_scope": "exploratory profile-level diagnostic; patient clustering unavailable",
       "metric": "atlas_fit_score",
       "n_tumour": 64,
       "n_control": 18,
       "median_tumour": 0.8664668889796405,
       "median_control": 0.8687971889397383,
       "median_difference_tumour_minus_control": -0.0023302999600978147,
-      "bootstrap_ci95_low": -0.009558679768115641,
-      "bootstrap_ci95_high": 0.005569357212594038,
       "mann_whitney_u": 495.0,
       "raw_p": 0.3671509987438051,
       "cliffs_delta": -0.140625,
-      "bh_fdr": 0.7220518354631562
+      "bh_fdr": 0.7220518354631562,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "comparison": "tumour_vs_control",
       "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
+      "inference_scope": "exploratory profile-level diagnostic; patient clustering unavailable",
       "metric": "network_margin",
       "n_tumour": 64,
       "n_control": 18,
       "median_tumour": 0.0008941649058279433,
       "median_control": 0.0007716403275576655,
       "median_difference_tumour_minus_control": 0.00012252457827027774,
-      "bootstrap_ci95_low": -0.00048171118311157723,
-      "bootstrap_ci95_high": 0.00047983105288024186,
       "mann_whitney_u": 572.0,
       "raw_p": 0.968723210022917,
       "cliffs_delta": -0.006944444444444444,
-      "bh_fdr": 0.968723210022917
+      "bh_fdr": 0.968723210022917,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "comparison": "tumour_vs_control",
       "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
+      "inference_scope": "exploratory profile-level diagnostic; patient clustering unavailable",
       "metric": "network_entropy",
       "n_tumour": 64,
       "n_control": 18,
       "median_tumour": 0.9999917221771997,
       "median_control": 0.9999923615931654,
       "median_difference_tumour_minus_control": -6.394159657308052e-07,
-      "bootstrap_ci95_low": -1.7632367040887331e-06,
-      "bootstrap_ci95_high": 5.191786291991463e-07,
       "mann_whitney_u": 487.0,
       "raw_p": 0.3214683571764091,
       "cliffs_delta": -0.1545138888888889,
-      "bh_fdr": 0.7220518354631562
+      "bh_fdr": 0.7220518354631562,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     }
   ],
   "minimum_bh_fdr": 0.7220518354631562,
+  "minimum_bh_fdr_interpretation": "minimum nominal BH-adjusted profile-level P; not patient-level FDR control",
   "marker_correlations": [
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "PF4",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": 0.14966757681598253,
       "raw_p": 0.19388290355946441,
       "status": "estimated",
-      "bh_fdr": 0.23862511207318698
+      "bh_fdr": 0.23862511207318698,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "PPBP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": 0.025367168434563155,
       "raw_p": 0.8266575631578911,
       "status": "estimated",
-      "bh_fdr": 0.8533239361629843
+      "bh_fdr": 0.8533239361629843,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "RGS18",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.04262174294226209,
       "raw_p": 0.7128327824474275,
       "status": "estimated",
-      "bh_fdr": 0.7603549679439227
+      "bh_fdr": 0.7603549679439227,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "GP9",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.2755432378485742,
       "raw_p": 0.015287840401873073,
       "status": "estimated",
-      "bh_fdr": 0.02574794172947044
+      "bh_fdr": 0.02574794172947044,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "ITGA2B",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.07985499381126286,
       "raw_p": 0.48996336280429104,
       "status": "estimated",
-      "bh_fdr": 0.5599581289191897
+      "bh_fdr": 0.5599581289191897,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "TUBB1",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": 0.07416876323761597,
       "raw_p": 0.5214792018212119,
       "status": "estimated",
-      "bh_fdr": 0.5754253261475442
+      "bh_fdr": 0.5754253261475442,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "SELP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.24283610202073763,
       "raw_p": 0.03333802890447056,
       "status": "estimated",
-      "bh_fdr": 0.046383344562741645
+      "bh_fdr": 0.046383344562741645,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "platelet-associated",
       "marker": "NRGN",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.3996195824679881,
       "raw_p": 0.0003175539274451753,
       "status": "estimated",
-      "bh_fdr": 0.000781671206018893
+      "bh_fdr": 0.000781671206018893,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "CD9",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.2099404519013592,
       "raw_p": 0.06686672145723278,
       "status": "estimated",
-      "bh_fdr": 0.08915562860964371
+      "bh_fdr": 0.08915562860964371,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "CD63",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.4760558156071143,
       "raw_p": 1.2087385432893904e-05,
       "status": "estimated",
-      "bh_fdr": 4.8349541731575615e-05
+      "bh_fdr": 4.8349541731575615e-05,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "CD81",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.2891521788932971,
       "raw_p": 0.010755838978696055,
       "status": "estimated",
-      "bh_fdr": 0.020246285136369044
+      "bh_fdr": 0.020246285136369044,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "TSG101",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.4118870945943128,
       "raw_p": 0.00019778784669524722,
       "status": "estimated",
-      "bh_fdr": 0.0005753828267498101
+      "bh_fdr": 0.0005753828267498101,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "PDCD6IP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.40192300739076764,
       "raw_p": 0.0002909444407879813,
       "status": "estimated",
-      "bh_fdr": 0.0007758518421012835
+      "bh_fdr": 0.0007758518421012835,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "SDCBP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.4401880251538668,
       "raw_p": 6.17519267437195e-05,
       "status": "estimated",
-      "bh_fdr": 0.0001976061655799024
+      "bh_fdr": 0.0001976061655799024,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "FLOT1",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.3589515127842212,
       "raw_p": 0.0013467615360236594,
       "status": "estimated",
-      "bh_fdr": 0.0028730912768504735
+      "bh_fdr": 0.0028730912768504735,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "CSF",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "FLOT2",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 77,
       "spearman_rho": -0.2516466351364052,
       "raw_p": 0.02726299243860733,
       "status": "estimated",
-      "bh_fdr": 0.03965526172888339
+      "bh_fdr": 0.03965526172888339,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "PF4",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": 0.43377001236756346,
       "raw_p": 4.679496522350793e-05,
       "status": "estimated",
-      "bh_fdr": 0.00016638209857247263
+      "bh_fdr": 0.00016638209857247263,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "PPBP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": 0.3754312643528041,
       "raw_p": 0.000509830441655606,
       "status": "estimated",
-      "bh_fdr": 0.0011653267237842423
+      "bh_fdr": 0.0011653267237842423,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "RGS18",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.31607881206545524,
       "raw_p": 0.003817871707362874,
       "status": "estimated",
-      "bh_fdr": 0.007635743414725748
+      "bh_fdr": 0.007635743414725748,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "GP9",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": 0.012563771948652094,
       "raw_p": 0.9108015168532438,
       "status": "estimated",
-      "bh_fdr": 0.9108015168532438
+      "bh_fdr": 0.9108015168532438,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "ITGA2B",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.2691799039939117,
       "raw_p": 0.014468131136340913,
       "status": "estimated",
-      "bh_fdr": 0.02572112202016162
+      "bh_fdr": 0.02572112202016162,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "TUBB1",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": 0.18791352811015774,
       "raw_p": 0.09091273208536584,
       "status": "estimated",
-      "bh_fdr": 0.11636829706926827
+      "bh_fdr": 0.11636829706926827,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "SELP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.7164942207911386,
       "raw_p": 3.7766700780832126e-14,
       "status": "estimated",
-      "bh_fdr": 4.02844808328876e-13
+      "bh_fdr": 4.02844808328876e-13,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "platelet-associated",
       "marker": "NRGN",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": 0.25285342297512214,
       "raw_p": 0.021910641924778228,
       "status": "estimated",
-      "bh_fdr": 0.0333876448377573
+      "bh_fdr": 0.0333876448377573,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "CD9",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.6499195219387542,
       "raw_p": 3.930382265034021e-11,
       "status": "estimated",
-      "bh_fdr": 3.1443058120272166e-10
+      "bh_fdr": 3.1443058120272166e-10,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "CD63",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.09384897766782557,
       "raw_p": 0.4016684923510406,
       "status": "estimated",
-      "bh_fdr": 0.47605154649012216
+      "bh_fdr": 0.47605154649012216,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "CD81",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.5624489708049085,
       "raw_p": 3.8154565453387934e-08,
       "status": "estimated",
-      "bh_fdr": 2.4418921890168276e-07
+      "bh_fdr": 2.4418921890168276e-07,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "TSG101",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.7502788770311579,
       "raw_p": 4.923735804842346e-16,
       "status": "estimated",
-      "bh_fdr": 7.877977287747753e-15
+      "bh_fdr": 7.877977287747753e-15,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "PDCD6IP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.7895849360643759,
       "raw_p": 1.2068721435548384e-18,
       "status": "estimated",
-      "bh_fdr": 3.861990859375483e-17
+      "bh_fdr": 3.861990859375483e-17,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "SDCBP",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.48898620793747083,
       "raw_p": 3.1417810159664646e-06,
       "status": "estimated",
-      "bh_fdr": 1.675616541848781e-05
+      "bh_fdr": 1.675616541848781e-05,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "FLOT1",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.47590169651712505,
       "raw_p": 6.219944052327416e-06,
       "status": "estimated",
-      "bh_fdr": 2.8434029953496757e-05
+      "bh_fdr": 2.8434029953496757e-05,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     },
     {
       "fluid": "plasma",
       "marker_class": "extracellular-vesicle-associated",
       "marker": "FLOT2",
       "target": "OMPFC network score",
+      "inference_scope": "exploratory profile-level correlation; patient clustering unavailable",
       "n": 82,
       "spearman_rho": -0.2528720427650524,
       "raw_p": 0.02190057366453459,
       "status": "estimated",
-      "bh_fdr": 0.0333876448377573
+      "bh_fdr": 0.0333876448377573,
+      "bh_interpretation": "nominal BH-adjusted profile-level P; not patient-level FDR control"
     }
   ]
 }

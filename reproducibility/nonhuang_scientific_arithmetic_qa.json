@@ -170,7 +170,37 @@
       "check": "Current four-test sign-flip family",
       "status": "PASS",
       "value": "raw/BH values verified; none significant"
+    },
+    {
+      "check": "BraTS external provenance",
+      "status": "PASS",
+      "value": "TCIA DOI; 65 public training subjects; CC BY 3.0"
+    },
+    {
+      "check": "TCGA MRI-linked cohort scope",
+      "status": "PASS",
+      "value": "65-case linked subset labelled TCGA-LGG"
+    },
+    {
+      "check": "GSE189919 source dimensions",
+      "status": "PASS",
+      "value": "51 samples; 59,453 raw gene rows"
+    },
+    {
+      "check": "AHBA donor-resource scope",
+      "status": "PASS",
+      "value": "2 RNA-seq donors with selected matched structures; 6-donor microarray resource distinguished"
+    },
+    {
+      "check": "Non-Huang conflict ledger closure",
+      "status": "PASS",
+      "value": "10/10 classified; 0 unresolved"
+    },
+    {
+      "check": "Portable source hash semantics",
+      "status": "PASS",
+      "value": "8 source records declare canonical-text or raw-byte hashing"
     }
   ],
-  "n_checks": 34
+  "n_checks": 40
 }

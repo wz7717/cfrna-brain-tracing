@@ -7,7 +7,8 @@
     "n_csf": 77,
     "n_plasma": 82,
     "n_traceable_outputs": 159,
-    "minimum_bh_fdr": 0.7220518354631562
+    "minimum_bh_fdr": 0.7220518354631562,
+    "minimum_bh_fdr_interpretation": "minimum nominal BH-adjusted profile-level P; not patient-level FDR control"
   },
   "documents": {
     "main": {

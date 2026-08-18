@@ -3,7 +3,8 @@
   "source": {
     "path": "exact_sign_flip_tests.csv",
     "path_kind": "external_basename",
-    "sha256": "b05b954b56c425b9160e4066494fb6226bae896eb3db46b436f7399d5c4524d3"
+    "sha256": "b05b954b56c425b9160e4066494fb6226bae896eb3db46b436f7399d5c4524d3",
+    "hash_mode": "raw_bytes"
   },
   "family": "Network Top1, Network Top3, resolution-group Top3, exact-region Top3",
   "n_tests": 4,

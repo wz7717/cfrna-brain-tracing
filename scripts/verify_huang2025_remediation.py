@@ -40,7 +40,29 @@ FORBIDDEN_MANUSCRIPT_STRINGS = [
     "all 77 mixtures",
     "The separate matched CSF-plasma mixture analysis",
     "minimum p=0.304",
+    "independent fluid-specific cohorts",
+    "six independent tumour-control tests",
+    "does not attempt to reproduce the source study’s QC-filtered clinical analysis",
+    "all 159 profiles available in the published matrix were considered here for technical transfer auditing",
+    "six fluid-specific independent-sample tumour-control diagnostics",
+    "yielding 231 independent tissue samples",
+    "231 independent tissues",
+    "231 independent RNA-seq tissue samples",
+    "analysed as independent fluid-specific cohorts",
+    "independent fluid cohorts",
+    "analysed independently",
+    "159 independent profiles",
+    "descriptive independent-sample summaries",
+    "descriptive independent-sample binomial intervals",
+    "descriptive independent-cohort output distributions",
+    "independent-fluid domain-shift audit",
+    "AHBA sample cascade.",
+    "through two sequential filters",
+    "78.32%",
+    "66 of 446",
+    "14.8%",
 ]
+EXPECTED_SOURCE_QC_STATUS = "retained_in_author_qc_filtered_public_matrix"
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -118,10 +140,40 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
     require(summary.get("n_traceable_outputs") == 159, "Not all 159 outputs are traceable.", errors)
     require(summary.get("patient_paired_analysis") == "NOT_SUPPORTED", "Paired analysis guardrail missing.", errors)
     require(summary.get("synthetic_matched_admixture") == "REMOVED_FROM_CANONICAL_ANALYSIS", "Synthetic-mixture retirement guardrail missing.", errors)
+    require(summary.get("source_qc_status") == EXPECTED_SOURCE_QC_STATUS, "Summary source-QC status is incorrect.", errors)
 
     manifest = json.loads(
         (outdir / "huang_2025_audit_manifest.json").read_text(encoding="utf-8")
     )
+    source = manifest.get("source", {})
+    require(source.get("source_qc_status") == EXPECTED_SOURCE_QC_STATUS, "Manifest source-QC status is incorrect.", errors)
+    require(
+        source.get("matrix_scale_interpretation")
+        == "article labels the matrix log-transformed RPM; author code computes reads/trimmed_reads*1e6 in CPM and exports log2(CPM+1); treated as log2(per-million+1) and converted to ln(per-million+1) by multiplying by ln(2)",
+        "Manifest matrix-scale interpretation does not reconcile the article's RPM and code's CPM nomenclature.",
+        errors,
+    )
+    require(
+        source.get("matrix_scale_source", {}).get("source_expression")
+        == "log2CPM <- log2(CPM + 1)",
+        "Manifest matrix-scale source expression is incorrect.",
+        errors,
+    )
+    require(
+        source.get("matrix_scale_source", {}).get("article_scale_label")
+        == "log-transformed RPM"
+        and source.get("matrix_scale_source", {}).get("code_normalization")
+        == "CPM <- apply(cfRNA_good, 1, function(x) x/trimmedreads*1e6)"
+        and source.get("matrix_scale_source", {}).get("export_filename")
+        == "BrainTumor_cfRNA_log2RPM_good_samples.csv",
+        "Manifest does not preserve the source's RPM/CPM nomenclature evidence.",
+        errors,
+    )
+    source_qc_evidence = source.get("source_qc_evidence", {})
+    require(source_qc_evidence.get("code_doi") == "10.5281/zenodo.14869536", "Manifest source-QC code DOI is incorrect.", errors)
+    require(source_qc_evidence.get("file") == "code/Quality controls/Quality controls.R", "Manifest source-QC code path is incorrect.", errors)
+    retained_counts = source_qc_evidence.get("retained_group_counts", {})
+    require(sum(retained_counts.values()) == 159 if retained_counts else False, "Manifest retained source-QC counts do not sum to 159.", errors)
 
     for asset in manifest.get("model_assets", []) + manifest.get("input_assets", []):
         asset_path = str(asset.get("path", ""))
@@ -162,10 +214,62 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
     require(all(row["patient_id_status"] == "unknown_not_supplied_in_public_expression_matrix" for row in ledger), "Ledger patient-id status is inconsistent.", errors)
     require(all(as_bool(row["expression_available"]) for row in ledger), "Some ledger profiles lack expression availability.", errors)
     require(all(as_bool(row["BrainTrace_output_available"]) for row in ledger), "Some ledger profiles lack BrainTrace output availability.", errors)
+    require(all(row["source_QC_status_if_known"] == EXPECTED_SOURCE_QC_STATUS for row in ledger), "Ledger does not mark every public profile as author-QC-retained.", errors)
+    require(all("author-QC-retained" in row["source_QC_note"] for row in ledger), "Ledger source-QC note is incomplete.", errors)
+    require(all("not_publicly_mapped_per_profile" not in row["source_QC_status_if_known"] for row in ledger), "Retired unknown-QC status remains in the ledger.", errors)
+
+    sample_outputs = read_csv(outdir / "huang_2025_sample_outputs.csv")
+    require(len(sample_outputs) == 159, "Sample-output table does not contain exactly 159 profiles.", errors)
+    require(
+        all(row["input_scale"] == "source_log2_per_million_plus1_times_ln2" for row in sample_outputs),
+        "Sample-output table does not use the neutral per-million input-scale label.",
+        errors,
+    )
 
     comparisons = read_csv(outdir / "huang_2025_tumour_control_comparisons.csv")
     require(len(comparisons) == 6, "Expected six tumour-control tests.", errors)
+    require(
+        all("bootstrap_ci95_low" not in row and "bootstrap_ci95_high" not in row for row in comparisons),
+        "Naive profile-resampling confidence intervals remain despite unavailable patient clustering.",
+        errors,
+    )
     require(all(row["test"] == "two-sided Mann-Whitney U (profile-level; pairing unavailable)" for row in comparisons), "Unexpected tumour-control test label was found.", errors)
+    require(
+        all(row["inference_scope"] == "exploratory profile-level diagnostic; patient clustering unavailable" for row in comparisons)
+        and all(row["bh_interpretation"] == "nominal BH-adjusted profile-level P; not patient-level FDR control" for row in comparisons),
+        "Tumour-control nominal-P interpretation is incomplete.",
+        errors,
+    )
+    require("independent_tumour_control_tests" not in summary, "Summary retains an unsupported independence label.", errors)
+    require(
+        manifest.get("provenance_guardrails", {}).get("profile_resampling_confidence_intervals")
+        == "NOT_REPORTED_PATIENT_CLUSTERING_UNAVAILABLE",
+        "Manifest does not retire unsupported profile-resampling confidence intervals.",
+        errors,
+    )
+    require(
+        manifest.get("provenance_guardrails", {}).get("nominal_profile_p_values")
+        == "DESCRIPTIVE_ONLY_NOT_PATIENT_LEVEL_FDR_CONTROL"
+        and summary.get("minimum_bh_fdr_interpretation")
+        == "minimum nominal BH-adjusted profile-level P; not patient-level FDR control",
+        "Manifest/summary does not constrain nominal profile-level P values to descriptive use.",
+        errors,
+    )
+    summary_csv = read_csv(outdir / "huang_2025_canonical_summary.csv")
+    require(len(summary_csv) == 1, "Canonical summary CSV must contain exactly one row.", errors)
+    require(
+        len(summary_csv) == 1
+        and summary_csv[0].get("minimum_bh_fdr_interpretation")
+        == "minimum nominal BH-adjusted profile-level P; not patient-level FDR control",
+        "Canonical summary CSV does not constrain nominal profile-level P values to descriptive use.",
+        errors,
+    )
+    require(
+        isinstance(summary.get("profile_level_tumour_control_tests"), list)
+        and len(summary["profile_level_tumour_control_tests"]) == 6,
+        "Summary does not contain exactly six profile-level tumour-control comparisons.",
+        errors,
+    )
     require({int(row["n_tumour"]) for row in comparisons} == {59, 64}, "Tumour denominators must be 59 and 64.", errors)
     require({int(row["n_control"]) for row in comparisons} == {18}, "Control denominator must be 18.", errors)
     fdrs = [float(row["bh_fdr"]) for row in comparisons]
@@ -181,6 +285,12 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
     require(
         all(row["status"] == "estimated" for row in correlations),
         "A Huang marker correlation is not estimable.",
+        errors,
+    )
+    require(
+        all(row["inference_scope"] == "exploratory profile-level correlation; patient clustering unavailable" for row in correlations)
+        and all(row["bh_interpretation"] == "nominal BH-adjusted profile-level P; not patient-level FDR control" for row in correlations),
+        "Marker-correlation nominal-P interpretation is incomplete.",
         errors,
     )
     require(
@@ -205,9 +315,13 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
         require(forbidden not in main_text and forbidden not in supp_text, f"Forbidden legacy wording remains: {forbidden!r}", errors)
     required_text = [
         "77 CSF and 82 plasma",
-        "No patient-level CSF-plasma correspondence was assumed.",
-        "minimum BH-FDR=0.722052",
-        "159/159 traceable",
+        "No patient-level CSF-plasma correspondence was assumed",
+        "minimum nominal BH-adjusted profile-level P of 0.722052",
+        "159/159 author-QC-retained profiles traceable",
+        "author-QC-retained",
+        "excluded five CSF and one plasma profiles are absent",
+        "replicate-collapsed tissue records from two donors",
+        "Canonical accounting is endpoint-specific, not a unique sequential attrition pipeline",
     ]
     merged_text = main_text + "\n" + supp_text
     for phrase in required_text:
@@ -233,6 +347,7 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
             "n_plasma": summary.get("n_plasma"),
             "n_traceable_outputs": summary.get("n_traceable_outputs"),
             "minimum_bh_fdr": summary.get("minimum_bh_fdr"),
+            "minimum_bh_fdr_interpretation": summary.get("minimum_bh_fdr_interpretation"),
         },
         "documents": documents,
     }

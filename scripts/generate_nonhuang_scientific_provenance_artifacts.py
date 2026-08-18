@@ -31,21 +31,37 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def canonical_text_sha256(path: Path) -> str:
+    """Hash UTF-8 text after newline canonicalization for cross-platform runs."""
+
+    text = path.read_text(encoding="utf-8")
+    canonical = text.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
 def source_record(path: Path) -> dict[str, str]:
     # Store a portable locator plus SHA-256; never persist machine-local paths.
     resolved = path.resolve()
+    hash_mode = "raw_bytes"
     try:
         locator = resolved.relative_to(REPO_ROOT.resolve()).as_posix()
         path_kind = "repository_relative"
+        if path.suffix.lower() in {".csv", ".json", ".md", ".tsv", ".txt"}:
+            hash_mode = "utf8_lf_canonical_text"
     except ValueError:
         locator = path.name
         path_kind = "external_basename"
-    return {"path": locator, "path_kind": path_kind, "sha256": sha256(path)}
+    digest = canonical_text_sha256(path) if hash_mode == "utf8_lf_canonical_text" else sha256(path)
+    return {"path": locator, "path_kind": path_kind, "sha256": digest, "hash_mode": hash_mode}
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def boolean_series(series: pd.Series) -> pd.Series:
@@ -212,7 +228,7 @@ def build_ahba_endpoint_ledger(sample_detail: Path, output_dir: Path) -> dict[st
     }
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    ledger.to_csv(output_dir / "ahba_endpoint_evaluability_ledger.csv", index=False)
+    ledger.to_csv(output_dir / "ahba_endpoint_evaluability_ledger.csv", index=False, lineterminator="\n")
     write_json(output_dir / "ahba_endpoint_evaluability_summary.json", summary)
     return summary
 
@@ -298,7 +314,9 @@ def build_tcga_truth_basis_summary(sample_detail: Path, output_dir: Path) -> dic
         "range_across_truth_bases_percentage_points": ranges,
     }
     output_dir.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(rows).to_csv(output_dir / "tcga_brats_truth_basis_top3_summary.csv", index=False)
+    pd.DataFrame(rows).to_csv(
+        output_dir / "tcga_brats_truth_basis_top3_summary.csv", index=False, lineterminator="\n"
+    )
     write_json(output_dir / "tcga_brats_truth_basis_top3_summary.json", summary)
     return summary
 
@@ -459,7 +477,7 @@ def build_sign_flip_current_family(sign_flip_source: Path, output_dir: Path) -> 
         row["significant_bh_0_05"] = bh_p < 0.05
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(rows).to_csv(output_dir / "sign_flip_current_family.csv", index=False)
+    pd.DataFrame(rows).to_csv(output_dir / "sign_flip_current_family.csv", index=False, lineterminator="\n")
     summary = {
         "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
         "source": source_record(sign_flip_source),
@@ -500,6 +518,15 @@ def build_conflict_ledger(
             "notes": "Endpoint-specific eligibility is not a unique sequential attrition pipeline.",
         },
         {
+            "issue": "AHBA donor-resource scope",
+            "current_repository_statement": "The RNA-seq provenance table described six total donors and four exclusions.",
+                "recomputed_value": "2 RNA-seq donors with a selected set of matched anatomical structures; the distinct AHBA microarray resource contains 6 donors",
+            "authoritative_source": "https://human.brain-map.org/static/download",
+            "action": "Separated the RNA-seq and microarray donor counts in the detailed provenance table.",
+            "status": "FIXED_STALE_VALUE",
+            "notes": "The canonical 231-tissue AHBA endpoint audit uses the two-donor RNA-seq resource.",
+        },
+        {
             "issue": "TCGA/BraTS primary edema comparator",
             "current_repository_statement": "The audit script reported edema n=64.",
             "recomputed_value": f"edema n={tcga['primary_edema_comparator']['n']}; exclusions={tcga['primary_edema_comparator']['excluded_cases']}",
@@ -523,6 +550,33 @@ def build_conflict_ledger(
             "action": "Added source-derived strict truth-basis summary and synchronized current documentation.",
             "status": "DOCUMENTATION_SYNC",
             "notes": "Broad range is computed from 32/65, 45/65, 52/63, and 46/65.",
+        },
+        {
+            "issue": "TCGA MRI-linked cohort label",
+            "current_repository_statement": "The 65 MRI-linked expression cases were labelled TCGA-GBM / TCGA-LGG.",
+            "recomputed_value": "65 TCGA-LGG expression cases linked to the BraTS-TCGA-LGG training cohort",
+            "authoritative_source": "https://www.cancerimagingarchive.net/analysis-result/brats-tcga-lgg/",
+            "action": "Narrowed the table label and role to the actual MRI-linked TCGA-LGG subset.",
+            "status": "FIXED_STALE_VALUE",
+            "notes": "Legacy filenames retain the broader tcga_gbm_lgg stem but do not change the linked cohort identity.",
+        },
+        {
+            "issue": "BraTS-TCGA-LGG external provenance",
+            "current_repository_statement": "The dataset was linked to Zenodo DOI 10.5281/zenodo.3718921 and described as CC BY 4.0.",
+            "recomputed_value": "TCIA DOI 10.7937/K9/TCIA.2017.GJQ7R0EF; 65-subject public training set under CC BY 3.0; separate 43-subject test set controlled",
+            "authoritative_source": "https://www.cancerimagingarchive.net/analysis-result/brats-tcga-lgg/",
+            "action": "Replaced the deleted-spam Zenodo record with the TCIA dataset DOI and corrected access/licensing.",
+            "status": "FIXED_STALE_VALUE",
+            "notes": "The TCIA analysis-result container reports 108 subjects overall.",
+        },
+        {
+            "issue": "GSE189919 matrix row count",
+            "current_repository_statement": "The source table reported 72,108 expression rows.",
+            "recomputed_value": "51 samples and 59,453 raw gene rows in each official GEO count/TPM matrix; 15,622/21,668 frozen-projector genes overlap",
+            "authoritative_source": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189919",
+            "action": "Counted the official GEO matrices and corrected the source-table row count.",
+            "status": "FIXED_STALE_VALUE",
+            "notes": "The 15,622-gene overlap was independently recomputed and remains unchanged.",
         },
         {
             "issue": "Orthology/humanization denominator unit",
@@ -573,7 +627,7 @@ def build_conflict_ledger(
             "notes": "None significant after BH correction.",
         },
     ]
-    pd.DataFrame(rows).to_csv(output_path, index=False)
+    pd.DataFrame(rows).to_csv(output_path, index=False, lineterminator="\n")
 
 
 def parser() -> argparse.ArgumentParser:

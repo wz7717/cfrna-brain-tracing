@@ -3,7 +3,8 @@
   "source": {
     "path": "brats_tcga_lgg_65_mri_truth_and_predictions.csv",
     "path_kind": "external_basename",
-    "sha256": "00c0bf6751f3853edf2431d914c2e9d1d55ecfa7eb99924bde28a6d43dc61c96"
+    "sha256": "00c0bf6751f3853edf2431d914c2e9d1d55ecfa7eb99924bde28a6d43dc61c96",
+    "hash_mode": "raw_bytes"
   },
   "total_paired_cases": 65,
   "primary_edema_comparator": {

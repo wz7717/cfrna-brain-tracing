@@ -3,7 +3,8 @@
   "source": {
     "path": "ahba_formal_three_tier_sample_detail.csv",
     "path_kind": "external_basename",
-    "sha256": "82eb3ead890058b18599f4bcf5a77f0c352626f8e3a3f18eecf7a14210654515"
+    "sha256": "82eb3ead890058b18599f4bcf5a77f0c352626f8e3a3f18eecf7a14210654515",
+    "hash_mode": "raw_bytes"
   },
   "canonical_route": "hybrid_projected_network_logcpm_exact",
   "unit": "replicate-collapsed AHBA tissue sample",

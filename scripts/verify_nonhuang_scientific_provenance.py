@@ -174,6 +174,81 @@ def check_sign_flip(root: Path, checks: list[dict[str, str]]) -> None:
     checks.append({"check": "Current four-test sign-flip family", "status": "PASS", "value": "raw/BH values verified; none significant"})
 
 
+def check_external_provenance(root: Path, checks: list[dict[str, str]]) -> None:
+    provenance = (root / "DATA_PROVENANCE.md").read_text(encoding="utf-8")
+    require("10.7937/K9/TCIA.2017.GJQ7R0EF" in provenance, "correct TCIA DOI is absent")
+    require("10.5281/zenodo.3718921" not in provenance, "deleted-spam BraTS DOI remains")
+    require("CC BY 3.0" in provenance and "65 public training-set MRI cases" in provenance, "BraTS licensing/count is stale")
+    checks.append({"check": "BraTS external provenance", "status": "PASS", "value": "TCIA DOI; 65 public training subjects; CC BY 3.0"})
+
+    require("TCGA-LGG MRI-linked expression subset" in provenance, "MRI-linked TCGA cohort remains over-broad")
+    checks.append({"check": "TCGA MRI-linked cohort scope", "status": "PASS", "value": "65-case linked subset labelled TCGA-LGG"})
+
+    require("59,453 raw gene rows" in provenance, "GSE189919 row count is absent")
+    require("72,108 expression rows" not in provenance, "stale GSE189919 row count remains")
+    checks.append({"check": "GSE189919 source dimensions", "status": "PASS", "value": "51 samples; 59,453 raw gene rows"})
+
+    detailed = (root / "reproducibility" / "DATA_PROVENANCE.md").read_text(encoding="utf-8")
+    require("2 RNA-seq donors with a selected set of matched anatomical structures" in detailed, "AHBA RNA-seq scope is stale")
+    require("both with whole-brain coverage" not in detailed, "unsupported AHBA RNA-seq whole-brain claim remains")
+    require("6 total; 2 with whole-brain coverage" not in detailed, "AHBA microarray/RNA-seq donor conflation remains")
+    require("65-subject processed training set public (CC BY 3.0); separate 43-subject test arm controlled" in detailed, "BraTS public/controlled access summary is over-broad")
+    require("HRA007247" in detailed and "underlying sequencing data controlled" in detailed, "Huang public/controlled access summary is over-broad")
+    require("All 10 supplementary CSV files" not in detailed, "stale ten-file generation claim remains")
+    require("scripts/generate_nonhuang_scientific_provenance_artifacts.py" in detailed, "candidate provenance generator is undocumented")
+    ahba_trace_text = "\n".join(
+        (root / path).read_text(encoding="utf-8")
+        for path in (
+            "reproducibility/generate_all_csvs.py",
+            "reproducibility/v4_p0_5_ahba_trace.csv",
+            "reproducibility/v4_p0_5_ahba_trace_manuscript_aligned.csv",
+        )
+    )
+    require("whole-brain" not in ahba_trace_text, "historical AHBA trace retains unsupported whole-brain wording")
+    require("4 of 6 AHBA donors excluded" not in ahba_trace_text, "historical AHBA trace invents an RNA-seq donor-exclusion cascade")
+    require("selected matched" in ahba_trace_text, "historical AHBA trace lacks the supported matched-structure scope")
+    checks.append({"check": "AHBA donor-resource scope", "status": "PASS", "value": "2 RNA-seq donors with selected matched structures; 6-donor microarray resource distinguished"})
+
+    ledger = load_csv(root / "NONHUANG_SCIENTIFIC_CONFLICT_LEDGER.csv")
+    require(len(ledger) == 10, "conflict ledger does not contain all ten audited issues")
+    require(all(row["status"] != "UNRESOLVED" for row in ledger), "conflict ledger contains an unresolved issue")
+    require(
+        not any("whole-brain coverage" in row["recomputed_value"] for row in ledger)
+        and any("selected set of matched anatomical structures" in row["recomputed_value"] for row in ledger),
+        "conflict ledger retains unsupported AHBA whole-brain coverage wording",
+    )
+    checks.append({"check": "Non-Huang conflict ledger closure", "status": "PASS", "value": "10/10 classified; 0 unresolved"})
+
+
+def check_source_hash_modes(root: Path, checks: list[dict[str, str]]) -> None:
+    paths = [
+        root / "reproducibility" / "ahba" / "ahba_endpoint_evaluability_summary.json",
+        root / "reproducibility" / "orthology_humanization_summary.json",
+        root / "reproducibility" / "sign_flip_current_family.json",
+        root / "reproducibility" / "tcga_brats_truth_basis_top3_summary.json",
+        root / "reproducibility" / "tier_cascade_loso_summary.json",
+    ]
+
+    records: list[dict[str, Any]] = []
+
+    def collect(value: Any) -> None:
+        if isinstance(value, dict):
+            if "sha256" in value:
+                records.append(value)
+            for child in value.values():
+                collect(child)
+        elif isinstance(value, list):
+            for child in value:
+                collect(child)
+
+    for path in paths:
+        collect(load_json(path))
+    require(records, "no generated source-hash records found")
+    allowed = {"utf8_lf_canonical_text", "raw_bytes"}
+    require(all(record.get("hash_mode") in allowed for record in records), "a source hash lacks an explicit hash mode")
+    checks.append({"check": "Portable source hash semantics", "status": "PASS", "value": f"{len(records)} source records declare canonical-text or raw-byte hashing"})
+
+
 def run_checks(root: Path) -> dict[str, Any]:
     checks: list[dict[str, str]] = []
     check_ahba(root, checks)
@@ -181,6 +256,8 @@ def run_checks(root: Path) -> dict[str, Any]:
     check_orthology(root, checks)
     check_tier(root, checks)
     check_sign_flip(root, checks)
+    check_external_provenance(root, checks)
+    check_source_hash_modes(root, checks)
     return {"status": "PASS", "checks": checks, "n_checks": len(checks)}
 
 
@@ -192,7 +269,11 @@ def main() -> int:
     payload = run_checks(args.repo_root.resolve())
     if args.write_json:
         args.write_json.parent.mkdir(parents=True, exist_ok=True)
-        args.write_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        args.write_json.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
 

@@ -246,12 +246,12 @@ MACRO_F1_DATA_FILE = "macro_f1_class_data.json"  # Generated from confusion matr
 # --- Historical AHBA engineering trace (not endpoint accounting) ---
 AHBA_TRACE_CLASSIFICATION = "HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER"
 AHBA_TRACE_STEPS = [
-    {"step": "1", "description": "Initial AHBA samples from 2 whole-brain donors (4 of 6 AHBA donors excluded for incomplete coverage)",
+    {"step": "1", "description": "Initial AHBA RNA-seq tissue records from 2 donors in the selected matched-structure resource",
      "count_in": 231, "count_out": 231, "excluded": 0,
-     "reason": "2 donors with whole-brain structural sampling retained"},
+     "reason": "The official RNA-seq resource contains 2 donors and selected matched anatomical structures"},
     {"step": "2", "description": "Collapse technical replicates (sibling samples by donor + tissue ID)",
      "count_in": 231, "count_out": 231, "excluded": 0,
-     "reason": "Raw-count summation before logCPM; 231 already independent tissues post-collapse"},
+     "reason": "Raw-count summation before logCPM; 231 replicate-collapsed tissue records from the 2 RNA-seq donors"},
     {"step": "3", "description": "Map AHBA structure names to Bo2023 region ontology",
      "count_in": 231, "count_out": 223, "excluded": 8,
      "reason": "8 samples without valid Network mapping excluded"},
@@ -533,9 +533,9 @@ def generate_ahba_trace(output_dir: Path) -> str:
 def generate_ahba_trace_aligned(output_dir: Path) -> str:
     """Generate a retained historical manuscript-aligned engineering trace."""
     aligned_steps = [
-        {"step": "1", "description": "AHBA independent tissue samples (post technical-replicate collapse, 2 whole-brain donors)",
+        {"step": "1", "description": "AHBA RNA-seq tissue records (post technical-replicate collapse; 2 donors; selected matched structures)",
          "count_in": 231, "count_out": 231, "excluded": 0,
-         "reason": "6 AHBA donors; 4 excluded for incomplete coverage; 2 retained; technical replicates collapsed by donor+tissue ID"},
+         "reason": "The official RNA-seq resource contains 2 donors and selected matched anatomical structures; technical replicates collapsed by donor+tissue ID"},
         {"step": "2", "description": "Network-qualified subset (valid Network mapping)",
          "count_in": 231, "count_out": 223, "excluded": 8,
          "reason": "8 samples without valid Network mapping"},

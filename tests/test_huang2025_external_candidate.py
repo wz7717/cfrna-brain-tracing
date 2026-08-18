@@ -3,6 +3,7 @@ from __future__ import annotations
 import inspect
 import json
 import math
+import zipfile
 from pathlib import Path
 
 import numpy as np
@@ -36,15 +37,35 @@ def test_parse_sample_id_rejects_unknown_contract() -> None:
         huang.parse_sample_id("GBM_CSF1")
 
 
-def test_log2_rpm_conversion_is_exact_scale_change() -> None:
+def test_log2_per_million_conversion_is_exact_scale_change() -> None:
     source = np.array([0.0, 1.0, 2.0, 3.5])
-    converted = huang.source_log2_rpm_to_log1p_rpm(source)
+    converted = huang.source_log2_per_million_to_ln1p_per_million(source)
     np.testing.assert_allclose(converted, source * math.log(2.0), rtol=1e-7)
 
 
-def test_log2_rpm_conversion_rejects_negative_values() -> None:
+def test_log2_per_million_conversion_rejects_negative_values() -> None:
     with pytest.raises(ValueError, match="negative"):
-        huang.source_log2_rpm_to_log1p_rpm(np.array([0.0, -0.1]))
+        huang.source_log2_per_million_to_ln1p_per_million(np.array([0.0, -0.1]))
+
+
+def test_source_asset_validation_requires_exact_complete_workbook(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    matrix = tmp_path / "matrix.csv"
+    matrix.write_text("gene,sample\nA,0\n", encoding="utf-8", newline="\n")
+    monkeypatch.setattr(huang, "EXPECTED_INPUT_CSV_SHA256", huang.sha256_file(matrix))
+
+    workbook = tmp_path / "source.xlsb"
+    with zipfile.ZipFile(workbook, "w") as archive:
+        archive.writestr("[Content_Types].xml", "<Types/>")
+        archive.writestr("xl/workbook.bin", b"workbook")
+    monkeypatch.setattr(huang, "EXPECTED_SOURCE_XLSB_SHA256", huang.sha256_file(workbook))
+    huang.validate_source_assets(matrix, workbook)
+
+    truncated = tmp_path / "truncated.xlsb"
+    truncated.write_bytes(b"PK\x03\x04incomplete")
+    with pytest.raises(ValueError, match="complete ZIP-based Office workbook"):
+        huang.validate_source_assets(matrix, truncated)
 
 
 def test_benjamini_hochberg_is_monotone_by_p_value() -> None:
@@ -55,8 +76,13 @@ def test_benjamini_hochberg_is_monotone_by_p_value() -> None:
     assert all(p <= q <= 1.0 for p, q in zip(p_values, adjusted))
 
 
-def test_tumour_control_test_is_profile_level_when_pairing_unavailable(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(huang, "N_BOOTSTRAP", 20)
+def test_small_nonzero_p_values_are_not_displayed_as_zero() -> None:
+    assert huang.format_p_value(1.2068721435548384e-18) == "1.207e-18"
+    assert huang.format_p_value(0.000318) == "0.000318"
+    assert huang.format_p_value(float("nan")) == "NA"
+
+
+def test_tumour_control_test_is_profile_level_when_pairing_unavailable() -> None:
     rows = []
     for fluid in ("CSF", "plasma"):
         for status, offset in (("tumour", 1.0), ("control", 0.0)):
@@ -72,7 +98,15 @@ def test_tumour_control_test_is_profile_level_when_pairing_unavailable(monkeypat
                 )
     comparisons = huang.compare_tumour_control(pd.DataFrame(rows))
     assert len(comparisons) == 6
+    assert "bootstrap_ci95_low" not in comparisons.columns
+    assert "bootstrap_ci95_high" not in comparisons.columns
     assert comparisons["test"].eq("two-sided Mann-Whitney U (profile-level; pairing unavailable)").all()
+    assert comparisons["inference_scope"].eq(
+        "exploratory profile-level diagnostic; patient clustering unavailable"
+    ).all()
+    assert comparisons["bh_interpretation"].eq(
+        "nominal BH-adjusted profile-level P; not patient-level FDR control"
+    ).all()
     assert comparisons["n_tumour"].eq(3).all()
     assert comparisons["n_control"].eq(3).all()
     assert comparisons["bh_fdr"].between(0, 1).all()
@@ -80,25 +114,72 @@ def test_tumour_control_test_is_profile_level_when_pairing_unavailable(monkeypat
 
 def test_canonical_outputs_have_full_cohort_accounting() -> None:
     summary = json.loads((OUT / "huang_2025_canonical_summary.json").read_text(encoding="utf-8"))
+    summary_csv = pd.read_csv(OUT / "huang_2025_canonical_summary.csv")
+    manifest = json.loads((OUT / "huang_2025_audit_manifest.json").read_text(encoding="utf-8"))
     ledger = pd.read_csv(OUT / "huang_2025_sample_ledger.csv")
+    sample_outputs = pd.read_csv(OUT / "huang_2025_sample_outputs.csv")
     comparisons = pd.read_csv(OUT / "huang_2025_tumour_control_comparisons.csv")
 
     assert summary["protocol_status"] == "huang_2025_provenance_remediated"
     assert (summary["n_profiles"], summary["n_csf"], summary["n_plasma"]) == (159, 77, 82)
     assert summary["n_traceable_outputs"] == 159
+    assert len(summary_csv) == 1
+    assert summary_csv.loc[0, "minimum_bh_fdr_interpretation"] == (
+        "minimum nominal BH-adjusted profile-level P; not patient-level FDR control"
+    )
     assert summary["patient_paired_analysis"] == "NOT_SUPPORTED"
     assert summary["synthetic_matched_admixture"] == "REMOVED_FROM_CANONICAL_ANALYSIS"
+    assert "independent_tumour_control_tests" not in summary
+    assert len(summary["profile_level_tumour_control_tests"]) == 6
     assert len(ledger) == 159
     assert ledger["fluid"].eq("CSF").sum() == 77
     assert ledger["fluid"].eq("plasma").sum() == 82
+    assert ledger["source_QC_status_if_known"].eq(huang.SOURCE_QC_STATUS).all()
+    assert ledger["source_QC_note"].str.contains("author-QC-retained", regex=False).all()
     assert ledger["patient_id"].isna().all()
     assert ledger["patient_id_status"].eq(huang.PATIENT_ID_STATUS).all()
     assert ledger["BrainTrace_output_available"].all()
+    assert sample_outputs["input_scale"].eq("source_log2_per_million_plus1_times_ln2").all()
     assert len(comparisons) == 6
     assert set(comparisons["n_tumour"].astype(int)) == {59, 64}
     assert set(comparisons["n_control"].astype(int)) == {18}
     assert comparisons["test"].eq("two-sided Mann-Whitney U (profile-level; pairing unavailable)").all()
     assert summary["minimum_bh_fdr"] == pytest.approx(comparisons["bh_fdr"].min())
+    assert manifest["source"]["matrix_scale_source"] == {
+        "code_doi": huang.SOURCE_CODE_DOI,
+        "archive_sha256": huang.SOURCE_CODE_ARCHIVE_SHA256,
+        "file": "code/Quality controls/Quality controls.R",
+        "article_scale_label": "log-transformed RPM",
+        "code_normalization": "CPM <- apply(cfRNA_good, 1, function(x) x/trimmedreads*1e6)",
+        "source_expression": "log2CPM <- log2(CPM + 1)",
+        "export_filename": "BrainTumor_cfRNA_log2RPM_good_samples.csv",
+    }
+    assert manifest["source"]["matrix_scale_interpretation"] == (
+        "article labels the matrix log-transformed RPM; author code computes reads/trimmed_reads*1e6 "
+        "in CPM and exports log2(CPM+1); treated as log2(per-million+1) and converted to "
+        "ln(per-million+1) by multiplying by ln(2)"
+    )
+    assert manifest["source"]["source_qc_status"] == huang.SOURCE_QC_STATUS
+    assert manifest["provenance_guardrails"]["profile_resampling_confidence_intervals"] == (
+        "NOT_REPORTED_PATIENT_CLUSTERING_UNAVAILABLE"
+    )
+    assert manifest["provenance_guardrails"]["nominal_profile_p_values"] == (
+        "DESCRIPTIVE_ONLY_NOT_PATIENT_LEVEL_FDR_CONTROL"
+    )
+    assert summary["minimum_bh_fdr_interpretation"] == (
+        "minimum nominal BH-adjusted profile-level P; not patient-level FDR control"
+    )
+    assert manifest["source"]["source_qc_evidence"]["code_doi"] == huang.SOURCE_CODE_DOI
+    assert sum(manifest["source"]["source_qc_evidence"]["retained_group_counts"].values()) == 159
+    assert summary["source_qc_status"] == huang.SOURCE_QC_STATUS
+
+
+def test_huang_access_provenance_distinguishes_public_supplement_from_controlled_data() -> None:
+    provenance = (ROOT / "DATA_PROVENANCE.md").read_text(encoding="utf-8")
+    assert "no additional access restrictions" not in provenance
+    assert "Supplementary Data 1 is publicly downloadable" in provenance
+    assert "HRA007247" in provenance
+    assert "controlled access" in provenance
 
 
 def test_canonical_distribution_denominators_and_percentages_are_arithmetic() -> None:
@@ -122,6 +203,7 @@ def test_runner_source_has_no_pseudopairing_or_name_substitution() -> None:
         "paired_stability",
         "permutation_pvalue",
         "matched_csf_plasma",
+        "independent_tumour_control_tests",
     )
     assert all(token not in source for token in forbidden)
     assert "profile-level; pairing unavailable" in source
@@ -145,6 +227,7 @@ def test_canonical_output_directory_contains_no_retired_pseudopair_artifact() ->
     report = (OUT / "HUANG_2025_RESULTS.md").read_text(encoding="utf-8")
     assert "No patient-level CSF-plasma correspondence was assumed." in report
     assert "minimum p 0.304" not in report
+    assert "| 0.000000 |" not in report
 
 
 

@@ -4,12 +4,14 @@
     "exact_evaluable_detail": {
       "path": "hybrid_formal_loso_exact_region_detail.csv",
       "path_kind": "external_basename",
-      "sha256": "b221f928e6744683bea063ed612f2021af3dd167309834a59742b4b0e4350609"
+      "sha256": "b221f928e6744683bea063ed612f2021af3dd167309834a59742b4b0e4350609",
+      "hash_mode": "raw_bytes"
     },
     "group_evaluable_detail": {
       "path": "hybrid_formal_loso_resolution_group_detail.csv",
       "path_kind": "external_basename",
-      "sha256": "b67a535426a82cbdc5ec2b96a91acf2118a966e80cfec8a5d8924eccba39d430"
+      "sha256": "b67a535426a82cbdc5ec2b96a91acf2118a966e80cfec8a5d8924eccba39d430",
+      "hash_mode": "raw_bytes"
     }
   },
   "universe": "LOSO exact-evaluable sample IDs shared by exact and resolution-group detail outputs",
