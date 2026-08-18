@@ -1927,6 +1927,7 @@
     "formal_lomo_exact_route": "top3_beam_local_top50_top100_zfusion_w0p25",
     "formal_lomo_exact_route_family": "hybrid_projected_network_logcpm_exact",
     "formal_lomo_exact_truth_class_universe": true,
-    "formal_lomo_exact_micro_f1_definition": "sum integer TP / sum support = Top1 accuracy"
+    "formal_lomo_exact_micro_f1_definition": "sum integer TP / sum support = Top1 accuracy",
+    "formal_lomo_exact_origin_path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_exact_region_detail.csv"
   }
 }

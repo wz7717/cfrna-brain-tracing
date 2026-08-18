@@ -35,11 +35,15 @@ MACRO_JSON = ROOT / "reproducibility" / "macro_f1_class_data.json"
 LAMBDA_CSV = ROOT / "reproducibility" / "v4_p0_10_lambda_friedman.csv"
 BASELINE_CSV = ROOT / "reproducibility" / "formal_resolution_group_random_baselines.csv"
 BASELINE_JSON = ROOT / "reproducibility" / "formal_resolution_group_random_baselines.json"
+LOMO_INPUT_PAIRING_JSON = ROOT / "reproducibility" / "lomo_input_chain_provenance.json"
+LOMO_INPUT_PAIRING_MD = ROOT / "reproducibility" / "LOMO_INPUT_CHAIN_PROVENANCE.md"
 BENCHMARK_MANIFEST = ROOT / "reproducibility" / "formal_real_input_performance_manifest.json"
 BENCHMARK_PROVENANCE = ROOT / "reproducibility" / "formal_real_input_performance_provenance.json"
 REPORT = ROOT / "SCIENTIFIC_REMEDIATION_REPORT.md"
 QA = ROOT / "SCIENTIFIC_REMEDIATION_QA.json"
 LEDGER = ROOT / "scientific_claim_ledger.csv"
+GROUP_GENERATOR = "scripts/generate_scientific_remediation_artifacts.py"
+GROUP_GENERATOR_INPUT_BINDING = "core.resolution_group_baselines.CANONICAL_PATHS['LOMO']"
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -59,36 +63,113 @@ def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _source_chain(
+    *,
+    origin_path: str,
+    origin_sha256: str,
+    staged_path: str,
+    staged_sha256: str,
+    consumer: str,
+    binding: str,
+    staging_transform: str,
+) -> dict[str, Any]:
+    """Create an explicit, self-checking origin/staged/generator-input chain."""
+
+    return {
+        "origin": {"path": origin_path, "sha256": origin_sha256},
+        "staged": {"path": staged_path, "sha256": staged_sha256},
+        "generator_input": {
+            "path": staged_path,
+            "sha256": staged_sha256,
+            "consumer": consumer,
+            "binding": binding,
+            "equals_staged": True,
+        },
+        "staging_transform": staging_transform,
+    }
+
+
+def _assert_staged_generator_pair(label: str, chain: dict[str, Any]) -> None:
+    staged = chain["staged"]
+    generator_input = chain["generator_input"]
+    if staged["path"] != generator_input["path"]:
+        raise ValueError(f"{label} staged and generator-input paths differ")
+    if staged["sha256"] != generator_input["sha256"]:
+        raise ValueError(f"{label} staged and generator-input SHA-256 values differ")
+    if not generator_input.get("equals_staged"):
+        raise ValueError(f"{label} must declare generator input identical to staged input")
+    staged_path = ROOT / str(staged["path"])
+    if sha256_file(staged_path) != staged["sha256"]:
+        raise ValueError(f"{label} staged input SHA-256 does not match its file")
+
+
 def stage_group_sources(
     loso_source: Path | None, lomo_source: Path | None
-) -> tuple[dict[str, list[dict[str, str]]], dict[str, dict[str, str]]]:
+) -> tuple[dict[str, list[dict[str, str]]], dict[str, dict[str, Any]]]:
     """Freeze formal group prediction rows and retain their original input hashes."""
 
     previous = read_json(BASELINE_JSON) if BASELINE_JSON.exists() else {}
     previous_sources = previous.get("sources", {})
     supplied = {"LOSO": loso_source, "LOMO": lomo_source}
     staged_rows: dict[str, list[dict[str, str]]] = {}
-    sources: dict[str, dict[str, str]] = {}
+    sources: dict[str, dict[str, Any]] = {}
     for endpoint, provided in supplied.items():
         origin = provided or GROUP_DETAIL_PATHS[endpoint]
         rows, fields = load_formal_rows(origin, endpoint)
         if provided is not None:
             write_csv(GROUP_DETAIL_PATHS[endpoint], rows, fields)
             origin_sha = sha256_file(provided)
-            origin_path = f"external_source::{provided.name}"
+            origin_path = str(provided.resolve())
         else:
+            previous_source = previous_sources.get(endpoint, {})
+            if not isinstance(previous_source, dict):
+                previous_source = {}
+            previous_chain = previous_source.get("source_chain", {})
+            if not isinstance(previous_chain, dict):
+                previous_chain = {}
+            previous_origin = previous_chain.get("origin", {})
+            if not isinstance(previous_origin, dict):
+                previous_origin = {}
             origin_sha = str(
-                previous_sources.get(endpoint, {}).get("origin_sha256", sha256_file(origin))
+                previous_origin.get(
+                    "sha256", previous_source.get("origin_sha256", sha256_file(origin))
+                )
             )
             origin_path = str(
-                previous_sources.get(endpoint, {}).get("origin_path", origin.relative_to(ROOT).as_posix())
+                previous_origin.get(
+                    "path",
+                    previous_source.get("origin_path", origin.relative_to(ROOT).as_posix()),
+                )
             )
         staged_rows[endpoint] = rows
+        staged_path = GROUP_DETAIL_PATHS[endpoint].relative_to(ROOT).as_posix()
+        staged_sha256 = sha256_file(GROUP_DETAIL_PATHS[endpoint])
+        input_binding = (
+            GROUP_GENERATOR_INPUT_BINDING
+            if endpoint == "LOMO"
+            else "core.resolution_group_baselines.CANONICAL_PATHS['LOSO']"
+        )
+        chain = _source_chain(
+            origin_path=origin_path,
+            origin_sha256=origin_sha,
+            staged_path=staged_path,
+            staged_sha256=staged_sha256,
+            consumer=GROUP_GENERATOR,
+            binding=input_binding,
+            staging_transform=(
+                "filter the frozen formal detail to the current hybrid route-family rows "
+                "and preserve the input columns used by the baseline generator"
+            ),
+        )
+        _assert_staged_generator_pair(f"{endpoint} Group", chain)
         sources[endpoint] = {
             "origin_path": origin_path,
             "origin_sha256": origin_sha,
-            "staged_path": GROUP_DETAIL_PATHS[endpoint].relative_to(ROOT).as_posix(),
-            "staged_sha256": sha256_file(GROUP_DETAIL_PATHS[endpoint]),
+            "staged_path": staged_path,
+            "staged_sha256": staged_sha256,
+            "generator_input_path": staged_path,
+            "generator_input_sha256": staged_sha256,
+            "source_chain": chain,
         }
     return staged_rows, sources
 
@@ -102,9 +183,12 @@ def generate_group_baselines(
         record = compute_baseline_record(rows_by_endpoint[endpoint], endpoint)
         record.update(
             {
+                "source_origin_path": sources[endpoint]["origin_path"],
                 "source_origin_sha256": sources[endpoint]["origin_sha256"],
                 "source_staged_sha256": sources[endpoint]["staged_sha256"],
                 "source_staged_path": sources[endpoint]["staged_path"],
+                "source_generator_input_path": sources[endpoint]["generator_input_path"],
+                "source_generator_input_sha256": sources[endpoint]["generator_input_sha256"],
             }
         )
         records.append(record)
@@ -120,13 +204,16 @@ def generate_group_baselines(
         "weighted_formula",
         "rng_seed",
         "n_weighted_random_draws",
+        "source_origin_path",
         "source_origin_sha256",
         "source_staged_sha256",
         "source_staged_path",
+        "source_generator_input_path",
+        "source_generator_input_sha256",
     ]
     write_csv(BASELINE_CSV, records, fields)
     payload = {
-        "schema": "braintrace.formal_resolution_group_random_baselines.v1",
+        "schema": "braintrace.formal_resolution_group_random_baselines.v2",
         "sources": sources,
         "records": records,
         "regeneration_rule": "A changed staged prediction SHA-256 requires regenerated baseline records.",
@@ -221,20 +308,91 @@ def derive_lomo_exact() -> dict[str, Any]:
     metrics = compute_lomo_exact_metrics(rows)
     summary = metrics["summary"]
     source = provenance["formal_source"]
-    if source["staged_sha256"] != sha256_file(EXACT_DETAIL):
-        raise ValueError("LOMO Exact staged prediction source changed without evidence regeneration")
+    source_chain = provenance.get("source_chain")
+    if not isinstance(source_chain, dict):
+        source_chain = _source_chain(
+            origin_path=str(source.get("origin_path", source.get("staged_from", source["path"]))),
+            origin_sha256=str(source["sha256"]),
+            staged_path=str(source["path"]),
+            staged_sha256=str(source["staged_sha256"]),
+            consumer="scripts/generate_lomo_exact_f1_evidence.py",
+            binding="core.lomo_exact_f1.CANONICAL_FORMAL_PATH",
+            staging_transform="legacy provenance migration",
+        )
+    _assert_staged_generator_pair("LOMO Exact", source_chain)
     if int(summary["top1_correct"]) != sum(int(row["tp"]) for row in metrics["classes"]):
         raise ValueError("LOMO Exact micro-F1 integer identity failed")
     return {
-        "canonical_source": str(source["path"]),
-        "source_sha256": str(source["sha256"]),
-        "staged_source_sha256": str(source["staged_sha256"]),
+        "canonical_source": str(source_chain["generator_input"]["path"]),
+        "source_sha256": str(source_chain["origin"]["sha256"]),
+        "staged_source_sha256": str(source_chain["staged"]["sha256"]),
+        "source_chain": source_chain,
         "summary": summary,
         "integer_accounting": {
             "sum_tp": sum(int(row["tp"]) for row in metrics["classes"]),
             "sum_support": sum(int(row["support"]) for row in metrics["classes"]),
         },
     }
+
+
+def build_lomo_input_path_sha_pairing(
+    lomo_exact: dict[str, Any], baselines: dict[str, Any]
+) -> dict[str, Any]:
+    """Pair the two active LOMO source chains in one audit surface."""
+
+    group_source = baselines["sources"]["LOMO"]
+    group_chain = group_source.get("source_chain")
+    if not isinstance(group_chain, dict):
+        group_chain = _source_chain(
+            origin_path=str(group_source["origin_path"]),
+            origin_sha256=str(group_source["origin_sha256"]),
+            staged_path=str(group_source["staged_path"]),
+            staged_sha256=str(group_source["staged_sha256"]),
+            consumer=GROUP_GENERATOR,
+            binding=GROUP_GENERATOR_INPUT_BINDING,
+            staging_transform="legacy provenance migration",
+        )
+    chains = {
+        "LOMO Exact": lomo_exact["source_chain"],
+        "LOMO Group": group_chain,
+    }
+    for label, chain in chains.items():
+        _assert_staged_generator_pair(label, chain)
+    return {
+        "schema": "braintrace.lomo_input_path_sha_pairing.v1",
+        "chains": chains,
+        "invariant": (
+            "For each endpoint, generator_input path/SHA-256 must exactly equal the "
+            "repository-staged path/SHA-256; origin is retained as its distinct source pair."
+        ),
+    }
+
+
+def write_lomo_input_path_sha_pairing(pairing: dict[str, Any]) -> None:
+    """Write machine- and reviewer-readable versions of the paired input chains."""
+
+    write_json(LOMO_INPUT_PAIRING_JSON, pairing)
+    lines = [
+        "# LOMO origin / staged / generator-input path-SHA pairing",
+        "",
+        pairing["invariant"],
+        "",
+        "| Endpoint | Role | Path | SHA-256 | Generator binding |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for endpoint, chain in pairing["chains"].items():
+        origin = chain["origin"]
+        staged = chain["staged"]
+        generator_input = chain["generator_input"]
+        lines.extend(
+            [
+                f"| {endpoint} | Origin | `{origin['path']}` | `{origin['sha256']}` | frozen external formal detail |",
+                f"| {endpoint} | Staged | `{staged['path']}` | `{staged['sha256']}` | repository-staged canonical table |",
+                f"| {endpoint} | Generator input | `{generator_input['path']}` | `{generator_input['sha256']}` | `{generator_input['consumer']}` via `{generator_input['binding']}` |",
+                "",
+            ]
+        )
+    LOMO_INPUT_PAIRING_MD.write_text("\n".join(lines), encoding="utf-8")
 
 
 def derive_loso_exact_unchanged() -> dict[str, Any]:
@@ -286,6 +444,8 @@ def scan_current_outputs() -> dict[str, Any]:
         BASELINE_CSV,
         BASELINE_JSON,
         EXACT_PROVENANCE,
+        LOMO_INPUT_PAIRING_JSON,
+        LOMO_INPUT_PAIRING_MD,
     ]
     patterns = {
         "stale_tcga_range": "range 32.02",
@@ -399,7 +559,7 @@ def ledger_rows(
 
 def write_report(
     tcga: dict[str, Any], lomo_exact: dict[str, Any], benchmark: dict[str, Any],
-    baselines: dict[str, Any], friedman: dict[str, Any], scan: dict[str, Any],
+    baselines: dict[str, Any], lomo_pairing: dict[str, Any], friedman: dict[str, Any], scan: dict[str, Any],
     tests_status: str, docx_status: str
 ) -> None:
     summary = lomo_exact["summary"]
@@ -413,6 +573,7 @@ def write_report(
         "",
         f"- TCGA/BraTS broad strict Top3 range: max-min = `{tcga['derived_range_percentage_points']:.13f}` pp (`{tcga['derived_range_percentage_points']:.2f}` pp displayed) from `{tcga['canonical_source']}`.",
         f"- LOMO Exact: `{summary['top1_correct']}/{summary['n_samples']}` Top1 = micro-F1 `{summary['micro_f1']:.15f}`; macro-F1 `{summary['macro_f1']:.15f}` across `{summary['n_classes']}` truth-label classes.",
+        f"- LOMO Exact and LOMO Group origin/staged/generator-input path+SHA pairs: `{LOMO_INPUT_PAIRING_MD.relative_to(ROOT).as_posix()}` ({len(lomo_pairing['chains'])} endpoint chains; staged and generator-input pairs are identical by assertion).",
         f"- Benchmark: `{benchmark['n_profiles']}` profiles × `{benchmark['n_genes']}` genes; `{benchmark['warm_events']}` warm inference events; cold peak `{benchmark['cold']['peak_working_set_mib']:.4f}` MiB and warm maximum `{benchmark['warm']['maximum_working_set_mib']:.4f}` MiB.",
         f"- Resolution-group Top3 random baselines: LOSO uniform/weighted `{base['LOSO']['uniform_random_rate']:.15f}` / `{base['LOSO']['weighted_random_rate']:.15f}`; LOMO `{base['LOMO']['uniform_random_rate']:.15f}` / `{base['LOMO']['weighted_random_rate']:.15f}`.",
         f"- Friedman: χ²=`{friedman['chi2']:.4f}`, df=`{friedman['df']}`, P=`{friedman['p_value']:.3f}`; exact-enumeration status: `{friedman['exact_enumeration']}`.",
@@ -443,12 +604,14 @@ def main() -> int:
     tcga = derive_tcga_range()
     lomo_exact = derive_lomo_exact()
     baselines = generate_group_baselines(args.loso_group_source, args.lomo_group_source)
+    lomo_pairing = build_lomo_input_path_sha_pairing(lomo_exact, baselines)
+    write_lomo_input_path_sha_pairing(lomo_pairing)
     manifest, benchmark_provenance = stage_benchmark(args.benchmark_manifest)
     benchmark = derive_benchmark(manifest, benchmark_provenance)
     friedman = derive_friedman()
     provisional_scan = {"status": "PENDING"}
     write_report(
-        tcga, lomo_exact, benchmark, baselines, friedman, provisional_scan,
+        tcga, lomo_exact, benchmark, baselines, lomo_pairing, friedman, provisional_scan,
         args.tests_status, args.docx_status,
     )
     scan = scan_current_outputs()
@@ -456,6 +619,7 @@ def main() -> int:
         "schema": "braintrace.scientific_remediation_qa.v1",
         "tcga_broad_strict_top3_range": tcga,
         "lomo_exact_f1": lomo_exact,
+        "lomo_input_path_sha_pairing": lomo_pairing,
         "loso_exact_unchanged": derive_loso_exact_unchanged(),
         "benchmark": benchmark,
         "resolution_group_random_baselines": baselines,
@@ -487,7 +651,17 @@ def main() -> int:
     scan = scan_current_outputs()
     qa["stale_current_value_scan"] = scan
     write_json(QA, qa)
-    write_report(tcga, lomo_exact, benchmark, baselines, friedman, scan, args.tests_status, args.docx_status)
+    write_report(
+        tcga,
+        lomo_exact,
+        benchmark,
+        baselines,
+        lomo_pairing,
+        friedman,
+        scan,
+        args.tests_status,
+        args.docx_status,
+    )
     print(json.dumps({"qa": QA.as_posix(), "scan": scan["status"]}, ensure_ascii=False))
     return 0 if scan["status"] == "PASS" else 1
 

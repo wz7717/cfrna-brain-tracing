@@ -33,6 +33,8 @@ CROSS3_CSV = (
 FORMAL_DETAIL = ROOT / "reproducibility" / "formal_lomo_exact_region_f1.csv"
 PROVENANCE = ROOT / "reproducibility" / "lomo_exact_region_f1_provenance.json"
 PROVENANCE_MD = ROOT / "reproducibility" / "LOMO_EXACT_REGION_F1_PROVENANCE.md"
+GENERATOR = "scripts/generate_lomo_exact_f1_evidence.py"
+GENERATOR_INPUT_BINDING = "core.lomo_exact_f1.CANONICAL_FORMAL_PATH"
 
 DETAIL_FIELDS = [
     "class",
@@ -81,6 +83,44 @@ def write_csv(path: Path, rows: list[dict[str, object]], fields: list[str]) -> N
         writer.writerows(rows)
 
 
+def _canonical_path(path: Path) -> str:
+    """Record a supplied external origin verbatim as an absolute path."""
+
+    return str(path.resolve())
+
+
+def source_and_origin(source: Path | None) -> tuple[Path, str, str]:
+    """Return the staging input and retain its distinct origin provenance.
+
+    A verify/regenerate run without ``--source`` consumes the already staged
+    table.  It must not replace the external-origin hash with the staged hash.
+    """
+
+    if source is not None:
+        return source, _canonical_path(source), sha256_file(source)
+
+    previous: dict[str, object] = {}
+    if PROVENANCE.exists():
+        previous = json.loads(PROVENANCE.read_text(encoding="utf-8"))
+    chain = previous.get("source_chain", {})
+    origin = chain.get("origin", {}) if isinstance(chain, dict) else {}
+    legacy = previous.get("formal_source", {})
+    if not isinstance(legacy, dict):
+        legacy = {}
+    origin_path = str(
+        origin.get("path")
+        or legacy.get("origin_path")
+        or legacy.get("staged_from")
+        or CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix()
+    )
+    origin_sha256 = str(
+        origin.get("sha256")
+        or legacy.get("sha256")
+        or sha256_file(CANONICAL_FORMAL_PATH)
+    )
+    return CANONICAL_FORMAL_PATH, origin_path, origin_sha256
+
+
 def stage_predictions(source: Path) -> list[dict[str, str]]:
     rows = load_formal_predictions(source)
     write_csv(CANONICAL_FORMAL_PATH, rows, PREDICTION_FIELDS)
@@ -120,7 +160,9 @@ def _summary_rows(summary: dict[str, object]) -> list[dict[str, str]]:
     ]
 
 
-def update_macro_json(metrics: dict[str, object], origin_sha256: str) -> None:
+def update_macro_json(
+    metrics: dict[str, object], origin_path: str, origin_sha256: str
+) -> None:
     payload = json.loads(MACRO_JSON.read_text(encoding="utf-8"))
     data = _replace_endpoint_rows(list(payload["data"]))
     data.extend(macro_class_rows(metrics))
@@ -129,6 +171,7 @@ def update_macro_json(metrics: dict[str, object], origin_sha256: str) -> None:
     provenance = dict(payload.get("provenance", {}))
     provenance.update(
         {
+            "formal_lomo_exact_origin_path": origin_path,
             "formal_lomo_exact_source": CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix(),
             "formal_lomo_exact_source_sha256": origin_sha256,
             "formal_lomo_exact_staged_sha256": sha256_file(CANONICAL_FORMAL_PATH),
@@ -147,9 +190,64 @@ def update_macro_json(metrics: dict[str, object], origin_sha256: str) -> None:
 def update_macro_csv(metrics: dict[str, object]) -> None:
     with MACRO_CSV.open(newline="", encoding="utf-8-sig") as handle:
         existing = list(csv.DictReader(handle))
-    retained = _replace_endpoint_rows(existing)
-    retained.extend(macro_class_rows(metrics))
-    retained.extend(_summary_rows(metrics["summary"]))  # type: ignore[arg-type]
+
+    # Preserve all endpoint rows and use a canonical summary block at EOF.
+    # This makes source staging idempotent instead of moving unrelated endpoint
+    # summaries when LOMO Exact is regenerated.
+    exact_rows = macro_class_rows(metrics)
+    summary = metrics["summary"]  # type: ignore[assignment]
+    exact_summaries = {
+        "LOMO_Exact_macro": {
+            "endpoint": "SUMMARY",
+            "class": "LOMO_Exact_macro",
+            "n": str(summary["n_classes"]),
+            "precision": "",
+            "recall": "",
+            "f1": f"{float(summary['macro_f1']):.4f}",
+        },
+        "LOMO_Exact_weighted": {
+            "endpoint": "SUMMARY",
+            "class": "LOMO_Exact_weighted",
+            "n": str(summary["n_samples"]),
+            "precision": "",
+            "recall": "",
+            "f1": f"{float(summary['weighted_f1']):.4f}",
+        },
+    }
+    retained: list[dict[str, object]] = []
+    existing_summaries: dict[str, dict[str, str]] = {}
+    existing_summary_order: list[str] = []
+    exact_rows_written = False
+    for row in existing:
+        if row.get("endpoint") == "SUMMARY":
+            class_name = str(row.get("class", ""))
+            existing_summaries[class_name] = row
+            if class_name not in existing_summary_order:
+                existing_summary_order.append(class_name)
+            continue
+        if row.get("endpoint") == "LOMO_Exact":
+            if not exact_rows_written:
+                retained.extend(exact_rows)
+                exact_rows_written = True
+            continue
+        retained.append(row)
+    if not exact_rows_written:
+        retained.extend(exact_rows)
+    existing_summaries.update(exact_summaries)
+    canonical_summary_order = [
+        "LOMO_Exact_macro",
+        "LOMO_Exact_weighted",
+        "LOMO_Network_macro",
+        "LOMO_Network_weighted",
+        "LOSO_Exact_macro",
+        "LOSO_Exact_weighted",
+        "LOSO_Network_macro",
+        "LOSO_Network_weighted",
+    ]
+    for class_name in canonical_summary_order + existing_summary_order:
+        if class_name in existing_summaries:
+            retained.append(existing_summaries.pop(class_name))
+    retained.extend(existing_summaries.values())
     write_csv(
         MACRO_CSV,
         retained,
@@ -164,26 +262,53 @@ def update_cross3(metrics: dict[str, object]) -> None:
     write_csv(CROSS3_CSV, retained + [cross3_summary_row(metrics)], CROSS3_FIELDS)
 
 
-def write_derived(metrics: dict[str, object], origin_sha256: str) -> None:
+def write_derived(
+    metrics: dict[str, object], origin_path: str, origin_sha256: str
+) -> None:
     write_csv(FORMAL_DETAIL, metrics["classes"], DETAIL_FIELDS)  # type: ignore[arg-type]
-    update_macro_json(metrics, origin_sha256)
+    update_macro_json(metrics, origin_path, origin_sha256)
     update_macro_csv(metrics)
     update_cross3(metrics)
 
 
-def write_provenance(source: Path, metrics: dict[str, object], origin_sha256: str) -> None:
+def write_provenance(
+    origin_path: str, metrics: dict[str, object], origin_sha256: str
+) -> None:
     summary = metrics["summary"]  # type: ignore[assignment]
-    try:
-        staged_from = source.resolve().relative_to(ROOT).as_posix()
-    except ValueError:
-        staged_from = f"external_source::{source.name}"
-    payload = {
-        "schema": "braintrace.lomo_exact_f1_provenance.v1",
-        "formal_source": {
-            "path": CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix(),
+    staged_path = CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix()
+    staged_sha256 = sha256_file(CANONICAL_FORMAL_PATH)
+    source_chain = {
+        "origin": {
+            "path": origin_path,
             "sha256": origin_sha256,
-            "staged_sha256": sha256_file(CANONICAL_FORMAL_PATH),
-            "staged_from": staged_from,
+        },
+        "staged": {
+            "path": staged_path,
+            "sha256": staged_sha256,
+        },
+        "generator_input": {
+            "path": staged_path,
+            "sha256": staged_sha256,
+            "consumer": GENERATOR,
+            "binding": GENERATOR_INPUT_BINDING,
+            "equals_staged": True,
+        },
+        "staging_transform": (
+            "select the 812 frozen route rows and serialize canonical prediction fields "
+            "with recomputed hit1/hit3 indicators"
+        ),
+    }
+    payload = {
+        "schema": "braintrace.lomo_exact_f1_provenance.v2",
+        "source_chain": source_chain,
+        "formal_source": {
+            "path": staged_path,
+            "sha256": origin_sha256,
+            "origin_path": origin_path,
+            "staged_sha256": staged_sha256,
+            "staged_from": origin_path,
+            "generator_input_path": staged_path,
+            "generator_input_sha256": staged_sha256,
             "route": FORMAL_ROUTE,
             "route_family": FORMAL_ROUTE_FAMILY,
             "n": summary["n_samples"],
@@ -230,10 +355,20 @@ def write_provenance(source: Path, metrics: dict[str, object], origin_sha256: st
         "Its macro denominator is the 104-label truth universe; Top1 labels outside that universe",
         "remain false positives and do not create extra macro classes.",
         "",
+        "## Origin / staged / generator-input pairing",
+        "",
+        "| Role | Path | SHA-256 | Binding |",
+        "| --- | --- | --- | --- |",
+        f"| Origin | `{origin_path}` | `{origin_sha256}` | frozen external formal prediction detail |",
+        f"| Staged | `{staged_path}` | `{staged_sha256}` | repository-staged canonical table |",
+        f"| Generator input | `{staged_path}` | `{staged_sha256}` | `{GENERATOR}` via `{GENERATOR_INPUT_BINDING}` |",
+        "",
+        "The staged and generator-input path/SHA pairs must be identical; only the origin may differ because staging normalizes the frozen route rows.",
+        "",
         f"- Route: `{FORMAL_ROUTE}`",
         f"- Route family: `{FORMAL_ROUTE_FAMILY}`",
-        f"- Source SHA-256: `{origin_sha256}`",
-        f"- Staged prediction SHA-256: `{sha256_file(CANONICAL_FORMAL_PATH)}`",
+        f"- Origin SHA-256: `{origin_sha256}`",
+        f"- Staged / generator-input SHA-256: `{staged_sha256}`",
         f"- Top1 / Top3: `{summary['top1_correct']}/{summary['n_samples']}`; `{summary['top3_correct']}/{summary['n_samples']}`",
         f"- Prediction-only Top1 labels: `{', '.join(summary['predicted_top1_labels_outside_truth_universe'])}`",
         "",
@@ -267,8 +402,21 @@ def write_provenance(source: Path, metrics: dict[str, object], origin_sha256: st
 def verify_derived(metrics: dict[str, object]) -> None:
     provenance = json.loads(PROVENANCE.read_text(encoding="utf-8"))
     source = provenance["formal_source"]
+    chain = provenance.get("source_chain", {})
+    if not isinstance(chain, dict):
+        raise ValueError("LOMO Exact provenance is missing its source chain")
+    staged = chain.get("staged", {})
+    generator_input = chain.get("generator_input", {})
+    if not isinstance(staged, dict) or not isinstance(generator_input, dict):
+        raise ValueError("LOMO Exact source chain is malformed")
+    if staged.get("path") != generator_input.get("path"):
+        raise ValueError("LOMO Exact staged and generator-input paths differ")
+    if staged.get("sha256") != generator_input.get("sha256"):
+        raise ValueError("LOMO Exact staged and generator-input SHA-256 values differ")
     if source["staged_sha256"] != sha256_file(CANONICAL_FORMAL_PATH):
         raise ValueError("LOMO Exact source changed without regeneration")
+    if staged.get("sha256") != sha256_file(CANONICAL_FORMAL_PATH):
+        raise ValueError("LOMO Exact source-chain staged SHA-256 is stale")
     summary = metrics["summary"]  # type: ignore[assignment]
     if provenance["prediction_level_metrics"]["micro_f1"] != summary["micro_f1"]:
         raise ValueError("LOMO Exact provenance micro-F1 is stale")
@@ -291,12 +439,11 @@ def main() -> int:
         metrics = compute_lomo_exact_metrics(rows)
         verify_derived(metrics)
     else:
-        source = args.source or CANONICAL_FORMAL_PATH
-        origin_sha256 = sha256_file(source)
+        source, origin_path, origin_sha256 = source_and_origin(args.source)
         rows = stage_predictions(source)
         metrics = compute_lomo_exact_metrics(rows)
-        write_derived(metrics, origin_sha256)
-        write_provenance(source, metrics, origin_sha256)
+        write_derived(metrics, origin_path, origin_sha256)
+        write_provenance(origin_path, metrics, origin_sha256)
     print(json.dumps(metrics["summary"], indent=2, ensure_ascii=False))
     return 0
 

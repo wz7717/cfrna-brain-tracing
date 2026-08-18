@@ -4,10 +4,20 @@ The current LOMO Exact endpoint is regenerated from the frozen prediction-level 
 Its macro denominator is the 104-label truth universe; Top1 labels outside that universe
 remain false positives and do not create extra macro classes.
 
+## Origin / staged / generator-input pairing
+
+| Role | Path | SHA-256 | Binding |
+| --- | --- | --- | --- |
+| Origin | `D:\Download\文章改稿\code\reproduction_validation_workspace_20260802\reproduced_runs\release_gate_20260811_ai44563\lomo\formal_lomo_exact_region_detail.csv` | `EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36` | frozen external formal prediction detail |
+| Staged | `reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv` | `E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A` | repository-staged canonical table |
+| Generator input | `reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv` | `E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A` | `scripts/generate_lomo_exact_f1_evidence.py` via `core.lomo_exact_f1.CANONICAL_FORMAL_PATH` |
+
+The staged and generator-input path/SHA pairs must be identical; only the origin may differ because staging normalizes the frozen route rows.
+
 - Route: `top3_beam_local_top50_top100_zfusion_w0p25`
 - Route family: `hybrid_projected_network_logcpm_exact`
-- Source SHA-256: `EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36`
-- Staged prediction SHA-256: `E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A`
+- Origin SHA-256: `EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36`
+- Staged / generator-input SHA-256: `E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A`
 - Top1 / Top3: `177/812`; `346/812`
 - Prediction-only Top1 labels: `36c, Cla, MT`
 

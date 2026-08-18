@@ -13,6 +13,7 @@ from core.resolution_group_baselines import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+GROUP_ORIGIN_SHA256 = "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1"
 
 
 def _qa() -> dict:
@@ -62,6 +63,53 @@ def test_resolution_group_baselines_are_current_source_derived() -> None:
                 assert math.isclose(actual[endpoint][field], expected[field], abs_tol=1e-15)
             else:
                 assert actual[endpoint][field] == expected[field]
+
+
+def test_lomo_exact_and_group_path_sha_pairs_are_explicit_and_current() -> None:
+    qa = _qa()
+    pairing = qa["lomo_input_path_sha_pairing"]
+    on_disk = json.loads(
+        (ROOT / "reproducibility" / "lomo_input_chain_provenance.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert on_disk == pairing
+
+    exact = pairing["chains"]["LOMO Exact"]
+    group = pairing["chains"]["LOMO Group"]
+    for label, chain in (("LOMO Exact", exact), ("LOMO Group", group)):
+        origin = chain["origin"]
+        staged = chain["staged"]
+        generator_input = chain["generator_input"]
+        assert origin["path"]
+        assert len(origin["sha256"]) == 64
+        assert staged["path"] == generator_input["path"], label
+        assert staged["sha256"] == generator_input["sha256"], label
+        assert generator_input["equals_staged"] is True
+        assert staged["sha256"] == sha256_file(ROOT / staged["path"]), label
+
+    assert group["origin"]["sha256"] == GROUP_ORIGIN_SHA256
+    assert group["origin"]["path"].replace("\\", "/").endswith(
+        "/lomo/formal_lomo_resolution_group_detail.csv"
+    )
+    assert group["generator_input"]["consumer"] == (
+        "scripts/generate_scientific_remediation_artifacts.py"
+    )
+    assert group["generator_input"]["binding"] == (
+        "core.resolution_group_baselines.CANONICAL_PATHS['LOMO']"
+    )
+
+    baseline_chain = qa["resolution_group_random_baselines"]["sources"]["LOMO"][
+        "source_chain"
+    ]
+    assert baseline_chain == group
+
+    pairing_markdown = (
+        ROOT / "reproducibility" / "LOMO_INPUT_CHAIN_PROVENANCE.md"
+    ).read_text(encoding="utf-8")
+    assert "LOMO Exact" in pairing_markdown
+    assert "LOMO Group" in pairing_markdown
+    assert GROUP_ORIGIN_SHA256 in pairing_markdown
 
 
 def test_only_supported_friedman_claim_is_retained() -> None:
