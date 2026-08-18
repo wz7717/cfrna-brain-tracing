@@ -135,7 +135,8 @@ def test_canonical_outputs_have_full_cohort_accounting() -> None:
     assert ledger["fluid"].eq("CSF").sum() == 77
     assert ledger["fluid"].eq("plasma").sum() == 82
     assert ledger["source_QC_status_if_known"].eq(huang.SOURCE_QC_STATUS).all()
-    assert ledger["source_QC_note"].str.contains("author-QC-retained", regex=False).all()
+    assert ledger["source_QC_note"].str.contains("no original seqIDs or per-profile QC-status mapping", regex=False).all()
+    assert ledger["source_QC_note"].str.contains("not asserted to be absent", regex=False).all()
     assert ledger["patient_id"].isna().all()
     assert ledger["patient_id_status"].eq(huang.PATIENT_ID_STATUS).all()
     assert ledger["BrainTrace_output_available"].all()
@@ -170,7 +171,12 @@ def test_canonical_outputs_have_full_cohort_accounting() -> None:
         "minimum nominal BH-adjusted profile-level P; not patient-level FDR control"
     )
     assert manifest["source"]["source_qc_evidence"]["code_doi"] == huang.SOURCE_CODE_DOI
-    assert sum(manifest["source"]["source_qc_evidence"]["retained_group_counts"].values()) == 159
+    qc_evidence = manifest["source"]["source_qc_evidence"]
+    assert sum(qc_evidence["code_assigned_export_group_counts"].values()) == 159
+    assert qc_evidence["article_results_collected_profiles"] == {"profiles": 159, "csf": 77, "plasma": 82}
+    assert qc_evidence["article_methods_reported_exclusions"] == {"csf": 5, "plasma": 1}
+    assert qc_evidence["public_matrix_per_profile_qc_status"] == "not_available"
+    assert qc_evidence["reconciliation_status"] == "not_unambiguously_resolved_from_public_record"
     assert summary["source_qc_status"] == huang.SOURCE_QC_STATUS
 
 

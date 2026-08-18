@@ -43,8 +43,8 @@ def main() -> int:
     main_docx = workdir / "BrainTrace_Main_Manuscript_HuangRemediated.docx"
     supp_docx = workdir / "BrainTrace_Supplementary_File_HuangRemediated.docx"
     test_log = (workdir / "pytest_full.log").read_text(encoding="utf-8", errors="replace").strip().splitlines()[-1]
-    main_images = json.loads((workdir / "rendered" / "contact_sheets" / "main" / "render_image_manifest.json").read_text(encoding="utf-8"))
-    supp_images = json.loads((workdir / "rendered" / "contact_sheets" / "supplement" / "render_image_manifest.json").read_text(encoding="utf-8"))
+    main_images = json.loads((workdir / "rendered_final" / "contact_sheets" / "main" / "render_image_manifest.json").read_text(encoding="utf-8"))
+    supp_images = json.loads((workdir / "rendered_final" / "contact_sheets" / "supplement" / "render_image_manifest.json").read_text(encoding="utf-8"))
 
     csf = fluid["all_CSF_profiles"]
     plasma = fluid["all_plasma_profiles"]
@@ -70,7 +70,7 @@ def main() -> int:
 
 - Huang et al. (2025), DOI [{summary['source_doi']}](https://doi.org/{summary['source_doi']}).
 - The published expression matrix contains 159 profiles: 77 CSF and 82 plasma. The source article reports 85 patients (18 glioma, 46 meningioma and 21 controls).
-- The source study reports excluding five CSF and one plasma profiles by sequencing QC. The authors' archived `Quality controls.R` filters those profiles before generating Supplementary Data, so the 159 public-matrix profiles are author-QC-retained and the six rejected profiles are absent. No patient-level CSF-plasma correspondence is supplied in the public matrix.
+- The source article reports 159 collected liquid biopsies (77 CSF and 82 plasma), separately reports excluding five CSF and one plasma profiles by sequencing QC, and describes Supplementary Data 1 as covering all de-identified studied samples. The public matrix contains 159 profiles but no original `seqID` values or per-profile QC-status mapping. Archived `Quality controls.R` suggests an intended post-QC export from `meta_good`, but the public record does not unambiguously reconcile the counts. The audit therefore does not label the 159 profiles as QC-retained or assert that the six reported exclusions are absent. No patient-level CSF-plasma correspondence is supplied in the public matrix.
 
 ## 2. Manuscript-impact assessment
 
@@ -82,7 +82,7 @@ No public patient identifier was used or inferred. The canonical runner contains
 
 ## 4. New raw-input handling
 
-The full author-QC-retained published matrix was used as the technical audit universe; the six source-QC-rejected profiles are not present and were not reconstructed. Matrix SHA-256: `{source_assets['published_expression_matrix']['sha256']}`. The complete source supplementary XLSB was recorded with SHA-256 `{source_assets['source_supplementary_xlsb']['sha256']}`.
+All 159 profiles present in the published matrix were used as the technical audit universe. Per-profile source-QC status remains unresolved, and the six reported exclusions were neither assigned to public profiles nor asserted to be absent. Matrix SHA-256: `{source_assets['published_expression_matrix']['sha256']}`. The complete source supplementary XLSB was recorded with SHA-256 `{source_assets['source_supplementary_xlsb']['sha256']}`.
 
 ## 5. Analysis unit and statistics
 
@@ -93,7 +93,7 @@ The analysis unit is a published expression profile within a fluid-specific coho
 - Audit universe: {summary['n_profiles']} profiles ({summary['n_csf']} CSF; {summary['n_plasma']} plasma).
 - Traceable BrainTrace outputs: {summary['n_traceable_outputs']}/{summary['n_profiles']}.
 - OMPFC Top1: CSF {csf['OMPFC_top1_numerator']}/{csf['OMPFC_top1_denominator']} ({float(csf['OMPFC_top1_percent']):.2f}%); plasma {plasma['OMPFC_top1_numerator']}/{plasma['OMPFC_top1_denominator']} ({float(plasma['OMPFC_top1_percent']):.2f}%).
-- The sample ledger records all required inclusion flags, blank patient IDs, and author-QC-retained status for every public-matrix profile.
+- The sample ledger records all required inclusion flags, blank patient IDs, and unresolved per-profile source-QC status for every public-matrix profile.
 
 ## 7. Marker analyses
 
@@ -155,7 +155,7 @@ python -m pytest -q
 
 ## 15. Remaining and out-of-scope issues
 
-The public expression matrix still lacks patient correspondence and anatomical truth, and it omits the six profiles rejected by the source QC pipeline. Those are source-data boundaries, not gaps that may be repaired by label parsing or synthetic reconstruction. No unrelated scientific endpoint or the v0.1.16 public release was changed.
+The public expression matrix still lacks patient correspondence, anatomical truth and per-profile source-QC mapping. The published record does not unambiguously establish whether the six reported source-QC exclusions are absent from the 159-profile matrix. Those are source-data boundaries, not gaps that may be repaired by label parsing or synthetic reconstruction. No unrelated scientific endpoint or the v0.1.16 public release was changed.
 
 ## Acceptance checklist (A–R)
 
@@ -178,7 +178,7 @@ The public expression matrix still lacks patient correspondence and anatomical t
 | O. Main manuscript remediation | PASS | new DOCX and structural verifier |
 | P. Supplement remediation | PASS | new DOCX and structural verifier |
 | Q. No tracked changes/comments | PASS | XML verifier |
-| R. Full-page visual QA | PASS | 12 + 81 rendered pages and contact-sheet manifests |
+| R. Full-page visual QA | PASS | {len(main_images)} + {len(supp_images)} rendered pages and contact-sheet manifests |
 """
     (workdir / "HUANG_2025_REMEDIATION_QA_REPORT.md").write_text(
         report, encoding="utf-8", newline="\n"
@@ -189,8 +189,8 @@ Status: working remediation candidate only; not a public v0.1.17 release.
 
 FILE: scripts/run_huang2025_external_candidate.py
 OLD: Sample label suffixes were converted to a patient key and used for CSF-plasma concordance/permutation outputs.
-NEW: The author-QC-retained 159-profile matrix is processed through the locked route as separate 77-CSF and 82-plasma profile cohorts; the ledger records retained QC status, leaves patient_id blank, records that patient pairing is unavailable, and excludes paired/synthetic analyses.
-REASON: The authors' archived QC code shows that the six failed profiles are removed before Supplementary Data generation; the public matrix does not supply patient-level CSF-plasma correspondence.
+NEW: All 159 profiles present in the published matrix are processed through the locked route as separate 77-CSF and 82-plasma profile cohorts; the ledger records unresolved per-profile source-QC status, leaves patient_id blank, records that patient pairing is unavailable, and excludes paired/synthetic analyses.
+REASON: The article's 159-profile cohort statement, separate six-profile QC-exclusion statement, and all-samples data-availability wording cannot be reconciled unambiguously with the public matrix. Archived code suggests a post-QC export but does not provide the missing public per-profile QC mapping or resolve the count conflict.
 SOURCE / OUTPUT SUPPORT: Huang DOI 10.1038/s41698-025-00909-6; author-code DOI 10.5281/zenodo.14869536; huang_2025_sample_ledger.csv; huang_2025_audit_manifest.json; huang_2025_canonical_summary.json.
 
 FILE: scripts/run_p1_bio1_4_audit.py
@@ -207,13 +207,13 @@ SOURCE / OUTPUT SUPPORT: SHA256SUMS.txt; huang_2025_audit_manifest.json.
 
 FILE: reproduce_all.py; reproduce_all.ps1; README.md; DATA_PROVENANCE.md; reproducibility/TRACEABILITY_MATRIX.md
 OLD: The Huang audit pointed to obsolete output locations or lacked the patient-correspondence provenance boundary.
-NEW: Canonical path is reproducibility/huang_2025; documentation states author-QC-retained full-matrix profile-level scope, separate fluid-specific cohorts, unavailable patient pairing, source-QC evidence, claim boundary and unreleased status.
+NEW: Canonical path is reproducibility/huang_2025; documentation states all-public-matrix profile-level scope, separate fluid-specific cohorts, unresolved per-profile source-QC status, unavailable patient pairing, source-QC evidence, claim boundary and unreleased status.
 REASON: Keep scripts, provenance and manuscript-facing traceability aligned.
 SOURCE / OUTPUT SUPPORT: canonical summary and audit manifest.
 
 FILE: BrainTrace_Main_Manuscript_HuangRemediated.docx
 OLD: Reported paired-stability diagnostics and a minimum paired P=0.304.
-NEW: Reports 159 author-QC-retained profiles, separate 77-CSF and 82-plasma profile cohorts, 159/159 traceability and minimum nominal BH-adjusted profile-level P=0.722 without patient-pairing or patient-level FDR-control claims.
+NEW: Reports all 159 public-matrix profiles, separate 77-CSF and 82-plasma profile cohorts, unresolved per-profile source-QC status, 159/159 traceability and minimum nominal BH-adjusted profile-level P=0.722 without patient-pairing or patient-level FDR-control claims.
 REASON: Correct unsupported patient-paired inference.
 SOURCE / OUTPUT SUPPORT: huang_2025_canonical_summary.json; huang_2025_tumour_control_comparisons.csv.
 

@@ -61,13 +61,16 @@ SOURCE_CODE_DOI = "10.5281/zenodo.14869536"
 SOURCE_CODE_ARCHIVE_SHA256 = "66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7"
 EXPECTED_INPUT_CSV_SHA256 = "ef0c72c17d65a0293ec4089880716ca3db1ad74764f43fe3bbe828b3e62ea6a3"
 EXPECTED_SOURCE_XLSB_SHA256 = "e7cd6cfbdfe5b14f68e2f3792ea3c713b6824595370ea9f16510ec439be58531"
-SOURCE_QC_STATUS = "retained_in_author_qc_filtered_public_matrix"
+SOURCE_QC_STATUS = "not_publicly_mapped_per_profile"
 SOURCE_QC_NOTE = (
-    "The source study reports excluding five CSF and one plasma profiles by sequencing QC. "
-    "The authors' archived Quality controls.R constructs meta_good after these exclusions "
-    "and writes the 159-profile Supplementary Data matrix from meta_good; all 159 "
-    "public-matrix profiles are therefore author-QC-retained, while the six excluded "
-    "profiles are absent."
+    "The source article reports 159 collected liquid biopsies (77 CSF and 82 plasma), "
+    "separately reports excluding five CSF and one plasma profiles by sequencing QC, and "
+    "describes Supplementary Data 1 as covering all de-identified studied samples. The public "
+    "matrix contains 159 profiles but no original seqIDs or per-profile QC-status mapping. "
+    "Although the archived Quality controls.R shows an intended post-QC export from meta_good, "
+    "the public record does not unambiguously reconcile these counts or identify the six "
+    "exclusions. The 159 audit profiles are therefore not labelled as QC-retained, and the six "
+    "reported exclusions are not asserted to be absent from the public matrix."
 )
 PATIENT_ID_STATUS = "unknown_not_supplied_in_public_expression_matrix"
 OMPFC_NETWORK = "Orbitomedial Prefrontal Cortex (OMPFC)"
@@ -461,7 +464,7 @@ def validate_canonical_invariants(
     if not ledger["patient_id"].isna().all() or not ledger["patient_id_status"].eq(PATIENT_ID_STATUS).all():
         raise ValueError("Patient identity must remain unavailable in the public-matrix audit.")
     if not ledger["source_QC_status_if_known"].eq(SOURCE_QC_STATUS).all():
-        raise ValueError("Every public-matrix profile must be recorded as author-QC-retained.")
+        raise ValueError("Every public-matrix profile must retain the unresolved per-profile QC status.")
     if not ledger["source_QC_note"].eq(SOURCE_QC_NOTE).all():
         raise ValueError("The per-profile QC provenance note is inconsistent.")
     if not sample_df["BrainTrace_output_available"].all():
@@ -529,7 +532,7 @@ def write_results_markdown(
         "",
         "## Scope and provenance",
         "",
-        "The public expression matrix was used as a computational stress-test resource. The authors' archived processing code applies the reported sequencing-QC exclusions before generating Supplementary Data; the 159 published profiles (77 CSF and 82 plasma) are therefore author-QC-retained, and the excluded five CSF and one plasma profiles are absent.",
+        "All 159 profiles present in the public expression matrix (77 CSF and 82 plasma) were used as a computational stress-test resource. The source article reports 159 collected liquid biopsies and separately reports excluding five CSF and one plasma profiles by sequencing QC. Although the archived processing code shows an intended post-QC export from `meta_good`, the public matrix has no original seqIDs or per-profile QC-status mapping, and the published record does not unambiguously reconcile the counts. We therefore do not label the 159 profiles as QC-retained or assert that the six reported exclusions are absent.",
         "",
         "No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as separate fluid-specific profile cohorts; patient-level dependence or independence cannot be established from the public matrix. Sample-label suffixes were not interpreted as patient identifiers.",
         "",
@@ -723,6 +726,9 @@ def run(args: argparse.Namespace) -> int:
             "source_qc_status": SOURCE_QC_STATUS,
             "source_clinical_qc_note": SOURCE_QC_NOTE,
             "source_qc_evidence": {
+                "article_results_collected_profiles": {"profiles": 159, "csf": 77, "plasma": 82},
+                "article_methods_reported_exclusions": {"csf": 5, "plasma": 1},
+                "article_data_availability_scope": "all de-identified studied samples",
                 "code_doi": SOURCE_CODE_DOI,
                 "archive_sha256": SOURCE_CODE_ARCHIVE_SHA256,
                 "file": "code/Quality controls/Quality controls.R",
@@ -730,7 +736,7 @@ def run(args: argparse.Namespace) -> int:
                 "retained_object": "meta_good<-Summary_unique[!(Summary_unique$seqID %in% fail),]",
                 "matrix_object": "cfRNA_good<-cfRNA_unique[,meta_good$seqID]",
                 "supplementary_export": "write.xlsx(data,\"Supplementary data.xlsx\", rowNames=T)",
-                "retained_group_counts": {
+                "code_assigned_export_group_counts": {
                     "GLI_CSF": 16,
                     "GLI_plasma": 18,
                     "MEN_CSF": 43,
@@ -738,6 +744,10 @@ def run(args: argparse.Namespace) -> int:
                     "NOR_CSF": 18,
                     "NOR_plasma": 18,
                 },
+                "public_matrix_original_seqids": "not_available",
+                "public_matrix_per_profile_qc_status": "not_available",
+                "reconciliation_status": "not_unambiguously_resolved_from_public_record",
+                "interpretation": "archived code suggests an intended post-QC export, but does not remove the published 159-versus-six count ambiguity or provide a verifiable failed-to-public-profile mapping",
             },
             "matrix_scale_interpretation": "article labels the matrix log-transformed RPM; author code computes reads/trimmed_reads*1e6 in CPM and exports log2(CPM+1); treated as log2(per-million+1) and converted to ln(per-million+1) by multiplying by ln(2)",
             "matrix_scale_source": {
@@ -760,7 +770,7 @@ def run(args: argparse.Namespace) -> int:
             "nominal_profile_p_values": "DESCRIPTIVE_ONLY_NOT_PATIENT_LEVEL_FDR_CONTROL",
         },
         "analysis_scope": {
-            "audit_universe": "all 159 author-QC-retained published-matrix profiles",
+            "audit_universe": "all 159 profiles present in the published expression matrix; per-profile source-QC status unresolved",
             "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
             "supported_claim": "technical portability and domain-shift audit",
             "not_supported_claims": summary["interpretation"]["not_supported_claims"],

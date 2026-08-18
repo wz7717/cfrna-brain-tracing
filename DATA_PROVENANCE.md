@@ -64,16 +64,20 @@ hashes. No patient-level clinical identifiers are redistributed.
   rights-and-permissions terms and any file-specific notices. The underlying
   processed sequencing data at GSA-Human `HRA007247` are controlled access and
   are neither required nor redistributed here. The published expression matrix
-  contains 159 profiles (77 CSF and 82 plasma). The source article
-  reports excluding five CSF and one plasma profiles by sequencing QC. The
-  authors' archived `Quality controls.R` constructs `meta_good` after those
-  exclusions and generates Supplementary Data from that retained object, so
-  all 159 public-matrix profiles are author-QC-retained and the six rejected
-  profiles are absent. The public matrix does not supply a patient-level
-  CSF-plasma correspondence. The remediation audit therefore uses the 159
-  retained profiles only as fluid-specific profile-level technical stress-test
-  observations without constructing or assuming a pairing map; patient-level
-  dependence cannot be assessed. It
+  contains 159 profiles (77 CSF and 82 plasma). The source article reports 159
+  collected liquid biopsies with the same 77/82 split, separately reports
+  excluding five CSF and one plasma profiles by sequencing QC, and describes
+  Supplementary Data 1 as covering all de-identified studied samples. The
+  authors' archived `Quality controls.R` shows an intended post-QC export from
+  `meta_good`, but the public matrix supplies neither the original `seqID`
+  values nor a per-profile QC-status mapping. The public record therefore does
+  not unambiguously reconcile the 159 total with the six reported exclusions.
+  We do not label the 159 public-matrix profiles as QC-retained or assert that
+  the six reported exclusions are absent. The matrix also does not supply a
+  patient-level CSF-plasma correspondence. The remediation audit therefore
+  uses all 159 matrix profiles only as fluid-specific profile-level technical
+  stress-test observations without constructing or assuming a pairing map;
+  patient-level dependence cannot be assessed. It
   does not infer patient identifiers, substitute a plasma sample from a CSF
   sample name, construct synthetic mixtures, reproduce the source clinical
   endpoint analysis, or validate localization.

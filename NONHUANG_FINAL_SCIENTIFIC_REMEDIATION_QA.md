@@ -16,7 +16,7 @@
 - Canonical derived records: `reproducibility/ahba/`, `reproducibility/tcga_brats_truth_basis_top3_summary.csv`, `reproducibility/tcga_brats_truth_basis_top3_summary.json`, `reproducibility/orthology_humanization_summary.json`, `reproducibility/tier_cascade_loso_summary.json`, `reproducibility/sign_flip_current_family.csv`, `reproducibility/sign_flip_current_family.json`, `reproducibility/nonhuang_scientific_arithmetic_qa.json`, and corrected `reproducibility/p1_bio1_4/` outputs.
 - Reproducibility code and tests: `reproducibility/generate_all_csvs.py`, `scripts/generate_nonhuang_scientific_provenance_artifacts.py`, `scripts/verify_nonhuang_scientific_provenance.py`, `scripts/run_p1_bio1_4_audit.py`, `scripts/run_p1_stat1_4_audit.py`, `scripts/run_p2_audit.py`, `scripts/build_p2_change_list.py`, `tests/test_nonhuang_scientific_provenance.py`.
 - AHBA historical-trace classification: `reproducibility/v4_p0_5_ahba_trace.csv` and `reproducibility/v4_p0_5_ahba_trace_manuscript_aligned.csv`.
-- The two revised submission DOCX files are intentionally untracked and are not part of the Git change set.
+- The two revised submission DOCX files and their local QA artifacts are intentionally untracked and are not part of the Git change set.
 
 ## 4. AHBA authoritative source
 
@@ -95,12 +95,12 @@ The four-test Tier-1 family is: Network Top1 raw/BH 0.031250/0.125000; Network T
 ## 20. Full test suite
 
 - `python -m py_compile` on every changed Python file: PASS.
-- `python -m pytest -q`: **135 passed, 2 skipped, 0 failed**; pytest-reported runtime 7.08 s.
+- `python -m pytest -q`: **135 passed, 2 skipped, 0 failed**; latest pytest-reported runtime 8.24 s.
 - `scripts/verify_nonhuang_scientific_provenance.py`: **40/40 PASS**; machine-readable result at `reproducibility/nonhuang_scientific_arithmetic_qa.json`.
 
 ## 21. Residual grep
 
-The required terms were searched across the complete 52-file unmerged diff and the revised DOCX text. There are no current incorrect claims: no `"edema": 64`, `edema=64`, `231 -> 223 -> 200`, `66/446`, `14.8%`, `78.32%`, deleted-spam BraTS DOI as current provenance, 72,108-row GSE189919 claim, six-donor AHBA RNA-seq claim, unreconciled Huang RPM/CPM scale label, or legacy sign-flip value as a current validation claim.
+The required terms were searched across the complete 54-file unmerged diff and the revised local-only DOCX text. There are no current incorrect claims: no `"edema": 64`, `edema=64`, `231 -> 223 -> 200`, `66/446`, `14.8%`, `78.32%`, deleted-spam BraTS DOI as current provenance, 72,108-row GSE189919 claim, six-donor AHBA RNA-seq claim, unreconciled Huang RPM/CPM scale label, or legacy sign-flip value as a current validation claim.
 
 Remaining literal matches were classified as: (a) the conflict ledger and generator’s historical-statement fields, which deliberately preserve the superseded value for auditability; (b) DOCX updater source markers used solely to find and replace historical source-document text; (c) unrelated decimal substrings in unchanged per-gene numerical CSVs; or (d) correct negations such as “not a unique sequential attrition pipeline.” The revised DOCX outputs contain none of the prohibited stale phrases.
 
@@ -110,11 +110,11 @@ No `data/models/*.npz`, `data/models/canonical110_model_lock.json`, Network scor
 
 ## 23. Git-diff safety
 
-`git diff --check` is clean. The final diff contains provenance, derived QA, documentation, tests, AHBA ledger, and corrected audit code only. It excludes model NPZ/model-lock files, raw datasets, databases, DOCX files, release-integrity JSON, and tags. No merge, tag, release, or change to `v0.1.16` was performed; the feature branch was subsequently pushed for independent final audit.
+`git diff --check` is clean. The final diff contains provenance, derived QA, documentation, tests, AHBA ledger, and corrected audit code only. It excludes manuscript files and manuscript-only local tooling, model NPZ/model-lock files, raw datasets, databases, release-integrity JSON, and tags. No merge to `main`, tag, release, or change to `v0.1.16` was performed; the feature branch was pushed and then audited again.
 
 ## 24. DOCX synchronization
 
-Untracked integrated revised copies were rebuilt from the user-supplied current submission files:
+Local-only integrated revised copies were rebuilt from the user-supplied current submission files and are excluded from the remediation branch:
 
 - `manuscript_remediation/BrainTrace_Main_Manuscript_HuangRemediated.docx`
 - `manuscript_remediation/BrainTrace_Supplementary_File_HuangRemediated.docx`
@@ -123,11 +123,11 @@ They contain both the non-Huang AHBA/TCGA/BraTS/orthology/tier-cascade correctio
 
 ## 25. DOCX render and structure QA
 
-All rendered pages were reviewed: main manuscript 12 pages and supplement 81 pages. No clipping, overflow, broken table, spurious blank page, wrong orientation, orphan heading, caption problem, or S20 row split was found. Both outputs retain Times New Roman 12 pt Normal style, zero tracked-change elements, zero comments, and the source section orientations (main portrait; supplement portrait/landscape/portrait/landscape/portrait).
+All rendered pages were reviewed: main manuscript 12 pages and supplement 82 pages. No clipping, overflow, broken table, spurious blank page, wrong orientation, orphan heading, caption problem, or S20 row split was found. Both outputs retain Times New Roman 12 pt Normal style, zero tracked-change elements, zero comments, and the source section orientations (main portrait; supplement portrait/landscape/portrait/landscape/portrait).
 
 ## 26. Remaining unresolved issues
 
-None in the audited evidence chain. `NONHUANG_SCIENTIFIC_CONFLICT_LEDGER.csv` has 9 `FIXED_STALE_VALUE` and 1 `DOCUMENTATION_SYNC` entries; it has no `UNRESOLVED` entries.
+No unresolved repository-introduced contradiction remains in the audited evidence chain. `NONHUANG_SCIENTIFIC_CONFLICT_LEDGER.csv` has 9 `FIXED_STALE_VALUE` and 1 `DOCUMENTATION_SYNC` entries; it has no `UNRESOLVED` entries. The Huang article/matrix QC-count ambiguity is explicitly retained as an external source-data boundary rather than being assigned a false resolution.
 
 ## 27. Post-integration external-source audit
 
@@ -137,7 +137,7 @@ The post-push audit rechecked every unmerged provenance claim against the releva
 - The MRI-linked expression subset is identified as TCGA-LGG rather than the broader TCGA-GBM/LGG collection.
 - Official GSE189919 count and TPM matrices contain 51 samples and 59,453 gene rows; the frozen-projector overlap remains independently verified at 15,622/21,668.
 - The AHBA RNA-seq endpoint audit uses two donors and selected matched anatomical structures; the separate six-donor figure and Hawrylycz et al. (2012) citation belong to the broader/microarray atlas, and the official page does not support a two-donor “whole-brain coverage” claim. The retained historical engineering-trace labels and their generator were also aligned to this supported scope and no longer invent a four-donor RNA-seq exclusion cascade.
-- The Huang supplementary matrix is the 159-profile author-QC-retained output (77 CSF, 82 plasma); the six source-QC failures are absent, and the public matrix does not expose patient correspondence.
+- The Huang supplementary matrix contains 159 profiles (77 CSF, 82 plasma). The article also reports 159 collected biopsies and separately reports six source-QC exclusions; although the archived code suggests an intended post-QC export, the public matrix lacks original sample identifiers and per-profile QC status, so the audit does not label the 159 profiles as QC-retained or assert that the six exclusions are absent. The matrix also does not expose patient correspondence.
 - The Huang scale record now reconciles the article's RPM label with the code's CPM variable and `log2RPM` export filename. Derived metadata uses the neutral `log2(per-million+1)` to `ln(per-million+1)` description, so neither source nomenclature is silently overwritten.
 - Huang Supplementary Data 1 is described as publicly downloadable, not unrestricted: reuse remains subject to the article/file rights terms, while the underlying GSA-Human `HRA007247` sequencing data are controlled access and are not redistributed.
 - Naive profile-resampling 95% confidence intervals were removed from the Huang tumour-control table because the public matrix cannot reconstruct patient clustering; the remaining nominal P values are explicitly exploratory profile-level diagnostics, not patient-level inference.

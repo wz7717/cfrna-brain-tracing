@@ -4,7 +4,7 @@ Source: Huang et al. (2025), DOI [10.1038/s41698-025-00909-6](https://doi.org/10
 
 ## Scope and provenance
 
-The public expression matrix was used as a computational stress-test resource. The authors' archived processing code applies the reported sequencing-QC exclusions before generating Supplementary Data; the 159 published profiles (77 CSF and 82 plasma) are therefore author-QC-retained, and the excluded five CSF and one plasma profiles are absent.
+All 159 profiles present in the public expression matrix (77 CSF and 82 plasma) were used as a computational stress-test resource. The source article reports 159 collected liquid biopsies and separately reports excluding five CSF and one plasma profiles by sequencing QC. Although the archived processing code shows an intended post-QC export from `meta_good`, the public matrix has no original seqIDs or per-profile QC-status mapping, and the published record does not unambiguously reconcile the counts. We therefore do not label the 159 profiles as QC-retained or assert that the six reported exclusions are absent.
 
 No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as separate fluid-specific profile cohorts; patient-level dependence or independence cannot be established from the public matrix. Sample-label suffixes were not interpreted as patient identifiers.
 

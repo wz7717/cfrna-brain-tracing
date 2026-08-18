@@ -11,8 +11,8 @@
   "patient_paired_analysis": "NOT_SUPPORTED",
   "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
   "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
-  "source_qc_status": "retained_in_author_qc_filtered_public_matrix",
-  "source_clinical_qc_note": "The source study reports excluding five CSF and one plasma profiles by sequencing QC. The authors' archived Quality controls.R constructs meta_good after these exclusions and writes the 159-profile Supplementary Data matrix from meta_good; all 159 public-matrix profiles are therefore author-QC-retained, while the six excluded profiles are absent.",
+  "source_qc_status": "not_publicly_mapped_per_profile",
+  "source_clinical_qc_note": "The source article reports 159 collected liquid biopsies (77 CSF and 82 plasma), separately reports excluding five CSF and one plasma profiles by sequencing QC, and describes Supplementary Data 1 as covering all de-identified studied samples. The public matrix contains 159 profiles but no original seqIDs or per-profile QC-status mapping. Although the archived Quality controls.R shows an intended post-QC export from meta_good, the public record does not unambiguously reconcile these counts or identify the six exclusions. The 159 audit profiles are therefore not labelled as QC-retained, and the six reported exclusions are not asserted to be absent from the public matrix.",
   "interpretation": {
     "supported_claim": "technical portability and domain-shift audit",
     "not_supported_claims": [

@@ -61,8 +61,10 @@ FORBIDDEN_MANUSCRIPT_STRINGS = [
     "78.32%",
     "66 of 446",
     "14.8%",
+    "author-QC-retained",
+    "excluded five CSF and one plasma profiles are absent",
 ]
-EXPECTED_SOURCE_QC_STATUS = "retained_in_author_qc_filtered_public_matrix"
+EXPECTED_SOURCE_QC_STATUS = "not_publicly_mapped_per_profile"
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -172,8 +174,20 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
     source_qc_evidence = source.get("source_qc_evidence", {})
     require(source_qc_evidence.get("code_doi") == "10.5281/zenodo.14869536", "Manifest source-QC code DOI is incorrect.", errors)
     require(source_qc_evidence.get("file") == "code/Quality controls/Quality controls.R", "Manifest source-QC code path is incorrect.", errors)
-    retained_counts = source_qc_evidence.get("retained_group_counts", {})
-    require(sum(retained_counts.values()) == 159 if retained_counts else False, "Manifest retained source-QC counts do not sum to 159.", errors)
+    export_counts = source_qc_evidence.get("code_assigned_export_group_counts", {})
+    require(sum(export_counts.values()) == 159 if export_counts else False, "Manifest code-assigned export counts do not sum to 159.", errors)
+    require(
+        source_qc_evidence.get("article_results_collected_profiles") == {"profiles": 159, "csf": 77, "plasma": 82}
+        and source_qc_evidence.get("article_methods_reported_exclusions") == {"csf": 5, "plasma": 1},
+        "Manifest does not preserve the source article's unresolved 159-versus-six QC accounting.",
+        errors,
+    )
+    require(
+        source_qc_evidence.get("public_matrix_per_profile_qc_status") == "not_available"
+        and source_qc_evidence.get("reconciliation_status") == "not_unambiguously_resolved_from_public_record",
+        "Manifest overstates the public matrix's source-QC resolution.",
+        errors,
+    )
 
     for asset in manifest.get("model_assets", []) + manifest.get("input_assets", []):
         asset_path = str(asset.get("path", ""))
@@ -214,9 +228,9 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
     require(all(row["patient_id_status"] == "unknown_not_supplied_in_public_expression_matrix" for row in ledger), "Ledger patient-id status is inconsistent.", errors)
     require(all(as_bool(row["expression_available"]) for row in ledger), "Some ledger profiles lack expression availability.", errors)
     require(all(as_bool(row["BrainTrace_output_available"]) for row in ledger), "Some ledger profiles lack BrainTrace output availability.", errors)
-    require(all(row["source_QC_status_if_known"] == EXPECTED_SOURCE_QC_STATUS for row in ledger), "Ledger does not mark every public profile as author-QC-retained.", errors)
-    require(all("author-QC-retained" in row["source_QC_note"] for row in ledger), "Ledger source-QC note is incomplete.", errors)
-    require(all("not_publicly_mapped_per_profile" not in row["source_QC_status_if_known"] for row in ledger), "Retired unknown-QC status remains in the ledger.", errors)
+    require(all(row["source_QC_status_if_known"] == EXPECTED_SOURCE_QC_STATUS for row in ledger), "Ledger does not preserve unresolved per-profile source-QC status.", errors)
+    require(all("no original seqIDs or per-profile QC-status mapping" in row["source_QC_note"] for row in ledger), "Ledger source-QC note is incomplete.", errors)
+    require(all("not asserted to be absent" in row["source_QC_note"] for row in ledger), "Ledger overstates the disposition of the six reported exclusions.", errors)
 
     sample_outputs = read_csv(outdir / "huang_2025_sample_outputs.csv")
     require(len(sample_outputs) == 159, "Sample-output table does not contain exactly 159 profiles.", errors)
@@ -317,9 +331,9 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
         "77 CSF and 82 plasma",
         "No patient-level CSF-plasma correspondence was assumed",
         "minimum nominal BH-adjusted profile-level P of 0.722052",
-        "159/159 author-QC-retained profiles traceable",
-        "author-QC-retained",
-        "excluded five CSF and one plasma profiles are absent",
+        "159/159 public-matrix profiles traceable",
+        "does not provide a per-profile QC-status mapping",
+        "do not label the 159 public-matrix profiles as QC-retained or assert that the six reported exclusions are absent",
         "replicate-collapsed tissue records from two donors",
         "Canonical accounting is endpoint-specific, not a unique sequential attrition pipeline",
     ]

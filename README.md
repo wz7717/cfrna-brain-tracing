@@ -255,14 +255,17 @@ the public enrichment directory contains only derived marker sets and results.
 part of the immutable v0.1.16 release and not a published v0.1.17 release.
 It analyses all 159 profiles in the published Huang 2025 expression matrix as
 an external computational domain-shift audit: 77 CSF profiles and 82 plasma
-profiles are separate fluid-specific profile cohorts. The authors' archived
-processing code applies the reported five-CSF/one-plasma sequencing-QC
-exclusions before generating Supplementary Data, so the 159 public profiles
-are author-QC-retained and the six rejected profiles are absent. The public
-matrix does not provide a patient identifier or a verified CSF-plasma
-correspondence; patient-level dependence or independence therefore cannot be
-established, so no patient-paired comparison, sample-name substitution, or
-synthetic CSF-plasma mixture is performed.
+profiles are separate fluid-specific profile cohorts. The article reports 159
+collected biopsies with the same 77/82 split and separately reports five-CSF/
+one-plasma sequencing-QC exclusions. Its archived code suggests an intended
+post-QC export, but the public matrix provides no original sample identifiers
+or per-profile QC-status mapping with which to reconcile those statements.
+Accordingly, the package neither labels the 159 profiles as QC-retained nor
+asserts that the six reported exclusions are absent. The matrix also does not
+provide a patient identifier or a verified CSF-plasma correspondence;
+patient-level dependence or independence therefore cannot be established, so
+no patient-paired comparison, sample-name substitution, or synthetic
+CSF-plasma mixture is performed.
 
 The package supports technical portability/domain-shift statements only; it
 does not validate anatomical localization, tumour-source discrimination,
