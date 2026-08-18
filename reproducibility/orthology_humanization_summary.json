@@ -1,0 +1,54 @@
+{
+  "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
+  "sources": {
+    "region_signature_humanization": {
+      "path": "signature_humanization_8800.csv",
+      "path_kind": "external_basename",
+      "sha256": "9725213db8f74aeea837a6b6e4909b587d748490d891de313215a3491ecdf05b"
+    },
+    "network_top200_humanization": {
+      "path": "network_top200_humanization.csv",
+      "path_kind": "external_basename",
+      "sha256": "d71c31ee2659bd034a3ece0aa63cbfcdb37de9bb38207e1e05876dd4c2e69be0"
+    },
+    "gprofiler_model_background_results": {
+      "path": "reproducibility/independent_enrichment/gprofiler_model_background.json",
+      "path_kind": "repository_relative",
+      "sha256": "1461c0d0ac18587d652b875151a688bac62c8c42ff784743bf03aac5e4b8420c"
+    }
+  },
+  "region_signature_rows": {
+    "unit": "gene-by-region row occurrence",
+    "total": 8800,
+    "humanized": {
+      "correct": 5324,
+      "n": 8800,
+      "proportion": 0.605,
+      "percent": 60.5
+    },
+    "unmapped": {
+      "correct": 3476,
+      "n": 8800,
+      "proportion": 0.395,
+      "percent": 39.5
+    },
+    "humanization_status_counts": {
+      "as_symbol": 954,
+      "orthology_id_map": 368,
+      "orthology_name_map": 4002,
+      "unmapped_ensmfag": 3476
+    }
+  },
+  "network_top200_orthology_humanizable": {
+    "correct": 188,
+    "n": 200,
+    "proportion": 0.94,
+    "percent": 94.0
+  },
+  "gprofiler_mapped": {
+    "mapped": 179,
+    "input_panel_n": 200,
+    "unit": "g:Profiler mapped query genes; a distinct service/filtering universe from the frozen orthology audit"
+  },
+  "interpretation": "The 60.5% humanization rate is row-level: gene-by-region row occurrences, not independent genes."
+}

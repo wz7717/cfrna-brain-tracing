@@ -1,0 +1,35 @@
+{
+  "segmentation_semantics": {
+    "whole_tumor": "segmentation label > 0",
+    "core": "segmentation labels 1 or 4",
+    "edema": "segmentation label 2",
+    "center": "geometric/label center summary from the whole-tumour mask"
+  },
+  "n_patients": {
+    "center_core_whole_tumor": 65,
+    "edema": 63
+  },
+  "strict_top3_accuracy": {
+    "center": {
+      "broad": 0.492308,
+      "network": 0.292308
+    },
+    "core": {
+      "broad": 0.692308,
+      "network": 0.184615
+    },
+    "edema": {
+      "broad": 0.825397,
+      "network": 0.238095
+    },
+    "whole_tumor": {
+      "broad": 0.707692,
+      "network": 0.153846
+    }
+  },
+  "range_across_truth_bases_percentage_points": {
+    "broad": 33.3089,
+    "network": 13.8462
+  },
+  "sampling_boundary": "TCGA RNA-seq is bulk primary-tumour material. No spatial record links the aliquot to BraTS label-2 edema voxels, tumour core, enhancing tumour or a matched MRI coordinate. Edema is an MRI-derived anatomical truth basis, not a transcriptomic compartment sampled for RNA-seq."
+}

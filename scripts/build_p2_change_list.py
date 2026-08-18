@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
+import json
 from pathlib import Path
 from docx import Document
 from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 out=Path("manuscript/BrainTrace_v5_round4_P2_修改清单.docx")
+repo_root = Path(__file__).resolve().parents[1]
+tier = json.loads((repo_root / "reproducibility" / "tier_cascade_loso_summary.json").read_text(encoding="utf-8"))
+beam = tier["network_candidate_miss_share_of_exact_top3_misses"]
+exact_conditional = tier["exact_top3_given_network_truth_retained"]
+group_conditional = tier["group_top3_given_network_truth_retained"]
 d=Document(); s=d.sections[0]
 s.top_margin=s.bottom_margin=Inches(.65); s.left_margin=s.right_margin=Inches(.7)
 d.styles["Normal"].font.name="Arial"; d.styles["Normal"].font.size=Pt(9)
@@ -17,7 +23,9 @@ p.add_run("范围：报告称28项，但仅明确列出15项；本轮不推断�
 d.add_heading("一、核心计算结果",level=1)
 for x in [
 "冻结输出层消融：Full Network/Group/Exact Top3=91.94%/72.48%/45.21%；移除某一显示层不重训其余模型，故这是信息移除诊断而非新模型。",
-"Network beam miss约占Exact错误66/446=14.8%；beam正确时Exact/Group Top3=49.07%/78.32%，beam错误后恢复率0%。",
+ f"Network candidate-set miss约占Exact错误{beam['correct']}/{beam['n']}={beam['percent']:.2f}%；"
+ f"candidate set包含truth时Exact/Group Top3={exact_conditional['percent']:.2f}%/"
+ f"{group_conditional['percent']:.2f}%，candidate-set miss后恢复率0%。",
 "匹配RF（同一冻结Network truth、固定200基因、300 trees、balanced_subsample、min leaf=2、9折LOMO完整重训）：Top1 389/819=47.50%，Top3 680/819=83.03%。",
 "Exact F1：LOSO median=0.1538，IQR=0.2857；LOMO median=0.13245，IQR=0.17895。",
 "探索性富集：446个GO-BP、11个KEGG FDR显著条目；细胞类型仅ExcN（q=2.91e-19）及源标签IhnN（q=2.74e-5）通过BH 0.05。",

@@ -314,6 +314,17 @@ def analyze_edema_endpoint() -> None:
     data = data.dropna(subset=["accuracy"])
     data.to_csv(OUT / "bio4_truth_basis_top3_sensitivity.csv", index=False)
     pivot = data.pivot(index="region_type", columns="level", values="accuracy")
+    patients_by_basis = data.groupby("region_type")["n_patients"].agg(
+        lambda values: sorted({int(value) for value in values.dropna()})
+    )
+    if any(len(values) != 1 for values in patients_by_basis):
+        raise ValueError("TCGA/BraTS source reports inconsistent denominators within a truth basis")
+    non_edema_counts = {
+        patients_by_basis[basis][0]
+        for basis in ("center", "core", "whole_tumor")
+    }
+    if len(non_edema_counts) != 1:
+        raise ValueError("TCGA/BraTS source reports inconsistent non-edema case counts")
     write_json(
         "bio4_edema_protocol_and_sensitivity.json",
         {
@@ -323,7 +334,10 @@ def analyze_edema_endpoint() -> None:
                 "edema": "segmentation label 2",
                 "center": "geometric/label center summary from the whole-tumour mask",
             },
-            "n_patients": {"center_core_whole_tumor": 65, "edema": 64},
+            "n_patients": {
+                "center_core_whole_tumor": non_edema_counts.pop(),
+                "edema": patients_by_basis["edema"][0],
+            },
             "strict_top3_accuracy": {
                 basis: {level: float(pivot.loc[basis, level]) for level in pivot.columns}
                 for basis in pivot.index
