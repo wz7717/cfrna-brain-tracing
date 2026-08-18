@@ -41,7 +41,7 @@ The ledger reports only fields available in the sample-level source. In particul
 
 ## 7. Historical AHBA traces
 
-`reproducibility/v4_p0_5_ahba_trace.csv` and `reproducibility/v4_p0_5_ahba_trace_manuscript_aligned.csv` are retained and explicitly labelled **HISTORICAL ENGINEERING TRACE 鈥?NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER**. No current document treats them as a unique sequential sample-flow account.
+`reproducibility/v4_p0_5_ahba_trace.csv` and `reproducibility/v4_p0_5_ahba_trace_manuscript_aligned.csv` are retained and explicitly labelled **HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER**. No current document treats them as a unique sequential sample-flow account.
 
 ## 8. TCGA/BraTS primary edema comparator
 
@@ -69,7 +69,7 @@ From the Tier-1 strict-LOSO exact detail, 368 exact Top3 hits plus 446 misses eq
 
 ## 14. Tier-cascade Network-miss denominator
 
-The denominator-consistent result is **64/446 = 14.35%**. It replaces the incorrect full-Network numerator of 66. The submission text renders the same result as 鈥?4 of 446 exact Top3 misses (14.35%).鈥?
+The denominator-consistent result is **64/446 = 14.35%**. It replaces the incorrect full-Network numerator of 66. The submission text renders the same result as “64 of 446 exact Top3 misses (14.35%).”
 
 ## 15. Tier-cascade conditional exact result
 
@@ -101,7 +101,7 @@ The four-test Tier-1 family is: Network Top1 raw/BH 0.031250/0.125000; Network T
 
 The required terms were searched across text/source files, excluding `.git` and the untracked DOCX render directory. There are no current incorrect claims: no `"edema": 64`, `edema=64`, `231 -> 223 -> 200`, `66/446`, `14.8%`, `78.32%`, or legacy sign-flip value as a current validation claim.
 
-Remaining literal matches were classified as: (a) the conflict ledger and generator鈥檚 historical-statement fields, which deliberately preserve the superseded value for auditability; (b) DOCX updater source markers used solely to find and replace historical source-document text; (c) unrelated decimal substrings in unchanged per-gene numerical CSVs; or (d) correct negations such as 鈥渘ot a unique sequential attrition pipeline.鈥?The revised DOCX outputs contain none of the prohibited stale phrases.
+Remaining literal matches were classified as: (a) the conflict ledger and generator’s historical-statement fields, which deliberately preserve the superseded value for auditability; (b) DOCX updater source markers used solely to find and replace historical source-document text; (c) unrelated decimal substrings in unchanged per-gene numerical CSVs; or (d) correct negations such as “not a unique sequential attrition pipeline.” The revised DOCX outputs contain none of the prohibited stale phrases.
 
 ## 22. Frozen-model safety
 
