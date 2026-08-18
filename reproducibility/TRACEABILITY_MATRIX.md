@@ -130,7 +130,7 @@ Endpoint provenance: the candidate values are recomputed from the canonical per-
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
 | T042 | §4 Validation ¶2 | GSE189919: 51 samples, 72.10% model-space gene overlap | (archived benchmark) | Submission package only | — | 15,622/21,668 = 0.7210 | GSE189919 gene symbols vs frozen Bo2023 projector gene space | ✓ |
-| T043 | §4 Validation ¶2 | Huang2025: 159 CSF/plasma profiles | (archived domain audit) | Submission package only | — | Direct count from Huang2025 Supplementary Data 1 | Huang2025 cfRNA expression matrix | ✓ |
+| T043 | §4 Validation ¶2; Huang remediation working manuscript/supplement | Huang2025 full published matrix: 159/159 traceable profiles (77 CSF, 82 plasma); independent-fluid tumour-control minimum BH-FDR 0.722052 | `huang_2025_canonical_summary.json`; `huang_2025_sample_ledger.csv`; `huang_2025_tumour_control_comparisons.csv` | Unreleased working remediation; scientific approval required before publication | `reproducibility/huang_2025/` | 77 + 82 = 159; minimum BH-adjusted value across six two-sided independent-sample Mann-Whitney U tests | Huang2025 published cfRNA expression matrix; locked BrainTrace route | ✓ |
 
 ---
 

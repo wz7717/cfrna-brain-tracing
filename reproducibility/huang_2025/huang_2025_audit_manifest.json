@@ -1,0 +1,113 @@
+{
+  "protocol_status": "huang_2025_provenance_remediated",
+  "generated_at_utc": "2026-08-18T06:37:25.123836+00:00",
+  "source": {
+    "citation": "Huang et al., 2025",
+    "doi": "10.1038/s41698-025-00909-6",
+    "article_url": "https://doi.org/10.1038/s41698-025-00909-6",
+    "published_matrix_cohort": {
+      "profiles": 159,
+      "csf": 77,
+      "plasma": 82,
+      "patients_reported_by_source": 85,
+      "disease_groups_reported_by_source": {
+        "glioma": 18,
+        "meningioma": 46,
+        "control": 21
+      }
+    },
+    "source_clinical_qc_note": "The source study reports aggregate sequencing-QC exclusions for its clinical analyses (five CSF and one plasma profile); no public per-profile QC-status mapping accompanies the expression matrix.",
+    "matrix_scale_interpretation": "audited as log2(RPM+1); converted to ln(RPM+1) by multiplying values by ln(2) before BrainTrace inference"
+  },
+  "provenance_guardrails": {
+    "patient_id_metadata": "not_available_in_public_expression_matrix",
+    "patient_paired_analysis": "NOT_SUPPORTED",
+    "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
+    "sample_suffix_interpreted_as_patient_id": false,
+    "CSF_to_plasma_sample_name_substitution": "PROHIBITED"
+  },
+  "analysis_scope": {
+    "audit_universe": "all 159 published-matrix profiles",
+    "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
+    "supported_claim": "technical portability and domain-shift audit",
+    "not_supported_claims": [
+      "patient-level CSF-plasma correspondence",
+      "synthetic matched-mixture behavior",
+      "anatomical localization accuracy",
+      "clinical validity"
+    ]
+  },
+  "route": "projected_vsd_network_top3_logcpm_resolution_local_exact",
+  "pairwise_rescue": false,
+  "model_assets": [
+    {
+      "label": "locked_network_model",
+      "provided": true,
+      "path": "data/models/bo2023_saleem_network_top200_model.npz",
+      "path_kind": "repository_relative",
+      "exists": true,
+      "bytes": 10203,
+      "sha256": "7644e7b673ea07a9eaf701d2061b1db28409421bc90fa5cbdb3cf57eb482d1b6"
+    },
+    {
+      "label": "locked_reference_projector",
+      "provided": true,
+      "path": "data/models/bo2023_reference_projector_linear_full.npz",
+      "path_kind": "repository_relative",
+      "exists": true,
+      "bytes": 697617,
+      "sha256": "0be4788b14a2f7f89c509a252e5038831aab74d2e4ecf0052cee50d02e87982f"
+    }
+  ],
+  "input_assets": [
+    {
+      "label": "published_expression_matrix",
+      "provided": true,
+      "path": "41698_2025_909_MOESM2_ESM.csv",
+      "path_kind": "external_basename",
+      "exists": true,
+      "bytes": 60706542,
+      "sha256": "ef0c72c17d65a0293ec4089880716ca3db1ad74764f43fe3bbe828b3e62ea6a3"
+    },
+    {
+      "label": "source_supplementary_xlsb",
+      "provided": true,
+      "path": "41698_2025_909_MOESM2_ESM.xlsb",
+      "path_kind": "external_basename",
+      "exists": true,
+      "bytes": 5107712,
+      "sha256": "4ca9519933b75c52b4b6650405971cd167a4ecfaacd8d48d1247f604a800a7df"
+    },
+    {
+      "label": "braintrace_source_tracing_database",
+      "provided": true,
+      "path": "braintrace_source_tracing.db",
+      "path_kind": "external_basename",
+      "exists": true,
+      "bytes": 730607616,
+      "sha256": "ab9b4e31567c002c4347e9f39d86231b5999102d6288fd45f8ca1a3733624376"
+    }
+  ],
+  "model_overlap": {
+    "n_source_matrix_features": 83929,
+    "n_selected_input_genes": 15295,
+    "n_projector_genes": 21668,
+    "n_projector_overlap_genes": 15295,
+    "n_network_model_genes": 200,
+    "n_network_overlap_genes": 178
+  },
+  "outputs": [
+    "huang_2025_sample_ledger.csv",
+    "huang_2025_sample_outputs.csv",
+    "huang_2025_network_rankings.csv",
+    "huang_2025_exact_region_rankings.csv",
+    "huang_2025_network_top1_distribution.csv",
+    "huang_2025_network_top3_distribution.csv",
+    "huang_2025_fluid_summary.csv",
+    "huang_2025_marker_correlations.csv",
+    "huang_2025_tumour_control_comparisons.csv",
+    "huang_2025_canonical_summary.csv",
+    "huang_2025_canonical_summary.json",
+    "HUANG_2025_RESULTS.md"
+  ]
+}

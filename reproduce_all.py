@@ -398,12 +398,24 @@ VALIDATION_STEPS: list[BuildStep] = [
     BuildStep(
         name="huang2025_domain_audit",
         script=ROOT / "scripts" / "run_huang2025_external_candidate.py",
-        description="Huang2025 cfRNA domain-shift audit (159 CSF/plasma profiles)",
-        produces=["reports/huang2025_domain_audit/domain_transfer_audit.json"],
+        description=(
+            "Huang2025 cfRNA provenance-remediated domain-shift audit "
+            "(159 profiles; 77 CSF and 82 plasma analysed independently)"
+        ),
+        produces=[
+            "reproducibility/huang_2025/huang_2025_canonical_summary.json",
+            "reproducibility/huang_2025/huang_2025_sample_ledger.csv",
+            "reproducibility/huang_2025/huang_2025_tumour_control_comparisons.csv",
+        ],
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
             "data/models/bo2023_reference_projector_linear_full.npz",
             "external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.csv",
+            "external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.xlsb",
+        ],
+        extra_args=[
+            "--source-xlsb",
+            "external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.xlsb",
         ],
     ),
     BuildStep(
