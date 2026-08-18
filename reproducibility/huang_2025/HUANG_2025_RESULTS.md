@@ -18,7 +18,7 @@ This audit supports a narrow technical-portability/domain-shift statement. It do
 
 ## Independent tumour-control diagnostics
 
-Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was 0.722052. All tests use independent samples, not paired observations.
+Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was 0.722052. All tests are profile-level analyses with pairing unavailable; patient-level dependence cannot be verified from the public matrix.
 
 | Fluid | Metric | tumour n | control n | raw P | BH-FDR |
 |---|---|---:|---:|---:|---:|
@@ -31,7 +31,7 @@ Six two-sided Mann-Whitney U tests were run across fluid and metric; the smalles
 
 ## Exploratory marker correlations
 
-Marker associations are descriptive, fluid-specific Spearman correlations with the OMPFC network score; they are not comparisons between matched biofluid samples.
+Marker associations are descriptive, fluid-specific Spearman correlations with the OMPFC network score; they are not matched-biofluid comparisons; patient-level dependence cannot be assessed from the public matrix.
 
 | Fluid | Marker class | Marker | n | rho | raw P | BH-FDR |
 |---|---|---|---:|---:|---:|---:|

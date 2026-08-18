@@ -72,7 +72,7 @@ def test_tumour_control_test_is_explicitly_independent(monkeypatch: pytest.Monke
                 )
     comparisons = huang.compare_tumour_control(pd.DataFrame(rows))
     assert len(comparisons) == 6
-    assert comparisons["test"].eq("two-sided Mann-Whitney U (independent samples)").all()
+    assert comparisons["test"].eq("two-sided Mann-Whitney U (profile-level; pairing unavailable)").all()
     assert comparisons["n_tumour"].eq(3).all()
     assert comparisons["n_control"].eq(3).all()
     assert comparisons["bh_fdr"].between(0, 1).all()
@@ -97,7 +97,7 @@ def test_canonical_outputs_have_full_cohort_accounting() -> None:
     assert len(comparisons) == 6
     assert set(comparisons["n_tumour"].astype(int)) == {59, 64}
     assert set(comparisons["n_control"].astype(int)) == {18}
-    assert comparisons["test"].eq("two-sided Mann-Whitney U (independent samples)").all()
+    assert comparisons["test"].eq("two-sided Mann-Whitney U (profile-level; pairing unavailable)").all()
     assert summary["minimum_bh_fdr"] == pytest.approx(comparisons["bh_fdr"].min())
 
 
@@ -124,7 +124,7 @@ def test_runner_source_has_no_pseudopairing_or_name_substitution() -> None:
         "matched_csf_plasma",
     )
     assert all(token not in source for token in forbidden)
-    assert "independent samples" in source
+    assert "profile-level; pairing unavailable" in source
 
 
 def test_bio1_bio4_audit_no_longer_generates_huang_pseudopairs() -> None:
@@ -145,3 +145,22 @@ def test_canonical_output_directory_contains_no_retired_pseudopair_artifact() ->
     report = (OUT / "HUANG_2025_RESULTS.md").read_text(encoding="utf-8")
     assert "No patient-level CSF-plasma correspondence was assumed." in report
     assert "minimum p 0.304" not in report
+
+
+
+def test_asset_record_uses_portable_paths(tmp_path: Path) -> None:
+    internal = huang.asset_record(
+        ROOT / "data/models/bo2023_saleem_network_top200_model.npz",
+        "locked_network_model",
+    )
+    assert internal["path"] == "data/models/bo2023_saleem_network_top200_model.npz"
+    assert internal["path_kind"] == "repository_relative"
+    assert not Path(internal["path"]).is_absolute()
+
+    external_path = tmp_path / "huang_external.csv"
+    external_path.write_text("x\n", encoding="utf-8")
+
+    external = huang.asset_record(external_path, "external_test")
+    assert external["path"] == "huang_external.csv"
+    assert external["path_kind"] == "external_basename"
+    assert not Path(external["path"]).is_absolute()

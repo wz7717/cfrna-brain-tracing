@@ -4,8 +4,8 @@
 The public Huang expression matrix is used only as a 159-profile computational
 stress-test resource.  Its labels encode disease group and biofluid, not a
 validated patient identifier or CSF--plasma correspondence.  This runner
-therefore analyses all 77 CSF and 82 plasma profiles as independent,
-fluid-specific cohorts and contains no patient-paired or synthetic-mixture
+therefore analyses all 77 CSF and 82 plasma profiles as separate,
+fluid-specific profile cohorts and contains no patient-paired or synthetic-mixture
 calculation.
 """
 
@@ -94,6 +94,7 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False, default=json_default) + "\n",
         encoding="utf-8",
+        newline="\n",
     )
 
 
@@ -111,7 +112,19 @@ def asset_record(path: Path | None, label: str) -> dict[str, Any]:
     if path is None:
         return {"label": label, "provided": False}
     resolved = path.resolve()
-    result: dict[str, Any] = {"label": label, "provided": True, "path": str(resolved), "exists": resolved.exists()}
+    try:
+        locator = resolved.relative_to(ROOT.resolve()).as_posix()
+        path_kind = "repository_relative"
+    except ValueError:
+        locator = resolved.name
+        path_kind = "external_basename"
+    result: dict[str, Any] = {
+        "label": label,
+        "provided": True,
+        "path": locator,
+        "path_kind": path_kind,
+        "exists": resolved.exists(),
+    }
     if resolved.exists() and resolved.is_file():
         result.update({"bytes": resolved.stat().st_size, "sha256": sha256_file(resolved)})
     return result
@@ -234,7 +247,7 @@ def read_expression(path: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def compare_tumour_control(sample_df: pd.DataFrame) -> pd.DataFrame:
-    """Run six two-sided Mann--Whitney U tests on independent profiles."""
+    """Run six two-sided Mann--Whitney U tests at the profile level when pairing metadata are unavailable."""
 
     rows: list[dict[str, Any]] = []
     metrics = ["atlas_fit_score", "network_margin", "network_entropy"]
@@ -255,7 +268,7 @@ def compare_tumour_control(sample_df: pd.DataFrame) -> pd.DataFrame:
                 {
                     "fluid": fluid,
                     "comparison": "tumour_vs_control",
-                    "test": "two-sided Mann-Whitney U (independent samples)",
+                    "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
                     "metric": metric,
                     "n_tumour": len(x),
                     "n_control": len(y),
@@ -426,7 +439,7 @@ def validate_canonical_invariants(
         raise ValueError("Patient identity must remain unavailable in the public-matrix audit.")
     if not sample_df["BrainTrace_output_available"].all():
         raise ValueError("Every published profile must yield a traceable canonical output.")
-    if len(comparisons) != 6 or not comparisons["test"].eq("two-sided Mann-Whitney U (independent samples)").all():
+    if len(comparisons) != 6 or not comparisons["test"].eq("two-sided Mann-Whitney U (profile-level; pairing unavailable)").all():
         raise ValueError("Exactly six independent tumour-control tests are required.")
     if set(comparisons["n_tumour"].astype(int)) != {59, 64} or set(comparisons["n_control"].astype(int)) != {18}:
         raise ValueError("Tumour-control denominators are inconsistent with the complete fluid cohorts.")
@@ -451,7 +464,7 @@ def make_summary(
         "patient_id_metadata": "not_available_in_public_expression_matrix",
         "patient_paired_analysis": "NOT_SUPPORTED",
         "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
-        "analysis_unit": "independent profile within fluid-specific cohort",
+        "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
         "source_clinical_qc_note": SOURCE_QC_NOTE,
         "interpretation": {
             "supported_claim": "technical portability and domain-shift audit",
@@ -501,7 +514,7 @@ def write_results_markdown(
         "",
         "## Independent tumour-control diagnostics",
         "",
-        f"Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was {summary['minimum_bh_fdr']:.6f}. All tests use independent samples, not paired observations.",
+        f"Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was {summary['minimum_bh_fdr']:.6f}. All tests are profile-level analyses with pairing unavailable; patient-level dependence cannot be verified from the public matrix.",
         "",
         "| Fluid | Metric | tumour n | control n | raw P | BH-FDR |",
         "|---|---|---:|---:|---:|---:|",
@@ -513,7 +526,7 @@ def write_results_markdown(
             "",
             "## Exploratory marker correlations",
             "",
-            "Marker associations are descriptive, fluid-specific Spearman correlations with the OMPFC network score; they are not comparisons between matched biofluid samples.",
+            "Marker associations are descriptive, fluid-specific Spearman correlations with the OMPFC network score; they are not matched-biofluid comparisons; patient-level dependence cannot be assessed from the public matrix.",
             "",
             "| Fluid | Marker class | Marker | n | rho | raw P | BH-FDR |",
             "|---|---|---|---:|---:|---:|---:|",
@@ -533,7 +546,7 @@ def write_results_markdown(
             "",
         ]
     )
-    path.write_text("\n".join(lines), encoding="utf-8")
+    path.write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
 
 def run(args: argparse.Namespace) -> int:
@@ -625,15 +638,15 @@ def run(args: argparse.Namespace) -> int:
     validate_canonical_invariants(metadata, ledger, sample_df, comparisons)
     summary = make_summary(metadata, sample_df, fluid, comparisons, correlations)
 
-    ledger.to_csv(outdir / "huang_2025_sample_ledger.csv", index=False)
-    sample_df.to_csv(outdir / "huang_2025_sample_outputs.csv", index=False)
-    network_df.to_csv(outdir / "huang_2025_network_rankings.csv", index=False)
-    region_df.to_csv(outdir / "huang_2025_exact_region_rankings.csv", index=False)
-    top1_distribution.to_csv(outdir / "huang_2025_network_top1_distribution.csv", index=False)
-    top3_distribution.to_csv(outdir / "huang_2025_network_top3_distribution.csv", index=False)
-    fluid.to_csv(outdir / "huang_2025_fluid_summary.csv", index=False)
-    correlations.to_csv(outdir / "huang_2025_marker_correlations.csv", index=False)
-    comparisons.to_csv(outdir / "huang_2025_tumour_control_comparisons.csv", index=False)
+    ledger.to_csv(outdir / "huang_2025_sample_ledger.csv", index=False, lineterminator="\n")
+    sample_df.to_csv(outdir / "huang_2025_sample_outputs.csv", index=False, lineterminator="\n")
+    network_df.to_csv(outdir / "huang_2025_network_rankings.csv", index=False, lineterminator="\n")
+    region_df.to_csv(outdir / "huang_2025_exact_region_rankings.csv", index=False, lineterminator="\n")
+    top1_distribution.to_csv(outdir / "huang_2025_network_top1_distribution.csv", index=False, lineterminator="\n")
+    top3_distribution.to_csv(outdir / "huang_2025_network_top3_distribution.csv", index=False, lineterminator="\n")
+    fluid.to_csv(outdir / "huang_2025_fluid_summary.csv", index=False, lineterminator="\n")
+    correlations.to_csv(outdir / "huang_2025_marker_correlations.csv", index=False, lineterminator="\n")
+    comparisons.to_csv(outdir / "huang_2025_tumour_control_comparisons.csv", index=False, lineterminator="\n")
     pd.DataFrame(
         [
             {
@@ -650,7 +663,11 @@ def run(args: argparse.Namespace) -> int:
                 "minimum_bh_fdr": summary["minimum_bh_fdr"],
             }
         ]
-    ).to_csv(outdir / "huang_2025_canonical_summary.csv", index=False)
+    ).to_csv(
+        outdir / "huang_2025_canonical_summary.csv",
+        index=False,
+        lineterminator="\n",
+    )
 
     manifest = {
         "protocol_status": summary["protocol_status"],
@@ -667,6 +684,7 @@ def run(args: argparse.Namespace) -> int:
                 "disease_groups_reported_by_source": {"glioma": 18, "meningioma": 46, "control": 21},
             },
             "source_clinical_qc_note": SOURCE_QC_NOTE,
+            "matrix_scale_interpretation": "audited as log2(RPM+1); converted to ln(RPM+1) by multiplying values by ln(2) before BrainTrace inference",
         },
         "provenance_guardrails": {
             "patient_id_metadata": "not_available_in_public_expression_matrix",
@@ -677,7 +695,7 @@ def run(args: argparse.Namespace) -> int:
         },
         "analysis_scope": {
             "audit_universe": "all 159 published-matrix profiles",
-            "analysis_unit": "independent profile within fluid-specific cohort",
+            "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
             "supported_claim": "technical portability and domain-shift audit",
             "not_supported_claims": summary["interpretation"]["not_supported_claims"],
         },
@@ -690,7 +708,8 @@ def run(args: argparse.Namespace) -> int:
             asset_record(args.db_path, "braintrace_source_tracing_database"),
         ],
         "model_overlap": {
-            "n_input_genes": int(sample_df["n_input_genes"].iloc[0]),
+            "n_source_matrix_features": 83929,
+            "n_selected_input_genes": int(sample_df["n_input_genes"].iloc[0]),
             "n_projector_genes": int(sample_df["n_projector_genes"].iloc[0]),
             "n_projector_overlap_genes": int(sample_df["n_projector_overlap_genes"].iloc[0]),
             "n_network_model_genes": int(sample_df["n_network_model_genes"].iloc[0]),

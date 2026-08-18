@@ -63,8 +63,9 @@ hashes. No patient-level clinical identifiers are redistributed.
   reports five CSF and one plasma sequencing-QC exclusions for its own clinical
   analyses, but does not supply a public per-profile QC-status map or a
   patient-level CSF-plasma correspondence. The remediation audit therefore
-  uses all 159 published-matrix profiles only as independent, fluid-specific
-  technical stress-test observations. It does not infer patient identifiers,
+  uses all 159 published-matrix profiles only as unpaired, fluid-specific
+  profile-level technical stress-test observations; patient-level dependence
+  cannot be assessed from the public matrix. It does not infer patient identifiers,
   substitute a plasma sample from a CSF sample name, construct synthetic
   mixtures, reproduce the source clinical analysis, or validate localization.
   For the documented full-pipeline path, place the source files at

@@ -10,7 +10,7 @@
   "patient_id_metadata": "not_available_in_public_expression_matrix",
   "patient_paired_analysis": "NOT_SUPPORTED",
   "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
-  "analysis_unit": "independent profile within fluid-specific cohort",
+  "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
   "source_clinical_qc_note": "The source study reports aggregate sequencing-QC exclusions for its clinical analyses (five CSF and one plasma profile); no public per-profile QC-status mapping accompanies the expression matrix.",
   "interpretation": {
     "supported_claim": "technical portability and domain-shift audit",
@@ -125,7 +125,7 @@
     {
       "fluid": "CSF",
       "comparison": "tumour_vs_control",
-      "test": "two-sided Mann-Whitney U (independent samples)",
+      "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
       "metric": "atlas_fit_score",
       "n_tumour": 59,
       "n_control": 18,
@@ -142,7 +142,7 @@
     {
       "fluid": "CSF",
       "comparison": "tumour_vs_control",
-      "test": "two-sided Mann-Whitney U (independent samples)",
+      "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
       "metric": "network_margin",
       "n_tumour": 59,
       "n_control": 18,
@@ -159,7 +159,7 @@
     {
       "fluid": "CSF",
       "comparison": "tumour_vs_control",
-      "test": "two-sided Mann-Whitney U (independent samples)",
+      "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
       "metric": "network_entropy",
       "n_tumour": 59,
       "n_control": 18,
@@ -176,7 +176,7 @@
     {
       "fluid": "plasma",
       "comparison": "tumour_vs_control",
-      "test": "two-sided Mann-Whitney U (independent samples)",
+      "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
       "metric": "atlas_fit_score",
       "n_tumour": 64,
       "n_control": 18,
@@ -193,7 +193,7 @@
     {
       "fluid": "plasma",
       "comparison": "tumour_vs_control",
-      "test": "two-sided Mann-Whitney U (independent samples)",
+      "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
       "metric": "network_margin",
       "n_tumour": 64,
       "n_control": 18,
@@ -210,7 +210,7 @@
     {
       "fluid": "plasma",
       "comparison": "tumour_vs_control",
-      "test": "two-sided Mann-Whitney U (independent samples)",
+      "test": "two-sided Mann-Whitney U (profile-level; pairing unavailable)",
       "metric": "network_entropy",
       "n_tumour": 64,
       "n_control": 18,

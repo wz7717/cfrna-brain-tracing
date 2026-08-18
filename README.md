@@ -255,8 +255,8 @@ the public enrichment directory contains only derived marker sets and results.
 part of the immutable v0.1.16 release and not a published v0.1.17 release.
 It analyses all 159 profiles in the published Huang 2025 expression matrix as
 an external computational domain-shift audit: 77 CSF profiles and 82 plasma
-profiles are separate, independent fluid-specific cohorts. The public matrix
-does not provide a patient identifier or a verified CSF-plasma correspondence,
+profiles are separate fluid-specific profile cohorts. The public matrix
+does not provide a patient identifier or a verified CSF-plasma correspondence; patient-level dependence or independence therefore cannot be established,
 so no patient-paired comparison, sample-name substitution, or synthetic
 CSF-plasma mixture is performed. The source study's aggregate clinical-QC
 exclusions are recorded for provenance but are not reproducible per profile.

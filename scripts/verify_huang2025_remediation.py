@@ -119,6 +119,40 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
     require(summary.get("patient_paired_analysis") == "NOT_SUPPORTED", "Paired analysis guardrail missing.", errors)
     require(summary.get("synthetic_matched_admixture") == "REMOVED_FROM_CANONICAL_ANALYSIS", "Synthetic-mixture retirement guardrail missing.", errors)
 
+    manifest = json.loads(
+        (outdir / "huang_2025_audit_manifest.json").read_text(encoding="utf-8")
+    )
+
+    for asset in manifest.get("model_assets", []) + manifest.get("input_assets", []):
+        asset_path = str(asset.get("path", ""))
+        require(
+            bool(asset_path),
+            f"Missing provenance path for {asset.get('label')!r}.",
+            errors,
+        )
+        require(
+            not Path(asset_path).is_absolute(),
+            f"Absolute provenance path found: {asset_path!r}",
+            errors,
+        )
+        require(
+            not re.match(r"^[A-Za-z]:[\\/]", asset_path),
+            f"Windows absolute provenance path found: {asset_path!r}",
+            errors,
+        )
+
+    overlap = manifest.get("model_overlap", {})
+    require(
+        overlap.get("n_source_matrix_features") == 83929,
+        "Source feature count is not 83,929.",
+        errors,
+    )
+    require(
+        overlap.get("n_selected_input_genes") == 15295,
+        "Selected Huang inference-gene count is not 15,295.",
+        errors,
+    )
+
     ledger = read_csv(outdir / "huang_2025_sample_ledger.csv")
     require(list(ledger[0]) == REQUIRED_LEDGER_COLUMNS, "Ledger columns differ from the prescribed schema.", errors)
     require(len(ledger) == 159, "Ledger does not contain exactly 159 profiles.", errors)
@@ -131,12 +165,29 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
 
     comparisons = read_csv(outdir / "huang_2025_tumour_control_comparisons.csv")
     require(len(comparisons) == 6, "Expected six tumour-control tests.", errors)
-    require(all(row["test"] == "two-sided Mann-Whitney U (independent samples)" for row in comparisons), "A non-independent test label was found.", errors)
+    require(all(row["test"] == "two-sided Mann-Whitney U (profile-level; pairing unavailable)" for row in comparisons), "A non-independent test label was found.", errors)
     require({int(row["n_tumour"]) for row in comparisons} == {59, 64}, "Tumour denominators must be 59 and 64.", errors)
     require({int(row["n_control"]) for row in comparisons} == {18}, "Control denominator must be 18.", errors)
     fdrs = [float(row["bh_fdr"]) for row in comparisons]
     require(all(0 <= value <= 1 for value in fdrs), "BH-FDR values fall outside [0,1].", errors)
     require(math.isclose(min(fdrs), float(summary["minimum_bh_fdr"]), rel_tol=0, abs_tol=1e-12), "Summary minimum BH-FDR does not match comparisons.", errors)
+
+    correlations = read_csv(outdir / "huang_2025_marker_correlations.csv")
+    require(
+        len(correlations) == 32,
+        "Expected exactly 32 fluid-by-marker correlation tests.",
+        errors,
+    )
+    require(
+        all(row["status"] == "estimated" for row in correlations),
+        "A Huang marker correlation is not estimable.",
+        errors,
+    )
+    require(
+        all(0 <= float(row["bh_fdr"]) <= 1 for row in correlations),
+        "Marker-correlation BH-FDR falls outside [0,1].",
+        errors,
+    )
 
     fluid = read_csv(outdir / "huang_2025_fluid_summary.csv")
     for row in fluid:
@@ -196,7 +247,11 @@ def main() -> int:
     args = parser.parse_args()
     result = verify(args)
     args.report.parent.mkdir(parents=True, exist_ok=True)
-    args.report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.report.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result["status"] == "PASS" else 1
 
