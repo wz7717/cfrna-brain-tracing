@@ -20,6 +20,7 @@ from core.lomo_f1 import sha256_file
 
 ROOT = Path(__file__).resolve().parents[1]
 EXACT_ORIGIN_SHA256 = "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36"
+EXACT_STAGED_SHA256 = "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A"
 
 
 def test_lomo_exact_prediction_level_integer_accounting() -> None:
@@ -97,9 +98,26 @@ def test_lomo_exact_origin_staged_and_generator_input_are_explicitly_paired() ->
         "/lomo/formal_lomo_exact_region_detail.csv"
     )
     assert staged["path"] == CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix()
+    assert staged["sha256"] == EXACT_STAGED_SHA256
     assert staged["sha256"] == sha256_file(CANONICAL_FORMAL_PATH)
     assert generator_input["path"] == staged["path"]
     assert generator_input["sha256"] == staged["sha256"]
     assert generator_input["equals_staged"] is True
     assert generator_input["consumer"] == "scripts/generate_lomo_exact_f1_evidence.py"
     assert generator_input["binding"] == "core.lomo_exact_f1.CANONICAL_FORMAL_PATH"
+
+    formal_source = provenance["formal_source"]
+    assert formal_source["path"] == staged["path"]
+    assert formal_source["sha256"] == staged["sha256"]
+    assert formal_source["origin_path"] == origin["path"]
+    assert formal_source["origin_sha256"] == origin["sha256"]
+    assert origin["sha256"] != staged["sha256"]
+
+    macro = json.loads(
+        (ROOT / "reproducibility" / "macro_f1_class_data.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    macro_provenance = macro["provenance"]
+    assert macro_provenance["formal_lomo_exact_source_sha256"] == staged["sha256"]
+    assert macro_provenance["formal_lomo_exact_origin_sha256"] == origin["sha256"]

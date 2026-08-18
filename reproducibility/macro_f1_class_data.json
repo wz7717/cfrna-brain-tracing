@@ -1922,12 +1922,13 @@
     "metrics_are_prediction_level": true,
     "micro_f1_definition": "sum integer TP / sum support = Top1 accuracy",
     "formal_lomo_exact_source": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-    "formal_lomo_exact_source_sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36",
+    "formal_lomo_exact_source_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
     "formal_lomo_exact_staged_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
     "formal_lomo_exact_route": "top3_beam_local_top50_top100_zfusion_w0p25",
     "formal_lomo_exact_route_family": "hybrid_projected_network_logcpm_exact",
     "formal_lomo_exact_truth_class_universe": true,
     "formal_lomo_exact_micro_f1_definition": "sum integer TP / sum support = Top1 accuracy",
-    "formal_lomo_exact_origin_path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_exact_region_detail.csv"
+    "formal_lomo_exact_origin_path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_exact_region_detail.csv",
+    "formal_lomo_exact_origin_sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36"
   }
 }

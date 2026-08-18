@@ -20,8 +20,9 @@
   },
   "formal_source": {
     "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-    "sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36",
+    "sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
     "origin_path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_exact_region_detail.csv",
+    "origin_sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36",
     "staged_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
     "staged_from": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_exact_region_detail.csv",
     "generator_input_path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",

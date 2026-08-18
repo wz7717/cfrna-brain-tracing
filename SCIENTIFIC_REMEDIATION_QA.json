@@ -15,7 +15,7 @@
   },
   "lomo_exact_f1": {
     "canonical_source": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-    "source_sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36",
+    "source_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
     "staged_source_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
     "source_chain": {
       "origin": {

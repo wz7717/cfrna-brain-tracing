@@ -312,7 +312,7 @@ def derive_lomo_exact() -> dict[str, Any]:
     if not isinstance(source_chain, dict):
         source_chain = _source_chain(
             origin_path=str(source.get("origin_path", source.get("staged_from", source["path"]))),
-            origin_sha256=str(source["sha256"]),
+            origin_sha256=str(source.get("origin_sha256", source["sha256"])),
             staged_path=str(source["path"]),
             staged_sha256=str(source["staged_sha256"]),
             consumer="scripts/generate_lomo_exact_f1_evidence.py",
@@ -324,7 +324,7 @@ def derive_lomo_exact() -> dict[str, Any]:
         raise ValueError("LOMO Exact micro-F1 integer identity failed")
     return {
         "canonical_source": str(source_chain["generator_input"]["path"]),
-        "source_sha256": str(source_chain["origin"]["sha256"]),
+        "source_sha256": str(source_chain["generator_input"]["sha256"]),
         "staged_source_sha256": str(source_chain["staged"]["sha256"]),
         "source_chain": source_chain,
         "summary": summary,
@@ -525,7 +525,7 @@ def ledger_rows(
             {
                 "claim_id": f"{endpoint}_GROUP_TOP3_RANDOM_BASELINES",
                 "canonical_source": record["source_staged_path"],
-                "source_sha256": record["source_origin_sha256"],
+                "source_sha256": record["source_staged_sha256"],
                 "denominator": f"{record['n_profiles']} formal profiles",
                 "exclusion_rule": "current hybrid route-family rows only; candidate identities are not fully serialized",
                 "numerator": f"observed group Top3={record['observed_hits']}",

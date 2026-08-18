@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import math
 from pathlib import Path
@@ -14,6 +15,7 @@ from core.resolution_group_baselines import (
 
 ROOT = Path(__file__).resolve().parents[1]
 GROUP_ORIGIN_SHA256 = "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1"
+GROUP_STAGED_SHA256 = "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A"
 
 
 def _qa() -> dict:
@@ -98,6 +100,8 @@ def test_lomo_exact_and_group_path_sha_pairs_are_explicit_and_current() -> None:
     assert group["generator_input"]["binding"] == (
         "core.resolution_group_baselines.CANONICAL_PATHS['LOMO']"
     )
+    assert group["staged"]["sha256"] == GROUP_STAGED_SHA256
+    assert group["origin"]["sha256"] != group["staged"]["sha256"]
 
     baseline_chain = qa["resolution_group_random_baselines"]["sources"]["LOMO"][
         "source_chain"
@@ -110,6 +114,17 @@ def test_lomo_exact_and_group_path_sha_pairs_are_explicit_and_current() -> None:
     assert "LOMO Exact" in pairing_markdown
     assert "LOMO Group" in pairing_markdown
     assert GROUP_ORIGIN_SHA256 in pairing_markdown
+
+    with (ROOT / "scientific_claim_ledger.csv").open(
+        newline="", encoding="utf-8-sig"
+    ) as handle:
+        ledger = {row["claim_id"]: row for row in csv.DictReader(handle)}
+    exact_ledger = ledger["LOMO_EXACT_F1_SUMMARY"]
+    group_ledger = ledger["LOMO_GROUP_TOP3_RANDOM_BASELINES"]
+    assert exact_ledger["canonical_source"] == exact["staged"]["path"]
+    assert exact_ledger["source_sha256"] == exact["staged"]["sha256"]
+    assert group_ledger["canonical_source"] == group["staged"]["path"]
+    assert group_ledger["source_sha256"] == group["staged"]["sha256"]
 
 
 def test_only_supported_friedman_claim_is_retained() -> None:

@@ -169,12 +169,15 @@ def update_macro_json(
     data.extend(_summary_rows(metrics["summary"]))  # type: ignore[arg-type]
     payload["data"] = data
     provenance = dict(payload.get("provenance", {}))
+    staged_path = CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix()
+    staged_sha256 = sha256_file(CANONICAL_FORMAL_PATH)
     provenance.update(
         {
             "formal_lomo_exact_origin_path": origin_path,
-            "formal_lomo_exact_source": CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix(),
-            "formal_lomo_exact_source_sha256": origin_sha256,
-            "formal_lomo_exact_staged_sha256": sha256_file(CANONICAL_FORMAL_PATH),
+            "formal_lomo_exact_origin_sha256": origin_sha256,
+            "formal_lomo_exact_source": staged_path,
+            "formal_lomo_exact_source_sha256": staged_sha256,
+            "formal_lomo_exact_staged_sha256": staged_sha256,
             "formal_lomo_exact_route": FORMAL_ROUTE,
             "formal_lomo_exact_route_family": FORMAL_ROUTE_FAMILY,
             "formal_lomo_exact_truth_class_universe": True,
@@ -303,8 +306,9 @@ def write_provenance(
         "source_chain": source_chain,
         "formal_source": {
             "path": staged_path,
-            "sha256": origin_sha256,
+            "sha256": staged_sha256,
             "origin_path": origin_path,
+            "origin_sha256": origin_sha256,
             "staged_sha256": staged_sha256,
             "staged_from": origin_path,
             "generator_input_path": staged_path,
