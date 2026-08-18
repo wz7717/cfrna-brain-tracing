@@ -400,7 +400,8 @@ VALIDATION_STEPS: list[BuildStep] = [
         script=ROOT / "scripts" / "run_huang2025_external_candidate.py",
         description=(
             "Huang2025 cfRNA provenance-remediated domain-shift audit "
-            "(159 profiles; 77 CSF and 82 plasma analysed independently)"
+            "(159 profiles; 77 CSF and 82 plasma analysed as separate "
+            "fluid-specific profile cohorts; patient-level dependence cannot be assessed)"
         ),
         produces=[
             "reproducibility/huang_2025/huang_2025_canonical_summary.json",
@@ -410,6 +411,7 @@ VALIDATION_STEPS: list[BuildStep] = [
         depends_on=[
             "data/models/bo2023_saleem_network_top200_model.npz",
             "data/models/bo2023_reference_projector_linear_full.npz",
+            "braintrace_source_tracing.db",
             "external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.csv",
             "external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.xlsb",
         ],

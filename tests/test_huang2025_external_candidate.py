@@ -55,7 +55,7 @@ def test_benjamini_hochberg_is_monotone_by_p_value() -> None:
     assert all(p <= q <= 1.0 for p, q in zip(p_values, adjusted))
 
 
-def test_tumour_control_test_is_explicitly_independent(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_tumour_control_test_is_profile_level_when_pairing_unavailable(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(huang, "N_BOOTSTRAP", 20)
     rows = []
     for fluid in ("CSF", "plasma"):
