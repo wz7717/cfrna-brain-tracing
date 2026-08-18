@@ -324,7 +324,7 @@ def marker_correlations(sample_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def distribution_table(sample_df: pd.DataFrame, rank_depth: int) -> pd.DataFrame:
-    """Report network identities within predeclared independent cohorts."""
+    """Report network identities within predeclared fluid-specific profile cohorts."""
 
     cohorts = {
         "all_159_profiles": pd.Series(True, index=sample_df.index),
@@ -502,7 +502,7 @@ def write_results_markdown(
         "",
         "The public expression matrix was used as a computational stress-test resource. Although the source study applied its own sequencing-QC exclusions for its clinical analyses, all 159 profiles available in the published matrix were considered here for technical transfer auditing; this analysis does not attempt to reproduce the source study’s QC-filtered clinical analysis.",
         "",
-        "No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as independent fluid-specific cohorts. Sample-label suffixes were not interpreted as patient identifiers.",
+        "No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as separate fluid-specific profile cohorts; patient-level dependence or independence cannot be established from the public matrix. Sample-label suffixes were not interpreted as patient identifiers.",
         "",
         "This audit supports a narrow technical-portability/domain-shift statement. It does not establish patient correspondence, synthetic mixture behavior, anatomical localization accuracy, tumour-source discrimination, or clinical validity.",
         "",
@@ -512,7 +512,7 @@ def write_results_markdown(
         f"- Traceable BrainTrace outputs: {summary['n_traceable_outputs']}/{summary['n_profiles']} ({summary['traceable_output_percent']:.1f}%).",
         f"- OMPFC Top1: CSF {int(csf['OMPFC_top1_numerator'])}/{int(csf['OMPFC_top1_denominator'])} ({csf['OMPFC_top1_percent']:.1f}%); plasma {int(plasma['OMPFC_top1_numerator'])}/{int(plasma['OMPFC_top1_denominator'])} ({plasma['OMPFC_top1_percent']:.1f}%).",
         "",
-        "## Independent tumour-control diagnostics",
+        "## Profile-level tumour-control diagnostics",
         "",
         f"Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was {summary['minimum_bh_fdr']:.6f}. All tests are profile-level analyses with pairing unavailable; patient-level dependence cannot be verified from the public matrix.",
         "",
@@ -542,7 +542,7 @@ def write_results_markdown(
             "",
             "## Canonical outputs",
             "",
-            "The sample ledger, per-profile outputs, rankings, independent-cohort distributions, statistics, machine-readable summaries, and audit manifest in this directory are the canonical Huang 2025 remediation outputs. Pseudo-paired CSF-plasma and synthetic-mixture outputs are intentionally absent.",
+            "The sample ledger, per-profile outputs, rankings, fluid-specific profile-cohort distributions, statistics, machine-readable summaries, and audit manifest in this directory are the canonical Huang 2025 remediation outputs. Pseudo-paired CSF-plasma and synthetic-mixture outputs are intentionally absent.",
             "",
         ]
     )

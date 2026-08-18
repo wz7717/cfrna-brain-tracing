@@ -6,7 +6,7 @@ Source: Huang et al. (2025), DOI [10.1038/s41698-025-00909-6](https://doi.org/10
 
 The public expression matrix was used as a computational stress-test resource. Although the source study applied its own sequencing-QC exclusions for its clinical analyses, all 159 profiles available in the published matrix were considered here for technical transfer auditing; this analysis does not attempt to reproduce the source study’s QC-filtered clinical analysis.
 
-No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as independent fluid-specific cohorts. Sample-label suffixes were not interpreted as patient identifiers.
+No patient-level CSF-plasma correspondence was assumed. CSF and plasma were analysed as separate fluid-specific profile cohorts; patient-level dependence or independence cannot be established from the public matrix. Sample-label suffixes were not interpreted as patient identifiers.
 
 This audit supports a narrow technical-portability/domain-shift statement. It does not establish patient correspondence, synthetic mixture behavior, anatomical localization accuracy, tumour-source discrimination, or clinical validity.
 
@@ -16,7 +16,7 @@ This audit supports a narrow technical-portability/domain-shift statement. It do
 - Traceable BrainTrace outputs: 159/159 (100.0%).
 - OMPFC Top1: CSF 74/77 (96.1%); plasma 56/82 (68.3%).
 
-## Independent tumour-control diagnostics
+## Profile-level tumour-control diagnostics
 
 Six two-sided Mann-Whitney U tests were run across fluid and metric; the smallest Benjamini-Hochberg FDR was 0.722052. All tests are profile-level analyses with pairing unavailable; patient-level dependence cannot be verified from the public matrix.
 
@@ -70,4 +70,4 @@ Marker associations are descriptive, fluid-specific Spearman correlations with t
 
 ## Canonical outputs
 
-The sample ledger, per-profile outputs, rankings, independent-cohort distributions, statistics, machine-readable summaries, and audit manifest in this directory are the canonical Huang 2025 remediation outputs. Pseudo-paired CSF-plasma and synthetic-mixture outputs are intentionally absent.
+The sample ledger, per-profile outputs, rankings, fluid-specific profile-cohort distributions, statistics, machine-readable summaries, and audit manifest in this directory are the canonical Huang 2025 remediation outputs. Pseudo-paired CSF-plasma and synthetic-mixture outputs are intentionally absent.

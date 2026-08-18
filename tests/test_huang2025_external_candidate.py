@@ -164,3 +164,17 @@ def test_asset_record_uses_portable_paths(tmp_path: Path) -> None:
     assert external["path"] == "huang_external.csv"
     assert external["path_kind"] == "external_basename"
     assert not Path(external["path"]).is_absolute()
+
+
+
+def test_generated_huang_report_does_not_assert_patient_independence() -> None:
+    report = (OUT / "HUANG_2025_RESULTS.md").read_text(encoding="utf-8")
+
+    forbidden = (
+        "independent fluid-specific cohorts",
+        "## Independent tumour-control diagnostics",
+        "independent-cohort distributions",
+    )
+
+    assert all(token not in report for token in forbidden)
+    assert "patient-level dependence" in report

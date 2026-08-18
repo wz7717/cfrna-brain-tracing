@@ -165,7 +165,7 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
 
     comparisons = read_csv(outdir / "huang_2025_tumour_control_comparisons.csv")
     require(len(comparisons) == 6, "Expected six tumour-control tests.", errors)
-    require(all(row["test"] == "two-sided Mann-Whitney U (profile-level; pairing unavailable)" for row in comparisons), "A non-independent test label was found.", errors)
+    require(all(row["test"] == "two-sided Mann-Whitney U (profile-level; pairing unavailable)" for row in comparisons), "Unexpected tumour-control test label was found.", errors)
     require({int(row["n_tumour"]) for row in comparisons} == {59, 64}, "Tumour denominators must be 59 and 64.", errors)
     require({int(row["n_control"]) for row in comparisons} == {18}, "Control denominator must be 18.", errors)
     fdrs = [float(row["bh_fdr"]) for row in comparisons]
