@@ -115,6 +115,29 @@ def test_valid_file_is_pass_and_report_uses_portable_locator(tmp_path: Path) -> 
     assert str(root) not in json.dumps(report)
 
 
+def test_repository_text_hash_uses_canonical_lf_across_checkout_line_endings(tmp_path: Path) -> None:
+    tracked = tmp_path / "tracked" / "input.csv"
+    tracked.parent.mkdir(parents=True)
+    tracked.write_bytes(b"header\r\nvalue\r\n")
+    item = {
+        "alias": "tracked_text",
+        "storage": "repository",
+        "kind": "file",
+        "canonical_path": "tracked/input.csv",
+        "sha256": _sha256(b"header\nvalue\n"),
+        "hash_mode": "utf8_lf",
+        "required": True,
+        "profiles": ["portable"],
+        "classification": "repository tracked",
+        "role": "test tracked text",
+        "accession_or_source": "test",
+    }
+    manifest = _write_manifest(tmp_path, item)
+    report = verify_inputs(profile="portable", manifest_path=manifest, repo_root=tmp_path)
+    assert report["status"] == "PASS"
+    assert report["inputs"][0]["hash_mode"] == "utf8_lf"
+
+
 def test_directory_tree_hash_is_deterministic_and_rejects_extra_files(tmp_path: Path) -> None:
     root = tmp_path / "external_data"
     directory = root / "Fixture"

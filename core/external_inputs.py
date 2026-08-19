@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
+from core.provenance_hashes import sha256_utf8_lf_text
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = REPO_ROOT / "reproducibility" / "external_input_manifest.json"
@@ -107,6 +109,9 @@ def load_manifest(path: Path = DEFAULT_MANIFEST) -> dict[str, Any]:
             raise InputContractError(f"{alias}: profiles is required")
         if item["kind"] == "file" and not _valid_digest(item.get("sha256")):
             raise InputContractError(f"{alias}: file SHA-256 is required")
+        hash_mode = item.get("hash_mode", "raw")
+        if hash_mode not in {"raw", "utf8_lf"}:
+            raise InputContractError(f"{alias}: hash_mode must be raw or utf8_lf")
         if item["kind"] == "directory":
             if not _valid_digest(item.get("tree_sha256")):
                 raise InputContractError(f"{alias}: directory tree_sha256 is required")
@@ -197,13 +202,18 @@ def _verify_file(item: dict[str, Any], path: Path) -> tuple[str, dict[str, Any]]
     expected = item.get("sha256")
     if not _valid_digest(expected):
         return "NOT_IN_MANIFEST", {}
-    observed = sha256_file(path)
+    hash_mode = str(item.get("hash_mode", "raw"))
+    observed = (
+        sha256_utf8_lf_text(path).lower()
+        if hash_mode == "utf8_lf"
+        else sha256_file(path)
+    )
     if observed.lower() != str(expected).lower():
         return "HASH_MISMATCH", {"observed_sha256": observed, "expected_sha256": str(expected).lower()}
     archive_status = _verify_archive(path, item.get("archive"))
     if archive_status:
         return archive_status, {"sha256": observed}
-    return "PASS", {"sha256": observed, "size": path.stat().st_size}
+    return "PASS", {"sha256": observed, "size": path.stat().st_size, "hash_mode": hash_mode}
 
 
 def _verify_directory(item: dict[str, Any], path: Path) -> tuple[str, dict[str, Any]]:
