@@ -1,0 +1,2 @@
+protocol_status,source_doi,n_profiles,n_csf,n_plasma,n_traceable_outputs,traceable_output_percent,patient_id_metadata,patient_paired_analysis,synthetic_matched_admixture,minimum_bh_fdr,minimum_bh_fdr_interpretation
+huang_2025_provenance_remediated,10.1038/s41698-025-00909-6,159,77,82,159,100.0,not_available_in_public_expression_matrix,NOT_SUPPORTED,REMOVED_FROM_CANONICAL_ANALYSIS,0.7220518354631562,minimum nominal BH-adjusted profile-level P; not patient-level FDR control

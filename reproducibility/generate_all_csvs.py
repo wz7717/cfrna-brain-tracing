@@ -56,6 +56,12 @@ from core.lomo_f1 import (  # noqa: E402
     load_formal_predictions,
     macro_class_rows,
 )
+from core.lomo_exact_f1 import (  # noqa: E402
+    CANONICAL_FORMAL_PATH as CANONICAL_EXACT_FORMAL_PATH,
+    compute_lomo_exact_metrics,
+    load_formal_predictions as load_formal_exact_predictions,
+    macro_class_rows as exact_macro_class_rows,
+)
 
 # Optional imports for full computation
 try:
@@ -98,16 +104,33 @@ RAW_COUNTS_RESOLUTION = {
     "LOMO_ResGroup_Top3": {"correct": 569, "n": 812},
 }
 
-# --- Source: run_ahba_projected_vsd_formal_three_tier_external.py ---
-# AHBA mapped-label transfer (2 whole-brain donors, 231→223→88 evaluable)
-RAW_COUNTS_AHBA = {
-    "AHBA_Network_Top1":   {"correct": 165, "n": 223},
-    "AHBA_Network_Top3":   {"correct": 211, "n": 223},
-    "AHBA_ResGroup_Top1":  {"correct": 37,  "n": 88},
-    "AHBA_ResGroup_Top3":  {"correct": 60,  "n": 88},
-    "AHBA_Exact_Top1":     {"correct": 24,  "n": 88},
-    "AHBA_Exact_Top3":     {"correct": 40,  "n": 88},
-}
+# --- Source: canonical AHBA endpoint-evaluability ledger ---
+# AHBA mapped-label transfer has endpoint-specific denominators, not a unique
+# sequential 231→223→88 attrition pipeline.
+AHBA_ENDPOINT_SUMMARY = OUTPUT_DIR / "ahba" / "ahba_endpoint_evaluability_summary.json"
+
+
+def load_ahba_raw_counts() -> dict[str, dict[str, int]]:
+    summary = json.loads(AHBA_ENDPOINT_SUMMARY.read_text(encoding="utf-8"))
+    endpoints = summary["endpoint_evaluability"]
+    mapping = {
+        "AHBA_Network_Top1": ("network", "top1"),
+        "AHBA_Network_Top3": ("network", "top3"),
+        "AHBA_ResGroup_Top1": ("resolution_group", "top1"),
+        "AHBA_ResGroup_Top3": ("resolution_group", "top3"),
+        "AHBA_Exact_Top1": ("exact_region", "top1"),
+        "AHBA_Exact_Top3": ("exact_region", "top3"),
+    }
+    return {
+        name: {
+            "correct": int(endpoints[endpoint][topk]["correct"]),
+            "n": int(endpoints[endpoint][topk]["n"]),
+        }
+        for name, (endpoint, topk) in mapping.items()
+    }
+
+
+RAW_COUNTS_AHBA = load_ahba_raw_counts()
 
 # --- Source: current release TCGA tracer + evaluate_brats_tcga_lgg_65_mri_truth.py ---
 # Current endpoint root: results/tcga_brats_current/{tracing,mri_truth}
@@ -226,14 +249,15 @@ RAW_COUNTS_SUBCORTICAL = {
 # using: precision = TP/(TP+FP), recall = TP/(TP+FN), F1 = 2*P*R/(P+R)
 MACRO_F1_DATA_FILE = "macro_f1_class_data.json"  # Generated from confusion matrices
 
-# --- AHBA trace (documented attrition, not computed) ---
+# --- Historical AHBA engineering trace (not endpoint accounting) ---
+AHBA_TRACE_CLASSIFICATION = "HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER"
 AHBA_TRACE_STEPS = [
-    {"step": "1", "description": "Initial AHBA samples from 2 whole-brain donors (4 of 6 AHBA donors excluded for incomplete coverage)",
+    {"step": "1", "description": "Initial AHBA RNA-seq tissue records from 2 donors in the selected matched-structure resource",
      "count_in": 231, "count_out": 231, "excluded": 0,
-     "reason": "2 donors with whole-brain structural sampling retained"},
+     "reason": "The official RNA-seq resource contains 2 donors and selected matched anatomical structures"},
     {"step": "2", "description": "Collapse technical replicates (sibling samples by donor + tissue ID)",
      "count_in": 231, "count_out": 231, "excluded": 0,
-     "reason": "Raw-count summation before logCPM; 231 already independent tissues post-collapse"},
+     "reason": "Raw-count summation before logCPM; 231 replicate-collapsed tissue records from the 2 RNA-seq donors"},
     {"step": "3", "description": "Map AHBA structure names to Bo2023 region ontology",
      "count_in": 231, "count_out": 223, "excluded": 8,
      "reason": "8 samples without valid Network mapping excluded"},
@@ -250,6 +274,8 @@ AHBA_TRACE_STEPS = [
      "count_in": 100, "count_out": 88, "excluded": 12,
      "reason": "8 were subcortical (cortical association-area bias); 4 lacked matched region labels"},
 ]
+for _ahba_trace_step in AHBA_TRACE_STEPS:
+    _ahba_trace_step["trace_classification"] = AHBA_TRACE_CLASSIFICATION
 
 
 # ============================================================================
@@ -503,23 +529,19 @@ def generate_subcortical_subsampling(output_dir: Path) -> str:
 
 
 def generate_ahba_trace(output_dir: Path) -> str:
-    """Generate v4_p0_5_ahba_trace.csv — AHBA sample attrition trace.
-
-    Source: Documented attrition steps (not computed from raw data,
-    but traced to run_ahba_projected_vsd_formal_three_tier_external.py)
-    """
+    """Generate a retained historical AHBA engineering trace, not endpoint truth."""
     filename = "v4_p0_5_ahba_trace.csv"
     _write_csv(output_dir / filename, AHBA_TRACE_STEPS,
-               ["step", "description", "count_in", "count_out", "excluded", "reason"])
+               ["step", "description", "count_in", "count_out", "excluded", "reason", "trace_classification"])
     return filename
 
 
 def generate_ahba_trace_aligned(output_dir: Path) -> str:
-    """Generate v4_p0_5_ahba_trace_manuscript_aligned.csv — 5-step manuscript version."""
+    """Generate a retained historical manuscript-aligned engineering trace."""
     aligned_steps = [
-        {"step": "1", "description": "AHBA independent tissue samples (post technical-replicate collapse, 2 whole-brain donors)",
+        {"step": "1", "description": "AHBA RNA-seq tissue records (post technical-replicate collapse; 2 donors; selected matched structures)",
          "count_in": 231, "count_out": 231, "excluded": 0,
-         "reason": "6 AHBA donors; 4 excluded for incomplete coverage; 2 retained; technical replicates collapsed by donor+tissue ID"},
+         "reason": "The official RNA-seq resource contains 2 donors and selected matched anatomical structures; technical replicates collapsed by donor+tissue ID"},
         {"step": "2", "description": "Network-qualified subset (valid Network mapping)",
          "count_in": 231, "count_out": 223, "excluded": 8,
          "reason": "8 samples without valid Network mapping"},
@@ -533,9 +555,11 @@ def generate_ahba_trace_aligned(output_dir: Path) -> str:
          "count_in": 100, "count_out": 88, "excluded": 12,
          "reason": "8 were subcortical (cortical association-area bias noted); 4 lacked matched region labels"},
     ]
+    for _ahba_trace_step in aligned_steps:
+        _ahba_trace_step["trace_classification"] = AHBA_TRACE_CLASSIFICATION
     filename = "v4_p0_5_ahba_trace_manuscript_aligned.csv"
     _write_csv(output_dir / filename, aligned_steps,
-               ["step", "description", "count_in", "count_out", "excluded", "reason"])
+               ["step", "description", "count_in", "count_out", "excluded", "reason", "trace_classification"])
     return filename
 
 
@@ -802,6 +826,25 @@ def generate_macro_f1(output_dir: Path) -> str:
             )
         ]
         class_data.extend(macro_class_rows(formal_metrics))
+
+    # The formal LOMO Exact endpoint is also defined by a frozen
+    # prediction-level source.  Preserve its truth-label class universe and
+    # regenerate it here so the legacy rounded JSON rows cannot reappear when
+    # the manuscript CSV suite is rebuilt.
+    if CANONICAL_EXACT_FORMAL_PATH.exists():
+        exact_metrics = compute_lomo_exact_metrics(
+            load_formal_exact_predictions(CANONICAL_EXACT_FORMAL_PATH)
+        )
+        class_data = [
+            row
+            for row in class_data
+            if row.get("endpoint") != "LOMO_Exact"
+            and not (
+                row.get("endpoint") == "SUMMARY"
+                and str(row.get("class", "")).startswith("LOMO_Exact_")
+            )
+        ]
+        class_data.extend(exact_macro_class_rows(exact_metrics))
 
     # The JSON keeps historical SUMMARY records for provenance, but they are
     # not class-level observations and must not be fed back into the summary

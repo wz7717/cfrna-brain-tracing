@@ -1,36 +1,20 @@
-# Data Provenance - BrainTrace v0.1.16
+# Data Provenance - BrainTrace v0.1.17
 
-This manifest documents every external dataset used to build, validate, and
-benchmark the BrainTrace hierarchical brain-origin candidate ranking tool.
-The current executable metadata and immutable software release are v0.1.16,
-archived at version DOI
-[10.5281/zenodo.21974954](https://doi.org/10.5281/zenodo.21974954). Its full
-reproducibility archive, including the materialized 164 MB Git LFS payload, is
-archived separately at
-[10.5281/zenodo.21974991](https://doi.org/10.5281/zenodo.21974991); the persistent
-software concept DOI is
-[10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). The frozen
-v0.1.12 scientific release remains archived at version DOI
-[10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
-Public source data are available under the cited accessions except where
-explicitly noted below. The exact Bo2023 processed author-package matrices used
-by the frozen projector have no identified stable public URL; they must be
-obtained from the original authors and verified against the reported SHA-256
-hashes. No patient-level clinical identifiers are redistributed.
-
+This manifest documents every external dataset used to build, validate, and benchmark the BrainTrace hierarchical brain-origin candidate ranking tool. The current executable metadata and immutable software release are v0.1.17, archived at version DOI [10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at [10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947); the persistent software concept DOI is [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). Public source data are available under the cited accessions except where explicitly noted below.
 ## Source Datasets
 
 | # | Dataset | Accession / DOI | Samples | Role |
 |---|---------|----------------|---------|------|
 | 1 | Bo2023 Macaque Brain Atlas | [10.1038/s41467-023-37246-w](https://doi.org/10.1038/s41467-023-37246-w); SRA [PRJNA905082](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA905082) | 819 (9 donors, 110 regions) | Training reference |
-| 2 | Allen Human Brain Atlas (AHBA) | [https://human.brain-map.org](https://human.brain-map.org) | 2 donors, 231 mapped samples | Cross-species external validation |
-| 3 | TCGA-GBM / TCGA-LGG | [NCI Genomic Data Commons](https://portal.gdc.cancer.gov) | 65 expression cases linked to the imaging cohort; 63 primary edema-comparator cases after excluding TCGA-HT-7686 (no label-2 edema voxels) and TCGA-HT-7680 (cerebellar/out of scope) | Glioma domain-shift test |
-| 4 | BraTS-TCGA-LGG | [10.5281/zenodo.3718921](https://doi.org/10.5281/zenodo.3718921) | 65 MRI cases; 63 primary edema-comparator cases under the same exclusions | Imaging-derived anatomical truth for the linked TCGA cases |
-| 5 | GSE189919 (GEO) | [GSE189919](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189919) | 51 samples; 72,108 expression rows; 15,622/21,668 frozen-projector genes overlap | Engineering benchmark and input-domain audit |
-| 6 | Huang2025 cfRNA | [10.1038/s41698-025-00909-6](https://doi.org/10.1038/s41698-025-00909-6) | 159 CSF/plasma profiles | cfRNA domain-shift audit |
-| 7 | Gene Ontology, KEGG, and g:Profiler | [Gene Ontology](https://geneontology.org), [KEGG](https://www.kegg.jp), [g:Profiler](https://biit.cs.ut.ee/gprofiler) | Frozen 200-gene panel; 179 mapped by g:Profiler; 21,668-gene model-space background | Independent GO:BP/KEGG annotation; not model training or predictive validation |
+| 2 | Allen Human Brain Atlas (AHBA) | [https://human.brain-map.org](https://human.brain-map.org) | 2 donors; 231 replicate-collapsed tissues; endpoint-specific evaluability: Network n=223 and group/exact n=88 | Cross-species external validation |
+| 3 | TCGA-LGG MRI-linked expression subset | [NCI Genomic Data Commons](https://portal.gdc.cancer.gov) | 65 expression cases linked to the BraTS-TCGA-LGG imaging cohort; 63 primary edema-comparator cases after excluding TCGA-HT-7686 (no label-2 edema voxels) and TCGA-HT-7680 (cerebellar/out of scope) | Linked glioma expression-to-imaging evaluation |
+| 4 | BraTS-TCGA-LGG | TCIA dataset [10.7937/K9/TCIA.2017.GJQ7R0EF](https://doi.org/10.7937/K9/TCIA.2017.GJQ7R0EF) | 65 public training-set MRI cases; 63 primary edema-comparator cases under the same exclusions | Imaging-derived anatomical truth for the linked TCGA cases |
+| 5 | GSE189919 (GEO) | [GSE189919](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189919) | 51 samples; 59,453 raw gene rows; 15,622/21,668 frozen-projector genes overlap | Engineering benchmark and input-domain audit |
+| 6 | Huang2025 cfRNA | [10.1038/s41698-025-00909-6](https://doi.org/10.1038/s41698-025-00909-6) | 159 published-matrix profiles (77 CSF, 82 plasma) | Fluid-specific profile-level technical portability/domain-shift audit; not localization validation |
+| 7 | Gene Ontology, KEGG, and g:Profiler | [Gene Ontology](https://geneontology.org), [KEGG](https://www.kegg.jp), [g:Profiler](https://biit.cs.ut.ee/gprofiler) | Frozen 200-gene panel; 179/200 mapped by g:Profiler in its own service/filtering universe; 21,668-gene model-space background | Independent GO:BP/KEGG annotation; not model training or predictive validation |
 | 8 | Chiou2023 rhesus macaque single-cell atlas | [10.1126/sciadv.adh1914](https://doi.org/10.1126/sciadv.adh1914) | Published Tables S3/S7; seven prespecified broad marker families | Primary independent cell-type annotation-bias analysis |
 | 9 | Siletti2023 adult human brain cell atlas | [10.1126/science.add7046](https://doi.org/10.1126/science.add7046) | Published cluster annotations; the same seven broad marker families | Human-reference sensitivity analysis |
+| 10 | SRI24/TZO116+ v2.0 atlas | Hash-verified external atlas input | TZO116+ anatomical label volume and lookup table | MRI truth-basis derivation for the linked TCGA/BraTS evaluation |
 
 ## Data Access & Licensing
 
@@ -54,11 +38,55 @@ hashes. No patient-level clinical identifiers are redistributed.
 - **TCGA**: Available through the NCI Genomic Data Commons; requires dbGaP
   authorization for controlled-access tiers. BrainTrace uses only open-access
   gene expression data.
-- **BraTS-TCGA-LGG**: Zenodo-hosted imaging dataset (CC BY 4.0). The nested
-  NIfTI zip is automatically extracted by `reproduce_all.py` if present.
+- **BraTS-TCGA-LGG**: TCIA-hosted processed-image training set (65 subjects,
+  CC BY 3.0) from the 108-subject analysis-result container; its separate
+  43-subject test set is controlled access and is not used here. The nested
+  The verified NIfTI zip is extracted into the run audit directory; it is never
+  modified under the read-only canonical external-data mount.
+- **SRI24/TZO116+**: The MRI truth-basis evaluator requires the hash-verified
+  label volume `external_data/SRI24/labels/sri24/tzo116plus.nii`
+  (SHA-256 `abbcb5ae3b2b470a1069fda3c7193256e1c3baf0a2e32772247b14917b14940b`)
+  and lookup table `external_data/SRI24/labels/sri24/SRI24-tzo116plus.txt`
+  (SHA-256 `a6b61737d0a51ecf6f64eb893bf1c87b1edf8f19e3bf8a4fbe8eda9c10b09e7e`).
+  They are external inputs, not redistributed by this repository.
 - **GSE189919**: GEO public dataset; no access restrictions.
-- **Huang2025**: Supplementary material distributed with the published article
-  (PMC12041490); no additional access restrictions.
+- **Huang2025**: Supplementary Data 1 is publicly downloadable from the
+  published article page (PMC12041490); reuse remains subject to the article's
+  rights-and-permissions terms and any file-specific notices. The underlying
+  processed sequencing data at GSA-Human `HRA007247` are controlled access and
+  are neither required nor redistributed here. The published expression matrix
+  contains 159 profiles (77 CSF and 82 plasma). The source article reports 159
+  collected liquid biopsies with the same 77/82 split, separately reports
+  excluding five CSF and one plasma profiles by sequencing QC, and describes
+  Supplementary Data 1 as covering all de-identified studied samples. The
+  authors' archived `Quality controls.R` shows an intended post-QC export from
+  `meta_good`, but the public matrix supplies neither the original `seqID`
+  values nor a per-profile QC-status mapping. The public record therefore does
+  not unambiguously reconcile the 159 total with the six reported exclusions.
+  We do not label the 159 public-matrix profiles as QC-retained or assert that
+  the six reported exclusions are absent. The matrix also does not supply a
+  patient-level CSF-plasma correspondence. The remediation audit therefore
+  uses all 159 matrix profiles only as fluid-specific profile-level technical
+  stress-test observations without constructing or assuming a pairing map;
+  patient-level dependence cannot be assessed. It
+  does not infer patient identifiers, substitute a plasma sample from a CSF
+  sample name, construct synthetic mixtures, reproduce the source clinical
+  endpoint analysis, or validate localization.
+  For the documented full-pipeline path, place the source files at
+  `external_data/Huang2025/41698_2025_909_MOESM2_ESM.csv`
+  (SHA-256 `ef0c72c17d65a0293ec4089880716ca3db1ad74764f43fe3bbe828b3e62ea6a3`)
+  and `external_data/Huang2025/41698_2025_909_MOESM2_ESM.xlsb`
+  (SHA-256 `e7cd6cfbdfe5b14f68e2f3792ea3c713b6824595370ea9f16510ec439be58531`).
+  The article labels the supplementary matrix as log-transformed Reads Per
+  Million (RPM). In the authors' code archive
+  [10.5281/zenodo.14869536](https://doi.org/10.5281/zenodo.14869536), file
+  `code/Quality controls/Quality controls.R`, the same per-million quantity is
+  computed as reads divided by trimmed reads times 1e6 in an object named
+  `CPM`, transformed as `log2CPM <- log2(CPM + 1)`, and exported to a filename
+  containing `log2RPM`. The audit therefore uses the neutral scale description
+  `log2(per-million+1)` and converts it exactly to `ln(per-million+1)` by
+  multiplying by `ln(2)` (archive SHA-256
+  `66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7`).
 - **GO/KEGG/g:Profiler**: Database content is versioned and may change. The
   public `reproducibility/independent_enrichment/` package records g:Profiler version
   `e114_eg62_p19_27110d83`, query date 2026-07-31, requested sources, mapped
@@ -88,6 +116,17 @@ support a cautious cross-species organizational bridge (Krienen et al., 2016;
 Burt et al., 2018), while AHBA mapping, orthology loss and species-specific
 association-cortex differences are audited explicitly. Saleem nomenclature is
 therefore a naming crosswalk rather than proof of one-to-one homology.
+
+The v0.1.17 release records AHBA
+endpoint-specific accounting in
+`reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv`: 231
+replicate-collapsed tissues, Network n=223, and group/exact n=88. These are not
+a unique sequential attrition trace. Its strict TCGA/BraTS Top3 truth-basis
+audit reports a 13.85 percentage-point Network range and a 33.31
+percentage-point broad-anatomy range, with edema n=63. The frozen humanization
+audit is 5,324/8,800 humanized and 3,476/8,800 unmapped **gene-by-region row
+occurrences**, not independent macaque genes; Top200 orthology humanizable
+(`188/200`) and g:Profiler mapped (`179/200`) remain distinct universes.
 
 The 3′ analysis is a transcript-coordinate/detection proxy sensitivity test;
 it is not molecule-level read generation and must not be described as a true

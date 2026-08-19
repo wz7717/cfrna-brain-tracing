@@ -1,6 +1,6 @@
-# BrainTrace v0.1.15 - Calculation Traceability Matrix
+# BrainTrace v0.1.17 scientific-provenance patch candidate - Calculation Traceability Matrix
 
-> **Scope**: This matrix traces the principal quantitative claims in the v0.1.15 manuscript package. Public rows cite paths in the v0.1.15 tagged GitHub tree and full Zenodo reproducibility archive (10.5281/zenodo.21970278); the software version DOI is 10.5281/zenodo.21970252. The quantitative results and model artifacts remain unchanged from the frozen v0.1.12 scientific model; v0.1.14 and its Zenodo records remain immutable historical references. Submission-only rows depend on non-redistributable source data or calculation outputs supplied with the journal submission and are not claimed to be in the public release.
+> **Scope**: This matrix traces the current, unreleased v0.1.17 scientific-provenance patch candidate. It does not alter the frozen v0.1.12 scientific model or the immutable v0.1.16 release. Candidate-derived AHBA, TCGA/BraTS, orthology, tier-cascade and sign-flip artifacts are identified explicitly below. References to v0.1.15 GitHub/Zenodo locations in unchanged historical rows identify legacy public mirrors only; they do not describe the current candidate or a new release. No v0.1.17 DOI or release is claimed.
 
 ## How to Read This Matrix
 
@@ -30,7 +30,7 @@ Each trace entry has:
 | T007 | §4 Validation ¶1 | Exact-region Top3 LOSO = 45.21% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | Row "LOSO Exact Top3" | 368/814 = 0.4521 | LOSO Exact: 368 correct out of 814 | ✓ |
 | T008 | §4 Validation ¶1 | Exact-region Top3 LOMO = 42.61% | `reproducibility/v4_p0_9_triple_ci.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | Row "LOMO Exact Top3" | 346/812 = 0.4261 | LOMO Exact: 346 correct out of 812 | ✓ |
 | T009 | §4 Validation ¶1 | Donor-macro Top3: 89.40% vs 89.24% | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY rows (LOSO/LOMO Network) | Donor-weighted mean of per-donor Top3 | Per-donor hit rates from confusion matrices | ✓ |
-| T010 | §4 Validation ¶1 | Sign-flip p: Network 0.5625, ResGroup 0.5938, Exact 0.5625 | (archived sign-flip results) | Submission package only | BH-corrected p-values | Exact 2^9=512 sign permutations, BH correction | Paired donor-level Top3 differences | ✓ |
+| T010 | §4 Validation ¶1 | Current four-test sign-flip family: Network Top1 raw/BH=0.031250/0.125000; Network Top3=0.375000/0.500000; resolution-group Top3=0.593750/0.593750; exact-region Top3=0.324219/0.500000; none significant | `reproducibility/sign_flip_current_family.csv` | Unreleased candidate working tree | Rows 1-4 | Exhaustive source raw P values with BH across the four named tests | Donor-level exhaustive 2^9 sign-flip source | ✓ |
 | T011 | §4 Validation ¶1 | MDE ~6pp at 80% power | (computed) | Submission package only | — | Minimum detectable effect: 80% power, α=0.05, two-sided, n=9 donors | Donor-level Top3 SD from validation | ✓ |
 
 ---
@@ -59,13 +59,13 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T018 | §4 Validation ¶2 | AHBA Network Top1/Top3 = 73.99%/94.62% (165/211 of 223) | (archived AHBA results) | Submission package only | — | 165/223=0.7399, 211/223=0.9462 | AHBA mapped-label: 165/211 correct out of 223 | ✓ |
-| T019 | §4 Validation ¶2 | AHBA ResGroup Top1/Top3 = 42.05%/68.18% (37/60 of 88) | (archived AHBA results) | Submission package only | — | 37/88=0.4205, 60/88=0.6818 | AHBA mapped-label: 37/60 correct out of 88 | ✓ |
-| T020 | §4 Validation ¶2 | AHBA Exact Top1/Top3 = 27.27%/45.45% (24/40 of 88) | (archived AHBA results) | Submission package only | — | 24/88=0.2727, 40/88=0.4545 | AHBA mapped-label: 24/40 correct out of 88 | ✓ |
-| T021 | §4 Validation ¶2 | 231 independent tissue samples | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | Step 1, count_out=231 | 6 donors → 4 excluded → 2 retained → 231 post-collapse | AHBA raw sample count | ✓ |
-| T022 | §4 Validation ¶2 | n=223 (Network-qualified) | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | Step 3, count_out=223 | 231 - 8 (no valid Network mapping) = 223 | AHBA attrition step 3 | ✓ |
-| T023 | §4 Validation ¶2 | 74.9% multi-label rate | (archived AHBA results) | Submission package only | — | 167/223 = 0.7489 | AHBA multi-Network samples / total | ✓ |
-| T024 | §4 Validation ¶2 | 12 samples excluded (8 subcortical) | `reproducibility/v4_p0_5_ahba_trace.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | Step 7, excluded=12, reason | 100 → 88, 8 subcortical + 4 unmatched | AHBA attrition step 7 | ✓ |
+| T018 | §4 Validation ¶2 | AHBA Network Top1/Top3 = 73.99%/94.62% (165/211 of 223) | `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv` | Unreleased candidate working tree | Network-evaluable rows | 165/223=0.7399, 211/223=0.9462 | Canonical formal AHBA sample-detail route | ✓ |
+| T019 | §4 Validation ¶2 | AHBA ResGroup Top1/Top3 = 42.05%/68.18% (37/60 of 88) | `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv` | Unreleased candidate working tree | Group-evaluable rows | 37/88=0.4205, 60/88=0.6818 | Canonical formal AHBA sample-detail route | ✓ |
+| T020 | §4 Validation ¶2 | AHBA Exact Top1/Top3 = 27.27%/45.45% (24/40 of 88) | `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv` | Unreleased candidate working tree | Exact-evaluable rows | 24/88=0.2727, 40/88=0.4545 | Canonical formal AHBA sample-detail route | ✓ |
+| T021 | §4 Validation ¶2 | 231 replicate-collapsed AHBA tissues | `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv` | Unreleased candidate working tree | All ledger rows | count(rows)=231 | Canonical formal AHBA sample-detail route | ✓ |
+| T022 | §4 Validation ¶2 | Endpoint-specific evaluability: Network n=223; resolution-group/exact n=88 | `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv` | Unreleased candidate working tree | `network_evaluable`, `group_evaluable`, `exact_evaluable` | sum(endpoint_evaluable) | Endpoint-specific eligibility; not a unique sequential attrition pipeline | ✓ |
+| T023 | §4 Validation ¶2 | Single-label sensitivity subsets: Network n=56; group/exact n=40 | `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv` | Unreleased candidate working tree | `*_single_label_subset` columns | sum(subset flags) | Allowed Network/exact truth-label counts in canonical route | ✓ |
+| T024 | §4 Validation ¶2 | Historical AHBA traces are not canonical endpoint accounting | `reproducibility/v4_p0_5_ahba_trace.csv`; `reproducibility/v4_p0_5_ahba_trace_manuscript_aligned.csv` | Historical engineering traces | `trace_classification` column | N/A | **HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER** | ✓ |
 
 ---
 
@@ -73,15 +73,15 @@ Each trace entry has:
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T025 | §4 Validation ¶2 | 63 primary edema-comparator patients | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | edema rows, n_patients=63 | 65 total - 1 no-edema case (TCGA-HT-7686) - 1 cerebellar/out-of-scope case (TCGA-HT-7680) = 63; center/core/whole_tumor retain n=65 | TCGA/BraTS patient count | ✓ |
-| T026 | §4 Validation ¶2 | Network Top3 = 23.81% | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | edema/network/top3/strict | 15/63 = 0.2381 | TCGA/BraTS: 15 correct out of 63 | ✓ |
-| T027 | §4 Validation ¶2 | Broad Top3 = 82.54% | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | edema/broad/top3/strict | 52/63 = 0.8254 | TCGA/BraTS: 52 correct out of 63 | ✓ |
+| T025 | §4 Validation ¶2 | 63 primary edema-comparator patients | `reproducibility/tcga_brats_truth_basis_top3_summary.json` | Unreleased candidate working tree | `primary_edema_comparator` | 65 total - TCGA-HT-7686 (no label-2 edema voxels) - TCGA-HT-7680 (cerebellar/posterior-fossa out of scope) = 63; center/core/whole_tumor retain n=65 | Canonical per-patient truth/prediction output | ✓ |
+| T026 | §4 Validation ¶2 | Network Top3 = 23.81% | `reproducibility/tcga_brats_truth_basis_top3_summary.csv` | Unreleased candidate working tree | edema/network/top3/strict | 15/63 = 0.2381 | TCGA/BraTS: 15 correct out of 63 | ✓ |
+| T027 | §4 Validation ¶2 | Broad Top3 = 82.54% | `reproducibility/tcga_brats_truth_basis_top3_summary.csv` | Unreleased candidate working tree | edema/broad/top3/strict | 52/63 = 0.8254 | TCGA/BraTS: 52 correct out of 63 | ✓ |
 | T028 | §4 Validation ¶2 | p=0.8888 (exploratory one-sided exact-binomial vs 30%) | `reproducibility/v4_p0_12_tcga_brats_ci_summary.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | manuscript_summary row | binomtest(15, 63, 0.30, "greater").pvalue | 15/63 vs null_p=0.30 (Top3/10 uniform) | ✓ |
-| T029 | Figure 1B | TCGA/BraTS 23.81%/82.54% | Same as T026/T027 | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | — | — | — | ✓ |
+| T029 | §4 Validation ¶2 | Strict truth-basis Top3 ranges: Network 15.38–29.23%=13.85 pp; broad 49.23–82.54%=33.31 pp | `reproducibility/tcga_brats_truth_basis_top3_summary.csv` | Unreleased candidate working tree | all 8 strict Top3 rows | max(percent)-min(percent) within level | Network: 19/65, 12/65, 15/63, 10/65; broad: 32/65, 45/65, 52/63, 46/65 | ✓ |
 
 Candidate-set sensitivity: Network Top3 any-hit = 36.51% (23/63), descriptive only; the patient-specific truth set contains Networks with at least 20% edema overlap and is not an anatomical adjacency rule.
 
-Endpoint provenance: the current values are generated from `results/tcga_brats_current/tracing/` by the current tracer and evaluated into `results/tcga_brats_current/mri_truth/`. The primary edema comparator additionally excludes the no-edema and cerebellar/out-of-scope cases listed in T025. The archived 2026-06-09 endpoint is historical and is not a source for T026–T029.
+Endpoint provenance: the candidate values are recomputed from the canonical per-patient truth/prediction output into `reproducibility/tcga_brats_truth_basis_top3_summary.csv`. The primary edema comparator additionally excludes the no-edema and cerebellar/out-of-scope cases listed in T025. The archived 2026-06-09 endpoint is historical and is not a source for T026–T029.
 
 ---
 
@@ -99,9 +99,9 @@ Endpoint provenance: the current values are generated from `results/tcga_brats_c
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T033 | §3 Implementation ¶1 | Cold inference 0.3841 s/sample | (archived benchmark) | Submission package only | — | 19.5901 s / 51 samples = 0.3841 | GSE189919: 51 samples, cold frozen-route | ✓ |
-| T034 | §3 Implementation ¶1 | p50/p95 0.3769/0.4026 s | (archived benchmark) | Submission package only | — | Percentile of per-sample inference times | GSE189919 per-sample timing | ✓ |
-| T035 | §3 Implementation ¶1 | Peak working set 222.0 MiB | (archived benchmark) | Submission package only | — | Peak RSS during inference | GSE189919 benchmark memory profiling | ✓ |
+| T033 | §3 Implementation ¶1 | Cold inference 0.3841 s/profile (19.5901 s / 51 profiles) | `reproducibility/formal_real_input_performance_manifest.json` | Unreleased candidate working tree | cold/timing | 19.5901258 s / 51 profiles | GSE189919: 51-profile cold frozen-route workload | ✓ |
+| T034 | §3 Implementation ¶1 | Cold p50/p95 0.3769/0.4026 s/profile | `reproducibility/formal_real_input_performance_manifest.json` | Unreleased candidate working tree | cold/timing | Percentile of 51 cold profile timings | GSE189919 cold per-profile timing | ✓ |
+| T035 | §3 Implementation ¶1 | Cold peak 216.7 MiB; warm maximum 222.0 MiB across 153 timed inference events | `reproducibility/formal_real_input_performance_manifest.json` | Unreleased candidate working tree | cold/memory; warm/repeats | bytes / 2^20; 51 profiles × 3 warm repeats = 153 events | GSE189919 benchmark memory profiling | ✓ |
 
 ---
 
@@ -109,9 +109,9 @@ Endpoint provenance: the current values are generated from `results/tcga_brats_c
 
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
-| T036 | §2 System ¶3 | 5,324/8,800 region-signature rows humanized | (archived orthology audit) | Submission package only | — | 5324/8800 = 60.50% | Ensembl BioMart macaque→human ortholog mapping | ✓ |
-| T037 | §2 System ¶3 | 188/200 Network Top200 genes humanized | (archived orthology audit) | Submission package only | — | 188/200 = 94.00% | Ensembl BioMart ortholog mapping for Network panel | ✓ |
-| T038 | §2 System ¶3 | 60.50% row-level humanization rate | (archived orthology audit) | Submission package only | — | 5324/8800 = 0.6050 | Same as T036 | ✓ |
+| T036 | §2 System ¶3 | 5,324/8,800 humanized and 3,476/8,800 unmapped **gene-by-region row occurrences** | `reproducibility/orthology_humanization_summary.json` | Unreleased candidate working tree | `region_signature_rows` | 5324/8800=60.50%; 3476/8800=39.50% | Frozen humanization output | ✓ |
+| T037 | §2 System ¶3 | Top200 orthology humanizable = 188/200; g:Profiler mapped = 179/200 | `reproducibility/orthology_humanization_summary.json` | Unreleased candidate working tree | `network_top200_orthology_humanizable`; `gprofiler_mapped` | Separate numerator/denominator/filtering universes | Frozen orthology output and g:Profiler result metadata | ✓ |
+| T038 | §2 System ¶3 | Row-level humanization is not independent-gene humanization | `reproducibility/orthology_humanization_summary.json` | Unreleased candidate working tree | `region_signature_rows.unit` | Unit is a gene-by-region row occurrence | 8,800 is not a count of independent macaque genes | ✓ |
 
 ---
 
@@ -130,7 +130,7 @@ Endpoint provenance: the current values are generated from `results/tcga_brats_c
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
 | T042 | §4 Validation ¶2 | GSE189919: 51 samples, 72.10% model-space gene overlap | (archived benchmark) | Submission package only | — | 15,622/21,668 = 0.7210 | GSE189919 gene symbols vs frozen Bo2023 projector gene space | ✓ |
-| T043 | §4 Validation ¶2 | Huang2025: 159 CSF/plasma profiles | (archived domain audit) | Submission package only | — | Direct count from Huang2025 Supplementary Data 1 | Huang2025 cfRNA expression matrix | ✓ |
+| T043 | §4 Validation ¶2; Huang remediation working manuscript/supplement | Huang2025 full published matrix: 159/159 traceable profiles (77 CSF, 82 plasma); minimum nominal BH-adjusted profile-level P=0.722052 | `huang_2025_canonical_summary.json`; `huang_2025_sample_ledger.csv`; `huang_2025_tumour_control_comparisons.csv` | Unreleased working remediation; scientific approval required before publication | `reproducibility/huang_2025/` | 77 + 82 = 159; minimum nominal BH-adjusted value across six exploratory two-sided profile-level Mann-Whitney U comparisons; patient pairing unavailable and patient-level dependence not assessable | Huang2025 published cfRNA expression matrix; locked BrainTrace route | ✓ |
 
 ---
 
@@ -155,13 +155,13 @@ All formulas are implemented in `reproducibility/generate_all_csvs.py` with docu
 | ID | Manuscript Location | Manuscript Value | Source CSV | Availability | CSV Location | Formula | Raw Data Input | ✓ |
 |----|-------------------|-----------------|------------|--------------|-------------|---------|---------------|---|
 | T044 | Supp Table S8/S13 | LOSO Exact macro F1 = 0.2102 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOSO_Exact_macro | mean(F1_i) for i=1..105 | 105 class-level F1 from LOSO Exact confusion matrix | ✓ |
-| T045 | Supp Table S8/S13 | LOMO Exact macro F1 = 0.1943 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOMO_Exact_macro | mean(F1_i) for i=1..104 | 104 class-level F1 from LOMO Exact confusion matrix | ✓ |
+| T045 | Supp Table S8/S13 | LOMO Exact macro F1 = 0.2034 | `reproducibility/formal_lomo_exact_region_f1.csv`; `reproducibility/v4_p0_13_macro_f1.csv` | Unreleased candidate working tree | Current formal class rows; SUMMARY, LOMO_Exact_macro | mean(F1_i) over the 104-label truth universe | 812 current formal prediction rows; prediction-only labels remain false positives | ✓ |
 | T046 | Supp Table S8 | LOSO Network macro F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOSO_Network_macro | mean(F1_i) for i=1..10 | 10 Network class-level F1 from LOSO confusion matrix | ✓ |
 | T047 | Supp Table S8 | LOMO Network weighted F1 | `reproducibility/v4_p0_13_macro_f1.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | SUMMARY, LOMO_Network_weighted | Σ(n_i·F1_i) / Σ(n_i) for i=1..10 | 10 Network classes with sample counts from LOMO | ✓ |
 
 ---
 
-**T055 (added 2026-08-09):** Supplementary S11 now reports Macro-F1 mean±SD, median(IQR), weighted-F1 and micro-F1 for LOSO/LOMO Exact and Network endpoints. The reproducible source is `reproducibility/p1_cross1_5/cross3_f1_distribution_summary.csv`; mean±SD is the sample SD across evaluable class-level F1 values from `reproducibility/macro_f1_class_data.json`.
+**T055 (updated 2026-08-19):** Supplementary S11 reports Macro-F1 mean±SD, median(IQR), weighted-F1 and micro-F1 for LOSO/LOMO Exact and Network endpoints. The current LOMO Exact rows are regenerated from `reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv` by `scripts/generate_lomo_exact_f1_evidence.py`; the 104-class macro denominator is the truth-label universe, and `sum(TP)=177`, `sum(support)=812`, and micro-F1=`177/812`. The derived summaries are in `reproducibility/p1_cross1_5/cross3_f1_distribution_summary.csv` and `reproducibility/v4_p0_13_macro_f1.csv`.
 
 **T056 (added 2026-08-10):** Supplementary S6 now reports all ten Network mapping fractions, AHBA allowed-label denominators, any-allowed Top1 hits, strict same-Network Top1 hits and percentage-point effects versus the pooled 165/223 mapped-label Top1 rate. The public derived source is `reproducibility/p1_e4_ahba_network_mapping_impact.csv`; its input hashes and formula are in `p1_e4_ahba_network_mapping_impact_manifest.json`. The primary denominators are membership-weighted because AHBA truth is multi-label; all results are descriptive with two AHBA donors.
 
@@ -186,6 +186,13 @@ LOMO rows in `reproducibility/v4_p0_13_macro_f1.csv` are regenerated from the
 same prediction-level source by `scripts/generate_lomo_f1_evidence.py` and
 are regression-tested against the integer-count class table.
 
+**T062 (added 2026-08-19):** Table S8 current-formal resolution-group Top3
+random baselines are regenerated from the staged LOSO and LOMO prediction
+details by `core/resolution_group_baselines.py`: LOSO uniform/weighted =
+22.6%/6.5%; LOMO uniform/weighted = 21.3%/4.1%. The input origin and staged
+SHA-256 values, formula, RNG seed and 10,000 weighted draws are recorded in
+`reproducibility/formal_resolution_group_random_baselines.json`.
+
 ## 13. Frozen 200-gene Comparator, Truth Normalization, and Independent Analyses
 
 | ID | Manuscript Location | Manuscript Value | Source CSV / Manifest | Availability | CSV Location | Formula | Raw Data Input | ✓? |
@@ -197,6 +204,13 @@ are regression-tested against the integer-count class table.
 | T052 | Supp independent cell-type annotation | Rhesus excitatory/inhibitory enrichment q=2.67×10⁻⁷/4.20×10⁻⁴; human sensitivity q=0.0477/5.89×10⁻⁵ | `reproducibility/independent_enrichment/independent_celltype_enrichment.csv`; `reproducibility/independent_enrichment/independent_enrichment_manifest.json` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | Chiou2023 and Siletti2023 rows | One-sided hypergeometric test; BH correction across seven prespecified families | Chiou 2023 rhesus markers (primary) and Siletti 2023 human markers (sensitivity), intersected with 21,668-gene background | ✓ |
 | T053 | Supplementary S18 | Complete 110-row Bo2023-to-Saleem anatomical crosswalk | `reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | All 110 rows | Direct row-level crosswalk | Locked Bo2023 region IDs, Network labels, Saleem-style names and broad mappings | ✓ |
 | T054 | Supplementary Tables S18-S19 | Portable sensitivity blocks and frozen output | `reproducibility/s18_s19/run_s18_s19_sensitivity.py`; `reproducibility/s18_s19/sensitivity_analysis_results.json`; `reproducibility/s18_s19/input_manifest.json` | Public - GitHub v0.1.15 release; Zenodo full archive 10.5281/zenodo.21970278 | Four named result blocks and input hashes | Deterministic runner using frozen public inputs | Frozen model artifacts and corrected lambda/AHBA CSV inputs | ✓ |
+
+## 13.1 Current Candidate Tier-Cascade Provenance
+
+| ID | Manuscript Location | Manuscript Value | Source CSV / Manifest | Availability | CSV Location | Formula | Raw Data Input | ✓? |
+|----|-------------------|-----------------|-----------------------|--------------|-------------|---------|---------------|---|
+| T061 | Supplementary Results R10 | Same-LOSO-exact-universe cascade: exact n=814, Exact Top3=368/814, Network candidate truth retained/missed=750/64, Network miss share of exact misses=64/446=14.35%, conditional Exact/Group Top3=368/750=49.07% and 590/750=78.67%, recovery after a Network candidate miss=0% | `reproducibility/tier_cascade_loso_summary.json` | Unreleased candidate working tree | top-level fields | All candidate-set quantities use the exact-evaluable 814-sample universe | Canonical LOSO exact and resolution-group sample-detail outputs | ✓ |
+
 ---
 
 ## Verification Summary
@@ -216,6 +230,8 @@ are regression-tested against the integer-count class table.
 | Macro F1 summary | T044–T047, T055 | 5/5 | 100% |
 | Mapping-impact and CI coverage addenda | T056–T058 | 3/3 | 100% |
 | Frozen comparator, truth normalization & independent analyses | T048-T054 | 7/7 | 100% |
-| **Total** | **T001-T058** | **58/58** | **100%** |
+| Current candidate tier-cascade provenance | T061 | 1/1 | 100% |
+| Current-formal resolution-group baseline provenance | T062 | 1/1 | 100% |
+| **Total** | **T001-T062** | **62/62** | **100%** |
 
-> **Availability note:** Public status means the cited relative path is included in the GitHub v0.1.15 release. The corresponding Zenodo v0.1.15 full archive is available at 10.5281/zenodo.21970278 and the software version DOI is 10.5281/zenodo.21970252; v0.1.14 references identify the immutable historical release. Submission-package-only status is explicit and does not imply public availability.
+> **Availability note:** “Unreleased candidate working tree” means the artifact is present only in this v0.1.17 scientific-provenance patch candidate; it is not a published release and has no new DOI. References to GitHub/Zenodo v0.1.15 in unchanged rows are explicitly historical mirrors. The current immutable public release remains v0.1.16; submission-package-only status does not imply public availability.

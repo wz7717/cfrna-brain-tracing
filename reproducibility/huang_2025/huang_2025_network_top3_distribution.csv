@@ -1,0 +1,32 @@
+cohort,rank_depth,network,count,denominator_profiles,percent_profiles
+CSF_control_profiles,3,Operculum/Insula,18,18,100.0
+CSF_control_profiles,3,Orbitomedial Prefrontal Cortex (OMPFC),18,18,100.0
+CSF_control_profiles,3,Temporal,13,18,72.22222222222223
+CSF_control_profiles,3,Subcortical,5,18,27.77777777777778
+CSF_tumour_profiles,3,Operculum/Insula,59,59,100.0
+CSF_tumour_profiles,3,Orbitomedial Prefrontal Cortex (OMPFC),58,59,98.30508474576271
+CSF_tumour_profiles,3,Temporal,47,59,79.66101694915254
+CSF_tumour_profiles,3,Subcortical,12,59,20.338983050847457
+CSF_tumour_profiles,3,Occipital/Temporal,1,59,1.694915254237288
+all_159_profiles,3,Operculum/Insula,159,159,100.0
+all_159_profiles,3,Orbitomedial Prefrontal Cortex (OMPFC),158,159,99.37106918238993
+all_159_profiles,3,Temporal,123,159,77.35849056603773
+all_159_profiles,3,Subcortical,36,159,22.641509433962263
+all_159_profiles,3,Occipital/Temporal,1,159,0.6289308176100629
+all_CSF_profiles,3,Operculum/Insula,77,77,100.0
+all_CSF_profiles,3,Orbitomedial Prefrontal Cortex (OMPFC),76,77,98.7012987012987
+all_CSF_profiles,3,Temporal,60,77,77.92207792207792
+all_CSF_profiles,3,Subcortical,17,77,22.07792207792208
+all_CSF_profiles,3,Occipital/Temporal,1,77,1.2987012987012987
+all_plasma_profiles,3,Operculum/Insula,82,82,100.0
+all_plasma_profiles,3,Orbitomedial Prefrontal Cortex (OMPFC),82,82,100.0
+all_plasma_profiles,3,Temporal,63,82,76.82926829268293
+all_plasma_profiles,3,Subcortical,19,82,23.170731707317074
+plasma_control_profiles,3,Operculum/Insula,18,18,100.0
+plasma_control_profiles,3,Orbitomedial Prefrontal Cortex (OMPFC),18,18,100.0
+plasma_control_profiles,3,Temporal,13,18,72.22222222222223
+plasma_control_profiles,3,Subcortical,5,18,27.77777777777778
+plasma_tumour_profiles,3,Operculum/Insula,64,64,100.0
+plasma_tumour_profiles,3,Orbitomedial Prefrontal Cortex (OMPFC),64,64,100.0
+plasma_tumour_profiles,3,Temporal,50,64,78.125
+plasma_tumour_profiles,3,Subcortical,14,64,21.875

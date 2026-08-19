@@ -120,13 +120,15 @@ def update_macro_json(metrics: dict[str, object]) -> None:
         ]
     )
     payload["data"] = data
-    payload["provenance"] = {
+    provenance = dict(payload.get("provenance", {}))
+    provenance.update({
         "formal_lomo_network_source": str(CANONICAL_FORMAL_PATH.relative_to(ROOT)),
         "route": FORMAL_ROUTE,
         "route_family": FORMAL_ROUTE_FAMILY,
         "metrics_are_prediction_level": True,
         "micro_f1_definition": "sum integer TP / sum support = Top1 accuracy",
-    }
+    })
+    payload["provenance"] = provenance
     MACRO_JSON.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )

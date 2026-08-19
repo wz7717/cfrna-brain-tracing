@@ -1,0 +1,9 @@
+truth_basis,level,variant,top_k,correct,n,accuracy,accuracy_percent,inclusion_rule
+center,network,strict,top3,19,65,0.29230769,29.23,all paired TCGA/BraTS cases
+core,network,strict,top3,12,65,0.18461538,18.46,all paired TCGA/BraTS cases
+edema,network,strict,top3,15,63,0.23809524,23.81,edema_voxels > 0 and edema_network_dominant != out_of_scope
+whole_tumor,network,strict,top3,10,65,0.15384615,15.38,all paired TCGA/BraTS cases
+center,broad,strict,top3,32,65,0.49230769,49.23,all paired TCGA/BraTS cases
+core,broad,strict,top3,45,65,0.69230769,69.23,all paired TCGA/BraTS cases
+edema,broad,strict,top3,52,63,0.82539683,82.54,edema_voxels > 0 and edema_network_dominant != out_of_scope
+whole_tumor,broad,strict,top3,46,65,0.70769231,70.77,all paired TCGA/BraTS cases

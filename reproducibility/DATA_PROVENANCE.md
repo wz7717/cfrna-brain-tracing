@@ -1,7 +1,6 @@
-# BrainTrace — Raw Data Provenance Manifest
+# Data Provenance - BrainTrace v0.1.17
 
-> **Principle**: Every raw data file is traceable to a public repository with a documented accession number, download URL, and content fingerprint.
-
+This manifest documents every external dataset used to build, validate, and benchmark the BrainTrace hierarchical brain-origin candidate ranking tool. The current executable metadata and immutable software release are v0.1.17, archived at version DOI [10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at [10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947); the persistent software concept DOI is [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). Public source data are available under the cited accessions except where explicitly noted below.
 ## 1. Primary Atlas Data
 
 ### 1.1 Bo2023 Macaque Transcriptomic Atlas
@@ -9,7 +8,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `bo2023_vsd_matrix` |
-| **File** | `bo2023 data/mfas5_819samples_23605genes_vsd4_rmbatch.xls` |
+| **File** | `external_data/Bo2023/mfas5_819samples_23605genes_vsd4_rmbatch.xls` |
 | **Source** | NCBI SRA / Bo et al. (2023) supplementary data |
 | **Accession** | PRJNA905082 |
 | **Citation** | Bo, T. et al. (2023) Brain-wide and cell-specific transcriptomic insights into MRI-derived cortical morphology in macaque monkeys. *Nat. Commun.*, 14, 1499. |
@@ -21,7 +20,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `bo2023_counts_matrix` |
-| **File** | `bo2023 data/mfas5_819samples_28415genes_featurecounts_counts.txt` |
+| **File** | `external_data/Bo2023/mfas5_819samples_28415genes_featurecounts_counts.txt` |
 | **Source** | PRJNA905082 (raw counts before VSD transformation) |
 | **Content** | 819 samples × 28,415 genes, raw featureCounts |
 | **Role** | Used for logCPM normalization and marker selection |
@@ -29,7 +28,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `bo2023_sample_info` |
-| **File** | `bo2023 data/Information of sequenced samples_update_full878_filter819.xlsx` |
+| **File** | `external_data/Bo2023/Information of sequenced samples_update_full878_filter819.xlsx` |
 | **Source** | PRJNA905082 (sample metadata) |
 | **Content** | Sample IDs, MonkeyID (donor mapping), brain region annotations |
 | **Role** | Donor mapping for LOSO/LOMO splits; region label assignment |
@@ -51,18 +50,18 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `ahba_tpm_matrix` |
-| **File** | `data/ahba_human_rnaseq/ahba_human_rnaseq_tpm_gene_symbol_matrix.tsv` |
+| **File** | `external_data/AHBA/ahba_human_rnaseq_tpm_gene_symbol_matrix.tsv` |
 | **Source** | Allen Brain Map portal (https://portal.brain-map.org) |
-| **Citation** | Hawrylycz, M.J. et al. (2012) An anatomically comprehensive atlas of the adult human brain transcriptome. *Nature*, 489, 391–399. |
+| **Citation** | Allen Human Brain Atlas official RNA-Sequencing download record for donors `H0351.2001` and `H0351.2002`; Hawrylycz et al. (2012) describes the broader AHBA/microarray atlas and is not used here as proof of RNA-seq donor scope. |
 | **Content** | Human brain RNA-seq TPM matrix, gene-symbol indexed |
-| **Donors** | 6 total; 2 with whole-brain coverage (4 excluded for incomplete sampling) |
-| **Samples** | 231 independent tissue samples (post technical-replicate collapse) → 223 Network-qualified → 88 exact-region evaluable |
+| **Donors** | 2 RNA-seq donors with a selected set of matched anatomical structures (the separate AHBA microarray resource contains 6 donors) |
+| **Samples** | 231 replicate-collapsed tissues; endpoint-specific evaluability is Network n=223 and resolution-group/exact-region n=88 (not a unique sequential attrition pipeline) |
 | **Role** | Mapped-label transfer validation (not anatomical truth) |
 
 | Field | Value |
 |-------|-------|
 | **Label** | `ahba_metadata` |
-| **File** | `data/ahba_human_rnaseq/ahba_human_rnaseq_sample_metadata_242.csv` |
+| **File** | `external_data/AHBA/ahba_human_rnaseq_sample_metadata_242.csv` |
 | **Source** | Allen Brain Map portal |
 | **Content** | 242 sample metadata entries (donor ID, structure name, hemisphere) |
 | **Role** | Sample-to-region mapping for AHBA label harmonization |
@@ -72,30 +71,37 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `tcga_expression_file_level` |
-| **File** | `data/tcga_brain_tumor_expression/tcga_gbm_lgg_primary_tumor_tpm_unstranded_file_level.tsv` |
+| **File** | `external_data/TCGA/tcga_gbm_lgg_primary_tumor_tpm_unstranded_file_level.tsv` |
 | **Source** | NCI Genomic Data Commons (https://portal.gdc.cancer.gov) |
 | **Citation** | TCGA Research Network (https://www.cancer.gov/tcga) |
-| **Content** | TCGA GBM/LGG primary tumor TPM expression (file-level) |
+| **Content** | TCGA-LGG primary-tumor TPM expression for the 65 MRI-linked cases (the filenames retain the legacy `tcga_gbm_lgg` stem) |
 | **Patients** | 65 glioma patients; 63 primary edema-comparator cases after excluding TCGA-HT-7686 (no edema voxels) and TCGA-HT-7680 (cerebellar/out-of-scope edema) |
 | **Role** | Tumor-tissue expression for brain-origin tracing evaluation |
 
 | Field | Value |
 |-------|-------|
 | **Label** | `tcga_expression_sample_mean` |
-| **File** | `data/tcga_brain_tumor_expression/tcga_gbm_lgg_primary_tumor_tpm_unstranded_sample_mean.tsv` |
+| **File** | `external_data/TCGA/tcga_gbm_lgg_primary_tumor_tpm_unstranded_sample_mean.tsv` |
 | **Source** | NCI GDC (sample-mean aggregated) |
 | **Role** | Per-patient mean expression for Network/lobe/broad evaluation |
 
 | Field | Value |
 |-------|-------|
 | **Label** | `brats_training_dir` |
-| **File** | `data/brats_tcga_lgg_training_65/` |
+| **File** | `external_data/BraTS/` |
 | **Source** | The Cancer Imaging Archive (TCIA) |
 | **Citation** | Bakas, S. et al. (2017) Advancing The Cancer Genome Atlas glioma MRI collections with expert segmentation labels and radiomic features. *Sci. Data*, 4, 170117. |
 | **Content** | 65 patient directories with pre-operative TCGA-LGG NIfTI images and segmentations |
 | **Nested archive** | `PKG - BraTS-TCGA-LGG/BraTS-TCGA-LGG/Pre-operative_TCGA_LGG_NIfTI_and_Segmentations.zip` (562 MB, 454 files) |
-| **Extraction** | Auto-extracted by `reproduce_all.py` PRE-BUILD phase |
+| **Extraction** | The read-only source bundle is verified first; extraction occurs into the run audit directory, never into `external_data/`. |
 | **Role** | MRI-derived tumor location truth (center, core, edema, whole_tumor) for anatomical consistency evaluation |
+
+| Field | Value |
+|-------|-------|
+| **Label** | `sri24_tzo116_atlas` / `sri24_tzo116_lut` |
+| **Files** | `external_data/SRI24/labels/sri24/tzo116plus.nii` and `external_data/SRI24/labels/sri24/SRI24-tzo116plus.txt` |
+| **Source** | Hash-verified SRI24/TZO116+ v2.0 external atlas label map |
+| **Role** | Anatomical atlas and lookup table used to derive MRI truth for the linked TCGA/BraTS evaluation |
 
 ### 2.3 GSE189919 Engineering Benchmark
 
@@ -114,7 +120,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `huang2025_cfRNA` |
-| **File** | `external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.csv` |
+| **File** | `external_data/Huang2025/41698_2025_909_MOESM2_ESM.csv` |
 | **Source** | Published article Supplementary Data 1 |
 | **Citation** | Huang, J. et al. (2025) Diagnostic and prognostic potential of cell-free RNAs in cerebrospinal fluid and plasma for brain tumors. *npj Precis. Oncol.*, 9, 123. [doi:10.1038/s41698-025-00909-6](https://doi.org/10.1038/s41698-025-00909-6) |
 | **Content** | 159 CSF/plasma cfRNA expression profiles |
@@ -138,21 +144,31 @@ These files are **generated by the pipeline**, not raw data. They are listed her
 
 ---
 
-## 4. Manuscript CSV Files (Dynamically Generated)
+## 4. Manuscript and Provenance Artifacts (Dynamically Generated)
 
-All 10 supplementary CSV files accompanying the manuscript are **dynamically generated** from raw counts by `reproducibility/generate_all_csvs.py`. They are NOT manually created.
+The legacy supplementary CSVs in the table below are generated by
+`reproducibility/generate_all_csvs.py`. The current AHBA, TCGA/BraTS,
+orthology, tier-cascade, sign-flip, and conflict-ledger artifacts are generated
+separately by `scripts/generate_nonhuang_scientific_provenance_artifacts.py`
+from the cited sample-level/frozen outputs. They are not manually edited.
 
 | CSV File | Raw Count Source | Formulas Applied |
 |----------|-----------------|------------------|
 | `v4_p0_9_triple_ci.csv` | LOSO/LOMO validation counts | Wilson CI, Clopper-Pearson CI, Agresti-Coull CI |
 | `v4_p0_4_subcortical_subsampling.csv` | Subcortical 42/54 recall, 42/42 PPV | Bootstrap subsampling (2000 reps, 9 fractions) |
-| `v4_p0_5_ahba_trace.csv` | AHBA attrition steps (documented) | N/A (trace table) |
-| `v4_p0_5_ahba_trace_manuscript_aligned.csv` | AHBA 5-step manuscript version | N/A (trace table) |
+| `ahba/ahba_endpoint_evaluability_ledger.csv` | Canonical AHBA endpoint-specific sample accounting | Derived directly from formal sample-detail output |
+| `ahba/ahba_endpoint_evaluability_summary.json` | Canonical AHBA endpoint metrics and sensitivity subsets | Derived from the canonical ledger |
+| `v4_p0_5_ahba_trace.csv` | HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER | N/A (retained historical trace) |
+| `v4_p0_5_ahba_trace_manuscript_aligned.csv` | HISTORICAL ENGINEERING TRACE — NOT THE CANONICAL ENDPOINT-EVALUABILITY LEDGER | N/A (retained historical trace) |
 | `v4_p0_10_lambda_friedman.csv` | Per-donor lambda hit rates | Friedman chi-squared test |
 | `v4_p0_10_lambda_sensitivity.csv` | Lambda × endpoint accuracy | Direct from validation output |
 | `v4_p0_11_ml_baselines.csv` | ML baseline LOMO counts | Wilson CI |
 | `v4_p0_11_rf_comparator.csv` | Random Forest LOMO counts | Wilson CI, Clopper-Pearson CI |
 | `v4_p0_12_tcga_brats_ci_summary.csv` | TCGA/BraTS per-patient evaluation | Wilson CI, CP CI, AC CI, Bootstrap CI, Binomial test |
+| `tcga_brats_truth_basis_top3_summary.csv` | Strict Top3 truth-basis numerators/denominators, including edema n=63 | Derived from canonical per-patient source output |
+| `orthology_humanization_summary.json` | 8,800 gene-by-region row-occurrence humanization accounting | Derived from frozen mapping output; not unique-gene accounting |
+| `tier_cascade_loso_summary.json` | Shared exact-evaluable LOSO tier-cascade denominators | Derived from exact and group sample-level details |
+| `sign_flip_current_family.csv` | Current four-test sign-flip raw/BH family | Derived from exhaustive sign-flip raw P values |
 | `v4_p0_13_macro_f1.csv` | LOSO class data plus prediction-level formal LOMO Network source | precision=TP/(TP+FP), recall=TP/(TP+FN), F1=2PR/(P+R), macro/weighted summary |
 
 The formal LOMO Network F1 chain is generated by
@@ -165,7 +181,11 @@ The formal LOMO Network F1 chain is generated by
 `LOMO_NETWORK_F1_PROVENANCE.md` retain integer TP/FP/FN accounting and the
 root-cause explanation for the superseded rounded summary.
 
-**Regeneration command**: `python reproducibility/generate_all_csvs.py`
+**Regeneration commands**: `python reproducibility/generate_all_csvs.py`; for
+the current provenance set, run
+`python scripts/generate_nonhuang_scientific_provenance_artifacts.py --help`
+and supply the exact source files whose hashes are recorded in the generated
+manifests.
 For the formal LOMO evidence chain, run:
 `python scripts/generate_lomo_f1_evidence.py`.
 
@@ -174,8 +194,16 @@ For the formal LOMO evidence chain, run:
 ## 5. Data Integrity Verification
 
 ### SHA256 Checksums
-All raw data files are SHA256-verified against `SHA256SUMS.txt` before use.
-The verification is performed by `reproduce_all.py` Step 0 (`verify_raw_data()`).
+The machine-readable source of truth is
+`reproducibility/external_input_manifest.json`. It records each canonical
+external locator, file SHA-256 (or deterministic directory-tree SHA-256),
+required-file records, access classification, role, and reproduction profile.
+`python reproduce_all.py --verify-only` verifies the full manifest and fails
+closed on missing, malformed, wrong-type, hash-mismatched, incomplete, or
+invalid-archive inputs. Its root priority is `--external-data-root`, then
+`BRAINTRACE_EXTERNAL_DATA_ROOT`, then repository-relative `external_data/`.
+The historical `bo2023 data/` layout is a deprecated development fallback only
+and is rejected by a full release gate.
 
 ### Seed Registry
 Every stochastic operation uses a documented seed:
@@ -207,10 +235,10 @@ The complete Python environment is pinned in `requirements_reproducible.txt`:
 | Bo2023 macaque atlas | NCBI SRA | PRJNA905082 | Public |
 | Allen Human Brain Atlas | Allen Brain Map | https://portal.brain-map.org | Public |
 | TCGA glioma expression | NCI GDC | https://portal.gdc.cancer.gov | Public |
-| BraTS-TCGA-LGG MRI | TCIA | Bakas et al. (2017) | Public |
+| BraTS-TCGA-LGG MRI | TCIA | 10.7937/K9/TCIA.2017.GJQ7R0EF | 65-subject processed training set public (CC BY 3.0); separate 43-subject test arm controlled |
 | GSE189919 CSF cfRNA | NCBI GEO | GSE189919 | Public |
-| Huang2025 cfRNA | npj Precis. Oncol. | Supplementary Data 1 | Public |
+| Huang2025 cfRNA | npj Precis. Oncol. | Supplementary Data 1; HRA007247 | Supplementary matrix publicly downloadable subject to rights terms; underlying sequencing data controlled |
 | BrainTrace code | GitHub | https://github.com/wz7717/cfrna-brain-tracing | Public (MIT) |
-| BrainTrace archive | Zenodo | Current v0.1.15 software/full archive: 10.5281/zenodo.21970252 / 10.5281/zenodo.21970278; immutable v0.1.14 historical records remain at 10.5281/zenodo.21920261 / 10.5281/zenodo.21920697; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |
+| BrainTrace archive | Zenodo | Current immutable v0.1.17 software/full archive: 10.5281/zenodo.22006038 / 10.5281/zenodo.22005947; v0.1.16, v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |
 
 > **FAIR statement**: Public source datasets are identified by stable accessions or article records and use standard formats. The exact Bo2023 processed author-package matrices are an explicitly documented exception: no stable public file URL was identified, and exact reuse requires lawful acquisition from the original authors plus SHA-256 verification.

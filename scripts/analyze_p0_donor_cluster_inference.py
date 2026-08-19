@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -17,9 +18,12 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from core.external_inputs import resolve_alias  # noqa: E402
 DEFAULT_INPUT = ROOT / "reports" / "p0_donor_cluster_20260711"
 DEFAULT_OUTDIR = DEFAULT_INPUT / "donor_cluster_inference"
-DEFAULT_SAMPLE_INFO = ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"
+DEFAULT_SAMPLE_INFO = resolve_alias("bo2023_sample_metadata")
 SEED = 20260711
 N_BOOTSTRAP = 10_000
 

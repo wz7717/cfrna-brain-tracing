@@ -1,0 +1,159 @@
+{
+  "protocol_status": "huang_2025_provenance_remediated",
+  "generated_at_utc": "2026-08-18T11:46:57.987303+00:00",
+  "source": {
+    "citation": "Huang et al., 2025",
+    "doi": "10.1038/s41698-025-00909-6",
+    "article_url": "https://doi.org/10.1038/s41698-025-00909-6",
+    "published_matrix_cohort": {
+      "profiles": 159,
+      "csf": 77,
+      "plasma": 82,
+      "patients_reported_by_source": 85,
+      "disease_groups_reported_by_source": {
+        "glioma": 18,
+        "meningioma": 46,
+        "control": 21
+      }
+    },
+    "source_qc_status": "not_publicly_mapped_per_profile",
+    "source_clinical_qc_note": "The source article reports 159 collected liquid biopsies (77 CSF and 82 plasma), separately reports excluding five CSF and one plasma profiles by sequencing QC, and describes Supplementary Data 1 as covering all de-identified studied samples. The public matrix contains 159 profiles but no original seqIDs or per-profile QC-status mapping. Although the archived Quality controls.R shows an intended post-QC export from meta_good, the public record does not unambiguously reconcile these counts or identify the six exclusions. The 159 audit profiles are therefore not labelled as QC-retained, and the six reported exclusions are not asserted to be absent from the public matrix.",
+    "source_qc_evidence": {
+      "article_results_collected_profiles": {
+        "profiles": 159,
+        "csf": 77,
+        "plasma": 82
+      },
+      "article_methods_reported_exclusions": {
+        "csf": 5,
+        "plasma": 1
+      },
+      "article_data_availability_scope": "all de-identified studied samples",
+      "code_doi": "10.5281/zenodo.14869536",
+      "archive_sha256": "66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7",
+      "file": "code/Quality controls/Quality controls.R",
+      "failure_rules": [
+        "CleanRatio < 20",
+        "Trimmed < 3000000"
+      ],
+      "retained_object": "meta_good<-Summary_unique[!(Summary_unique$seqID %in% fail),]",
+      "matrix_object": "cfRNA_good<-cfRNA_unique[,meta_good$seqID]",
+      "supplementary_export": "write.xlsx(data,\"Supplementary data.xlsx\", rowNames=T)",
+      "code_assigned_export_group_counts": {
+        "GLI_CSF": 16,
+        "GLI_plasma": 18,
+        "MEN_CSF": 43,
+        "MEN_plasma": 46,
+        "NOR_CSF": 18,
+        "NOR_plasma": 18
+      },
+      "public_matrix_original_seqids": "not_available",
+      "public_matrix_per_profile_qc_status": "not_available",
+      "reconciliation_status": "not_unambiguously_resolved_from_public_record",
+      "interpretation": "archived code suggests an intended post-QC export, but does not remove the published 159-versus-six count ambiguity or provide a verifiable failed-to-public-profile mapping"
+    },
+    "matrix_scale_interpretation": "article labels the matrix log-transformed RPM; author code computes reads/trimmed_reads*1e6 in CPM and exports log2(CPM+1); treated as log2(per-million+1) and converted to ln(per-million+1) by multiplying by ln(2)",
+    "matrix_scale_source": {
+      "code_doi": "10.5281/zenodo.14869536",
+      "archive_sha256": "66a31f5f632027a9b82df23ba378b6bc84778a3df97bc8dda143653ed1ec94e7",
+      "file": "code/Quality controls/Quality controls.R",
+      "article_scale_label": "log-transformed RPM",
+      "code_normalization": "CPM <- apply(cfRNA_good, 1, function(x) x/trimmedreads*1e6)",
+      "source_expression": "log2CPM <- log2(CPM + 1)",
+      "export_filename": "BrainTumor_cfRNA_log2RPM_good_samples.csv"
+    }
+  },
+  "provenance_guardrails": {
+    "patient_id_metadata": "not_available_in_public_expression_matrix",
+    "patient_paired_analysis": "NOT_SUPPORTED",
+    "synthetic_matched_admixture": "REMOVED_FROM_CANONICAL_ANALYSIS",
+    "sample_suffix_interpreted_as_patient_id": false,
+    "CSF_to_plasma_sample_name_substitution": "PROHIBITED",
+    "profile_resampling_confidence_intervals": "NOT_REPORTED_PATIENT_CLUSTERING_UNAVAILABLE",
+    "nominal_profile_p_values": "DESCRIPTIVE_ONLY_NOT_PATIENT_LEVEL_FDR_CONTROL"
+  },
+  "analysis_scope": {
+    "audit_universe": "all 159 profiles present in the published expression matrix; per-profile source-QC status unresolved",
+    "analysis_unit": "profile-level observation within fluid-specific cohort; patient-level dependence cannot be assessed from the public matrix",
+    "supported_claim": "technical portability and domain-shift audit",
+    "not_supported_claims": [
+      "patient-level CSF-plasma correspondence",
+      "synthetic matched-mixture behavior",
+      "anatomical localization accuracy",
+      "clinical validity"
+    ]
+  },
+  "route": "projected_vsd_network_top3_logcpm_resolution_local_exact",
+  "pairwise_rescue": false,
+  "model_assets": [
+    {
+      "label": "locked_network_model",
+      "provided": true,
+      "path": "data/models/bo2023_saleem_network_top200_model.npz",
+      "path_kind": "repository_relative",
+      "exists": true,
+      "bytes": 10203,
+      "sha256": "7644e7b673ea07a9eaf701d2061b1db28409421bc90fa5cbdb3cf57eb482d1b6"
+    },
+    {
+      "label": "locked_reference_projector",
+      "provided": true,
+      "path": "data/models/bo2023_reference_projector_linear_full.npz",
+      "path_kind": "repository_relative",
+      "exists": true,
+      "bytes": 697617,
+      "sha256": "0be4788b14a2f7f89c509a252e5038831aab74d2e4ecf0052cee50d02e87982f"
+    }
+  ],
+  "input_assets": [
+    {
+      "label": "published_expression_matrix",
+      "provided": true,
+      "path": "41698_2025_909_MOESM2_ESM.csv",
+      "path_kind": "external_basename",
+      "exists": true,
+      "bytes": 60706542,
+      "sha256": "ef0c72c17d65a0293ec4089880716ca3db1ad74764f43fe3bbe828b3e62ea6a3"
+    },
+    {
+      "label": "source_supplementary_xlsb",
+      "provided": true,
+      "path": "41698_2025_909_MOESM2_ESM.xlsb",
+      "path_kind": "external_basename",
+      "exists": true,
+      "bytes": 39675418,
+      "sha256": "e7cd6cfbdfe5b14f68e2f3792ea3c713b6824595370ea9f16510ec439be58531"
+    },
+    {
+      "label": "braintrace_source_tracing_database",
+      "provided": true,
+      "path": "braintrace_source_tracing.db",
+      "path_kind": "external_basename",
+      "exists": true,
+      "bytes": 730607616,
+      "sha256": "ab9b4e31567c002c4347e9f39d86231b5999102d6288fd45f8ca1a3733624376"
+    }
+  ],
+  "model_overlap": {
+    "n_source_matrix_features": 83929,
+    "n_selected_input_genes": 15295,
+    "n_projector_genes": 21668,
+    "n_projector_overlap_genes": 15295,
+    "n_network_model_genes": 200,
+    "n_network_overlap_genes": 178
+  },
+  "outputs": [
+    "huang_2025_sample_ledger.csv",
+    "huang_2025_sample_outputs.csv",
+    "huang_2025_network_rankings.csv",
+    "huang_2025_exact_region_rankings.csv",
+    "huang_2025_network_top1_distribution.csv",
+    "huang_2025_network_top3_distribution.csv",
+    "huang_2025_fluid_summary.csv",
+    "huang_2025_marker_correlations.csv",
+    "huang_2025_tumour_control_comparisons.csv",
+    "huang_2025_canonical_summary.csv",
+    "huang_2025_canonical_summary.json",
+    "HUANG_2025_RESULTS.md"
+  ]
+}

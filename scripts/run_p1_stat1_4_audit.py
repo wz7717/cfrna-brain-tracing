@@ -9,6 +9,7 @@ import math
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[1]
 OUT = Path("manuscript/calculations")
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -27,8 +28,13 @@ def bh_adjust(labels, pvalues):
             for x, p, q in zip(labels, pvalues, adjusted)]
 
 
-labels = ["Network Top1", "Network Top3", "Resolution-group Top3", "Exact-region Top3"]
-pvalues = [0.031250, 0.375000, 0.593750, 0.324219]
+sign_flip_current_family = ROOT / "reproducibility" / "sign_flip_current_family.csv"
+with sign_flip_current_family.open(newline="", encoding="utf-8") as handle:
+    sign_flip_rows = list(csv.DictReader(handle))
+labels = [row["endpoint"] for row in sign_flip_rows]
+pvalues = [float(row["raw_p"]) for row in sign_flip_rows]
+if labels != ["Network Top1", "Network Top3", "resolution-group Top3", "exact-region Top3"]:
+    raise ValueError("Unexpected current sign-flip family ordering")
 bh = bh_adjust(labels, pvalues)
 
 # The MDE simulation used donor-level paired rates, so ICC was not a simulation

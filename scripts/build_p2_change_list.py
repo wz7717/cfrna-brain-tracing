@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
+import json
 from pathlib import Path
 from docx import Document
 from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 out=Path("manuscript/BrainTrace_v5_round4_P2_修改清单.docx")
+repo_root = Path(__file__).resolve().parents[1]
+tier = json.loads((repo_root / "reproducibility" / "tier_cascade_loso_summary.json").read_text(encoding="utf-8"))
+beam = tier["network_candidate_miss_share_of_exact_top3_misses"]
+exact_conditional = tier["exact_top3_given_network_truth_retained"]
+group_conditional = tier["group_top3_given_network_truth_retained"]
 d=Document(); s=d.sections[0]
 s.top_margin=s.bottom_margin=Inches(.65); s.left_margin=s.right_margin=Inches(.7)
 d.styles["Normal"].font.name="Arial"; d.styles["Normal"].font.size=Pt(9)
@@ -17,7 +23,9 @@ p.add_run("范围：报告称28项，但仅明确列出15项；本轮不推断�
 d.add_heading("一、核心计算结果",level=1)
 for x in [
 "冻结输出层消融：Full Network/Group/Exact Top3=91.94%/72.48%/45.21%；移除某一显示层不重训其余模型，故这是信息移除诊断而非新模型。",
-"Network beam miss约占Exact错误66/446=14.8%；beam正确时Exact/Group Top3=49.07%/78.32%，beam错误后恢复率0%。",
+ f"Network candidate-set miss约占Exact错误{beam['correct']}/{beam['n']}={beam['percent']:.2f}%；"
+ f"candidate set包含truth时Exact/Group Top3={exact_conditional['percent']:.2f}%/"
+ f"{group_conditional['percent']:.2f}%，candidate-set miss后恢复率0%。",
 "匹配RF（同一冻结Network truth、固定200基因、300 trees、balanced_subsample、min leaf=2、9折LOMO完整重训）：Top1 389/819=47.50%，Top3 680/819=83.03%。",
 "Exact F1：LOSO median=0.1538，IQR=0.2857；LOMO median=0.13245，IQR=0.17895。",
 "探索性富集：446个GO-BP、11个KEGG FDR显著条目；细胞类型仅ExcN（q=2.91e-19）及源标签IhnN（q=2.74e-5）通过BH 0.05。",
@@ -36,7 +44,7 @@ items=[
 ("9","三个requirements命名","明确minimal app/full reproduction/testing extras三种角色，不宣称可互换。","主文及S20"),
 ("10","F1 median/IQR","补报Exact和Network的LOSO/LOMO中位数与IQR。","主文及S20"),
 ("11","RF同200 panel","保留历史k=500并新增匹配200-gene RF；不替换正式路线。","主文、S20、Figure S2"),
-("12","Friedman n=9近似","并列χ²近似与19,683模式精确枚举，限制结论强度。","主文及S20"),
+("12","Friedman n=9近似","保留可复现的χ²近似；无可复现精确枚举证据，相关声明已移除。","主文及S20"),
 ("13","Sign-flip exchangeability","补充donor间独立、零假设下符号对称；非sample-row置换。","主文及S20"),
 ("14","Cerebellum排除理由","明确训练参考、层级和验证truth均缺失，故必须abstain/out-of-scope。","主文及S20"),
 ("15","Donor confusion可视化","新增匹配200-gene RF的9 donor小多图；明确并非正式路线。","Supplementary Figure S2"),

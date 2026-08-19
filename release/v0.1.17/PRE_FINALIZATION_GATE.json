@@ -1,0 +1,17 @@
+{
+  "schema": "braintrace.pre_finalization_release_gate.v1",
+  "version": "0.1.17",
+  "status": "PASS",
+  "pre_finalization_commit": "988a3dc5120897d1a59c97f794fe8a93653ccf18",
+  "scientific_drift": 0,
+  "app_docker": "PASS",
+  "repro_docker": "PASS",
+  "full_reproduction": "PASS",
+  "github_actions": "GREEN",
+  "github_actions_run": "https://github.com/wz7717/cfrna-brain-tracing/actions/runs/32286149524",
+  "pytest": "180 passed, 1 skipped",
+  "full_reproduction_audit": "reproducibility_audit/docker_full_b429eaf_20260820/FULL_REPRODUCTION_AUDIT.json",
+  "full_reproduction_audit_commit": "b429eafa319a7c82ff36be6e25124f30d081933f",
+  "checksum": "DEFERRED_UNTIL_FINAL_ARCHIVE",
+  "checksum_gate": "The exact deterministic source and full-reproducibility archive checksums are generated and verified from the clean finalization commit before merge."
+}

@@ -26,10 +26,11 @@ from benchmark_runner import (  # noqa: E402
 from reporting.benchmark_figure_export import (  # noqa: E402
     export_benchmark_paper_figures,
 )
+from core.external_inputs import resolve_alias  # noqa: E402
 
 
-DEFAULT_MATRIX = ROOT / "bo2023 data" / "mfas5_819samples_23605genes_vsd4_rmbatch.xls"
-DEFAULT_SAMPLE_INFO = ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"
+DEFAULT_MATRIX = resolve_alias("bo2023_vsd")
+DEFAULT_SAMPLE_INFO = resolve_alias("bo2023_sample_metadata")
 DEFAULT_OUTDIR = ROOT / "results" / "bo2023_loso_30_vsd_correlation"
 
 

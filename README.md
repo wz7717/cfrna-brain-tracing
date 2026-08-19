@@ -29,6 +29,12 @@ localization. Biofluid cohorts without patient-level anatomical truth are
 treated as external transfer stress tests, not localization-accuracy
 validation.
 
+<!-- BRAINTRACE:CURRENT_RELEASE:START -->
+## Current release
+
+BrainTrace v0.1.17 is the current software release. Software DOI: [https://doi.org/10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Full reproducibility DOI: [https://doi.org/10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947).
+<!-- BRAINTRACE:CURRENT_RELEASE:END -->
+
 ## Interfaces
 
 - Streamlit application: `streamlit_app.py`
@@ -80,17 +86,17 @@ manuscript-reproduction environment.
 ### Docker (recommended for quick start)
 
 ```bash
-docker build -t braintrace:v0.1.16 .
-docker run -p 8501:8501 braintrace:v0.1.16
+docker build -t braintrace:v0.1.17 .
+docker run -p 8501:8501 braintrace:v0.1.17
 # Open http://localhost:8501 in your browser
 
 # CLI mode
-docker run --rm --entrypoint braintrace braintrace:v0.1.16 --help
+docker run --rm --entrypoint braintrace braintrace:v0.1.17 --help
 
 # CLI query with the current directory mounted at /work
 docker run --rm --entrypoint braintrace \
   -v "$PWD:/work" \
-  braintrace:v0.1.16 \
+  braintrace:v0.1.17 \
   query --input /work/sample_counts.tsv --output /work/result.json
 ```
 
@@ -107,10 +113,13 @@ python -m streamlit run streamlit_app.py
 
 ### Fully reproduce the paper
 
-Obtain the external source datasets and place them at the paths documented in
-[`DATA_PROVENANCE.md`](DATA_PROVENANCE.md) and `SHA256SUMS.txt`. Then run the
-checksum gate followed by the complete build, validation and CSV-generation
-pipeline:
+Obtain the external source datasets and stage them below a canonical
+`external_data/` root as documented in
+[`reproducibility/external_input_manifest.json`](reproducibility/external_input_manifest.json)
+and [`DATA_PROVENANCE.md`](DATA_PROVENANCE.md). The resolver priority is
+`--external-data-root`, then `BRAINTRACE_EXTERNAL_DATA_ROOT`, then the
+repository-relative `external_data/`. Then run the strict input gate followed
+by the complete build, validation and CSV-generation pipeline:
 
 ```bash
 python -m venv .venv-repro
@@ -118,11 +127,12 @@ python -m venv .venv-repro
 # macOS/Linux: source .venv-repro/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements_reproducible.txt
-python reproduce_all.py --verify-only
-python reproduce_all.py --output-dir reproducibility_audit
+python reproduce_all.py --external-data-root /path/to/external_data --verify-only
+python reproduce_all.py --external-data-root /path/to/external_data --output-dir reproducibility_audit
 ```
 
-`requirements-repro.txt` adds testing extras to the complete reproducibility
+`bo2023 data/` is a deprecated development fallback only; it is never accepted
+by the full release gate. `requirements-repro.txt` adds testing extras to the complete reproducibility
 environment; it is intended for CI/development checks rather than as the main
 installation entry point.
 
@@ -249,9 +259,34 @@ python reproducibility/s18_s19/run_s18_s19_sensitivity.py
 Publisher-hosted source workbooks and raw expression matrices remain excluded;
 the public enrichment directory contains only derived marker sets and results.
 
+### Huang 2025 cfRNA provenance remediation
+
+`reproducibility/huang_2025/` is a provenance-remediated external-audit package
+included in the v0.1.17 release.
+It analyses all 159 profiles in the published Huang 2025 expression matrix as
+an external computational domain-shift audit: 77 CSF profiles and 82 plasma
+profiles are separate fluid-specific profile cohorts. The article reports 159
+collected biopsies with the same 77/82 split and separately reports five-CSF/
+one-plasma sequencing-QC exclusions. Its archived code suggests an intended
+post-QC export, but the public matrix provides no original sample identifiers
+or per-profile QC-status mapping with which to reconcile those statements.
+Accordingly, the package neither labels the 159 profiles as QC-retained nor
+asserts that the six reported exclusions are absent. The matrix also does not
+provide a patient identifier or a verified CSF-plasma correspondence;
+patient-level dependence or independence therefore cannot be established, so
+no patient-paired comparison, sample-name substitution, or synthetic
+CSF-plasma mixture is performed.
+
+The package supports technical portability/domain-shift statements only; it
+does not validate anatomical localization, tumour-source discrimination,
+patient-level stability, or clinical performance.
+
 ## Validation summary
 
 Canonical 110 locked route (rechecked 2026-07-13):
+
+BrainTrace v0.1.17 is the current software release. It does not alter the
+frozen model or the formal scientific results retained from v0.1.16.
 
 - The Bo2023 reference retains the paper's 110 post-QC anatomical region IDs. Each region has one canonical parent Network; the two discordant assay-level labels are normalized as `10m -> Orbitomedial Prefrontal Cortex (OMPFC)` and `V2 -> Occipital/Temporal` without modifying the source workbook.
 - Internal LOSO Network Top1/Top3: 58.97% (`483/819`) / 91.94% (`753/819`).
@@ -260,16 +295,20 @@ Canonical 110 locked route (rechecked 2026-07-13):
 - Internal LOMO resolution-group Top1/Top3: 42.36% (`344/812`) / 70.07% (`569/812`).
 - Internal LOSO exact-region Top1/Top3: 22.36% (`182/814`) / 45.21% (`368/814`).
 - Internal LOMO exact-region Top1/Top3: 21.80% (`177/812`) / 42.61% (`346/812`).
-- AHBA technical-replicate-collapsed, network-qualified mapped-label Network Top1/Top3: 73.99% (`165/223`) / 94.62% (`211/223`).
-- AHBA technical-replicate-collapsed, network-qualified mapped-label resolution-group Top1/Top3: 42.05% (`37/88`) / 68.18% (`60/88`).
-- AHBA technical-replicate-collapsed, network-qualified mapped-label exact-region Top1/Top3: 27.27% (`24/88`) / 45.45% (`40/88`).
+- AHBA has 231 replicate-collapsed tissues; endpoint-specific evaluability is 223 for Network and 88 for resolution-group/exact-region, not one sequential attrition pipeline. The canonical source is `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv`.
+- AHBA mapped-label Network Top1/Top3: 73.99% (`165/223`) / 94.62% (`211/223`).
+- AHBA mapped-label resolution-group Top1/Top3: 42.05% (`37/88`) / 68.18% (`60/88`).
+- AHBA mapped-label exact-region Top1/Top3: 27.27% (`24/88`) / 45.45% (`40/88`).
 - TCGA/BraTS Network Top3 (strict, current tracer): 23.81% (`15/63` primary edema-comparator cases; exploratory one-sided exact-binomial p=0.8888 vs the 30% uniform-network null).
 - TCGA/BraTS broad-anatomy Top3 (strict, current tracer): 82.54% (`52/63` primary edema-comparator cases; descriptive only, with no valid prespecified Top3 null).
 - TCGA/BraTS Network candidate-set any-hit Top3: 36.51% (`23/63`; descriptive sensitivity; candidate set is Networks with >=20% edema overlap, not anatomical adjacency).
 - The primary edema comparator excludes TCGA-HT-7686 (no label-2 edema voxels) and TCGA-HT-7680 (cerebellar/out-of-scope edema); other MRI truth bases retain n=65.
+- Across strict Top3 truth bases, Network accuracy ranges from 15.38% to 29.23% (13.85 percentage points), and broad-anatomy accuracy ranges from 49.23% to 82.54% (33.31 percentage points).
 - The former `20/64` and `51/64` values belong to the archived 2026-06-09 endpoint and are not current release metrics.
 - The current reproducibility endpoint is generated by `score_tcga_gbm_lgg_sample_tracing_with_mri_labels.py` and `evaluate_brats_tcga_lgg_65_mri_truth.py` under `results/tcga_brats_current/`; the archived 2026-06-09 files are historical inputs only.
 - GSE189919 projector gene overlap: 15,622 / 21,668 (72.10%); projection feasibility / transfer stress test only, not localization accuracy.
+- Orthology humanization is 5,324/8,800 (60.5%) **gene-by-region row occurrences**, with 3,476/8,800 unmapped row occurrences under the frozen mapping rule; these are not counts of independent macaque genes. Top200 orthology humanizable (`188/200`) and g:Profiler mapped (`179/200`) are separate mapping/filtering universes.
+- Within the same 814 LOSO exact-evaluable samples, Network candidate-set misses are `64/446` exact Top3 misses (14.35%); conditional exact Top3 is `368/750` (49.07%), conditional group Top3 is `590/750` (78.67%), and neither endpoint recovers after a Network candidate-set miss.
 
 The repository exposes only the locked three-tier submission route. Historical
 baseline and tumour-adapted routes are not distributed in this release.
@@ -350,37 +389,35 @@ statistical confidence or biological validation measure.
 
 ## Status
 
-The current executable software metadata is BrainTrace v0.1.16, a
-documentation, public-example and web-usability patch prepared for the
+The current executable software metadata is BrainTrace v0.1.17, the
+release-engineering and full-reproducibility finalization for the
 Bioinformatics Application Note. It does not change the frozen model,
 ontology, formal prediction set, Network Top1/Top3, resolution-group or
 exact-region endpoints. The production model remains locked under
 `canonical110-v0.1.12-20260813`.
 
 No model artifact, learned parameter, anatomical ontology, formal prediction,
-primary endpoint or benchmark result changed in v0.1.16. The
+primary endpoint or benchmark result changed in v0.1.17. The
 software is intended for research use in hierarchical brain-origin candidate
 ranking and resolution-limit auditing. It is not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-BrainTrace v0.1.16 is the current immutable GitHub/Zenodo software release under
-version DOI `https://doi.org/10.5281/zenodo.21974954`. BrainTrace v0.1.15 remains
-the previous immutable release under version DOI
+BrainTrace v0.1.17 is the current immutable GitHub/Zenodo software release
+under software DOI `https://doi.org/10.5281/zenodo.22006038`; its
+separate materialized full reproducibility archive is under
+`https://doi.org/10.5281/zenodo.22005947`. Exact filenames,
+inventories and SHA-256 values are released alongside the GitHub v0.1.17
+release and verified against the corresponding Zenodo records. BrainTrace
+v0.1.16 remains a historical immutable software/full-reproducibility release
+under `https://doi.org/10.5281/zenodo.21974954` /
+`https://doi.org/10.5281/zenodo.21974991`. BrainTrace v0.1.15 remains the
+previous immutable release under version DOI
 `https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
 release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
 v0.1.14 historical software record remains at
 `https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
-
-Because Zenodo's GitHub-generated source archive does not materialize Git LFS
-objects, the v0.1.16 full reproducibility archive, including the unchanged
-164,161,292-byte payload, is deposited separately under
-`https://doi.org/10.5281/zenodo.21974991`. The same materialized archive is
-available as a checksum-matched asset on the
-[GitHub v0.1.16 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.16).
-Its size is 198,284,868 bytes and its SHA-256 is
-`742c0390aa413deb18a12d6ae6164df52c5ed06e45e5c0e4218cd996231ca24e`.
 
 The v0.1.14 LOMO Network F1 discrepancy arose from stale rounded class-level
 recall values and a non-formal historical route being used to estimate summary

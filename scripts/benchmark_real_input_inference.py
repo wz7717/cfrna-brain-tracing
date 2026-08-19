@@ -123,14 +123,28 @@ def total_physical_memory_bytes() -> int | None:
 
 
 def git_commit() -> str:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return result.stdout.strip()
+    """Return checkout provenance, including Git-less container builds.
+
+    ``Dockerfile.repro`` deliberately omits Git.  Its immutable build
+    provenance is injected through ``BRAINTRACE_GIT_SHA`` instead, so the
+    formal benchmark manifest must use that value when a repository checkout
+    is unavailable.
+    """
+
+    build_git_sha = os.environ.get("BRAINTRACE_GIT_SHA", "").strip()
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError:
+        return build_git_sha or "unavailable"
+    if result.returncode == 0 and result.stdout.strip():
+        return result.stdout.strip()
+    return build_git_sha or "unavailable"
 
 
 def software_versions() -> dict[str, str]:

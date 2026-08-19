@@ -23,6 +23,9 @@ from sklearn.preprocessing import StandardScaler
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from core.external_inputs import resolve_alias  # noqa: E402
 OUTDIR = ROOT / "reports" / "p2_publication_completeness_20260629"
 ML_DIR = OUTDIR / "ml_baselines"
 ENG_DIR = OUTDIR / "engineering_reproducibility"
@@ -47,7 +50,7 @@ def read_bo2023_gene_matrix(path: Path) -> pd.DataFrame:
 
 
 def read_metadata() -> pd.DataFrame:
-    path = ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"
+    path = resolve_alias("bo2023_sample_metadata")
     info = pd.read_excel(path, sheet_name="mfas5_819samples_phenSet4", usecols=["No.", "Region", "SaleemNetworks", "MonkeyID"])
     info["sample_id"] = info["No."].astype(str).str.strip()
     info["network"] = info["SaleemNetworks"].astype(str).str.strip()
@@ -84,7 +87,7 @@ def nearest_centroid_scores(pipe: Pipeline, x: np.ndarray) -> tuple[np.ndarray, 
 
 
 def evaluate_lomo_baselines() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    vsd_path = ROOT / "bo2023 data" / "mfas5_819samples_23605genes_vsd4_rmbatch.xls"
+    vsd_path = resolve_alias("bo2023_vsd")
     matrix = read_bo2023_gene_matrix(vsd_path)
     metadata = read_metadata()
     samples = [sample for sample in matrix.columns if sample in metadata.index]

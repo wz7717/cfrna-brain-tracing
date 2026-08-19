@@ -15,11 +15,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from core.bo2023_metadata import normalize_bo2023_region_labels  # noqa: E402
+from core.external_inputs import resolve_alias  # noqa: E402
 
-DEFAULT_DATA_DIR = ROOT / "bo2023 data"
 DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
-DEFAULT_COUNTS = DEFAULT_DATA_DIR / "mfas5_819samples_28415genes_featurecounts_counts.txt"
-DEFAULT_SAMPLE_INFO = DEFAULT_DATA_DIR / "Information of sequenced samples_update_full878_filter819.xlsx"
+DEFAULT_COUNTS = resolve_alias("bo2023_counts")
+DEFAULT_SAMPLE_INFO = resolve_alias("bo2023_sample_metadata")
 DEFAULT_GENE_MAP = ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.csv"
 
 

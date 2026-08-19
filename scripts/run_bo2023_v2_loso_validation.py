@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
 
 from reporting.benchmark_figure_export import export_benchmark_paper_figures  # noqa: E402
 from core.reference_projection import clean_excel_date_gene_symbol  # noqa: E402
+from core.external_inputs import resolve_alias  # noqa: E402
 from scripts.run_bo2023_loso_validation import (  # noqa: E402
     build_region_reference,
     export_loso_dashboard,
@@ -34,8 +35,8 @@ from signature_builder import (  # noqa: E402
 from source_tracing_v2 import SourceTracingEngineV2  # noqa: E402
 
 
-DEFAULT_MATRIX = ROOT / "bo2023 data" / "mfas5_819samples_23605genes_vsd4_rmbatch.xls"
-DEFAULT_SAMPLE_INFO = ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"
+DEFAULT_MATRIX = resolve_alias("bo2023_vsd")
+DEFAULT_SAMPLE_INFO = resolve_alias("bo2023_sample_metadata")
 DEFAULT_GENE_MAP = ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.csv"
 DEFAULT_BASELINE = ROOT / "results" / "bo2023_loso_30_vsd_correlation" / "tables" / "benchmark_metrics.csv"
 DEFAULT_OUTDIR = ROOT / "results" / "bo2023_loso_30_v2_ensemble_adapted"

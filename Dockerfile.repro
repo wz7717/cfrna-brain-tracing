@@ -1,0 +1,43 @@
+# BrainTrace full manuscript reproduction container
+#
+# Build: docker build --build-arg BRAINTRACE_GIT_SHA="$(git rev-parse HEAD)" --build-arg BRAINTRACE_GIT_CLEAN=true -f Dockerfile.repro -t braintrace-repro:v0.1.17 .
+# Smoke: docker run --rm braintrace-repro:v0.1.17 --help
+# Full:  docker run --rm --mount type=bind,src=/absolute/external_data,dst=/workspace/external_data,readonly \
+#          braintrace-repro:v0.1.17 --verify-only
+
+FROM python:3.11.9-slim-bookworm
+
+ARG BRAINTRACE_VERSION=0.1.17
+ARG BRAINTRACE_GIT_SHA=unavailable
+ARG BRAINTRACE_GIT_CLEAN=unavailable
+LABEL org.opencontainers.image.title="BrainTrace full reproduction"
+LABEL org.opencontainers.image.description="Strict manuscript reproduction gate; external data are mounted read-only"
+LABEL org.opencontainers.image.version="${BRAINTRACE_VERSION}"
+LABEL org.opencontainers.image.source="https://github.com/wz7717/cfrna-brain-tracing"
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    BRAINTRACE_GIT_SHA=${BRAINTRACE_GIT_SHA} \
+    BRAINTRACE_GIT_CLEAN=${BRAINTRACE_GIT_CLEAN}
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN useradd --create-home --uid 10001 --shell /usr/sbin/nologin braintrace
+WORKDIR /workspace
+
+COPY requirements_reproducible.txt requirements-repro.txt pyproject.toml README.md ./
+RUN python -m pip install --upgrade pip \
+    && python -m pip install -r requirements_reproducible.txt
+
+# The .dockerignore excludes all raw, controlled and patient-level input.
+COPY --chown=braintrace:braintrace . .
+RUN python -m pip install -e .
+
+USER braintrace
+VOLUME ["/workspace/external_data"]
+
+ENTRYPOINT ["python", "reproduce_all.py"]
+CMD ["--help"]

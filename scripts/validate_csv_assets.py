@@ -9,15 +9,23 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def tracked_csv_paths() -> list[Path]:
-    result = subprocess.run(
-        ["git", "ls-files", "*.csv"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    )
-    return [ROOT / line for line in result.stdout.splitlines() if line.strip()]
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "*.csv"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+        return [ROOT / line for line in result.stdout.splitlines() if line.strip()]
+    except (OSError, subprocess.CalledProcessError):
+        excluded = {".git", ".venv", ".venv-repro", "external_data", "reproducibility_audit", "results", "reports"}
+        return sorted(
+            path
+            for path in ROOT.rglob("*.csv")
+            if not any(part in excluded for part in path.relative_to(ROOT).parts)
+        )
 
 
 def validate_csv(path: Path) -> int:

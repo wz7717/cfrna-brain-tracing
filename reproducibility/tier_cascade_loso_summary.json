@@ -1,0 +1,59 @@
+{
+  "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
+  "sources": {
+    "exact_evaluable_detail": {
+      "path": "hybrid_formal_loso_exact_region_detail.csv",
+      "path_kind": "external_basename",
+      "sha256": "b221f928e6744683bea063ed612f2021af3dd167309834a59742b4b0e4350609",
+      "hash_mode": "raw_bytes"
+    },
+    "group_evaluable_detail": {
+      "path": "hybrid_formal_loso_resolution_group_detail.csv",
+      "path_kind": "external_basename",
+      "sha256": "b67a535426a82cbdc5ec2b96a91acf2118a966e80cfec8a5d8924eccba39d430",
+      "hash_mode": "raw_bytes"
+    }
+  },
+  "universe": "LOSO exact-evaluable sample IDs shared by exact and resolution-group detail outputs",
+  "exact_evaluable": {
+    "n": 814,
+    "top3_hit": 368,
+    "top3_miss": 446
+  },
+  "network_candidate_set_within_same_universe": {
+    "truth_retained": 750,
+    "truth_missed": 64
+  },
+  "exact_top3_given_network_truth_retained": {
+    "correct": 368,
+    "n": 750,
+    "proportion": 0.49066666666666664,
+    "percent": 49.06666666666666
+  },
+  "group_top3_given_network_truth_retained": {
+    "correct": 590,
+    "n": 750,
+    "proportion": 0.7866666666666666,
+    "percent": 78.66666666666666
+  },
+  "network_candidate_miss_share_of_exact_top3_misses": {
+    "correct": 64,
+    "n": 446,
+    "proportion": 0.14349775784753363,
+    "percent": 14.349775784753364
+  },
+  "recovery_after_network_candidate_miss": {
+    "exact_top3": {
+      "correct": 0,
+      "n": 64,
+      "proportion": 0.0,
+      "percent": 0.0
+    },
+    "group_top3": {
+      "correct": 0,
+      "n": 64,
+      "proportion": 0.0,
+      "percent": 0.0
+    }
+  }
+}

@@ -3,6 +3,7 @@
 # Environment and IDE
 .env
 .venv/
+.venv-repro/
 venv/
 .idea/
 .vscode/
@@ -11,6 +12,7 @@ venv/
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
 __pycache__/
 .pytest_cache/
 .mypy_cache/
@@ -44,6 +46,7 @@ bo2023_bulk_atlas_buildkit/*
 vendor/
 tools/
 external_inputs/huang2025_pmc12041490/
+external_data/
 
 # Generated analyses and large local outputs
 results/
@@ -53,6 +56,7 @@ benchmark_bundle.zip
 run_export.zip
 output/
 tmp/
+reproducibility_audit/
 .tmp_docx_render*/
 
 # Non-redistributable or oversized analysis inputs/intermediates
@@ -82,6 +86,9 @@ submission_update_*/
 manuscript/node_modules/
 manuscript/rendered_*/
 manuscript/soffice_*/
+/manuscript_remediation/
+/scripts/apply_huang2025_docx_remediation.py
+/scripts/create_render_contact_sheets.py
 manuscript/__pycache__/
 manuscript/Bioinformatics_Draft*
 manuscript/figures_publication*/

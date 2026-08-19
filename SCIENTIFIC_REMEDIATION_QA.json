@@ -1,0 +1,275 @@
+{
+  "schema": "braintrace.scientific_remediation_qa.v1",
+  "tcga_broad_strict_top3_range": {
+    "canonical_source": "reproducibility/tcga_brats_truth_basis_top3_summary.json",
+    "source_sha256": "91EEC5B380C82D1DCB91B3C5E6727C90B6F170F282269B6DB57396ADD31F10C0",
+    "source_rates_percentage_points": {
+      "center": 49.23076923076923,
+      "core": 69.23076923076923,
+      "edema": 82.53968253968253,
+      "whole_tumor": 70.76923076923077
+    },
+    "derived_range_percentage_points": 33.3089133089133,
+    "reported_range_percentage_points": 33.3089133089133,
+    "formula": "max(source_rates) - min(source_rates)"
+  },
+  "lomo_exact_f1": {
+    "canonical_source": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+    "source_sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+    "staged_source_sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+    "source_chain": {
+      "origin": {
+        "path": "external_source::formal_lomo_exact_origin/formal_lomo_exact_region_detail.csv",
+        "sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36"
+      },
+      "staged": {
+        "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+        "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1"
+      },
+      "generator_input": {
+        "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+        "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+        "consumer": "scripts/generate_lomo_exact_f1_evidence.py",
+        "binding": "core.lomo_exact_f1.CANONICAL_FORMAL_PATH",
+        "equals_staged": true
+      },
+      "staging_transform": "select the 812 frozen route rows and serialize canonical prediction fields with recomputed hit1/hit3 indicators"
+    },
+    "summary": {
+      "endpoint": "LOMO_Exact",
+      "n_classes": 104,
+      "n_samples": 812,
+      "top1_correct": 177,
+      "top3_correct": 346,
+      "top1_accuracy": 0.21798029556650247,
+      "top3_accuracy": 0.42610837438423643,
+      "macro_f1": 0.2034153339797993,
+      "sd_class_f1": 0.21593290846513288,
+      "median_class_f1": 0.15384615384615385,
+      "q1_class_f1": 0.0,
+      "q3_class_f1": 0.2857142857142857,
+      "iqr_class_f1": 0.2857142857142857,
+      "weighted_f1": 0.21352686247014366,
+      "micro_f1": 0.21798029556650247,
+      "n_zero_f1_classes": 30,
+      "fraction_zero_f1_classes": 0.28846153846153844,
+      "conditional_macro_f1_nonzero": 0.2858810099175558,
+      "conditional_median_f1_nonzero": 0.21637426900584794,
+      "truth_label_universe": "truth labels only; prediction-only labels remain FP",
+      "predicted_top1_labels_outside_truth_universe": [
+        "36c",
+        "Cla",
+        "MT"
+      ]
+    },
+    "integer_accounting": {
+      "sum_tp": 177,
+      "sum_support": 812
+    }
+  },
+  "lomo_input_path_sha_pairing": {
+    "schema": "braintrace.lomo_input_path_sha_pairing.v1",
+    "chains": {
+      "LOMO Exact": {
+        "origin": {
+          "path": "external_source::formal_lomo_exact_origin/formal_lomo_exact_region_detail.csv",
+          "sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36"
+        },
+        "staged": {
+          "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+          "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1"
+        },
+        "generator_input": {
+          "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+          "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+          "consumer": "scripts/generate_lomo_exact_f1_evidence.py",
+          "binding": "core.lomo_exact_f1.CANONICAL_FORMAL_PATH",
+          "equals_staged": true
+        },
+        "staging_transform": "select the 812 frozen route rows and serialize canonical prediction fields with recomputed hit1/hit3 indicators"
+      },
+      "LOMO Group": {
+        "origin": {
+          "path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
+          "sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1"
+        },
+        "staged": {
+          "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+          "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F"
+        },
+        "generator_input": {
+          "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+          "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
+          "consumer": "scripts/generate_scientific_remediation_artifacts.py",
+          "binding": "core.resolution_group_baselines.CANONICAL_PATHS['LOMO']",
+          "equals_staged": true
+        },
+        "staging_transform": "filter the frozen formal detail to the current hybrid route-family rows and preserve the input columns used by the baseline generator"
+      }
+    },
+    "invariant": "For each endpoint, generator_input path/SHA-256 must exactly equal the repository-staged path/SHA-256; origin is retained as its distinct source pair."
+  },
+  "loso_exact_unchanged": {
+    "status": "UNCHANGED",
+    "n_classes": 105,
+    "n_profiles": 814,
+    "macro_f1": 0.21022666666666665,
+    "locked_top1": "182/814",
+    "locked_top3": "368/814"
+  },
+  "benchmark": {
+    "source": {
+      "origin_path": "external_source::manifest.json",
+      "origin_sha256": "9442D7901F47A9A0A826E4502A58B0C4D1ADE61FCA70912890D66FDECC8498A3",
+      "staged_path": "reproducibility/formal_real_input_performance_manifest.json",
+      "staged_sha256": "958D23E17D60FF3610780D41F4B9A83A55AEF10F851A7D61AE4A11E7826DDA5C",
+      "origin_hash_mode": "raw_bytes",
+      "staged_hash_mode": "utf8_lf_canonical_text"
+    },
+    "n_profiles": 51,
+    "n_genes": 28415,
+    "n_warm_repeats": 3,
+    "warm_events": 153,
+    "cold": {
+      "total_seconds": 19.5901258,
+      "seconds_per_profile": 0.38412011372549015,
+      "peak_working_set_mib": 216.73828125
+    },
+    "warm": {
+      "total_seconds": 59.6211421,
+      "seconds_per_event": 0.38968066732026146,
+      "maximum_working_set_mib": 222.00390625
+    }
+  },
+  "resolution_group_random_baselines": {
+    "schema": "braintrace.formal_resolution_group_random_baselines.v2",
+    "sources": {
+      "LOSO": {
+        "origin_path": "external_source::hybrid_formal_loso_resolution_group_detail.csv",
+        "origin_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
+        "staged_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
+        "staged_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
+        "generator_input_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
+        "generator_input_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
+        "source_chain": {
+          "origin": {
+            "path": "external_source::hybrid_formal_loso_resolution_group_detail.csv",
+            "sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430"
+          },
+          "staged": {
+            "path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
+            "sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0"
+          },
+          "generator_input": {
+            "path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
+            "sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
+            "consumer": "scripts/generate_scientific_remediation_artifacts.py",
+            "binding": "core.resolution_group_baselines.CANONICAL_PATHS['LOSO']",
+            "equals_staged": true
+          },
+          "staging_transform": "filter the frozen formal detail to the current hybrid route-family rows and preserve the input columns used by the baseline generator"
+        }
+      },
+      "LOMO": {
+        "origin_path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
+        "origin_sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1",
+        "staged_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+        "staged_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
+        "generator_input_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+        "generator_input_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
+        "source_chain": {
+          "origin": {
+            "path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
+            "sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1"
+          },
+          "staged": {
+            "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+            "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F"
+          },
+          "generator_input": {
+            "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+            "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
+            "consumer": "scripts/generate_scientific_remediation_artifacts.py",
+            "binding": "core.resolution_group_baselines.CANONICAL_PATHS['LOMO']",
+            "equals_staged": true
+          },
+          "staging_transform": "filter the frozen formal detail to the current hybrid route-family rows and preserve the input columns used by the baseline generator"
+        }
+      }
+    },
+    "records": [
+      {
+        "endpoint": "LOSO",
+        "top_k": 3,
+        "n_profiles": 814,
+        "observed_hits": 590,
+        "observed_rate": 0.7248157248157249,
+        "uniform_random_rate": 0.22552006216691037,
+        "weighted_random_rate": 0.06543415233415234,
+        "uniform_formula": "sample_specific_uniform_top3_over_n_candidate_groups",
+        "weighted_formula": "global_truth_prior_weighted_without_replacement; candidate_count_limits_k_only",
+        "rng_seed": 20260629,
+        "n_weighted_random_draws": 10000,
+        "source_origin_path": "external_source::hybrid_formal_loso_resolution_group_detail.csv",
+        "source_origin_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
+        "source_staged_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
+        "source_staged_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
+        "source_generator_input_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
+        "source_generator_input_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0"
+      },
+      {
+        "endpoint": "LOMO",
+        "top_k": 3,
+        "n_profiles": 812,
+        "observed_hits": 569,
+        "observed_rate": 0.7007389162561576,
+        "uniform_random_rate": 0.21344753510520834,
+        "weighted_random_rate": 0.04075270935960591,
+        "uniform_formula": "sample_specific_uniform_top3_over_n_candidate_groups",
+        "weighted_formula": "global_truth_prior_weighted_without_replacement; candidate_count_limits_k_only",
+        "rng_seed": 20260629,
+        "n_weighted_random_draws": 10000,
+        "source_origin_path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
+        "source_origin_sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1",
+        "source_staged_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
+        "source_staged_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+        "source_generator_input_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
+        "source_generator_input_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F"
+      }
+    ],
+    "regeneration_rule": "A changed staged prediction SHA-256 requires regenerated baseline records."
+  },
+  "friedman_exact_enumeration": {
+    "source": "reproducibility/v4_p0_10_lambda_friedman.csv",
+    "source_sha256": "41202414BD61F0E19536C80B6D32D7886F7C71D8D7A8F49883411D72ADB4FC02",
+    "chi2": 0.5385,
+    "df": 2,
+    "p_value": 0.764,
+    "exact_enumeration": "REMOVED",
+    "reason": "No reproducible exact-enumeration algorithm, null space, or result artifact was found; no exact claim is retained."
+  },
+  "stale_current_value_scan": {
+    "scope": [
+      "SCIENTIFIC_REMEDIATION_REPORT.md",
+      "SCIENTIFIC_REMEDIATION_QA.json",
+      "scientific_claim_ledger.csv",
+      "reproducibility/TRACEABILITY_MATRIX.md",
+      "reproducibility/v4_p0_13_macro_f1.csv",
+      "reproducibility/p1_cross1_5/cross3_f1_distribution_summary.csv",
+      "reproducibility/formal_resolution_group_random_baselines.csv",
+      "reproducibility/formal_resolution_group_random_baselines.json",
+      "reproducibility/lomo_exact_region_f1_provenance.json",
+      "reproducibility/lomo_input_chain_provenance.json",
+      "reproducibility/LOMO_INPUT_CHAIN_PROVENANCE.md"
+    ],
+    "current_matches": [],
+    "status": "PASS",
+    "historical_artifact_policy": "Historical values may remain only in explicitly labelled historical/superseded material and are not read by current generators."
+  },
+  "tests": {
+    "status": "PASS: python -m pytest -q (143 passed, 2 skipped)"
+  },
+  "docx_remediation": {
+    "status": "PASS: final DOCX rendered and visually inspected (12 main + 82 supplementary pages)"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "braintrace.lomo_exact_f1_provenance.v2",
+  "source_chain": {
+    "origin": {
+      "path": "external_source::formal_lomo_exact_origin/formal_lomo_exact_region_detail.csv",
+      "sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36"
+    },
+    "staged": {
+      "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+      "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1"
+    },
+    "generator_input": {
+      "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+      "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+      "consumer": "scripts/generate_lomo_exact_f1_evidence.py",
+      "binding": "core.lomo_exact_f1.CANONICAL_FORMAL_PATH",
+      "equals_staged": true
+    },
+    "staging_transform": "select the 812 frozen route rows and serialize canonical prediction fields with recomputed hit1/hit3 indicators"
+  },
+  "formal_source": {
+    "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+    "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+    "origin_path": "external_source::formal_lomo_exact_origin/formal_lomo_exact_region_detail.csv",
+    "origin_sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36",
+    "staged_sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+    "staged_from": "external_source::formal_lomo_exact_origin/formal_lomo_exact_region_detail.csv",
+    "generator_input_path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
+    "generator_input_sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+    "route": "top3_beam_local_top50_top100_zfusion_w0p25",
+    "route_family": "hybrid_projected_network_logcpm_exact",
+    "n": 812
+  },
+  "prediction_level_metrics": {
+    "top1_correct": 177,
+    "top1_accuracy": 0.21798029556650247,
+    "top3_correct": 346,
+    "top3_accuracy": 0.42610837438423643,
+    "macro_f1": 0.2034153339797993,
+    "sd_class_f1": 0.21593290846513288,
+    "median_class_f1": 0.15384615384615385,
+    "q1_class_f1": 0.0,
+    "q3_class_f1": 0.2857142857142857,
+    "iqr_class_f1": 0.2857142857142857,
+    "weighted_f1": 0.21352686247014366,
+    "micro_f1": 0.21798029556650247,
+    "n_zero_f1_classes": 30,
+    "fraction_zero_f1_classes": 0.28846153846153844,
+    "conditional_macro_f1_nonzero": 0.2858810099175558,
+    "conditional_median_f1_nonzero": 0.21637426900584794,
+    "predicted_top1_labels_outside_truth_universe": [
+      "36c",
+      "Cla",
+      "MT"
+    ]
+  },
+  "integer_confusion_accounting": {
+    "sum_tp": 177,
+    "sum_support": 812,
+    "micro_f1_equals_top1_accuracy": true,
+    "class_universe": "104 truth labels; prediction-only labels are FP and do not expand the macro denominator"
+  },
+  "root_cause": "Superseded LOMO Exact class rows were derived from a stale route and rounded summaries rather than the current frozen prediction-level formal route.",
+  "superseded_artifact_status": "historical/superseded; current generators must read the staged formal prediction detail"
+}

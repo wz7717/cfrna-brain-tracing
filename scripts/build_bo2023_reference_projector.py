@@ -27,11 +27,12 @@ from core.reference_projection import (  # noqa: E402
     summarize_fit,
     write_json,
 )
+from core.external_inputs import resolve_alias  # noqa: E402
 
 
-DEFAULT_COUNTS = ROOT / "bo2023 data" / "mfas5_819samples_28415genes_featurecounts_counts.txt"
-DEFAULT_VSD = ROOT / "bo2023 data" / "mfas5_819samples_23605genes_vsd4_rmbatch.xls"
-DEFAULT_SAMPLE_INFO = ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"
+DEFAULT_COUNTS = resolve_alias("bo2023_counts")
+DEFAULT_VSD = resolve_alias("bo2023_vsd")
+DEFAULT_SAMPLE_INFO = resolve_alias("bo2023_sample_metadata")
 DEFAULT_GENE_MAP = ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.csv"
 DEFAULT_MODEL_GENES = ROOT / "data" / "models" / "bo2023_saleem_network_top200_model_genes.csv"
 

@@ -1,0 +1,82 @@
+{
+  "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
+  "source": {
+    "path": "brats_tcga_lgg_65_mri_truth_and_predictions.csv",
+    "path_kind": "external_basename",
+    "sha256": "00c0bf6751f3853edf2431d914c2e9d1d55ecfa7eb99924bde28a6d43dc61c96",
+    "hash_mode": "raw_bytes"
+  },
+  "total_paired_cases": 65,
+  "primary_edema_comparator": {
+    "n": 63,
+    "inclusion_rule": "edema_voxels > 0 and edema_network_dominant != out_of_scope",
+    "excluded_cases": [
+      {
+        "patient_barcode": "TCGA-HT-7680",
+        "reason": "cerebellar_or_posterior_fossa_outside_current_braintrace_label_space"
+      },
+      {
+        "patient_barcode": "TCGA-HT-7686",
+        "reason": "no_label_2_edema_voxels"
+      }
+    ]
+  },
+  "strict_top3": {
+    "network": {
+      "center": {
+        "correct": 19,
+        "n": 65,
+        "proportion": 0.2923076923076923,
+        "percent": 29.230769230769234
+      },
+      "core": {
+        "correct": 12,
+        "n": 65,
+        "proportion": 0.18461538461538463,
+        "percent": 18.461538461538463
+      },
+      "edema": {
+        "correct": 15,
+        "n": 63,
+        "proportion": 0.23809523809523808,
+        "percent": 23.809523809523807
+      },
+      "whole_tumor": {
+        "correct": 10,
+        "n": 65,
+        "proportion": 0.15384615384615385,
+        "percent": 15.384615384615385
+      }
+    },
+    "broad": {
+      "center": {
+        "correct": 32,
+        "n": 65,
+        "proportion": 0.49230769230769234,
+        "percent": 49.23076923076923
+      },
+      "core": {
+        "correct": 45,
+        "n": 65,
+        "proportion": 0.6923076923076923,
+        "percent": 69.23076923076923
+      },
+      "edema": {
+        "correct": 52,
+        "n": 63,
+        "proportion": 0.8253968253968254,
+        "percent": 82.53968253968253
+      },
+      "whole_tumor": {
+        "correct": 46,
+        "n": 65,
+        "proportion": 0.7076923076923077,
+        "percent": 70.76923076923077
+      }
+    }
+  },
+  "range_across_truth_bases_percentage_points": {
+    "network": 13.846153846153848,
+    "broad": 33.3089133089133
+  }
+}

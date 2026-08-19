@@ -10,6 +10,7 @@ build/
 # Virtual environments
 venv/
 .venv/
+.venv-repro/
 env/
 
 # IDE and editor
@@ -40,6 +41,7 @@ raw_datasets_*/
 # Outputs and reports
 reports/
 results/
+reproducibility_audit/
 *.png
 *.jpg
 *.pdf
@@ -49,15 +51,8 @@ results/
 Thumbs.db
 
 # Docker itself
-Dockerfile
 .dockerignore
 docker-compose*.yml
 
-# Documentation
-*.md
-!README.md
-
-# Reproducibility (not needed for runtime)
-reproducibility/
-scripts/
-tests/
+# Reproducibility code and tests are included because Dockerfile.repro uses
+# the same immutable source tree. Raw inputs remain excluded above.

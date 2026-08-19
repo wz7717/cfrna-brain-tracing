@@ -1,0 +1,54 @@
+{
+  "artifact_status": "v0.1.17 scientific-provenance patch candidate (unreleased)",
+  "source": {
+    "path": "exact_sign_flip_tests.csv",
+    "path_kind": "external_basename",
+    "sha256": "b05b954b56c425b9160e4066494fb6226bae896eb3db46b436f7399d5c4524d3",
+    "hash_mode": "raw_bytes"
+  },
+  "family": "Network Top1, Network Top3, resolution-group Top3, exact-region Top3",
+  "n_tests": 4,
+  "none_significant_bh_0_05": true,
+  "rows": [
+    {
+      "endpoint": "Network Top1",
+      "source_endpoint": "network",
+      "top_k": "top1",
+      "raw_p": 0.03125,
+      "raw_p_display": "0.031250",
+      "bh_p_m4": 0.125,
+      "bh_p_m4_display": "0.125000",
+      "significant_bh_0_05": false
+    },
+    {
+      "endpoint": "Network Top3",
+      "source_endpoint": "network",
+      "top_k": "top3",
+      "raw_p": 0.375,
+      "raw_p_display": "0.375000",
+      "bh_p_m4": 0.5,
+      "bh_p_m4_display": "0.500000",
+      "significant_bh_0_05": false
+    },
+    {
+      "endpoint": "resolution-group Top3",
+      "source_endpoint": "resolution_group",
+      "top_k": "top3",
+      "raw_p": 0.59375,
+      "raw_p_display": "0.593750",
+      "bh_p_m4": 0.59375,
+      "bh_p_m4_display": "0.593750",
+      "significant_bh_0_05": false
+    },
+    {
+      "endpoint": "exact-region Top3",
+      "source_endpoint": "exact_region",
+      "top_k": "top3",
+      "raw_p": 0.32421875,
+      "raw_p_display": "0.324219",
+      "bh_p_m4": 0.5,
+      "bh_p_m4_display": "0.500000",
+      "significant_bh_0_05": false
+    }
+  ]
+}
