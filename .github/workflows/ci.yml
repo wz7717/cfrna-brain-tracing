@@ -12,11 +12,19 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
 
     steps:
-      - name: Check out repository
+      - name: Check out repository and Git-LFS payloads
         uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Materialize Git-LFS payloads
+        run: git lfs pull
+
+      - name: Audit Git-LFS materialization
+        run: python scripts/audit_lfs_materialization.py --output "$RUNNER_TEMP/LFS_MATERIALIZATION_AUDIT.json"
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -30,24 +38,52 @@ jobs:
 
       - name: Run pytest with branch coverage
         run: |
-          python -m coverage run --branch --source=core -m pytest -q
+          python -m coverage run --branch --source=core -m pytest tests -q --junitxml="$RUNNER_TEMP/junit.xml"
           python -m coverage report -m
-          python -m coverage xml -o coverage.xml
+          python -m coverage xml -o "$RUNNER_TEMP/coverage.xml"
 
-      - name: Upload coverage report
+      - name: Run scientific freeze audit
+        run: python scripts/audit_scientific_freeze.py --output "$RUNNER_TEMP/SCIENTIFIC_FREEZE_AUDIT.json"
+
+      - name: Validate tracked CSV and current provenance assets
+        run: |
+          python scripts/validate_csv_assets.py
+          python scripts/verify_locked_artifacts.py
+          python scripts/verify_nonhuang_scientific_provenance.py
+          python scripts/audit_public_provenance_paths.py
+          python scripts/audit_release_state.py
+
+      - name: Run portable one-click reproduction gate
+        run: python reproduce_all.py --profile portable --output-dir "$RUNNER_TEMP/portable_reproduction"
+
+      - name: Build application image
+        run: docker build --pull -t braintrace-ci .
+
+      - name: Smoke-test application image
+        run: |
+          docker run --rm --entrypoint braintrace braintrace-ci --help
+          docker run --rm --entrypoint braintrace braintrace-ci --version
+          docker run --rm --entrypoint braintrace braintrace-ci validate
+
+      - name: Build full-reproduction image
+        run: docker build --pull -f Dockerfile.repro -t braintrace-repro-ci .
+
+      - name: Smoke-test full-reproduction image
+        run: |
+          docker run --rm braintrace-repro-ci --help
+          docker run --rm braintrace-repro-ci --profile portable --output-dir /tmp/portable-audit
+          if docker run --rm braintrace-repro-ci --verify-only; then
+            echo "full reproduction unexpectedly accepted a missing external-data mount" >&2
+            exit 1
+          fi
+
+      - name: Upload CI audits
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: braintrace-coverage
-          path: coverage.xml
-
-      - name: Validate tracked CSV assets
-        run: python scripts/validate_csv_assets.py
-
-      - name: Reproduce S18-S19 sensitivity outputs
-        run: >-
-          python reproducibility/s18_s19/run_s18_s19_sensitivity.py
-          --output "$RUNNER_TEMP/s18_s19_results.json"
-          --manifest "$RUNNER_TEMP/s18_s19_input_manifest.json"
-
-      - name: Verify frozen model artifact hashes
-        run: python scripts/verify_locked_artifacts.py
+          name: braintrace-ci-audits
+          path: |
+            ${{ runner.temp }}/coverage.xml
+            ${{ runner.temp }}/junit.xml
+            ${{ runner.temp }}/LFS_MATERIALIZATION_AUDIT.json
+            ${{ runner.temp }}/SCIENTIFIC_FREEZE_AUDIT.json

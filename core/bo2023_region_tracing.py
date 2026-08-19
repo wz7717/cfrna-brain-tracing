@@ -25,6 +25,7 @@ from core.reference_projection import (
     read_gene_map,
 )
 from core.region_resolution import load_region_resolution_model
+from core.external_inputs import resolve_alias
 
 
 DEFAULT_TOP50_WEIGHT = 0.25
@@ -38,9 +39,12 @@ CANONICAL_REGION_COUNT = 110
 CANONICAL_NETWORK_COUNT = 10
 CANONICAL_BEAM_COUNT = 120
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_BO2023_COUNTS = ROOT / "bo2023 data" / "mfas5_819samples_28415genes_featurecounts_counts.txt"
-DEFAULT_BO2023_SAMPLE_INFO = ROOT / "bo2023 data" / "Information of sequenced samples_update_full878_filter819.xlsx"
-DEFAULT_BO2023_GENE_MAP = ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.cleaned_symbols.csv"
+# All raw-data defaults are resolved through the canonical external_data
+# contract (CLI/env/repository root priority).  The resolver keeps the old
+# location only as an explicitly deprecated fallback for development use.
+DEFAULT_BO2023_COUNTS = resolve_alias("bo2023_counts")
+DEFAULT_BO2023_SAMPLE_INFO = resolve_alias("bo2023_sample_metadata")
+DEFAULT_BO2023_GENE_MAP = resolve_alias("bo2023_gene_map")
 DEFAULT_VALIDATION_SUMMARY = (
     ROOT
     / "data"

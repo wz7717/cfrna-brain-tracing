@@ -9,7 +9,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `bo2023_vsd_matrix` |
-| **File** | `bo2023 data/mfas5_819samples_23605genes_vsd4_rmbatch.xls` |
+| **File** | `external_data/Bo2023/mfas5_819samples_23605genes_vsd4_rmbatch.xls` |
 | **Source** | NCBI SRA / Bo et al. (2023) supplementary data |
 | **Accession** | PRJNA905082 |
 | **Citation** | Bo, T. et al. (2023) Brain-wide and cell-specific transcriptomic insights into MRI-derived cortical morphology in macaque monkeys. *Nat. Commun.*, 14, 1499. |
@@ -21,7 +21,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `bo2023_counts_matrix` |
-| **File** | `bo2023 data/mfas5_819samples_28415genes_featurecounts_counts.txt` |
+| **File** | `external_data/Bo2023/mfas5_819samples_28415genes_featurecounts_counts.txt` |
 | **Source** | PRJNA905082 (raw counts before VSD transformation) |
 | **Content** | 819 samples × 28,415 genes, raw featureCounts |
 | **Role** | Used for logCPM normalization and marker selection |
@@ -29,7 +29,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `bo2023_sample_info` |
-| **File** | `bo2023 data/Information of sequenced samples_update_full878_filter819.xlsx` |
+| **File** | `external_data/Bo2023/Information of sequenced samples_update_full878_filter819.xlsx` |
 | **Source** | PRJNA905082 (sample metadata) |
 | **Content** | Sample IDs, MonkeyID (donor mapping), brain region annotations |
 | **Role** | Donor mapping for LOSO/LOMO splits; region label assignment |
@@ -51,7 +51,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `ahba_tpm_matrix` |
-| **File** | `data/ahba_human_rnaseq/ahba_human_rnaseq_tpm_gene_symbol_matrix.tsv` |
+| **File** | `external_data/AHBA/ahba_human_rnaseq_tpm_gene_symbol_matrix.tsv` |
 | **Source** | Allen Brain Map portal (https://portal.brain-map.org) |
 | **Citation** | Allen Human Brain Atlas official RNA-Sequencing download record for donors `H0351.2001` and `H0351.2002`; Hawrylycz et al. (2012) describes the broader AHBA/microarray atlas and is not used here as proof of RNA-seq donor scope. |
 | **Content** | Human brain RNA-seq TPM matrix, gene-symbol indexed |
@@ -62,7 +62,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `ahba_metadata` |
-| **File** | `data/ahba_human_rnaseq/ahba_human_rnaseq_sample_metadata_242.csv` |
+| **File** | `external_data/AHBA/ahba_human_rnaseq_sample_metadata_242.csv` |
 | **Source** | Allen Brain Map portal |
 | **Content** | 242 sample metadata entries (donor ID, structure name, hemisphere) |
 | **Role** | Sample-to-region mapping for AHBA label harmonization |
@@ -72,7 +72,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `tcga_expression_file_level` |
-| **File** | `data/tcga_brain_tumor_expression/tcga_gbm_lgg_primary_tumor_tpm_unstranded_file_level.tsv` |
+| **File** | `external_data/TCGA/tcga_gbm_lgg_primary_tumor_tpm_unstranded_file_level.tsv` |
 | **Source** | NCI Genomic Data Commons (https://portal.gdc.cancer.gov) |
 | **Citation** | TCGA Research Network (https://www.cancer.gov/tcga) |
 | **Content** | TCGA-LGG primary-tumor TPM expression for the 65 MRI-linked cases (the filenames retain the legacy `tcga_gbm_lgg` stem) |
@@ -82,20 +82,27 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `tcga_expression_sample_mean` |
-| **File** | `data/tcga_brain_tumor_expression/tcga_gbm_lgg_primary_tumor_tpm_unstranded_sample_mean.tsv` |
+| **File** | `external_data/TCGA/tcga_gbm_lgg_primary_tumor_tpm_unstranded_sample_mean.tsv` |
 | **Source** | NCI GDC (sample-mean aggregated) |
 | **Role** | Per-patient mean expression for Network/lobe/broad evaluation |
 
 | Field | Value |
 |-------|-------|
 | **Label** | `brats_training_dir` |
-| **File** | `data/brats_tcga_lgg_training_65/` |
+| **File** | `external_data/BraTS/` |
 | **Source** | The Cancer Imaging Archive (TCIA) |
 | **Citation** | Bakas, S. et al. (2017) Advancing The Cancer Genome Atlas glioma MRI collections with expert segmentation labels and radiomic features. *Sci. Data*, 4, 170117. |
 | **Content** | 65 patient directories with pre-operative TCGA-LGG NIfTI images and segmentations |
 | **Nested archive** | `PKG - BraTS-TCGA-LGG/BraTS-TCGA-LGG/Pre-operative_TCGA_LGG_NIfTI_and_Segmentations.zip` (562 MB, 454 files) |
-| **Extraction** | Auto-extracted by `reproduce_all.py` PRE-BUILD phase |
+| **Extraction** | The read-only source bundle is verified first; extraction occurs into the run audit directory, never into `external_data/`. |
 | **Role** | MRI-derived tumor location truth (center, core, edema, whole_tumor) for anatomical consistency evaluation |
+
+| Field | Value |
+|-------|-------|
+| **Label** | `sri24_tzo116_atlas` / `sri24_tzo116_lut` |
+| **Files** | `external_data/SRI24/labels/sri24/tzo116plus.nii` and `external_data/SRI24/labels/sri24/SRI24-tzo116plus.txt` |
+| **Source** | Hash-verified SRI24/TZO116+ v2.0 external atlas label map |
+| **Role** | Anatomical atlas and lookup table used to derive MRI truth for the linked TCGA/BraTS evaluation |
 
 ### 2.3 GSE189919 Engineering Benchmark
 
@@ -114,7 +121,7 @@
 | Field | Value |
 |-------|-------|
 | **Label** | `huang2025_cfRNA` |
-| **File** | `external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.csv` |
+| **File** | `external_data/Huang2025/41698_2025_909_MOESM2_ESM.csv` |
 | **Source** | Published article Supplementary Data 1 |
 | **Citation** | Huang, J. et al. (2025) Diagnostic and prognostic potential of cell-free RNAs in cerebrospinal fluid and plasma for brain tumors. *npj Precis. Oncol.*, 9, 123. [doi:10.1038/s41698-025-00909-6](https://doi.org/10.1038/s41698-025-00909-6) |
 | **Content** | 159 CSF/plasma cfRNA expression profiles |
@@ -188,8 +195,16 @@ For the formal LOMO evidence chain, run:
 ## 5. Data Integrity Verification
 
 ### SHA256 Checksums
-All raw data files are SHA256-verified against `SHA256SUMS.txt` before use.
-The verification is performed by `reproduce_all.py` Step 0 (`verify_raw_data()`).
+The machine-readable source of truth is
+`reproducibility/external_input_manifest.json`. It records each canonical
+external locator, file SHA-256 (or deterministic directory-tree SHA-256),
+required-file records, access classification, role, and reproduction profile.
+`python reproduce_all.py --verify-only` verifies the full manifest and fails
+closed on missing, malformed, wrong-type, hash-mismatched, incomplete, or
+invalid-archive inputs. Its root priority is `--external-data-root`, then
+`BRAINTRACE_EXTERNAL_DATA_ROOT`, then repository-relative `external_data/`.
+The historical `bo2023 data/` layout is a deprecated development fallback only
+and is rejected by a full release gate.
 
 ### Seed Registry
 Every stochastic operation uses a documented seed:

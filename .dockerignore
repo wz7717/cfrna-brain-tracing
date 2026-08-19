@@ -49,7 +49,6 @@ results/
 Thumbs.db
 
 # Docker itself
-Dockerfile
 .dockerignore
 docker-compose*.yml
 
@@ -57,7 +56,5 @@ docker-compose*.yml
 *.md
 !README.md
 
-# Reproducibility (not needed for runtime)
-reproducibility/
-scripts/
-tests/
+# Reproducibility code and tests are included because Dockerfile.repro uses
+# the same immutable source tree. Raw inputs remain excluded above.

@@ -126,6 +126,11 @@ def main() -> int:
     parser.add_argument("--matrix", type=Path, default=DEFAULT_MATRIX)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--labels", type=Path, default=DEFAULT_LABELS)
+    parser.add_argument(
+        "--no-label-evaluation",
+        action="store_true",
+        help="Generate frozen tracing predictions without reading a legacy label file; use the MRI truth evaluator separately.",
+    )
     parser.add_argument("--outdir", type=Path, default=DEFAULT_OUTDIR)
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--atlas-id", type=int, default=4)
@@ -147,7 +152,7 @@ def main() -> int:
         .set_index("sample_submitter_id")
         .to_dict("index")
     )
-    labels = load_labels(args.labels)
+    labels = pd.DataFrame(columns=["patient_barcode"]) if args.no_label_evaluation else load_labels(args.labels)
 
     network_rows: list[dict[str, Any]] = []
     region_rows: list[dict[str, Any]] = []
@@ -228,7 +233,8 @@ def main() -> int:
         "exact_region_top1": metric(labeled, "exact_region_top1_match"),
         "exact_region_top5": metric(labeled, "exact_region_top5_match"),
         "missing_label_patients": sorted(set(summary_df.loc[~summary_df["has_mri_label"], "patient_barcode"].astype(str))),
-        "label_file_used": str(args.labels) if args.labels.exists() else "",
+        "label_file_used": "" if args.no_label_evaluation else (str(args.labels) if args.labels.exists() else ""),
+        "label_evaluation_enabled": not args.no_label_evaluation,
     }
     (args.outdir / "tcga_gbm_lgg_sample_mri_label_evaluation_metrics.json").write_text(
         json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8"

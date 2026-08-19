@@ -16,14 +16,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from core.bo2023_metadata import canonicalize_bo2023_region_text  # noqa: E402
+from core.external_inputs import portable_origin_locator, resolve_alias  # noqa: E402
 from signature_builder import build_signature_set  # noqa: E402
 
 
-DEFAULT_DATA_DIR = ROOT / "bo2023 data"
 DEFAULT_DB = ROOT / "braintrace_source_tracing.db"
-DEFAULT_MATRIX = DEFAULT_DATA_DIR / "mfas5_819samples_23605genes_vsd4_rmbatch.xls"
-DEFAULT_COUNTS = DEFAULT_DATA_DIR / "mfas5_819samples_28415genes_featurecounts_counts.txt"
-DEFAULT_SAMPLE_INFO = DEFAULT_DATA_DIR / "Information of sequenced samples_update_full878_filter819.xlsx"
+DEFAULT_MATRIX = resolve_alias("bo2023_vsd")
+DEFAULT_COUNTS = resolve_alias("bo2023_counts")
+DEFAULT_SAMPLE_INFO = resolve_alias("bo2023_sample_metadata")
 DEFAULT_GENE_MAP = ROOT / "bo2023_bulk_atlas_buildkit" / "04_expressed_genes_neocortex_plus_subcortical.csv"
 
 
@@ -401,10 +401,10 @@ def main() -> int:
     expr_df, audit_df = aggregate_expression_by_region(matrix, ann, gene_map, args.region_col)
 
     summary = {
-        "matrix": str(matrix_path),
-        "counts": str(Path(args.counts)),
-        "sample_info": str(sample_info),
-        "gene_map": str(gene_map_path),
+        "matrix": portable_origin_locator(matrix_path, alias="bo2023_vsd"),
+        "counts": portable_origin_locator(Path(args.counts), alias="bo2023_counts"),
+        "sample_info": portable_origin_locator(sample_info, alias="bo2023_sample_metadata"),
+        "gene_map": portable_origin_locator(gene_map_path, alias="bo2023_gene_map"),
         "region_col": args.region_col,
         "atlas_name": args.atlas_name,
         "build_version": args.build_version,

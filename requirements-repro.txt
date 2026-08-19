@@ -1,6 +1,6 @@
+# BrainTrace CI / release-gate environment
+# =========================================
+# The full reproduction file already pins every runtime dependency plus
+# pytest and coverage.  This compatibility entry point intentionally adds no
+# conflicting duplicate pins.
 -r requirements_reproducible.txt
-pytest==8.3.5
-python-docx==1.2.0
-nibabel==5.3.2
-reportlab==4.4.3
-pyxlsb==1.0.10

@@ -22,7 +22,9 @@ from core.lomo_exact_f1 import (  # noqa: E402
     load_formal_predictions,
     macro_class_rows,
 )
+from core.external_inputs import portable_origin_locator  # noqa: E402
 from core.lomo_f1 import sha256_file  # noqa: E402
+from core.provenance_hashes import sha256_utf8_lf_text  # noqa: E402
 
 
 MACRO_JSON = ROOT / "reproducibility" / "macro_f1_class_data.json"
@@ -84,9 +86,17 @@ def write_csv(path: Path, rows: list[dict[str, object]], fields: list[str]) -> N
 
 
 def _canonical_path(path: Path) -> str:
-    """Record a supplied external origin verbatim as an absolute path."""
+    """Record a supplied external origin as a portable symbolic locator."""
 
-    return str(path.resolve())
+    return portable_origin_locator(path, alias="formal_lomo_exact_origin")
+
+
+def _portable_origin(value: str) -> str:
+    """Migrate legacy absolute origin text without changing identity or SHA."""
+
+    if value.startswith(("external_source::", "repository::")):
+        return value
+    return portable_origin_locator(Path(value), alias="formal_lomo_exact_origin")
 
 
 def source_and_origin(source: Path | None) -> tuple[Path, str, str]:
@@ -118,7 +128,7 @@ def source_and_origin(source: Path | None) -> tuple[Path, str, str]:
         or legacy.get("sha256")
         or sha256_file(CANONICAL_FORMAL_PATH)
     )
-    return CANONICAL_FORMAL_PATH, origin_path, origin_sha256
+    return CANONICAL_FORMAL_PATH, _portable_origin(origin_path), origin_sha256
 
 
 def stage_predictions(source: Path) -> list[dict[str, str]]:
@@ -170,7 +180,7 @@ def update_macro_json(
     payload["data"] = data
     provenance = dict(payload.get("provenance", {}))
     staged_path = CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix()
-    staged_sha256 = sha256_file(CANONICAL_FORMAL_PATH)
+    staged_sha256 = sha256_utf8_lf_text(CANONICAL_FORMAL_PATH)
     provenance.update(
         {
             "formal_lomo_exact_origin_path": origin_path,
@@ -274,12 +284,32 @@ def write_derived(
     update_cross3(metrics)
 
 
+def update_macro_provenance_only(origin_path: str, origin_sha256: str) -> None:
+    """Migrate provenance fields without touching frozen class-level values."""
+
+    payload = json.loads(MACRO_JSON.read_text(encoding="utf-8"))
+    provenance = dict(payload.get("provenance", {}))
+    staged_path = CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix()
+    staged_sha256 = sha256_utf8_lf_text(CANONICAL_FORMAL_PATH)
+    provenance.update(
+        {
+            "formal_lomo_exact_origin_path": origin_path,
+            "formal_lomo_exact_origin_sha256": origin_sha256,
+            "formal_lomo_exact_source": staged_path,
+            "formal_lomo_exact_source_sha256": staged_sha256,
+            "formal_lomo_exact_staged_sha256": staged_sha256,
+        }
+    )
+    payload["provenance"] = provenance
+    MACRO_JSON.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
 def write_provenance(
     origin_path: str, metrics: dict[str, object], origin_sha256: str
 ) -> None:
     summary = metrics["summary"]  # type: ignore[assignment]
     staged_path = CANONICAL_FORMAL_PATH.relative_to(ROOT).as_posix()
-    staged_sha256 = sha256_file(CANONICAL_FORMAL_PATH)
+    staged_sha256 = sha256_utf8_lf_text(CANONICAL_FORMAL_PATH)
     source_chain = {
         "origin": {
             "path": origin_path,
@@ -417,9 +447,9 @@ def verify_derived(metrics: dict[str, object]) -> None:
         raise ValueError("LOMO Exact staged and generator-input paths differ")
     if staged.get("sha256") != generator_input.get("sha256"):
         raise ValueError("LOMO Exact staged and generator-input SHA-256 values differ")
-    if source["staged_sha256"] != sha256_file(CANONICAL_FORMAL_PATH):
+    if source["staged_sha256"] != sha256_utf8_lf_text(CANONICAL_FORMAL_PATH):
         raise ValueError("LOMO Exact source changed without regeneration")
-    if staged.get("sha256") != sha256_file(CANONICAL_FORMAL_PATH):
+    if staged.get("sha256") != sha256_utf8_lf_text(CANONICAL_FORMAL_PATH):
         raise ValueError("LOMO Exact source-chain staged SHA-256 is stale")
     summary = metrics["summary"]  # type: ignore[assignment]
     if provenance["prediction_level_metrics"]["micro_f1"] != summary["micro_f1"]:
@@ -436,12 +466,21 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", type=Path, help="Full current prediction-level source")
     parser.add_argument("--verify-only", action="store_true")
+    parser.add_argument("--metadata-only", action="store_true", help="Rewrite only portable provenance locators from the staged canonical table.")
     args = parser.parse_args()
 
+    if args.verify_only and args.metadata_only:
+        parser.error("--verify-only and --metadata-only are mutually exclusive")
     if args.verify_only:
         rows = load_formal_predictions(CANONICAL_FORMAL_PATH)
         metrics = compute_lomo_exact_metrics(rows)
         verify_derived(metrics)
+    elif args.metadata_only:
+        _, origin_path, origin_sha256 = source_and_origin(None)
+        rows = load_formal_predictions(CANONICAL_FORMAL_PATH)
+        metrics = compute_lomo_exact_metrics(rows)
+        update_macro_provenance_only(origin_path, origin_sha256)
+        write_provenance(origin_path, metrics, origin_sha256)
     else:
         source, origin_path, origin_sha256 = source_and_origin(args.source)
         rows = stage_predictions(source)

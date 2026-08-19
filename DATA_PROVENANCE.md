@@ -31,6 +31,7 @@ hashes. No patient-level clinical identifiers are redistributed.
 | 7 | Gene Ontology, KEGG, and g:Profiler | [Gene Ontology](https://geneontology.org), [KEGG](https://www.kegg.jp), [g:Profiler](https://biit.cs.ut.ee/gprofiler) | Frozen 200-gene panel; 179/200 mapped by g:Profiler in its own service/filtering universe; 21,668-gene model-space background | Independent GO:BP/KEGG annotation; not model training or predictive validation |
 | 8 | Chiou2023 rhesus macaque single-cell atlas | [10.1126/sciadv.adh1914](https://doi.org/10.1126/sciadv.adh1914) | Published Tables S3/S7; seven prespecified broad marker families | Primary independent cell-type annotation-bias analysis |
 | 9 | Siletti2023 adult human brain cell atlas | [10.1126/science.add7046](https://doi.org/10.1126/science.add7046) | Published cluster annotations; the same seven broad marker families | Human-reference sensitivity analysis |
+| 10 | SRI24/TZO116+ v2.0 atlas | Hash-verified external atlas input | TZO116+ anatomical label volume and lookup table | MRI truth-basis derivation for the linked TCGA/BraTS evaluation |
 
 ## Data Access & Licensing
 
@@ -57,7 +58,14 @@ hashes. No patient-level clinical identifiers are redistributed.
 - **BraTS-TCGA-LGG**: TCIA-hosted processed-image training set (65 subjects,
   CC BY 3.0) from the 108-subject analysis-result container; its separate
   43-subject test set is controlled access and is not used here. The nested
-  NIfTI zip is automatically extracted by `reproduce_all.py` if present.
+  The verified NIfTI zip is extracted into the run audit directory; it is never
+  modified under the read-only canonical external-data mount.
+- **SRI24/TZO116+**: The MRI truth-basis evaluator requires the hash-verified
+  label volume `external_data/SRI24/labels/sri24/tzo116plus.nii`
+  (SHA-256 `abbcb5ae3b2b470a1069fda3c7193256e1c3baf0a2e32772247b14917b14940b`)
+  and lookup table `external_data/SRI24/labels/sri24/SRI24-tzo116plus.txt`
+  (SHA-256 `a6b61737d0a51ecf6f64eb893bf1c87b1edf8f19e3bf8a4fbe8eda9c10b09e7e`).
+  They are external inputs, not redistributed by this repository.
 - **GSE189919**: GEO public dataset; no access restrictions.
 - **Huang2025**: Supplementary Data 1 is publicly downloadable from the
   published article page (PMC12041490); reuse remains subject to the article's
@@ -82,9 +90,9 @@ hashes. No patient-level clinical identifiers are redistributed.
   sample name, construct synthetic mixtures, reproduce the source clinical
   endpoint analysis, or validate localization.
   For the documented full-pipeline path, place the source files at
-  `external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.csv`
+  `external_data/Huang2025/41698_2025_909_MOESM2_ESM.csv`
   (SHA-256 `ef0c72c17d65a0293ec4089880716ca3db1ad74764f43fe3bbe828b3e62ea6a3`)
-  and `external_inputs/huang2025_pmc12041490/41698_2025_909_MOESM2_ESM.xlsb`
+  and `external_data/Huang2025/41698_2025_909_MOESM2_ESM.xlsb`
   (SHA-256 `e7cd6cfbdfe5b14f68e2f3792ea3c713b6824595370ea9f16510ec439be58531`).
   The article labels the supplementary matrix as log-transformed Reads Per
   Million (RPM). In the authors' code archive

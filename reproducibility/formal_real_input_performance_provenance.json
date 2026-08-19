@@ -2,5 +2,7 @@
   "origin_path": "external_source::manifest.json",
   "origin_sha256": "9442D7901F47A9A0A826E4502A58B0C4D1ADE61FCA70912890D66FDECC8498A3",
   "staged_path": "reproducibility/formal_real_input_performance_manifest.json",
-  "staged_sha256": "9442D7901F47A9A0A826E4502A58B0C4D1ADE61FCA70912890D66FDECC8498A3"
+  "staged_sha256": "958D23E17D60FF3610780D41F4B9A83A55AEF10F851A7D61AE4A11E7826DDA5C",
+  "origin_hash_mode": "raw_bytes",
+  "staged_hash_mode": "utf8_lf_canonical_text"
 }

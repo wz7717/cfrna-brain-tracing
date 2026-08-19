@@ -15,20 +15,20 @@
   },
   "lomo_exact_f1": {
     "canonical_source": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-    "source_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
-    "staged_source_sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
+    "source_sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
+    "staged_source_sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
     "source_chain": {
       "origin": {
-        "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_exact_region_detail.csv",
+        "path": "external_source::formal_lomo_exact_origin/formal_lomo_exact_region_detail.csv",
         "sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36"
       },
       "staged": {
         "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-        "sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A"
+        "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1"
       },
       "generator_input": {
         "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-        "sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
+        "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
         "consumer": "scripts/generate_lomo_exact_f1_evidence.py",
         "binding": "core.lomo_exact_f1.CANONICAL_FORMAL_PATH",
         "equals_staged": true
@@ -43,17 +43,17 @@
       "top3_correct": 346,
       "top1_accuracy": 0.21798029556650247,
       "top3_accuracy": 0.42610837438423643,
-      "macro_f1": 0.20341533397979938,
-      "sd_class_f1": 0.2159329084651328,
+      "macro_f1": 0.2034153339797993,
+      "sd_class_f1": 0.21593290846513288,
       "median_class_f1": 0.15384615384615385,
       "q1_class_f1": 0.0,
       "q3_class_f1": 0.2857142857142857,
       "iqr_class_f1": 0.2857142857142857,
-      "weighted_f1": 0.21352686247014377,
+      "weighted_f1": 0.21352686247014366,
       "micro_f1": 0.21798029556650247,
       "n_zero_f1_classes": 30,
       "fraction_zero_f1_classes": 0.28846153846153844,
-      "conditional_macro_f1_nonzero": 0.2858810099175559,
+      "conditional_macro_f1_nonzero": 0.2858810099175558,
       "conditional_median_f1_nonzero": 0.21637426900584794,
       "truth_label_universe": "truth labels only; prediction-only labels remain FP",
       "predicted_top1_labels_outside_truth_universe": [
@@ -72,16 +72,16 @@
     "chains": {
       "LOMO Exact": {
         "origin": {
-          "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_exact_region_detail.csv",
+          "path": "external_source::formal_lomo_exact_origin/formal_lomo_exact_region_detail.csv",
           "sha256": "EB5F10F01B122F68D09256EA6866DEAE2B439AABAD27E076181EC8760E7AAF36"
         },
         "staged": {
           "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-          "sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A"
+          "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1"
         },
         "generator_input": {
           "path": "reproducibility/p2_publication_completeness/formal_lomo_exact_region_detail.csv",
-          "sha256": "E90BB2ACF6C325530467A69252CBDF3B28C027EC41555FD03716527F5E3C101A",
+          "sha256": "401441CFD7FF9B66408377CD854CF8A4C31B869F16C6D843E35DFCA63BE401C1",
           "consumer": "scripts/generate_lomo_exact_f1_evidence.py",
           "binding": "core.lomo_exact_f1.CANONICAL_FORMAL_PATH",
           "equals_staged": true
@@ -90,16 +90,16 @@
       },
       "LOMO Group": {
         "origin": {
-          "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_resolution_group_detail.csv",
+          "path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
           "sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1"
         },
         "staged": {
           "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
-          "sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A"
+          "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F"
         },
         "generator_input": {
           "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
-          "sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A",
+          "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
           "consumer": "scripts/generate_scientific_remediation_artifacts.py",
           "binding": "core.resolution_group_baselines.CANONICAL_PATHS['LOMO']",
           "equals_staged": true
@@ -122,7 +122,9 @@
       "origin_path": "external_source::manifest.json",
       "origin_sha256": "9442D7901F47A9A0A826E4502A58B0C4D1ADE61FCA70912890D66FDECC8498A3",
       "staged_path": "reproducibility/formal_real_input_performance_manifest.json",
-      "staged_sha256": "9442D7901F47A9A0A826E4502A58B0C4D1ADE61FCA70912890D66FDECC8498A3"
+      "staged_sha256": "958D23E17D60FF3610780D41F4B9A83A55AEF10F851A7D61AE4A11E7826DDA5C",
+      "origin_hash_mode": "raw_bytes",
+      "staged_hash_mode": "utf8_lf_canonical_text"
     },
     "n_profiles": 51,
     "n_genes": 28415,
@@ -146,9 +148,9 @@
         "origin_path": "external_source::hybrid_formal_loso_resolution_group_detail.csv",
         "origin_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
         "staged_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
-        "staged_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
+        "staged_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
         "generator_input_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
-        "generator_input_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
+        "generator_input_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
         "source_chain": {
           "origin": {
             "path": "external_source::hybrid_formal_loso_resolution_group_detail.csv",
@@ -156,11 +158,11 @@
           },
           "staged": {
             "path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
-            "sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430"
+            "sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0"
           },
           "generator_input": {
             "path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
-            "sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
+            "sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
             "consumer": "scripts/generate_scientific_remediation_artifacts.py",
             "binding": "core.resolution_group_baselines.CANONICAL_PATHS['LOSO']",
             "equals_staged": true
@@ -169,24 +171,24 @@
         }
       },
       "LOMO": {
-        "origin_path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_resolution_group_detail.csv",
+        "origin_path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
         "origin_sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1",
         "staged_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
-        "staged_sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A",
+        "staged_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
         "generator_input_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
-        "generator_input_sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A",
+        "generator_input_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
         "source_chain": {
           "origin": {
-            "path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_resolution_group_detail.csv",
+            "path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
             "sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1"
           },
           "staged": {
             "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
-            "sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A"
+            "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F"
           },
           "generator_input": {
             "path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
-            "sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A",
+            "sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
             "consumer": "scripts/generate_scientific_remediation_artifacts.py",
             "binding": "core.resolution_group_baselines.CANONICAL_PATHS['LOMO']",
             "equals_staged": true
@@ -202,7 +204,7 @@
         "n_profiles": 814,
         "observed_hits": 590,
         "observed_rate": 0.7248157248157249,
-        "uniform_random_rate": 0.2255200621669099,
+        "uniform_random_rate": 0.22552006216691037,
         "weighted_random_rate": 0.06543415233415234,
         "uniform_formula": "sample_specific_uniform_top3_over_n_candidate_groups",
         "weighted_formula": "global_truth_prior_weighted_without_replacement; candidate_count_limits_k_only",
@@ -210,10 +212,10 @@
         "n_weighted_random_draws": 10000,
         "source_origin_path": "external_source::hybrid_formal_loso_resolution_group_detail.csv",
         "source_origin_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
-        "source_staged_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430",
+        "source_staged_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0",
         "source_staged_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
         "source_generator_input_path": "reproducibility/p2_publication_completeness/formal_loso_resolution_group_detail.csv",
-        "source_generator_input_sha256": "B67A535426A82CBDC5EC2B96A91ACF2118A966E80CFEC8A5D8924ECCBA39D430"
+        "source_generator_input_sha256": "7589EEE8666518C3832898790A58A39AD9D917AC1123C9E97DFF5435AC542DC0"
       },
       {
         "endpoint": "LOMO",
@@ -221,18 +223,18 @@
         "n_profiles": 812,
         "observed_hits": 569,
         "observed_rate": 0.7007389162561576,
-        "uniform_random_rate": 0.21344753510520886,
+        "uniform_random_rate": 0.21344753510520834,
         "weighted_random_rate": 0.04075270935960591,
         "uniform_formula": "sample_specific_uniform_top3_over_n_candidate_groups",
         "weighted_formula": "global_truth_prior_weighted_without_replacement; candidate_count_limits_k_only",
         "rng_seed": 20260629,
         "n_weighted_random_draws": 10000,
-        "source_origin_path": "D:\\Download\\文章改稿\\code\\reproduction_validation_workspace_20260802\\reproduced_runs\\release_gate_20260811_ai44563\\lomo\\formal_lomo_resolution_group_detail.csv",
+        "source_origin_path": "external_source::historical_formal_lomo_resolution_group_detail/formal_lomo_resolution_group_detail.csv",
         "source_origin_sha256": "B9A17D20BA434F52BD812FAE361E1A3F51C55B705AEFA745B8853544276390F1",
-        "source_staged_sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A",
+        "source_staged_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F",
         "source_staged_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
         "source_generator_input_path": "reproducibility/p2_publication_completeness/formal_lomo_resolution_group_detail.csv",
-        "source_generator_input_sha256": "E3FB53B7B14F135B5B9781603515F8344CD9DE54CFA69CE2E06EEB8EAB21938A"
+        "source_generator_input_sha256": "685DA8F954490C70AAAEDA477EFBC86C9C4C622A8916D9BDEBC484747E1D736F"
       }
     ],
     "regeneration_rule": "A changed staged prediction SHA-256 requires regenerated baseline records."

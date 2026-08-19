@@ -22,6 +22,8 @@ from core.lomo_exact_f1 import (  # noqa: E402
     load_formal_predictions,
 )
 from core.lomo_f1 import sha256_file  # noqa: E402
+from core.external_inputs import portable_origin_locator  # noqa: E402
+from core.provenance_hashes import sha256_utf8_lf_text  # noqa: E402
 from core.resolution_group_baselines import (  # noqa: E402
     CANONICAL_PATHS as GROUP_DETAIL_PATHS,
     compute_baseline_record,
@@ -63,6 +65,14 @@ def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _portable_origin(value: str, staged_path: str) -> str:
+    """Retain source identity without retaining a machine-local path."""
+
+    if value.startswith(("external_source::", "repository::")):
+        return value
+    return portable_origin_locator(Path(value), alias=f"historical_{Path(staged_path).stem}")
+
+
 def _source_chain(
     *,
     origin_path: str,
@@ -74,6 +84,8 @@ def _source_chain(
     staging_transform: str,
 ) -> dict[str, Any]:
     """Create an explicit, self-checking origin/staged/generator-input chain."""
+
+    origin_path = _portable_origin(origin_path, staged_path)
 
     return {
         "origin": {"path": origin_path, "sha256": origin_sha256},
@@ -99,7 +111,7 @@ def _assert_staged_generator_pair(label: str, chain: dict[str, Any]) -> None:
     if not generator_input.get("equals_staged"):
         raise ValueError(f"{label} must declare generator input identical to staged input")
     staged_path = ROOT / str(staged["path"])
-    if sha256_file(staged_path) != staged["sha256"]:
+    if sha256_utf8_lf_text(staged_path) != staged["sha256"]:
         raise ValueError(f"{label} staged input SHA-256 does not match its file")
 
 
@@ -143,7 +155,7 @@ def stage_group_sources(
             )
         staged_rows[endpoint] = rows
         staged_path = GROUP_DETAIL_PATHS[endpoint].relative_to(ROOT).as_posix()
-        staged_sha256 = sha256_file(GROUP_DETAIL_PATHS[endpoint])
+        staged_sha256 = sha256_utf8_lf_text(GROUP_DETAIL_PATHS[endpoint])
         input_binding = (
             GROUP_GENERATOR_INPUT_BINDING
             if endpoint == "LOMO"
@@ -163,7 +175,7 @@ def stage_group_sources(
         )
         _assert_staged_generator_pair(f"{endpoint} Group", chain)
         sources[endpoint] = {
-            "origin_path": origin_path,
+            "origin_path": chain["origin"]["path"],
             "origin_sha256": origin_sha,
             "staged_path": staged_path,
             "staged_sha256": staged_sha256,
@@ -238,7 +250,9 @@ def stage_benchmark(source: Path | None) -> tuple[dict[str, Any], dict[str, str]
         "origin_path": origin_path,
         "origin_sha256": origin_sha,
         "staged_path": BENCHMARK_MANIFEST.relative_to(ROOT).as_posix(),
-        "staged_sha256": sha256_file(BENCHMARK_MANIFEST),
+        "staged_sha256": sha256_utf8_lf_text(BENCHMARK_MANIFEST),
+        "origin_hash_mode": "raw_bytes",
+        "staged_hash_mode": "utf8_lf_canonical_text",
     }
     write_json(BENCHMARK_PROVENANCE, provenance)
     return payload, provenance
@@ -599,7 +613,44 @@ def main() -> int:
     parser.add_argument("--benchmark-manifest", type=Path)
     parser.add_argument("--tests-status", default="NOT_RUN")
     parser.add_argument("--docx-status", default="PENDING")
+    parser.add_argument("--metadata-only", action="store_true", help="Migrate only portable provenance locators from canonical staged inputs.")
     args = parser.parse_args()
+
+    if args.metadata_only:
+        lomo_exact = derive_lomo_exact()
+        baselines = generate_group_baselines(None, None)
+        pairing = build_lomo_input_path_sha_pairing(lomo_exact, baselines)
+        write_lomo_input_path_sha_pairing(pairing)
+        manifest, benchmark_provenance = stage_benchmark(None)
+        benchmark = derive_benchmark(manifest, benchmark_provenance)
+        qa = read_json(QA)
+        qa["lomo_exact_f1"] = lomo_exact
+        qa["lomo_input_path_sha_pairing"] = pairing
+        qa["resolution_group_random_baselines"] = baselines
+        qa["benchmark"] = benchmark
+        write_json(QA, qa)
+        fields = [
+            "claim_id",
+            "canonical_source",
+            "source_sha256",
+            "denominator",
+            "exclusion_rule",
+            "numerator",
+            "derived_value",
+            "display_value",
+            "manuscript_location",
+            "supplement_location",
+            "figure_table",
+            "generator",
+            "status",
+        ]
+        write_csv(
+            LEDGER,
+            ledger_rows(derive_tcga_range(), lomo_exact, benchmark, baselines, derive_friedman()),
+            fields,
+        )
+        print(json.dumps({"qa": QA.as_posix(), "mode": "metadata-only"}, ensure_ascii=False))
+        return 0
 
     tcga = derive_tcga_range()
     lomo_exact = derive_lomo_exact()

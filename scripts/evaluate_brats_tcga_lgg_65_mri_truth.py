@@ -68,6 +68,13 @@ def parse_tzo_lut(path: Path) -> dict[int, str]:
     return out
 
 
+def resolve_audit_path(audit_path: Path, value: object) -> Path:
+    """Resolve a portable audit-relative NIfTI locator at runtime."""
+
+    candidate = Path(str(value))
+    return candidate if candidate.is_absolute() else (audit_path.parent / candidate).resolve()
+
+
 def anatomy_for_region(name: str) -> tuple[str, str, str]:
     base = name.removesuffix("_L").removesuffix("_R")
     if base.startswith("Precentral") or base.startswith("Supp_Motor"):
@@ -353,17 +360,19 @@ def main() -> int:
     if missing:
         raise ValueError(f"Missing TZO mappings: {missing}")
 
-    atlas = resample_atlas_to_brats(args.atlas, Path(audit.iloc[0]["t1_path"]))
+    reference_t1 = resolve_audit_path(args.audit, audit.iloc[0]["t1_path"])
+    atlas = resample_atlas_to_brats(args.atlas, reference_t1)
     filled = nearest_filled_labels(atlas)
     nib.save(
-        nib.Nifti1Image(atlas, nib.load(str(audit.iloc[0]["t1_path"])).affine),
+        nib.Nifti1Image(atlas, nib.load(str(reference_t1)).affine),
         str(args.outdir / "sri24_tzo116_resampled_to_brats.nii.gz"),
     )
 
     rows: list[dict[str, Any]] = []
     for _, audit_row in audit.iterrows():
         patient = audit_row["patient_barcode"]
-        seg = np.rint(np.asanyarray(nib.load(str(audit_row["preferred_segmentation"])).dataobj)).astype(np.int16)
+        segmentation_path = resolve_audit_path(args.audit, audit_row["preferred_segmentation"])
+        seg = np.rint(np.asanyarray(nib.load(str(segmentation_path)).dataobj)).astype(np.int16)
         masks = {
             "whole_tumor": seg > 0,
             "core": np.isin(seg, [1, 4]),
@@ -372,7 +381,7 @@ def main() -> int:
         row: dict[str, Any] = {
             "patient_barcode": patient,
             "segmentation_source": "manual_corrected" if bool(audit_row["has_manual_segmentation"]) else "automatic",
-            "segmentation_path": audit_row["preferred_segmentation"],
+            "segmentation_path": str(audit_row["preferred_segmentation"]),
             "tumor_voxels": int(masks["whole_tumor"].sum()),
             "core_voxels": int(masks["core"].sum()),
             "edema_voxels": int(masks["edema"].sum()),

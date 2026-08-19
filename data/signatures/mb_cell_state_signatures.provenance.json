@@ -1,6 +1,6 @@
 {
-  "source_file": "D:\\Download\\cfrna-brain-tracing-streamlit-cloud-ready\\data\\external_signatures\\mb_literature\\mb_literature_signature_gene_sets.csv",
-  "output_file": "D:\\Download\\cfrna-brain-tracing-streamlit-cloud-ready\\data\\signatures\\mb_cell_state_signatures.csv",
+  "source_file": "external_source::mb_literature_signature_sets/mb_literature_signature_gene_sets.csv",
+  "output_file": "repository::data/signatures/mb_cell_state_signatures.csv",
   "signature_counts": {
     "GNP_like": 193,
     "Group4": 330,
@@ -207,5 +207,7 @@
       "n_genes_used_before_dedup": 30
     }
   ],
-  "note": "Large subtype DEG lists were truncated to top-ranked genes to reduce dilution in sample-level module scoring. This file is for exploratory CSF RNA program scoring."
+  "note": "Large subtype DEG lists were truncated to top-ranked genes to reduce dilution in sample-level module scoring. This file is for exploratory CSF RNA program scoring.",
+  "provenance_locator_policy": "portable symbolic locators; source identity and generated values unchanged",
+  "provenance_generator": "scripts/normalize_public_provenance.py"
 }

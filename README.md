@@ -107,10 +107,13 @@ python -m streamlit run streamlit_app.py
 
 ### Fully reproduce the paper
 
-Obtain the external source datasets and place them at the paths documented in
-[`DATA_PROVENANCE.md`](DATA_PROVENANCE.md) and `SHA256SUMS.txt`. Then run the
-checksum gate followed by the complete build, validation and CSV-generation
-pipeline:
+Obtain the external source datasets and stage them below a canonical
+`external_data/` root as documented in
+[`reproducibility/external_input_manifest.json`](reproducibility/external_input_manifest.json)
+and [`DATA_PROVENANCE.md`](DATA_PROVENANCE.md). The resolver priority is
+`--external-data-root`, then `BRAINTRACE_EXTERNAL_DATA_ROOT`, then the
+repository-relative `external_data/`. Then run the strict input gate followed
+by the complete build, validation and CSV-generation pipeline:
 
 ```bash
 python -m venv .venv-repro
@@ -118,11 +121,12 @@ python -m venv .venv-repro
 # macOS/Linux: source .venv-repro/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements_reproducible.txt
-python reproduce_all.py --verify-only
-python reproduce_all.py --output-dir reproducibility_audit
+python reproduce_all.py --external-data-root /path/to/external_data --verify-only
+python reproduce_all.py --external-data-root /path/to/external_data --output-dir reproducibility_audit
 ```
 
-`requirements-repro.txt` adds testing extras to the complete reproducibility
+`bo2023 data/` is a deprecated development fallback only; it is never accepted
+by the full release gate. `requirements-repro.txt` adds testing extras to the complete reproducibility
 environment; it is intended for CI/development checks rather than as the main
 installation entry point.
 
