@@ -66,7 +66,7 @@ jobs:
           docker run --rm --entrypoint braintrace braintrace-ci validate
 
       - name: Build full-reproduction image
-        run: docker build --pull -f Dockerfile.repro -t braintrace-repro-ci .
+        run: docker build --pull --build-arg BRAINTRACE_GIT_SHA="${GITHUB_SHA}" --build-arg BRAINTRACE_GIT_CLEAN=true -f Dockerfile.repro -t braintrace-repro-ci .
 
       - name: Smoke-test full-reproduction image
         run: |

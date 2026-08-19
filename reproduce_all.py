@@ -93,7 +93,10 @@ def _safe_tail(text: str, context: RunContext, *, limit: int = 4000) -> str:
 
 
 def _git_value(*args: str) -> str:
-    result = subprocess.run(["git", *args], cwd=ROOT, text=True, capture_output=True, check=False)
+    try:
+        result = subprocess.run(["git", *args], cwd=ROOT, text=True, capture_output=True, check=False)
+    except OSError:
+        return "unavailable"
     return result.stdout.strip() if result.returncode == 0 else "unavailable"
 
 
@@ -106,9 +109,20 @@ def environment_record() -> dict[str, object]:
             packages[package] = importlib.metadata.version(package)
         except importlib.metadata.PackageNotFoundError:
             packages[package] = "not-installed"
+    build_git_sha = os.environ.get("BRAINTRACE_GIT_SHA", "").strip()
+    build_git_clean = os.environ.get("BRAINTRACE_GIT_CLEAN", "").strip().lower()
+    git_status = _git_value("status", "--porcelain")
     return {
-        "git_sha": _git_value("rev-parse", "HEAD"),
-        "git_clean": _git_value("status", "--porcelain") == "",
+        "git_sha": build_git_sha or _git_value("rev-parse", "HEAD"),
+        "git_clean": (
+            True
+            if build_git_clean == "true"
+            else False
+            if build_git_clean == "false"
+            else None
+            if git_status == "unavailable"
+            else git_status == ""
+        ),
         "python_version": platform.python_version(),
         "python_implementation": platform.python_implementation(),
         "platform_system": platform.system(),
