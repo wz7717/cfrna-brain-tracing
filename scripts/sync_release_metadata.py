@@ -127,6 +127,12 @@ def _release_notes(manifest: dict[str, Any]) -> str:
 
 
 def _check_release_gate(gate_path: Path) -> list[str]:
+    """Validate facts that exist before the one-shot metadata finalization.
+
+    The exact release-archive checksum is intentionally excluded here: the
+    archive can only be built from a clean tree *after* finalization.  It is
+    verified as a separate, mandatory pre-merge release-artifact gate.
+    """
     gate = json.loads(gate_path.read_text(encoding="utf-8"))
     expected = {
         "status": "PASS",
@@ -134,7 +140,6 @@ def _check_release_gate(gate_path: Path) -> list[str]:
         "app_docker": "PASS",
         "repro_docker": "PASS",
         "github_actions": "GREEN",
-        "checksum": "PASS",
     }
     return [f"release gate {key!r} is not {value!r}" for key, value in expected.items() if gate.get(key) != value]
 

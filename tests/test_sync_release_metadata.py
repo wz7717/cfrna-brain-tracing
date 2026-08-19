@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from scripts.sync_release_metadata import FULL_REPRO_DOI, SOFTWARE_DOI, validate_manifest
+import json
+
+from scripts.sync_release_metadata import FULL_REPRO_DOI, SOFTWARE_DOI, _check_release_gate, validate_manifest
 
 
 def test_release_manifest_rejects_substitute_reserved_doi() -> None:
@@ -13,3 +15,21 @@ def test_release_manifest_rejects_substitute_reserved_doi() -> None:
     assert "full-repro DOI is not the reserved v0.1.17 draft DOI" in errors
     manifest["full_repro_version_doi"] = FULL_REPRO_DOI
     assert validate_manifest(manifest) == []
+
+
+def test_pre_finalization_gate_defers_checksum_until_exact_archive_exists(tmp_path) -> None:
+    gate = tmp_path / "release_gate.json"
+    gate.write_text(
+        json.dumps(
+            {
+                "status": "PASS",
+                "scientific_drift": 0,
+                "app_docker": "PASS",
+                "repro_docker": "PASS",
+                "github_actions": "GREEN",
+                "checksum": "DEFERRED_UNTIL_FINAL_ARCHIVE",
+            }
+        ),
+        encoding="utf-8",
+    )
+    assert _check_release_gate(gate) == []
