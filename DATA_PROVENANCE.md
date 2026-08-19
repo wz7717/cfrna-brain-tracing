@@ -1,23 +1,6 @@
-# Data Provenance - BrainTrace v0.1.16
+# Data Provenance - BrainTrace v0.1.17
 
-This manifest documents every external dataset used to build, validate, and
-benchmark the BrainTrace hierarchical brain-origin candidate ranking tool.
-The current executable metadata and immutable software release are v0.1.16,
-archived at version DOI
-[10.5281/zenodo.21974954](https://doi.org/10.5281/zenodo.21974954). Its full
-reproducibility archive, including the materialized 164 MB Git LFS payload, is
-archived separately at
-[10.5281/zenodo.21974991](https://doi.org/10.5281/zenodo.21974991); the persistent
-software concept DOI is
-[10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). The frozen
-v0.1.12 scientific release remains archived at version DOI
-[10.5281/zenodo.21911532](https://doi.org/10.5281/zenodo.21911532).
-Public source data are available under the cited accessions except where
-explicitly noted below. The exact Bo2023 processed author-package matrices used
-by the frozen projector have no identified stable public URL; they must be
-obtained from the original authors and verified against the reported SHA-256
-hashes. No patient-level clinical identifiers are redistributed.
-
+This manifest documents every external dataset used to build, validate, and benchmark the BrainTrace hierarchical brain-origin candidate ranking tool. The current executable metadata and immutable software release are v0.1.17, archived at version DOI [10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at [10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947); the persistent software concept DOI is [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). Public source data are available under the cited accessions except where explicitly noted below.
 ## Source Datasets
 
 | # | Dataset | Accession / DOI | Samples | Role |
@@ -134,7 +117,7 @@ Burt et al., 2018), while AHBA mapping, orthology loss and species-specific
 association-cortex differences are audited explicitly. Saleem nomenclature is
 therefore a naming crosswalk rather than proof of one-to-one homology.
 
-The unreleased v0.1.17 scientific-provenance patch candidate records AHBA
+The v0.1.17 release records AHBA
 endpoint-specific accounting in
 `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv`: 231
 replicate-collapsed tissues, Network n=223, and group/exact n=88. These are not

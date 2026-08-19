@@ -17,6 +17,13 @@ STATE_PATTERNS = re.compile(
     re.IGNORECASE,
 )
 CURRENT_OLD_VERSION = re.compile(r"(?:current(?: executable| immutable| software| release| metadata)?|当前[^\n]{0,24})(?:[^\n]{0,80})\bv0\.1\.(?:8|9|1[0-6])\b", re.IGNORECASE)
+SCIENTIFIC_CANDIDATE_CONTEXT = re.compile(r"candidate(?:[-\s]+)(?:ranking|set)", re.IGNORECASE)
+
+
+def _is_release_context(term: str, line: str) -> bool:
+    if term.lower() == "candidate" and SCIENTIFIC_CANDIDATE_CONTEXT.search(line):
+        return False
+    return term.lower() != "candidate" or bool(re.search(r"release|version|unreleased|patch|provenance", line, re.IGNORECASE))
 
 
 def _scan_paths() -> list[Path]:
@@ -48,9 +55,7 @@ def audit(manifest_path: Path = DEFAULT_MANIFEST) -> dict[str, Any]:
             # "candidate" is also a central scientific term (candidate
             # ranking/candidate set).  It is release-state wording only when
             # the same line supplies release/version/provenance context.
-            release_context = term.lower() != "candidate" or bool(
-                re.search(r"release|version|unreleased|patch|provenance", line, re.IGNORECASE)
-            )
+            release_context = _is_release_context(term, line)
             current_version_context = f"v{version}" in line or relative.endswith("RELEASE_CANDIDATE_v0.1.17_HUANG.md")
             historical_context = bool(re.search(r"historical|previous|prior|immutable old", line, re.IGNORECASE))
             if not release_context:

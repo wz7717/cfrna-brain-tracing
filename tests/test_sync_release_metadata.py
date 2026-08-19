@@ -2,7 +2,13 @@ from __future__ import annotations
 
 import json
 
-from scripts.sync_release_metadata import FULL_REPRO_DOI, SOFTWARE_DOI, _check_release_gate, validate_manifest
+from scripts.sync_release_metadata import (
+    FULL_REPRO_DOI,
+    PROVENANCE_BODY_MARKERS,
+    SOFTWARE_DOI,
+    _check_release_gate,
+    validate_manifest,
+)
 
 
 def test_release_manifest_rejects_substitute_reserved_doi() -> None:
@@ -33,3 +39,17 @@ def test_pre_finalization_gate_defers_checksum_until_exact_archive_exists(tmp_pa
         encoding="utf-8",
     )
     assert _check_release_gate(gate) == []
+
+
+def test_finalization_preserves_each_provenance_document_body_at_its_real_heading() -> None:
+    assert PROVENANCE_BODY_MARKERS == {
+        "DATA_PROVENANCE.md": "## Source Datasets",
+        "reproducibility/DATA_PROVENANCE.md": "## 1. Primary Atlas Data",
+    }
+
+
+def test_finalization_can_reapply_generator_owned_release_state_rewrites() -> None:
+    from scripts.sync_release_metadata import _replace_release_state_text
+
+    assert _replace_release_state_text("before", "before", "after", "test") == "after"
+    assert _replace_release_state_text("after", "before", "after", "test") == "after"

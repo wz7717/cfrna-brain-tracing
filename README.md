@@ -29,6 +29,12 @@ localization. Biofluid cohorts without patient-level anatomical truth are
 treated as external transfer stress tests, not localization-accuracy
 validation.
 
+<!-- BRAINTRACE:CURRENT_RELEASE:START -->
+## Current release
+
+BrainTrace v0.1.17 is the current software release. Software DOI: [https://doi.org/10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Full reproducibility DOI: [https://doi.org/10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947).
+<!-- BRAINTRACE:CURRENT_RELEASE:END -->
+
 ## Interfaces
 
 - Streamlit application: `streamlit_app.py`
@@ -80,17 +86,17 @@ manuscript-reproduction environment.
 ### Docker (recommended for quick start)
 
 ```bash
-docker build -t braintrace:v0.1.16 .
-docker run -p 8501:8501 braintrace:v0.1.16
+docker build -t braintrace:v0.1.17 .
+docker run -p 8501:8501 braintrace:v0.1.17
 # Open http://localhost:8501 in your browser
 
 # CLI mode
-docker run --rm --entrypoint braintrace braintrace:v0.1.16 --help
+docker run --rm --entrypoint braintrace braintrace:v0.1.17 --help
 
 # CLI query with the current directory mounted at /work
 docker run --rm --entrypoint braintrace \
   -v "$PWD:/work" \
-  braintrace:v0.1.16 \
+  braintrace:v0.1.17 \
   query --input /work/sample_counts.tsv --output /work/result.json
 ```
 
@@ -253,10 +259,10 @@ python reproducibility/s18_s19/run_s18_s19_sensitivity.py
 Publisher-hosted source workbooks and raw expression matrices remain excluded;
 the public enrichment directory contains only derived marker sets and results.
 
-### Huang 2025 cfRNA provenance remediation (unreleased working package)
+### Huang 2025 cfRNA provenance remediation
 
-`reproducibility/huang_2025/` is a provenance-remediated working package, not
-part of the immutable v0.1.16 release and not a published v0.1.17 release.
+`reproducibility/huang_2025/` is a provenance-remediated external-audit package
+included in the v0.1.17 release.
 It analyses all 159 profiles in the published Huang 2025 expression matrix as
 an external computational domain-shift audit: 77 CSF profiles and 82 plasma
 profiles are separate fluid-specific profile cohorts. The article reports 159
@@ -273,15 +279,14 @@ CSF-plasma mixture is performed.
 
 The package supports technical portability/domain-shift statements only; it
 does not validate anatomical localization, tumour-source discrimination,
-patient-level stability, or clinical performance. Its formal release requires
-explicit scientific approval.
+patient-level stability, or clinical performance.
 
 ## Validation summary
 
 Canonical 110 locked route (rechecked 2026-07-13):
 
-This branch is an unreleased **v0.1.17 scientific-provenance patch candidate**.
-It does not alter the frozen model or the v0.1.16 release state.
+BrainTrace v0.1.17 is the current software release. It does not alter the
+frozen model or the formal scientific results retained from v0.1.16.
 
 - The Bo2023 reference retains the paper's 110 post-QC anatomical region IDs. Each region has one canonical parent Network; the two discordant assay-level labels are normalized as `10m -> Orbitomedial Prefrontal Cortex (OMPFC)` and `V2 -> Occipital/Temporal` without modifying the source workbook.
 - Internal LOSO Network Top1/Top3: 58.97% (`483/819`) / 91.94% (`753/819`).
@@ -384,37 +389,35 @@ statistical confidence or biological validation measure.
 
 ## Status
 
-The current executable software metadata is BrainTrace v0.1.16, a
-documentation, public-example and web-usability patch prepared for the
+The current executable software metadata is BrainTrace v0.1.17, the
+release-engineering and full-reproducibility finalization for the
 Bioinformatics Application Note. It does not change the frozen model,
 ontology, formal prediction set, Network Top1/Top3, resolution-group or
 exact-region endpoints. The production model remains locked under
 `canonical110-v0.1.12-20260813`.
 
 No model artifact, learned parameter, anatomical ontology, formal prediction,
-primary endpoint or benchmark result changed in v0.1.16. The
+primary endpoint or benchmark result changed in v0.1.17. The
 software is intended for research use in hierarchical brain-origin candidate
 ranking and resolution-limit auditing. It is not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-BrainTrace v0.1.16 is the current immutable GitHub/Zenodo software release under
-version DOI `https://doi.org/10.5281/zenodo.21974954`. BrainTrace v0.1.15 remains
-the previous immutable release under version DOI
+BrainTrace v0.1.17 is the current immutable GitHub/Zenodo software release
+under software DOI `https://doi.org/10.5281/zenodo.22006038`; its
+separate materialized full reproducibility archive is under
+`https://doi.org/10.5281/zenodo.22005947`. Exact filenames,
+inventories and SHA-256 values are released alongside the GitHub v0.1.17
+release and verified against the corresponding Zenodo records. BrainTrace
+v0.1.16 remains a historical immutable software/full-reproducibility release
+under `https://doi.org/10.5281/zenodo.21974954` /
+`https://doi.org/10.5281/zenodo.21974991`. BrainTrace v0.1.15 remains the
+previous immutable release under version DOI
 `https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific
 release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the
 v0.1.14 historical software record remains at
 `https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is
 `https://doi.org/10.5281/zenodo.20773674`.
-
-Because Zenodo's GitHub-generated source archive does not materialize Git LFS
-objects, the v0.1.16 full reproducibility archive, including the unchanged
-164,161,292-byte payload, is deposited separately under
-`https://doi.org/10.5281/zenodo.21974991`. The same materialized archive is
-available as a checksum-matched asset on the
-[GitHub v0.1.16 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.16).
-Its size is 198,284,868 bytes and its SHA-256 is
-`742c0390aa413deb18a12d6ae6164df52c5ed06e45e5c0e4218cd996231ca24e`.
 
 The v0.1.14 LOMO Network F1 discrepancy arose from stale rounded class-level
 recall values and a non-formal historical route being used to estimate summary

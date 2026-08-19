@@ -15,13 +15,16 @@ import core.production_route as production_route
 import core.query_input as query_input
 
 
-CURRENT_SOFTWARE_VERSION = "0.1.16"
+CURRENT_SOFTWARE_VERSION = "0.1.17"
 
 
 def _package_version() -> str:
     try:
         installed_version = version("braintrace")
-        return installed_version or CURRENT_SOFTWARE_VERSION
+        # Editable environments can retain stale distribution metadata after a
+        # manifest-driven version finalization.  The synchronized source
+        # constant is authoritative for the CLI surface in that case.
+        return installed_version if installed_version == CURRENT_SOFTWARE_VERSION else CURRENT_SOFTWARE_VERSION
     except (PackageNotFoundError, KeyError):
         return CURRENT_SOFTWARE_VERSION
 

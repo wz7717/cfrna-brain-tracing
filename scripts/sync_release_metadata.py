@@ -20,6 +20,14 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = ROOT / "release" / "v0.1.17" / "release_manifest.json"
 SOFTWARE_DOI = "10.5281/zenodo.22006038"
 FULL_REPRO_DOI = "10.5281/zenodo.22005947"
+PROVENANCE_BODY_MARKERS = {
+    "DATA_PROVENANCE.md": "## Source Datasets",
+    "reproducibility/DATA_PROVENANCE.md": "## 1. Primary Atlas Data",
+}
+PUBLIC_EXAMPLE_OUTPUTS = (
+    "examples/expected_output_counts.json",
+    "examples/expected_output_logcpm.json",
+)
 
 
 def load_manifest(path: Path) -> dict[str, Any]:
@@ -51,6 +59,15 @@ def _replace_once(text: str, pattern: str, replacement: str, label: str) -> str:
     if count != 1:
         raise ValueError(f"could not uniquely update {label}")
     return updated
+
+
+def _replace_release_state_text(text: str, previous: str, finalized: str, label: str) -> str:
+    """Apply one idempotent, generator-owned release-state rewrite."""
+    if previous in text:
+        return text.replace(previous, finalized)
+    if finalized in text:
+        return text
+    raise ValueError(f"could not locate {label} for release-state finalization")
 
 
 def _write(path: Path, text: str) -> None:
@@ -111,7 +128,7 @@ def _data_provenance_header(manifest: dict[str, Any]) -> str:
         "Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at "
         f"[{manifest['full_repro_version_doi']}](https://doi.org/{manifest['full_repro_version_doi']}); "
         f"the persistent software concept DOI is [{manifest['software_concept_doi']}](https://doi.org/{manifest['software_concept_doi']}). "
-        "Public source data are available under the cited accessions except where explicitly noted below. "
+        "Public source data are available under the cited accessions except where explicitly noted below."
     )
 
 
@@ -144,13 +161,158 @@ def _check_release_gate(gate_path: Path) -> list[str]:
     return [f"release gate {key!r} is not {value!r}" for key, value in expected.items() if gate.get(key) != value]
 
 
+def _finalize_readme_release_state(text: str, manifest: dict[str, Any]) -> str:
+    version = str(manifest["version"])
+    text = _replace_release_state_text(
+        text,
+        "### Huang 2025 cfRNA provenance remediation (unreleased working package)",
+        "### Huang 2025 cfRNA provenance remediation",
+        "Huang section heading",
+    )
+    text = _replace_release_state_text(
+        text,
+        "`reproducibility/huang_2025/` is a provenance-remediated working package, not\n"
+        "part of the immutable v0.1.16 release and not a published v0.1.17 release.",
+        f"`reproducibility/huang_2025/` is a provenance-remediated external-audit package\n"
+        f"included in the v{version} release.",
+        "Huang release state",
+    )
+    text = _replace_release_state_text(
+        text,
+        "The package supports technical portability/domain-shift statements only; it\n"
+        "does not validate anatomical localization, tumour-source discrimination,\n"
+        "patient-level stability, or clinical performance. Its formal release requires\n"
+        "explicit scientific approval.",
+        "The package supports technical portability/domain-shift statements only; it\n"
+        "does not validate anatomical localization, tumour-source discrimination,\n"
+        "patient-level stability, or clinical performance.",
+        "Huang approval wording",
+    )
+    text = _replace_release_state_text(
+        text,
+        "This branch is an unreleased **v0.1.17 scientific-provenance patch candidate**.\n"
+        "It does not alter the frozen model or the v0.1.16 release state.",
+        f"BrainTrace v{version} is the current software release. It does not alter the\n"
+        "frozen model or the formal scientific results retained from v0.1.16.",
+        "v0.1.17 branch status",
+    )
+    text = _replace_release_state_text(
+        text,
+        "The current executable software metadata is BrainTrace v0.1.16, a\n"
+        "documentation, public-example and web-usability patch prepared for the\n"
+        "Bioinformatics Application Note. It does not change the frozen model,\n"
+        "ontology, formal prediction set, Network Top1/Top3, resolution-group or\n"
+        "exact-region endpoints. The production model remains locked under\n"
+        "`canonical110-v0.1.12-20260813`.",
+        f"The current executable software metadata is BrainTrace v{version}, the\n"
+        "release-engineering and full-reproducibility finalization for the\n"
+        "Bioinformatics Application Note. It does not change the frozen model,\n"
+        "ontology, formal prediction set, Network Top1/Top3, resolution-group or\n"
+        "exact-region endpoints. The production model remains locked under\n"
+        "`canonical110-v0.1.12-20260813`.",
+        "README current metadata status",
+    )
+    text = _replace_release_state_text(
+        text,
+        "primary endpoint or benchmark result changed in v0.1.16.",
+        f"primary endpoint or benchmark result changed in v{version}.",
+        "README frozen-result version",
+    )
+    text = _replace_release_state_text(
+        text,
+        "BrainTrace v0.1.16 is the current immutable GitHub/Zenodo software release under\n"
+        "version DOI `https://doi.org/10.5281/zenodo.21974954`. BrainTrace v0.1.15 remains\n"
+        "the previous immutable release under version DOI\n"
+        "`https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific\n"
+        "release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the\n"
+        "v0.1.14 historical software record remains at\n"
+        "`https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is\n"
+        "`https://doi.org/10.5281/zenodo.20773674`.\n\n"
+        "Because Zenodo's GitHub-generated source archive does not materialize Git LFS\n"
+        "objects, the v0.1.16 full reproducibility archive, including the unchanged\n"
+        "164,161,292-byte payload, is deposited separately under\n"
+        "`https://doi.org/10.5281/zenodo.21974991`. The same materialized archive is\n"
+        "available as a checksum-matched asset on the\n"
+        "[GitHub v0.1.16 release](https://github.com/wz7717/cfrna-brain-tracing/releases/tag/v0.1.16).\n"
+        "Its size is 198,284,868 bytes and its SHA-256 is\n"
+        "`742c0390aa413deb18a12d6ae6164df52c5ed06e45e5c0e4218cd996231ca24e`.",
+        f"BrainTrace v{version} is the current immutable GitHub/Zenodo software release\n"
+        f"under software DOI `https://doi.org/{manifest['software_version_doi']}`; its\n"
+        "separate materialized full reproducibility archive is under\n"
+        f"`https://doi.org/{manifest['full_repro_version_doi']}`. Exact filenames,\n"
+        "inventories and SHA-256 values are released alongside the GitHub v0.1.17\n"
+        "release and verified against the corresponding Zenodo records. BrainTrace\n"
+        "v0.1.16 remains a historical immutable software/full-reproducibility release\n"
+        "under `https://doi.org/10.5281/zenodo.21974954` /\n"
+        "`https://doi.org/10.5281/zenodo.21974991`. BrainTrace v0.1.15 remains the\n"
+        "previous immutable release under version DOI\n"
+        "`https://doi.org/10.5281/zenodo.21970252`. The frozen v0.1.12 scientific\n"
+        "release remains archived under `https://doi.org/10.5281/zenodo.21911532`; the\n"
+        "v0.1.14 historical software record remains at\n"
+        "`https://doi.org/10.5281/zenodo.21920261`; the persistent Zenodo concept DOI is\n"
+        "`https://doi.org/10.5281/zenodo.20773674`.",
+        "README archive status",
+    )
+    return text
+
+
+def _finalize_provenance_release_state(relative: str, text: str, manifest: dict[str, Any]) -> str:
+    version = str(manifest["version"])
+    if relative == "DATA_PROVENANCE.md":
+        return _replace_release_state_text(
+            text,
+            "The unreleased v0.1.17 scientific-provenance patch candidate records AHBA\n",
+            f"The v{version} release records AHBA\n",
+            "DATA_PROVENANCE v0.1.17 state",
+        )
+    text = _replace_release_state_text(
+        text,
+        "## 4. Manuscript and Candidate Provenance Artifacts (Dynamically Generated)",
+        "## 4. Manuscript and Provenance Artifacts (Dynamically Generated)",
+        "reproducibility provenance heading",
+    )
+    text = _replace_release_state_text(
+        text,
+        "The candidate AHBA, TCGA/BraTS,\n",
+        "The current AHBA, TCGA/BraTS,\n",
+        "reproducibility provenance description",
+    )
+    text = _replace_release_state_text(
+        text,
+        "the candidate provenance set, run\n",
+        "the current provenance set, run\n",
+        "reproducibility regeneration wording",
+    )
+    return _replace_release_state_text(
+        text,
+        "| BrainTrace archive | Zenodo | Current immutable v0.1.16 software/full archive: 10.5281/zenodo.21974954 / 10.5281/zenodo.21974991; v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |",
+        f"| BrainTrace archive | Zenodo | Current immutable v{version} software/full archive: {manifest['software_version_doi']} / {manifest['full_repro_version_doi']}; v0.1.16, v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept {manifest['software_concept_doi']} | Public |",
+        "reproducibility archive table",
+    )
+
+
+def _sync_public_example_versions(root: Path, version: str) -> list[Path]:
+    """Update only the version-bearing metadata in locked public fixtures."""
+    paths: list[Path] = []
+    for relative in PUBLIC_EXAMPLE_OUTPUTS:
+        path = root / relative
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        metadata = payload.get("meta")
+        if not isinstance(metadata, dict) or "braintrace_version" not in metadata:
+            raise ValueError(f"public example fixture lacks braintrace_version: {relative}")
+        metadata["braintrace_version"] = version
+        _write(path, json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+        paths.append(path)
+    return paths
+
+
 def finalize(root: Path, manifest_path: Path, gate_path: Path) -> list[Path]:
     manifest = load_manifest(manifest_path)
     errors = [*validate_manifest(manifest), *_check_release_gate(gate_path)]
     if errors:
         raise ValueError("; ".join(errors))
-    if manifest.get("release_state") != "engineering_pre_finalization":
-        raise ValueError("release manifest is not in engineering_pre_finalization state")
+    if manifest.get("release_state") not in {"engineering_pre_finalization", "final"}:
+        raise ValueError("release manifest is not in a finalization-compatible state")
 
     version = str(manifest["version"])
     pyproject = root / "pyproject.toml"
@@ -177,12 +339,12 @@ def finalize(root: Path, manifest_path: Path, gate_path: Path) -> list[Path]:
     else:
         readme_text = _replace_once(readme_text, r"(?=## Interfaces)", block + "\n", "README current-release block")
     readme_text = re.sub(r"braintrace:v0\.1\.\d+", f"braintrace:v{version}", readme_text)
+    readme_text = _finalize_readme_release_state(readme_text, manifest)
     _write(readme, readme_text)
 
-    for relative in ("DATA_PROVENANCE.md", "reproducibility/DATA_PROVENANCE.md"):
+    for relative, marker in PROVENANCE_BODY_MARKERS.items():
         path = root / relative
-        text = path.read_text(encoding="utf-8")
-        marker = "## Source Datasets"
+        text = _finalize_provenance_release_state(relative, path.read_text(encoding="utf-8"), manifest)
         index = text.find(marker)
         if index < 0:
             raise ValueError(f"could not find source-dataset section in {relative}")
@@ -194,7 +356,8 @@ def finalize(root: Path, manifest_path: Path, gate_path: Path) -> list[Path]:
     _write(release_dir / "RELEASE_CHECKLIST.md", "# Release checklist\n\n- [x] Version metadata synchronized from `release_manifest.json`.\n- [ ] Upload exact checked archives to the two reserved Zenodo drafts.\n- [ ] Verify remote file checksums and metadata before publication.\n")
     manifest["release_state"] = "final"
     _write(manifest_path, json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    return [pyproject, cli, docker, repro, readme, root / "DATA_PROVENANCE.md", root / "reproducibility" / "DATA_PROVENANCE.md", root / ".zenodo.json", release_dir / "RELEASE_NOTES.md", release_dir / "RELEASE_CHECKLIST.md", manifest_path]
+    example_outputs = _sync_public_example_versions(root, version)
+    return [pyproject, cli, docker, repro, readme, root / "DATA_PROVENANCE.md", root / "reproducibility" / "DATA_PROVENANCE.md", root / ".zenodo.json", release_dir / "RELEASE_NOTES.md", release_dir / "RELEASE_CHECKLIST.md", manifest_path, *example_outputs]
 
 
 def check(root: Path, manifest_path: Path) -> dict[str, Any]:

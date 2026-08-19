@@ -2,22 +2,39 @@
   "schema": "braintrace.release_manifest.v1",
   "version": "0.1.17",
   "tag": "v0.1.17",
-  "release_state": "engineering_pre_finalization",
+  "release_state": "final",
   "repository": "https://github.com/wz7717/cfrna-brain-tracing",
   "title": "BrainTrace: hierarchical brain-origin candidate ranking from RNA expression profiles",
   "description": "Versioned BrainTrace software and full-reproducibility release metadata. The frozen model and formal scientific outputs are verified independently of release engineering.",
   "license": "MIT",
   "creators_source": "pyproject.toml [project.authors]",
   "creators": [
-    {"name": "Zhen Wang"},
-    {"name": "Zheng Wang"},
-    {"name": "Li Zhang"},
-    {"name": "Xilin Gu"},
-    {"name": "Baozhou Xing"},
-    {"name": "Wenjun Tu"}
+    {
+      "name": "Zhen Wang"
+    },
+    {
+      "name": "Zheng Wang"
+    },
+    {
+      "name": "Li Zhang"
+    },
+    {
+      "name": "Xilin Gu"
+    },
+    {
+      "name": "Baozhou Xing"
+    },
+    {
+      "name": "Wenjun Tu"
+    }
   ],
   "contributors": [],
-  "keywords": ["brain-origin tracing", "RNA expression", "transcriptomics", "reproducibility"],
+  "keywords": [
+    "brain-origin tracing",
+    "RNA expression",
+    "transcriptomics",
+    "reproducibility"
+  ],
   "software_concept_doi": "10.5281/zenodo.20773674",
   "full_repro_concept_doi": "10.5281/zenodo.21920696",
   "software_version_doi": "10.5281/zenodo.22006038",
