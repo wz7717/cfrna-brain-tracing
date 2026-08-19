@@ -726,7 +726,15 @@ def main(argv: list[str] | None = None) -> int:
     }
     audit["status"] = "PASS" if records and all(record["status"] == "PASS" for record in records) else "FAIL"
     _write_audit(audit_path, audit)
-    print(json.dumps({"status": audit["status"], "audit": "FULL_REPRODUCTION_AUDIT.json"}))
+    print(
+        json.dumps(
+            {
+                "status": audit["status"],
+                "audit": "FULL_REPRODUCTION_AUDIT.json",
+                "failed_steps": [record["name"] for record in records if record["status"] != "PASS"],
+            }
+        )
+    )
     return 0 if audit["status"] == "PASS" else 1
 
 
