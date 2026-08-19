@@ -29,10 +29,35 @@ PUBLIC_ROOT_FILES = {
 }
 
 
+def _fallback_paths() -> Iterable[Path]:
+    """Discover the public tree in a source image that deliberately omits .git."""
+
+    for name in PUBLIC_ROOT_FILES:
+        yield ROOT / name
+    for directory in ("reproducibility", "release", "data", "bo2023_bulk_atlas_buildkit"):
+        root = ROOT / directory
+        if root.is_dir():
+            yield from (path for path in root.rglob("*") if path.is_file())
+
+
 def tracked_paths() -> Iterable[Path]:
-    result = subprocess.run(["git", "ls-files"], cwd=ROOT, text=True, capture_output=True, check=True)
-    for line in result.stdout.splitlines():
-        path = Path(line)
+    try:
+        result = subprocess.run(["git", "ls-files"], cwd=ROOT, text=True, capture_output=True, check=True)
+        candidates = (ROOT / line for line in result.stdout.splitlines() if line.strip())
+    except (OSError, subprocess.CalledProcessError):
+        candidates = _fallback_paths()
+    seen: set[Path] = set()
+    for candidate in candidates:
+        try:
+            path = candidate.relative_to(ROOT)
+        except ValueError:
+            continue
+        absolute = ROOT / path
+        if not absolute.is_file():
+            continue
+        if absolute in seen:
+            continue
+        seen.add(absolute)
         if path.suffix.lower() not in PUBLIC_SUFFIXES:
             continue
         if path.name in {"Dockerfile", "Dockerfile.repro"}:
@@ -42,7 +67,7 @@ def tracked_paths() -> Iterable[Path]:
             # Source code is not a generated/public provenance artifact.
             if path.suffix.lower() == ".py":
                 continue
-            yield ROOT / path
+            yield absolute
 
 
 def audit() -> dict[str, object]:
