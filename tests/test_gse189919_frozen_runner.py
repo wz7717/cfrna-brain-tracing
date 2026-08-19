@@ -6,6 +6,7 @@ import pandas as pd
 import pytest
 
 from scripts import run_gse189919_latest_main_route as runner
+from scripts import benchmark_real_input_inference as benchmark
 
 
 def test_gse_runner_explicitly_disables_pairwise_rescue(monkeypatch) -> None:
@@ -64,3 +65,13 @@ def test_overview_uses_tissue_trained_transfer_boundary() -> None:
     assert "macaque plasma cfRNA tracing mode" not in source
     assert "tissue-trained platform for hierarchical brain-origin candidate ranking" in source
     assert "cfRNA use requires separate validation" in source
+
+
+def test_benchmark_manifest_uses_container_build_provenance_without_git(monkeypatch) -> None:
+    def missing_git(*_args, **_kwargs):
+        raise FileNotFoundError("git")
+
+    monkeypatch.setenv("BRAINTRACE_GIT_SHA", "0123456789abcdef")
+    monkeypatch.setattr(benchmark.subprocess, "run", missing_git)
+
+    assert benchmark.git_commit() == "0123456789abcdef"
