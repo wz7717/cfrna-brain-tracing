@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import subprocess
 import zipfile
 from pathlib import Path
 
-from scripts.build_release_artifacts import build_zip
+from scripts.build_release_artifacts import build_zip, member_payload
 
 
 def test_deterministic_zip_uses_sorted_members_and_fixed_timestamp(tmp_path: Path) -> None:
@@ -17,3 +18,31 @@ def test_deterministic_zip_uses_sorted_members_and_fixed_timestamp(tmp_path: Pat
     with zipfile.ZipFile(first) as archive:
         assert archive.namelist() == ["bundle/a.txt", "bundle/b.txt"]
         assert archive.getinfo("bundle/a.txt").date_time == (1980, 1, 1, 0, 0, 0)
+
+
+def test_git_blob_payload_ignores_checkout_line_endings(tmp_path: Path) -> None:
+    member = tmp_path / "member.txt"
+    member.write_bytes(b"line\r\n")
+
+    def git_show(args: list[str], **_: object) -> subprocess.CompletedProcess[bytes]:
+        assert args == ["git", "show", "HEAD:member.txt"]
+        return subprocess.CompletedProcess(args, 0, stdout=b"line\n", stderr=b"")
+
+    import scripts.build_release_artifacts as release_artifacts
+
+    original_run = release_artifacts.subprocess.run
+    release_artifacts.subprocess.run = git_show
+    try:
+        archive_path = tmp_path / "canonical.zip"
+        build_zip(
+            tmp_path,
+            ["member.txt"],
+            archive_path,
+            "bundle",
+            payload_reader=lambda relative: member_payload(tmp_path, relative, set()),
+        )
+    finally:
+        release_artifacts.subprocess.run = original_run
+
+    with zipfile.ZipFile(archive_path) as archive:
+        assert archive.read("bundle/member.txt") == b"line\n"
