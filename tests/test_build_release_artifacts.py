@@ -21,25 +21,28 @@ def test_deterministic_zip_uses_sorted_members_and_fixed_timestamp(tmp_path: Pat
 
 
 def test_git_blob_payload_ignores_checkout_line_endings(tmp_path: Path) -> None:
-    def git(*args: str) -> None:
-        subprocess.run(["git", *args], cwd=tmp_path, check=True, capture_output=True)
-
-    git("init", "-q")
-    git("config", "user.email", "test@example.invalid")
-    git("config", "user.name", "Release test")
     member = tmp_path / "member.txt"
-    member.write_bytes(b"line\n")
-    git("add", "member.txt")
-    git("commit", "-qm", "fixture")
     member.write_bytes(b"line\r\n")
 
-    archive_path = tmp_path / "canonical.zip"
-    build_zip(
-        tmp_path,
-        ["member.txt"],
-        archive_path,
-        "bundle",
-        payload_reader=lambda relative: member_payload(tmp_path, relative, set()),
-    )
+    def git_show(args: list[str], **_: object) -> subprocess.CompletedProcess[bytes]:
+        assert args == ["git", "show", "HEAD:member.txt"]
+        return subprocess.CompletedProcess(args, 0, stdout=b"line\n", stderr=b"")
+
+    import scripts.build_release_artifacts as release_artifacts
+
+    original_run = release_artifacts.subprocess.run
+    release_artifacts.subprocess.run = git_show
+    try:
+        archive_path = tmp_path / "canonical.zip"
+        build_zip(
+            tmp_path,
+            ["member.txt"],
+            archive_path,
+            "bundle",
+            payload_reader=lambda relative: member_payload(tmp_path, relative, set()),
+        )
+    finally:
+        release_artifacts.subprocess.run = original_run
+
     with zipfile.ZipFile(archive_path) as archive:
         assert archive.read("bundle/member.txt") == b"line\n"
