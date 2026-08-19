@@ -10,7 +10,7 @@ import subprocess
 import sys
 import zipfile
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,7 +43,31 @@ def tracked_files(root: Path) -> list[str]:
     return sorted(item.decode("utf-8") for item in result.stdout.split(b"\0") if item)
 
 
-def build_zip(root: Path, members: Iterable[str], output: Path, prefix: str) -> dict[str, Any]:
+def tracked_blob_bytes(root: Path, relative: str) -> bytes:
+    """Read a tracked member from Git's canonical blob, not the checkout."""
+    result = subprocess.run(["git", "show", f"HEAD:{relative}"], cwd=root, capture_output=True, check=False)
+    if result.returncode != 0:
+        raise RuntimeError(f"could not read tracked Git blob: {relative}")
+    return result.stdout
+
+
+def member_payload(root: Path, relative: str, materialized_lfs_members: set[str]) -> bytes:
+    path = root / relative
+    if not path.is_file():
+        raise FileNotFoundError(f"tracked release member is absent: {relative}")
+    if relative in materialized_lfs_members:
+        return path.read_bytes()
+    return tracked_blob_bytes(root, relative)
+
+
+def build_zip(
+    root: Path,
+    members: Iterable[str],
+    output: Path,
+    prefix: str,
+    *,
+    payload_reader: Callable[[str], bytes] | None = None,
+) -> dict[str, Any]:
     inventory: list[dict[str, Any]] = []
     output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9, strict_timestamps=True) as archive:
@@ -54,7 +78,7 @@ def build_zip(root: Path, members: Iterable[str], output: Path, prefix: str) -> 
             info = zipfile.ZipInfo(f"{prefix}/{relative}", date_time=ZIP_TIMESTAMP)
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
-            payload = path.read_bytes()
+            payload = payload_reader(relative) if payload_reader else path.read_bytes()
             archive.writestr(info, payload, compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
             inventory.append({"path": relative, "bytes": len(payload), "sha256": hashlib.sha256(payload).hexdigest().upper()})
     return {"member_count": len(inventory), "members": inventory, "sha256": sha256_file(output), "bytes": output.stat().st_size}
@@ -66,18 +90,23 @@ def build(root: Path, manifest_path: Path, output_dir: Path, *, require_clean: b
         raise ValueError("release artifacts may only be built after one-shot manifest finalization")
     if require_clean and git_output(root, "status", "--porcelain").strip():
         raise ValueError("release artifacts require a clean tracked worktree")
-    from scripts.audit_lfs_materialization import audit as audit_lfs
+    from scripts.audit_lfs_materialization import audit as audit_lfs, lfs_paths
 
     lfs = audit_lfs(root)
     if lfs["status"] != "PASS":
         raise ValueError("required Git-LFS payloads are not materialized")
+    materialized_lfs_members = set(lfs_paths(root))
+
+    def payload_reader(relative: str) -> bytes:
+        return member_payload(root, relative, materialized_lfs_members)
+
     version = str(manifest["version"])
     all_members = tracked_files(root)
     software_members = [relative for relative in all_members if relative != LFS_PAYLOAD]
     source_name = f"braintrace-v{version}-source.zip"
     full_name = f"braintrace-v{version}-full-reproducibility.zip"
-    source = build_zip(root, software_members, output_dir / source_name, f"braintrace-v{version}")
-    full = build_zip(root, all_members, output_dir / full_name, f"braintrace-v{version}-full-reproducibility")
+    source = build_zip(root, software_members, output_dir / source_name, f"braintrace-v{version}", payload_reader=payload_reader)
+    full = build_zip(root, all_members, output_dir / full_name, f"braintrace-v{version}-full-reproducibility", payload_reader=payload_reader)
     checksums = f"{source['sha256']}  {source_name}\n{full['sha256']}  {full_name}\n"
     (output_dir / "SHA256SUMS").write_text(checksums, encoding="utf-8", newline="\n")
     inventory = {
@@ -96,7 +125,7 @@ def build(root: Path, manifest_path: Path, output_dir: Path, *, require_clean: b
         "source_archive": {"name": source_name, "sha256": source["sha256"], "bytes": source["bytes"]},
         "full_repro_archive": {"name": full_name, "sha256": full["sha256"], "bytes": full["bytes"]},
         "lfs_materialization": lfs,
-        "determinism": "sorted git-tracked member order; fixed ZIP timestamp and permissions; deflate level 9",
+        "determinism": "sorted Git-tracked member order; canonical Git blob bytes for non-LFS members; materialized LFS bytes; fixed ZIP timestamp and permissions; deflate level 9",
     }
     (output_dir / f"RELEASE_INTEGRITY_v{version}.json").write_text(json.dumps(integrity, indent=2) + "\n", encoding="utf-8", newline="\n")
     return integrity
