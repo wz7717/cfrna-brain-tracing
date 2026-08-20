@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import csv
+import hashlib
+import io
+import subprocess
 from pathlib import Path
 
 import pytest
 
 from scripts.audit_public_release_content import ROOT, audit, classify
-from scripts.generate_package_integrity import verify
+from scripts.generate_package_integrity import render, verify
 
 
 def categories(relative: str, source: str = "") -> set[str]:
@@ -111,6 +115,47 @@ def test_package_integrity_manifests_match_public_tree() -> None:
         pytest.skip("package manifests describe the complete public source checkout")
     passed, stale = verify(Path(ROOT))
     assert passed, stale
+
+
+def test_package_integrity_render_is_checkout_eol_invariant(tmp_path: Path) -> None:
+    def git(*args: str) -> None:
+        subprocess.run(["git", *args], cwd=tmp_path, check=True, capture_output=True)
+
+    git("init")
+    git("config", "user.email", "integrity-test@example.invalid")
+    git("config", "user.name", "Package Integrity Test")
+    git("config", "core.autocrlf", "false")
+    (tmp_path / ".gitattributes").write_text(
+        "* text=auto eol=lf\n*.dat binary\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    sample = tmp_path / "sample.txt"
+    binary = tmp_path / "sample.dat"
+    sample.write_bytes(b"alpha\nbeta\n")
+    binary.write_bytes(b"\x00alpha\r\n")
+    git("add", ".gitattributes", "sample.txt", "sample.dat")
+    git("commit", "-m", "fixture")
+
+    # A checkout-only EOL difference must still describe canonical Git bytes.
+    sample.write_bytes(b"alpha\r\nbeta\r\n")
+    manifest, checksums = render(tmp_path)
+    rows = {row["relative_path"]: int(row["bytes"]) for row in csv.DictReader(io.StringIO(manifest))}
+    clean_text_digest = hashlib.sha256(b"alpha\nbeta\n").hexdigest()
+    assert rows["sample.txt"] == len(b"alpha\nbeta\n")
+    assert f"{clean_text_digest}  sample.txt" in checksums
+
+    # Dirty text is cleaned to LF, while an explicitly binary file is byte-exact.
+    sample.write_bytes(b"alpha\r\ngamma\r\n")
+    binary.write_bytes(b"\x00beta\r\n")
+    manifest, checksums = render(tmp_path)
+    rows = {row["relative_path"]: int(row["bytes"]) for row in csv.DictReader(io.StringIO(manifest))}
+    dirty_text_digest = hashlib.sha256(b"alpha\ngamma\n").hexdigest()
+    binary_digest = hashlib.sha256(b"\x00beta\r\n").hexdigest()
+    assert rows["sample.txt"] == len(b"alpha\ngamma\n")
+    assert rows["sample.dat"] == len(b"\x00beta\r\n")
+    assert f"{dirty_text_digest}  sample.txt" in checksums
+    assert f"{binary_digest}  sample.dat" in checksums
 
 
 def test_docker_context_excludes_local_manuscript_production_material() -> None:
