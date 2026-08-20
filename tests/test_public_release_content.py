@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import io
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -118,6 +119,9 @@ def test_package_integrity_manifests_match_public_tree() -> None:
 
 
 def test_package_integrity_render_is_checkout_eol_invariant(tmp_path: Path) -> None:
+    if shutil.which("git") is None:
+        pytest.skip("checkout-EOL regression fixture requires Git")
+
     def git(*args: str) -> None:
         subprocess.run(["git", *args], cwd=tmp_path, check=True, capture_output=True)
 

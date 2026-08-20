@@ -2,7 +2,7 @@ relative_path,bytes
 .devcontainer/devcontainer.json,1034
 .dockerignore,1044
 .gitattributes,658
-.github/workflows/ci.yml,3523
+.github/workflows/ci.yml,3554
 .gitignore,2441
 .streamlit/config.toml,230
 .zenodo.json,1158
@@ -515,7 +515,7 @@ tests/test_production_route_lock.py,4656
 tests/test_provenance_hashes.py,420
 tests/test_public_demo_mode.py,2829
 tests/test_public_provenance_path_audit.py,521
-tests/test_public_release_content.py,6660
+tests/test_public_release_content.py,6779
 tests/test_public_reproducibility_assets.py,1912
 tests/test_r08_rf_fair_comparator.py,4626
 tests/test_real_input_performance_harness.py,7006

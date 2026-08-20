@@ -77,7 +77,7 @@ jobs:
         run: |
           docker run --rm braintrace-repro-ci --help
           docker run --rm braintrace-repro-ci --profile portable --output-dir /tmp/portable-audit
-          if docker run --rm braintrace-repro-ci --verify-only; then
+          if docker run --rm braintrace-repro-ci --verify-only --output-dir /tmp/verify-audit; then
             echo "full reproduction unexpectedly accepted a missing external-data mount" >&2
             exit 1
           fi
