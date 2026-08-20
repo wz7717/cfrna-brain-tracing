@@ -18,7 +18,7 @@ PRIVATE_PATTERNS = {
     "macos_users": re.compile(r"/Users/"),
     "unix_home_user": re.compile(r"/home/(?!braintrace(?:/|$))"),
 }
-PUBLIC_SUFFIXES = {".md", ".json", ".csv", ".txt", ".yml", ".yaml", ".cff"}
+PUBLIC_SUFFIXES = {".md", ".json", ".csv", ".txt", ".xml", ".yml", ".yaml", ".cff"}
 PUBLIC_ROOT_FILES = {
     "README.md",
     "DATA_PROVENANCE.md",

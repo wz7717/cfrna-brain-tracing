@@ -195,7 +195,7 @@ reproducibility/TRACEABILITY_MATRIX.md,29832
 reproducibility/ahba/README.md,1545
 reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv,37369
 reproducibility/ahba/ahba_endpoint_evaluability_summary.json,3012
-reproducibility/coverage.xml,65540
+reproducibility/coverage.xml,65500
 reproducibility/coverage_report.txt,2387
 reproducibility/crosswalks/P2_Bo2023_Saleem_crosswalk.csv,7548
 reproducibility/external_input_manifest.json,12327
@@ -366,7 +366,7 @@ scripts/analyze_p0_donor_cluster_inference.py,11172
 scripts/analyze_tcga_gbm_lgg_network_domain_shift.py,26491
 scripts/apply_projected_vsd_to_external_counts.py,4406
 scripts/audit_lfs_materialization.py,2459
-scripts/audit_public_provenance_paths.py,4008
+scripts/audit_public_provenance_paths.py,4016
 scripts/audit_public_release_content.py,8194
 scripts/audit_release_state.py,5577
 scripts/audit_scientific_freeze.py,9221
@@ -514,7 +514,7 @@ tests/test_pairwise_marker_annotation.py,1847
 tests/test_production_route_lock.py,4656
 tests/test_provenance_hashes.py,420
 tests/test_public_demo_mode.py,2829
-tests/test_public_provenance_path_audit.py,300
+tests/test_public_provenance_path_audit.py,521
 tests/test_public_release_content.py,4686
 tests/test_public_reproducibility_assets.py,1959
 tests/test_r08_rf_fair_comparator.py,4626
