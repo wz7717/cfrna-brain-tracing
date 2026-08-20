@@ -124,7 +124,7 @@
     }
   ],
   "meta": {
-    "braintrace_version": "0.1.17",
+    "braintrace_version": "0.1.18",
     "model_lock": {
       "lock_id": "canonical110-v0.1.12-20260813",
       "status": "frozen"

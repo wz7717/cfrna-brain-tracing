@@ -11,12 +11,12 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MANIFEST = ROOT / "release" / "v0.1.17" / "release_manifest.json"
+DEFAULT_MANIFEST = ROOT / "release" / "v0.1.18" / "release_manifest.json"
 STATE_PATTERNS = re.compile(
     r"candidate|release candidate|unreleased|pending(?: release)?|future release|after release|once released|planned|patch candidate|not yet published|will be updated|release requires|待发布|尚未发布|发布后|候选版本",
     re.IGNORECASE,
 )
-CURRENT_OLD_VERSION = re.compile(r"(?:current(?: executable| immutable| software| release| metadata)?|当前[^\n]{0,24})(?:[^\n]{0,80})\bv0\.1\.(?:8|9|1[0-6])\b", re.IGNORECASE)
+CURRENT_OLD_VERSION = re.compile(r"(?:current(?: executable| immutable| software| release| metadata)?|当前[^\n]{0,24})(?:[^\n]{0,80})\bv0\.1\.(?:8|9|1[0-7])\b", re.IGNORECASE)
 SCIENTIFIC_CANDIDATE_CONTEXT = re.compile(r"candidate(?:[-\s]+)(?:ranking|set)", re.IGNORECASE)
 
 
@@ -31,10 +31,10 @@ def _scan_paths() -> list[Path]:
         ROOT / "README.md",
         ROOT / "DATA_PROVENANCE.md",
         ROOT / "reproducibility" / "DATA_PROVENANCE.md",
-        ROOT / "RELEASE_CANDIDATE_v0.1.17_HUANG.md",
         ROOT / ".zenodo.json",
         ROOT / "CITATION.cff",
     ]
+    candidates.extend(sorted(ROOT.glob("RELEASE_CANDIDATE_v*_HUANG.md")))
     candidates.extend(sorted((ROOT / "release").rglob("*")) if (ROOT / "release").exists() else [])
     return [path for path in candidates if path.is_file()]
 
@@ -56,7 +56,9 @@ def audit(manifest_path: Path = DEFAULT_MANIFEST) -> dict[str, Any]:
             # ranking/candidate set).  It is release-state wording only when
             # the same line supplies release/version/provenance context.
             release_context = _is_release_context(term, line)
-            current_version_context = f"v{version}" in line or relative.endswith("RELEASE_CANDIDATE_v0.1.17_HUANG.md")
+            current_version_context = f"v{version}" in line or (
+                relative.startswith("RELEASE_CANDIDATE_") and f"v{version}" in relative
+            )
             historical_context = bool(re.search(r"historical|previous|prior|immutable old", line, re.IGNORECASE))
             if not release_context:
                 classification = "VALID_RELEASE_STATE"

@@ -186,6 +186,18 @@ def execute_step(step: ReproductionStep, context: RunContext) -> dict[str, objec
 def _portable_steps() -> list[ReproductionStep]:
     return [
         ReproductionStep(
+            name="public_release_content",
+            description="Fail closed if submission-document authoring material enters the public release tree.",
+            profiles=frozenset({"portable", "full"}),
+            command=lambda ctx: _python(
+                "scripts/audit_public_release_content.py",
+                "--output", ctx.output_dir / "PUBLIC_RELEASE_CONTENT_AUDIT.json",
+            ),
+            display_command=lambda _ctx: "python scripts/audit_public_release_content.py --output <audit>/PUBLIC_RELEASE_CONTENT_AUDIT.json",
+            required_outputs=lambda ctx: [ctx.output_dir / "PUBLIC_RELEASE_CONTENT_AUDIT.json"],
+            timeout_seconds=300,
+        ),
+        ReproductionStep(
             name="archived_benchmark_provenance",
             description="Verify the immutable archived GSE189919 benchmark manifest and its recorded origin/staged SHA-256 chain.",
             profiles=frozenset({"portable", "full"}),

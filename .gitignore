@@ -57,6 +57,7 @@ run_export.zip
 output/
 tmp/
 reproducibility_audit/
+submission_seal_audit/
 .tmp_docx_render*/
 
 # Non-redistributable or oversized analysis inputs/intermediates
@@ -87,6 +88,8 @@ manuscript/node_modules/
 manuscript/rendered_*/
 manuscript/soffice_*/
 /manuscript_remediation/
+/private_manuscript_tooling*/
+/BrainTrace_private_manuscript_tooling*/
 /scripts/apply_huang2025_docx_remediation.py
 /scripts/create_render_contact_sheets.py
 manuscript/__pycache__/

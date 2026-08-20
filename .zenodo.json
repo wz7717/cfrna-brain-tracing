@@ -1,6 +1,6 @@
 {
-  "title": "BrainTrace: hierarchical brain-origin candidate ranking from RNA expression profiles",
-  "description": "Versioned BrainTrace software and full-reproducibility release metadata. The frozen model and formal scientific outputs are verified independently of release engineering.",
+  "title": "BrainTrace v0.1.18 - public-package integrity and reproducibility patch",
+  "description": "BrainTrace v0.1.18 is a public-package integrity and reproducibility patch. The frozen model and formal scientific outputs remain unchanged and are verified independently of release engineering.",
   "creators": [
     {
       "name": "Zhen Wang"
@@ -28,7 +28,7 @@
     "reproducibility"
   ],
   "license": "MIT",
-  "version": "0.1.17",
+  "version": "v0.1.18",
   "related_identifiers": [
     {
       "identifier": "https://github.com/wz7717/cfrna-brain-tracing",
@@ -36,12 +36,12 @@
       "scheme": "url"
     },
     {
-      "identifier": "https://doi.org/10.5281/zenodo.22006038",
+      "identifier": "https://doi.org/10.5281/zenodo.22022058",
       "relation": "isIdenticalTo",
       "scheme": "url"
     },
     {
-      "identifier": "https://doi.org/10.5281/zenodo.22005947",
+      "identifier": "https://doi.org/10.5281/zenodo.22022059",
       "relation": "isSupplementTo",
       "scheme": "url"
     }

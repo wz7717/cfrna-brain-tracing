@@ -14,4 +14,4 @@ def test_final_phase_has_no_stale_release_state_wording() -> None:
 
 def test_candidate_ranking_remains_scientific_context_with_release_metadata_on_same_line() -> None:
     assert not _is_release_context("candidate", "The current release is a candidate ranking tool.")
-    assert _is_release_context("candidate", "The v0.1.17 patch candidate is unreleased.")
+    assert _is_release_context("candidate", "The v0.1.18 patch candidate is unreleased.")

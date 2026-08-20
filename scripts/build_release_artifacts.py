@@ -16,7 +16,11 @@ from typing import Any, Callable, Iterable
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-DEFAULT_MANIFEST = ROOT / "release" / "v0.1.17" / "release_manifest.json"
+
+from scripts.audit_public_release_content import audit as audit_public_release_content  # noqa: E402
+
+
+DEFAULT_MANIFEST = ROOT / "release" / "v0.1.18" / "release_manifest.json"
 LFS_PAYLOAD = "reproducibility/round5_analysis/p1_fg_permutation_fdr/permutation_fg_max.npz"
 ZIP_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
 
@@ -60,6 +64,23 @@ def member_payload(root: Path, relative: str, materialized_lfs_members: set[str]
     return tracked_blob_bytes(root, relative)
 
 
+def enforce_public_release_content(root: Path) -> dict[str, object]:
+    """Fail before archive construction if the public-tree policy is violated."""
+
+    report = audit_public_release_content(root)
+    if report["status"] != "PASS":
+        paths = sorted(
+            {
+                str(finding.get("path", "unknown"))
+                for finding in report.get("findings", [])
+                if isinstance(finding, dict)
+            }
+        )
+        detail = ", ".join(paths) if paths else "unclassified prohibited content"
+        raise ValueError(f"public release content audit failed: {detail}")
+    return report
+
+
 def build_zip(
     root: Path,
     members: Iterable[str],
@@ -85,6 +106,7 @@ def build_zip(
 
 
 def build(root: Path, manifest_path: Path, output_dir: Path, *, require_clean: bool = True) -> dict[str, Any]:
+    public_content = enforce_public_release_content(root)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("release_state") != "final":
         raise ValueError("release artifacts may only be built after one-shot manifest finalization")
@@ -124,6 +146,11 @@ def build(root: Path, manifest_path: Path, output_dir: Path, *, require_clean: b
         "full_repro_version_doi": manifest["full_repro_version_doi"],
         "source_archive": {"name": source_name, "sha256": source["sha256"], "bytes": source["bytes"]},
         "full_repro_archive": {"name": full_name, "sha256": full["sha256"], "bytes": full["bytes"]},
+        "public_release_content": {
+            "status": public_content["status"],
+            "files_scanned": public_content["files_scanned"],
+            "prohibited_count": public_content["prohibited_count"],
+        },
         "lfs_materialization": lfs,
         "determinism": "sorted Git-tracked member order; canonical Git blob bytes for non-LFS members; materialized LFS bytes; fixed ZIP timestamp and permissions; deflate level 9",
     }

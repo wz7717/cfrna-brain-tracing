@@ -1,6 +1,6 @@
-# Data Provenance - BrainTrace v0.1.17
+# Data Provenance - BrainTrace v0.1.18
 
-This manifest documents every external dataset used to build, validate, and benchmark the BrainTrace hierarchical brain-origin candidate ranking tool. The current executable metadata and immutable software release are v0.1.17, archived at version DOI [10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at [10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947); the persistent software concept DOI is [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). Public source data are available under the cited accessions except where explicitly noted below.
+This manifest documents every external dataset used to build, validate, and benchmark the BrainTrace hierarchical brain-origin candidate ranking tool. The current executable metadata and immutable software release are v0.1.18, archived at version DOI [10.5281/zenodo.22022058](https://doi.org/10.5281/zenodo.22022058). Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at [10.5281/zenodo.22022059](https://doi.org/10.5281/zenodo.22022059); the persistent software concept DOI is [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). Public source data are available under the cited accessions except where explicitly noted below.
 ## Source Datasets
 
 | # | Dataset | Accession / DOI | Samples | Role |
@@ -117,7 +117,7 @@ Burt et al., 2018), while AHBA mapping, orthology loss and species-specific
 association-cortex differences are audited explicitly. Saleem nomenclature is
 therefore a naming crosswalk rather than proof of one-to-one homology.
 
-The v0.1.17 release records AHBA
+The v0.1.18 release records AHBA
 endpoint-specific accounting in
 `reproducibility/ahba/ahba_endpoint_evaluability_ledger.csv`: 231
 replicate-collapsed tissues, Network n=223, and group/exact n=88. These are not

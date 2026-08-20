@@ -14,8 +14,12 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(ROOT)
 OUT = os.path.join(ROOT, "reproducibility_audit", "BrainTrace_Reproducibility_Audit_Report.docx")
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(os.path.join(REPO_ROOT, "SHA256SUMS.txt"), encoding="utf-8") as handle:
+    PACKAGE_ENTRY_COUNT = sum(1 for line in handle if line.strip())
+PACKAGE_ENTRY_COUNT_TEXT = f"{PACKAGE_ENTRY_COUNT:,}"
 
 doc = Document()
 
@@ -47,7 +51,7 @@ doc.add_paragraph(
 doc.add_heading("2. 原始数据溯源", level=1)
 doc.add_paragraph(
     "所有原始数据源均通过 SHA256 哈希锁定，确保任何审稿人或后续研究者可按位验证数据完整性。"
-    "完整的 SHA256 清单在仓库根目录的 SHA256SUMS.txt 文件中 (2,987 个条目)。"
+    f"完整的 SHA256 清单在仓库根目录的 SHA256SUMS.txt 文件中 ({PACKAGE_ENTRY_COUNT_TEXT} 个条目)。"
 )
 
 # Create data provenance table
@@ -324,7 +328,7 @@ doc.add_heading("6. 审计发现", level=1)
 doc.add_heading("6.1 通过项 (PASS)", level=2)
 
 pass_items = [
-    "SHA256 全覆盖: 2,987 个条目覆盖每个代码文件、数据文件和生成的报告文件。",
+    f"SHA256 清单: {PACKAGE_ENTRY_COUNT_TEXT} 个条目覆盖当前公开树中的非循环清单成员。",
     "种子注册表: 11 个随机种子全部显式声明并记录在代码和 random_seed_registry.json 中。",
     "脚本可追溯: 每个中间/最终输出文件都有对应的生成脚本，无手动放置。",
     "数据锁: Bo2023 原始矩阵已 SHA256 锁定；外部数据 (AHBA, TCGA, BraTS) 有 DOI/URL 引用。",
@@ -397,8 +401,8 @@ for i, text in enumerate(["交付物", "状态", "位置"]):
             run.bold = True
 
 deliverables = [
-    ("SHA256SUMS.txt", "√ 已有 (2,987条目)", "仓库根目录 (Part 4)"),
-    ("PACKAGE_MANIFEST.csv", "√ 已有 (2,987条目)", "仓库根目录 (Part 4)"),
+    ("SHA256SUMS.txt", f"√ 已有 ({PACKAGE_ENTRY_COUNT_TEXT}条目)", "仓库根目录 (Part 4)"),
+    ("PACKAGE_MANIFEST.csv", f"√ 已有 ({PACKAGE_ENTRY_COUNT_TEXT}条目)", "仓库根目录 (Part 4)"),
     ("requirements_reproducible.txt", "√ 新建", "仓库根目录 (本次审计创建)"),
     ("reproduce_all.py", "√ 新建", "仓库根目录 (本次审计创建)"),
     ("random_seed_registry.json", "√ 已有", "reports/p2_publication_completeness_20260629/engineering_reproducibility/"),
@@ -428,7 +432,7 @@ for i, text in enumerate(["维度", "评级", "说明"]):
             run.bold = True
 
 grades = [
-    ("数据完整性", "★★★★★", "2,987 个 SHA256 条目覆盖所有文件，无遗漏"),
+    ("数据完整性", "★★★★★", f"{PACKAGE_ENTRY_COUNT_TEXT} 个 SHA256 条目覆盖当前公开树中的非循环清单成员"),
     ("产物可追溯性", "★★★★★", "每个输出文件都对应一个生成脚本，零手动产物"),
     ("计算确定性", "★★★★☆", "所有随机操作固定种子；构建脚本为纯确定性；1项预构建产物可改进"),
     ("环境可重现性", "★★★★☆", "requirements.txt 锁定核心包；缺少 Dockerfile；Python 3.13 较新"),

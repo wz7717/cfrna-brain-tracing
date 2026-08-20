@@ -55,7 +55,7 @@ def test_version_reports_current_software_release(capsys) -> None:
         cli.main(["--version"])
     except SystemExit as exc:
         assert exc.code == 0
-    release = json.loads((Path(__file__).resolve().parents[1] / "release/v0.1.17/release_manifest.json").read_text(encoding="utf-8"))
+    release = json.loads((Path(__file__).resolve().parents[1] / "release/v0.1.18/release_manifest.json").read_text(encoding="utf-8"))
     assert capsys.readouterr().out.strip() == f"braintrace {release['version']}"
 
 

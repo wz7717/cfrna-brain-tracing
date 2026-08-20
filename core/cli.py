@@ -15,7 +15,7 @@ import core.production_route as production_route
 import core.query_input as query_input
 
 
-CURRENT_SOFTWARE_VERSION = "0.1.17"
+CURRENT_SOFTWARE_VERSION = "0.1.18"
 
 
 def _package_version() -> str:

@@ -17,9 +17,12 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MANIFEST = ROOT / "release" / "v0.1.17" / "release_manifest.json"
-SOFTWARE_DOI = "10.5281/zenodo.22006038"
-FULL_REPRO_DOI = "10.5281/zenodo.22005947"
+DEFAULT_MANIFEST = ROOT / "release" / "v0.1.18" / "release_manifest.json"
+SOFTWARE_DOI = "10.5281/zenodo.22022058"
+FULL_REPRO_DOI = "10.5281/zenodo.22022059"
+SOFTWARE_CONCEPT_DOI = "10.5281/zenodo.20773674"
+FULL_REPRO_CONCEPT_DOI = "10.5281/zenodo.21920696"
+PREVIOUS_RELEASE_SHA = "2cceaea5c42979689e96f97f75b66eaaeafa4629"
 PROVENANCE_BODY_MARKERS = {
     "DATA_PROVENANCE.md": "## Source Datasets",
     "reproducibility/DATA_PROVENANCE.md": "## 1. Primary Atlas Data",
@@ -42,9 +45,24 @@ def validate_manifest(manifest: dict[str, Any]) -> list[str]:
     if manifest.get("tag") != f"v{version}":
         errors.append("tag must equal v<version>")
     if manifest.get("software_version_doi") != SOFTWARE_DOI:
-        errors.append("software DOI is not the reserved v0.1.17 draft DOI")
+        errors.append(f"software DOI is not the reserved v{version} draft DOI")
     if manifest.get("full_repro_version_doi") != FULL_REPRO_DOI:
-        errors.append("full-repro DOI is not the reserved v0.1.17 draft DOI")
+        errors.append(f"full-repro DOI is not the reserved v{version} draft DOI")
+    if manifest.get("software_concept_doi") != SOFTWARE_CONCEPT_DOI:
+        errors.append("software concept DOI does not match the existing BrainTrace series")
+    if manifest.get("full_repro_concept_doi") != FULL_REPRO_CONCEPT_DOI:
+        errors.append("full-repro concept DOI does not match the existing BrainTrace series")
+    previous = manifest.get("previous_release")
+    if not isinstance(previous, dict) or previous.get("version") != "0.1.17":
+        errors.append("previous release must identify immutable v0.1.17")
+    elif (
+        previous.get("tag") != "v0.1.17"
+        or previous.get("git_sha") != PREVIOUS_RELEASE_SHA
+        or previous.get("software_version_doi") != "10.5281/zenodo.22006038"
+        or previous.get("full_repro_version_doi") != "10.5281/zenodo.22005947"
+        or previous.get("immutable") is not True
+    ):
+        errors.append("immutable v0.1.17 identity changed")
     if manifest.get("scientific_frozen") is not True:
         errors.append("scientific_frozen must be true")
     if not isinstance(manifest.get("creators"), list) or not manifest["creators"]:
@@ -81,12 +99,12 @@ def _creators(manifest: dict[str, Any]) -> list[dict[str, str]]:
 
 def _zenodo_payload(manifest: dict[str, Any]) -> dict[str, Any]:
     return {
-        "title": manifest["title"],
+        "title": manifest.get("software_record_title", manifest["title"]),
         "description": manifest["description"],
         "creators": _creators(manifest),
         "keywords": list(manifest.get("keywords", [])),
         "license": manifest["license"],
-        "version": manifest["version"],
+        "version": f"v{manifest['version']}",
         "related_identifiers": [
             {
                 "identifier": manifest["repository"],
@@ -138,8 +156,9 @@ def _release_notes(manifest: dict[str, Any]) -> str:
         f"- Software DOI: [https://doi.org/{manifest['software_version_doi']}](https://doi.org/{manifest['software_version_doi']})\n"
         f"- Full reproducibility DOI: [https://doi.org/{manifest['full_repro_version_doi']}](https://doi.org/{manifest['full_repro_version_doi']})\n"
         f"- Model lock: `{manifest['model_lock_id']}`\n"
-        "- Frozen scientific artifacts were compared against the accepted scientific baseline before release finalization.\n"
-        "- External input verification is fail-closed and uses the canonical `external_data/` layout.\n"
+        "- Release integrity, portable reproduction, and public-package compliance gates were strengthened.\n"
+        "- Frozen model artifacts and formal scientific outputs are unchanged from v0.1.17.\n"
+        "- External input verification remains fail-closed under the canonical `external_data/` layout.\n"
     )
 
 
@@ -171,8 +190,8 @@ def _finalize_readme_release_state(text: str, manifest: dict[str, Any]) -> str:
     )
     text = _replace_release_state_text(
         text,
-        "`reproducibility/huang_2025/` is a provenance-remediated working package, not\n"
-        "part of the immutable v0.1.16 release and not a published v0.1.17 release.",
+        "`reproducibility/huang_2025/` is a provenance-remediated external-audit package\n"
+        "included in the v0.1.17 release.",
         f"`reproducibility/huang_2025/` is a provenance-remediated external-audit package\n"
         f"included in the v{version} release.",
         "Huang release state",
@@ -190,22 +209,22 @@ def _finalize_readme_release_state(text: str, manifest: dict[str, Any]) -> str:
     )
     text = _replace_release_state_text(
         text,
-        "This branch is an unreleased **v0.1.17 scientific-provenance patch candidate**.\n"
-        "It does not alter the frozen model or the v0.1.16 release state.",
-        f"BrainTrace v{version} is the current software release. It does not alter the\n"
+        "BrainTrace v0.1.17 is the current software release. It does not alter the\n"
         "frozen model or the formal scientific results retained from v0.1.16.",
-        "v0.1.17 branch status",
+        f"BrainTrace v{version} is the current software release. It does not alter the\n"
+        "frozen model or the formal scientific results retained from v0.1.17.",
+        "current release status",
     )
     text = _replace_release_state_text(
         text,
-        "The current executable software metadata is BrainTrace v0.1.16, a\n"
-        "documentation, public-example and web-usability patch prepared for the\n"
+        "The current executable software metadata is BrainTrace v0.1.17, the\n"
+        "release-engineering and full-reproducibility finalization for the\n"
         "Bioinformatics Application Note. It does not change the frozen model,\n"
         "ontology, formal prediction set, Network Top1/Top3, resolution-group or\n"
         "exact-region endpoints. The production model remains locked under\n"
         "`canonical110-v0.1.12-20260813`.",
         f"The current executable software metadata is BrainTrace v{version}, the\n"
-        "release-engineering and full-reproducibility finalization for the\n"
+        "public-package integrity and full-reproducibility patch for the\n"
         "Bioinformatics Application Note. It does not change the frozen model,\n"
         "ontology, formal prediction set, Network Top1/Top3, resolution-group or\n"
         "exact-region endpoints. The production model remains locked under\n"
@@ -214,7 +233,7 @@ def _finalize_readme_release_state(text: str, manifest: dict[str, Any]) -> str:
     )
     text = _replace_release_state_text(
         text,
-        "primary endpoint or benchmark result changed in v0.1.16.",
+        "primary endpoint or benchmark result changed in v0.1.17.",
         f"primary endpoint or benchmark result changed in v{version}.",
         "README frozen-result version",
     )
@@ -240,9 +259,12 @@ def _finalize_readme_release_state(text: str, manifest: dict[str, Any]) -> str:
         f"under software DOI `https://doi.org/{manifest['software_version_doi']}`; its\n"
         "separate materialized full reproducibility archive is under\n"
         f"`https://doi.org/{manifest['full_repro_version_doi']}`. Exact filenames,\n"
-        "inventories and SHA-256 values are released alongside the GitHub v0.1.17\n"
+        f"inventories and SHA-256 values are released alongside the GitHub v{version}\n"
         "release and verified against the corresponding Zenodo records. BrainTrace\n"
-        "v0.1.16 remains a historical immutable software/full-reproducibility release\n"
+        "v0.1.17 remains a historical immutable software/full-reproducibility release\n"
+        "under `https://doi.org/10.5281/zenodo.22006038` /\n"
+        "`https://doi.org/10.5281/zenodo.22005947`. BrainTrace v0.1.16 remains a\n"
+        "historical immutable software/full-reproducibility release\n"
         "under `https://doi.org/10.5281/zenodo.21974954` /\n"
         "`https://doi.org/10.5281/zenodo.21974991`. BrainTrace v0.1.15 remains the\n"
         "previous immutable release under version DOI\n"
@@ -261,9 +283,9 @@ def _finalize_provenance_release_state(relative: str, text: str, manifest: dict[
     if relative == "DATA_PROVENANCE.md":
         return _replace_release_state_text(
             text,
-            "The unreleased v0.1.17 scientific-provenance patch candidate records AHBA\n",
+            "The v0.1.17 release records AHBA\n",
             f"The v{version} release records AHBA\n",
-            "DATA_PROVENANCE v0.1.17 state",
+            "DATA_PROVENANCE current release state",
         )
     text = _replace_release_state_text(
         text,
@@ -285,8 +307,8 @@ def _finalize_provenance_release_state(relative: str, text: str, manifest: dict[
     )
     return _replace_release_state_text(
         text,
-        "| BrainTrace archive | Zenodo | Current immutable v0.1.16 software/full archive: 10.5281/zenodo.21974954 / 10.5281/zenodo.21974991; v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |",
-        f"| BrainTrace archive | Zenodo | Current immutable v{version} software/full archive: {manifest['software_version_doi']} / {manifest['full_repro_version_doi']}; v0.1.16, v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept {manifest['software_concept_doi']} | Public |",
+        "| BrainTrace archive | Zenodo | Current immutable v0.1.17 software/full archive: 10.5281/zenodo.22006038 / 10.5281/zenodo.22005947; v0.1.16, v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |",
+        f"| BrainTrace archive | Zenodo | Current immutable v{version} software/full archive: {manifest['software_version_doi']} / {manifest['full_repro_version_doi']}; v0.1.17, v0.1.16, v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept {manifest['software_concept_doi']} | Public |",
         "reproducibility archive table",
     )
 

@@ -45,7 +45,7 @@ def _fake_outputs() -> tuple[dict, dict]:
 
 def test_current_package_version() -> None:
     metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    release = json.loads((ROOT / "release/v0.1.17/release_manifest.json").read_text(encoding="utf-8"))
+    release = json.loads((ROOT / "release/v0.1.18/release_manifest.json").read_text(encoding="utf-8"))
     assert metadata["project"]["version"] == release["version"]
     assert cli._package_version() == release["version"]
 

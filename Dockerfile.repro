@@ -1,13 +1,13 @@
 # BrainTrace full manuscript reproduction container
 #
-# Build: docker build --build-arg BRAINTRACE_GIT_SHA="$(git rev-parse HEAD)" --build-arg BRAINTRACE_GIT_CLEAN=true -f Dockerfile.repro -t braintrace-repro:v0.1.17 .
-# Smoke: docker run --rm braintrace-repro:v0.1.17 --help
+# Build: docker build --build-arg BRAINTRACE_GIT_SHA="$(git rev-parse HEAD)" --build-arg BRAINTRACE_GIT_CLEAN=true -f Dockerfile.repro -t braintrace-repro:v0.1.18 .
+# Smoke: docker run --rm braintrace-repro:v0.1.18 --help
 # Full:  docker run --rm --mount type=bind,src=/absolute/external_data,dst=/workspace/external_data,readonly \
-#          braintrace-repro:v0.1.17 --verify-only
+#          braintrace-repro:v0.1.18 --verify-only
 
 FROM python:3.11.9-slim-bookworm
 
-ARG BRAINTRACE_VERSION=0.1.17
+ARG BRAINTRACE_VERSION=0.1.18
 ARG BRAINTRACE_GIT_SHA=unavailable
 ARG BRAINTRACE_GIT_CLEAN=unavailable
 LABEL org.opencontainers.image.title="BrainTrace full reproduction"

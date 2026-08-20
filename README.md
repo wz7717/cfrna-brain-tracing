@@ -32,7 +32,7 @@ validation.
 <!-- BRAINTRACE:CURRENT_RELEASE:START -->
 ## Current release
 
-BrainTrace v0.1.17 is the current software release. Software DOI: [https://doi.org/10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Full reproducibility DOI: [https://doi.org/10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947).
+BrainTrace v0.1.18 is the current software release. Software DOI: [https://doi.org/10.5281/zenodo.22022058](https://doi.org/10.5281/zenodo.22022058). Full reproducibility DOI: [https://doi.org/10.5281/zenodo.22022059](https://doi.org/10.5281/zenodo.22022059).
 <!-- BRAINTRACE:CURRENT_RELEASE:END -->
 
 ## Interfaces
@@ -86,17 +86,17 @@ manuscript-reproduction environment.
 ### Docker (recommended for quick start)
 
 ```bash
-docker build -t braintrace:v0.1.17 .
-docker run -p 8501:8501 braintrace:v0.1.17
+docker build -t braintrace:v0.1.18 .
+docker run -p 8501:8501 braintrace:v0.1.18
 # Open http://localhost:8501 in your browser
 
 # CLI mode
-docker run --rm --entrypoint braintrace braintrace:v0.1.17 --help
+docker run --rm --entrypoint braintrace braintrace:v0.1.18 --help
 
 # CLI query with the current directory mounted at /work
 docker run --rm --entrypoint braintrace \
   -v "$PWD:/work" \
-  braintrace:v0.1.17 \
+  braintrace:v0.1.18 \
   query --input /work/sample_counts.tsv --output /work/result.json
 ```
 
@@ -231,6 +231,12 @@ artifacts and tests. It intentionally excludes:
 - large generated result directories;
 - third-party executables and vendored environments.
 
+The public-tree boundary is defined in
+[`PUBLIC_RELEASE_CONTENT_POLICY.md`](PUBLIC_RELEASE_CONTENT_POLICY.md).
+Scientific computation, provenance and validation remain public; submission-
+document authoring, wording and layout material remains outside the repository,
+release archives and container build contexts.
+
 Users must obtain source datasets from their original repositories under the
 applicable access and licensing conditions. External TPM-like inputs are used
 in a cross-scale correlation stress test; `log1p(TPM)` is not described as a
@@ -262,7 +268,7 @@ the public enrichment directory contains only derived marker sets and results.
 ### Huang 2025 cfRNA provenance remediation
 
 `reproducibility/huang_2025/` is a provenance-remediated external-audit package
-included in the v0.1.17 release.
+included in the v0.1.18 release.
 It analyses all 159 profiles in the published Huang 2025 expression matrix as
 an external computational domain-shift audit: 77 CSF profiles and 82 plasma
 profiles are separate fluid-specific profile cohorts. The article reports 159
@@ -285,8 +291,8 @@ patient-level stability, or clinical performance.
 
 Canonical 110 locked route (rechecked 2026-07-13):
 
-BrainTrace v0.1.17 is the current software release. It does not alter the
-frozen model or the formal scientific results retained from v0.1.16.
+BrainTrace v0.1.18 is the current software release. It does not alter the
+frozen model or the formal scientific results retained from v0.1.17.
 
 - The Bo2023 reference retains the paper's 110 post-QC anatomical region IDs. Each region has one canonical parent Network; the two discordant assay-level labels are normalized as `10m -> Orbitomedial Prefrontal Cortex (OMPFC)` and `V2 -> Occipital/Temporal` without modifying the source workbook.
 - Internal LOSO Network Top1/Top3: 58.97% (`483/819`) / 91.94% (`753/819`).
@@ -389,27 +395,30 @@ statistical confidence or biological validation measure.
 
 ## Status
 
-The current executable software metadata is BrainTrace v0.1.17, the
-release-engineering and full-reproducibility finalization for the
+The current executable software metadata is BrainTrace v0.1.18, the
+public-package integrity and full-reproducibility patch for the
 Bioinformatics Application Note. It does not change the frozen model,
 ontology, formal prediction set, Network Top1/Top3, resolution-group or
 exact-region endpoints. The production model remains locked under
 `canonical110-v0.1.12-20260813`.
 
 No model artifact, learned parameter, anatomical ontology, formal prediction,
-primary endpoint or benchmark result changed in v0.1.17. The
+primary endpoint or benchmark result changed in v0.1.18. The
 software is intended for research use in hierarchical brain-origin candidate
 ranking and resolution-limit auditing. It is not a clinical diagnostic device
 and does not provide stand-alone clinical localization from unlabeled biofluid
 RNA.
 
-BrainTrace v0.1.17 is the current immutable GitHub/Zenodo software release
-under software DOI `https://doi.org/10.5281/zenodo.22006038`; its
+BrainTrace v0.1.18 is the current immutable GitHub/Zenodo software release
+under software DOI `https://doi.org/10.5281/zenodo.22022058`; its
 separate materialized full reproducibility archive is under
-`https://doi.org/10.5281/zenodo.22005947`. Exact filenames,
-inventories and SHA-256 values are released alongside the GitHub v0.1.17
+`https://doi.org/10.5281/zenodo.22022059`. Exact filenames,
+inventories and SHA-256 values are released alongside the GitHub v0.1.18
 release and verified against the corresponding Zenodo records. BrainTrace
-v0.1.16 remains a historical immutable software/full-reproducibility release
+v0.1.17 remains a historical immutable software/full-reproducibility release
+under `https://doi.org/10.5281/zenodo.22006038` /
+`https://doi.org/10.5281/zenodo.22005947`. BrainTrace v0.1.16 remains a
+historical immutable software/full-reproducibility release
 under `https://doi.org/10.5281/zenodo.21974954` /
 `https://doi.org/10.5281/zenodo.21974991`. BrainTrace v0.1.15 remains the
 previous immutable release under version DOI

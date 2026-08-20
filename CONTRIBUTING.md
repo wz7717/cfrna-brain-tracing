@@ -29,8 +29,11 @@ python -m pytest tests/ -v
 
 - [ ] New or modified code is covered by tests in `tests/`
 - [ ] `python -m pytest tests/` passes
+- [ ] `python scripts/audit_public_release_content.py` passes
+- [ ] `python scripts/generate_package_integrity.py --check` passes
 - [ ] `README.md` is updated when the external interface changes
 - [ ] Reproducibility scripts in `reproducibility/` still produce identical outputs (check `SHA256SUMS.txt`)
+- [ ] No submission-document authoring, wording, layout or office-review artifact is included; see `PUBLIC_RELEASE_CONTENT_POLICY.md`
 
 ## Repository layout
 
@@ -39,7 +42,7 @@ python -m pytest tests/ -v
 | `app/` | Streamlit web application |
 | `core/` | Inference engine, model I/O, metadata |
 | `data/models/` | Lightweight frozen model artifacts (`*.npz`, `*.csv`, `*.json`) |
-| `scripts/` | Build, validation and external-analysis scripts |
+| `scripts/` | Scientific build, validation, provenance and external-analysis scripts |
 | `reproducibility/` | Manuscript reproducibility pipelines |
 | `tests/` | Unit and integration tests |
 | `docs/` | Supplementary documentation |

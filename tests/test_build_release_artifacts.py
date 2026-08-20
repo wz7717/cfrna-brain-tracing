@@ -4,7 +4,9 @@ import subprocess
 import zipfile
 from pathlib import Path
 
-from scripts.build_release_artifacts import build_zip, member_payload
+import pytest
+
+from scripts.build_release_artifacts import build_zip, enforce_public_release_content, member_payload
 
 
 def test_deterministic_zip_uses_sorted_members_and_fixed_timestamp(tmp_path: Path) -> None:
@@ -46,3 +48,12 @@ def test_git_blob_payload_ignores_checkout_line_endings(tmp_path: Path) -> None:
 
     with zipfile.ZipFile(archive_path) as archive:
         assert archive.read("bundle/member.txt") == b"line\n"
+
+
+def test_release_builder_rejects_submission_authoring_tool(tmp_path: Path) -> None:
+    script = tmp_path / "scripts" / "update_main_manuscript.py"
+    script.parent.mkdir()
+    script.write_text("print('local submission utility')\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="public release content audit failed"):
+        enforce_public_release_content(tmp_path)

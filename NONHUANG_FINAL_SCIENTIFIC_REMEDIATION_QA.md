@@ -14,7 +14,7 @@
 
 - Provenance and traceability: `README.md`, `DATA_PROVENANCE.md`, `reproducibility/DATA_PROVENANCE.md`, `reproducibility/TRACEABILITY_MATRIX.md`, `NONHUANG_SCIENTIFIC_CONFLICT_LEDGER.csv`.
 - Canonical derived records: `reproducibility/ahba/`, `reproducibility/tcga_brats_truth_basis_top3_summary.csv`, `reproducibility/tcga_brats_truth_basis_top3_summary.json`, `reproducibility/orthology_humanization_summary.json`, `reproducibility/tier_cascade_loso_summary.json`, `reproducibility/sign_flip_current_family.csv`, `reproducibility/sign_flip_current_family.json`, `reproducibility/nonhuang_scientific_arithmetic_qa.json`, and corrected `reproducibility/p1_bio1_4/` outputs.
-- Reproducibility code and tests: `reproducibility/generate_all_csvs.py`, `scripts/generate_nonhuang_scientific_provenance_artifacts.py`, `scripts/verify_nonhuang_scientific_provenance.py`, `scripts/run_p1_bio1_4_audit.py`, `scripts/run_p1_stat1_4_audit.py`, `scripts/run_p2_audit.py`, `scripts/build_p2_change_list.py`, `tests/test_nonhuang_scientific_provenance.py`.
+- Reproducibility code and tests: `reproducibility/generate_all_csvs.py`, `scripts/generate_nonhuang_scientific_provenance_artifacts.py`, `scripts/verify_nonhuang_scientific_provenance.py`, `scripts/run_p1_bio1_4_audit.py`, `scripts/run_p1_stat1_4_audit.py`, `scripts/run_p2_audit.py`, `tests/test_nonhuang_scientific_provenance.py`.
 - AHBA historical-trace classification: `reproducibility/v4_p0_5_ahba_trace.csv` and `reproducibility/v4_p0_5_ahba_trace_manuscript_aligned.csv`.
 - The two revised submission DOCX files and their local QA artifacts are intentionally untracked and are not part of the Git change set.
 
@@ -102,7 +102,7 @@ The four-test Tier-1 family is: Network Top1 raw/BH 0.031250/0.125000; Network T
 
 The required terms were searched across the complete 54-file unmerged diff and the revised local-only DOCX text. There are no current incorrect claims: no `"edema": 64`, `edema=64`, `231 -> 223 -> 200`, `66/446`, `14.8%`, `78.32%`, deleted-spam BraTS DOI as current provenance, 72,108-row GSE189919 claim, six-donor AHBA RNA-seq claim, unreconciled Huang RPM/CPM scale label, or legacy sign-flip value as a current validation claim.
 
-Remaining literal matches were classified as: (a) the conflict ledger and generator’s historical-statement fields, which deliberately preserve the superseded value for auditability; (b) DOCX updater source markers used solely to find and replace historical source-document text; (c) unrelated decimal substrings in unchanged per-gene numerical CSVs; or (d) correct negations such as “not a unique sequential attrition pipeline.” The revised DOCX outputs contain none of the prohibited stale phrases.
+Remaining literal matches at the time of that audit were classified as: (a) the conflict ledger and generator’s historical-statement fields, which deliberately preserve the superseded value for auditability; (b) historical local-only document-processing markers; (c) unrelated decimal substrings in unchanged per-gene numerical CSVs; or (d) correct negations such as “not a unique sequential attrition pipeline.” The revised DOCX outputs contain none of the prohibited stale phrases.
 
 ## 22. Frozen-model safety
 

@@ -14,7 +14,7 @@ G = len(DONOR_SIZES)
 TOTAL_N = sum(DONOR_SIZES)
 
 rng = np.random.default_rng(SEED)
-outdir = Path("D:/Download/文章改稿/github_main_sync/reproducibility/round5_analysis/p2_7_beta_binomial_enhanced")
+outdir = Path(__file__).resolve().parent
 outdir.mkdir(parents=True, exist_ok=True)
 
 def cr2_interval(hits_per_donor, n_per_donor, df_satt=4.27):

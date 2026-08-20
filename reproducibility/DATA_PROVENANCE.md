@@ -1,6 +1,6 @@
-# Data Provenance - BrainTrace v0.1.17
+# Data Provenance - BrainTrace v0.1.18
 
-This manifest documents every external dataset used to build, validate, and benchmark the BrainTrace hierarchical brain-origin candidate ranking tool. The current executable metadata and immutable software release are v0.1.17, archived at version DOI [10.5281/zenodo.22006038](https://doi.org/10.5281/zenodo.22006038). Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at [10.5281/zenodo.22005947](https://doi.org/10.5281/zenodo.22005947); the persistent software concept DOI is [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). Public source data are available under the cited accessions except where explicitly noted below.
+This manifest documents every external dataset used to build, validate, and benchmark the BrainTrace hierarchical brain-origin candidate ranking tool. The current executable metadata and immutable software release are v0.1.18, archived at version DOI [10.5281/zenodo.22022058](https://doi.org/10.5281/zenodo.22022058). Its full reproducibility archive, including the materialized required Git LFS payload, is archived separately at [10.5281/zenodo.22022059](https://doi.org/10.5281/zenodo.22022059); the persistent software concept DOI is [10.5281/zenodo.20773674](https://doi.org/10.5281/zenodo.20773674). Public source data are available under the cited accessions except where explicitly noted below.
 ## 1. Primary Atlas Data
 
 ### 1.1 Bo2023 Macaque Transcriptomic Atlas
@@ -239,6 +239,6 @@ The complete Python environment is pinned in `requirements_reproducible.txt`:
 | GSE189919 CSF cfRNA | NCBI GEO | GSE189919 | Public |
 | Huang2025 cfRNA | npj Precis. Oncol. | Supplementary Data 1; HRA007247 | Supplementary matrix publicly downloadable subject to rights terms; underlying sequencing data controlled |
 | BrainTrace code | GitHub | https://github.com/wz7717/cfrna-brain-tracing | Public (MIT) |
-| BrainTrace archive | Zenodo | Current immutable v0.1.17 software/full archive: 10.5281/zenodo.22006038 / 10.5281/zenodo.22005947; v0.1.16, v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |
+| BrainTrace archive | Zenodo | Current immutable v0.1.18 software/full archive: 10.5281/zenodo.22022058 / 10.5281/zenodo.22022059; v0.1.17, v0.1.16, v0.1.15 and v0.1.14 remain immutable historical records; v0.1.12 scientific release 10.5281/zenodo.21911532; software concept 10.5281/zenodo.20773674 | Public |
 
 > **FAIR statement**: Public source datasets are identified by stable accessions or article records and use standard formats. The exact Bo2023 processed author-package matrices are an explicitly documented exception: no stable public file URL was identified, and exact reuse requires lawful acquisition from the original authors plus SHA-256 verification.
